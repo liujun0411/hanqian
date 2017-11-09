@@ -1,0 +1,93 @@
+﻿版本：V1.4
+发布日期：
+更新功能：
+1:告警音频的播放,加入了 manager下 voice文件夹,及修改了 alarmCollect.jsp
+   播放音频的方式
+2:楼宇导航列表中操作列内的 修改 改为编辑 
+	设备列表中操作列内的 修改 改为编辑
+	监控台界面中的当前告警列表中,去掉备注这一列,在操作列中加入查看链接.
+	监控平台->历史告警中查询条件中的时间2个字改为日期,将列表中消除人3个字改为操作者
+	后勤信息管理->医疗业务量中的查询条件部分,将查询时间改为查询日期
+3.加入菜单功能启动配置 
+修改/WEB-INF/classes/config.properties内menuTip的值  
+on 代表启用     其他值(非空)代表不启用
+
+4.加入 menuOffset 合同到期的弹性时间(填写正整数)
+ 修改/WEB-INF/classes/config.properties内menuOffset的值  
+
+5.将config.properties内配置以常量形式在程序中调用，
+   加入了com.hanqian.constant包，加入常量类ConfigCST
+   
+6.数据库新加 DB_weather  ,DB_weather_rt 两张表，存储天气预报数据
+
+   SEQ_WEATHER,SEQ_WEATHER_RT序列
+
+7.config.properties加入天气预报显示 开关，on表示显示，
+  quartConfig.xml定时调用天气预报接口获取数据，city：12小时一次
+      实况(sk)：4小时一次，加入了weatherUtil文件，供前台显示调用，前台刷新频率为4小时
+      
+8.数据库中加入 db_energy_bill,db_unit_price两张表 ，能源账单，能源单价
+
+
+9.点位统计计算方式改变
+
+
+ 10.targetConfig.xml文件不能编写中文注释，目录为logistics\manager\monitoring\control\electricity\config
+ 
+安装说明：
+使用说明：
+注意事项：
+------------------------------------
+版本：V1.4
+发布日期：2013/7/12
+更新功能：
+1：特种设备安全指数现在有新的以HTML5形式展现的版本,
+   修改/WEB-INF/classes/config.properties内speciaEqFlash的值
+   在原有flash和HTML5之间切换.
+   y代表以原有flash形式显示,其他值(非空)以HTML5形式显示.
+2：信息管理下新增点位统计功能,此功能只有超级管理员有权限查看.
+3: 后勤信息管理中设备管理下,原有的设备信息链接被删除,现在只有设备列表,
+   在设备列表中点击某行记录进入原有设备信息界面.
+安装说明：
+使用说明：
+注意事项：
+------------------------------------
+版本：V1.4
+发布日期：2013/5/13
+更新功能：
+1：在上线时确定上线医院,使用简编修改logisticsCSS/WEB-INF/classes/config.properties文件
+   修改其中currentHospCode=当前医院的简编
+   通过修改本项值,系统将切换显示对应医院的相关内容
+
+2: 将项目中logisticsCSS/WEB-INF/lib/classes2.jar文件
+   移动到apache-tomcat/lib目录下.
+安装说明：
+使用说明：
+注意事项：
+------------------------------------
+通用设置
+
+	保证应用服务器内存有3-4G,
+	保证数据仓库服务器内存有4G,
+	保证业务服务器内存有4G,
+
+	应用服务器是linux的情况下,
+		修改tomcat/bin/catalina.sh
+		在# OS specific support.语句后添加下面内容
+
+		如果应用服务器内存4G时使用下面语句
+		JAVA_OPTS='-Xms512m -Xmx1536m -XX:PermSize=256M -XX:MaxNewSize=512m -XX:MaxPermSize=512m'
+
+		如果应用服务器内存3G时使用下面语句
+		JAVA_OPTS='-Xms512m -Xmx1024m -XX:PermSize=128M -XX:MaxNewSize=256m -XX:MaxPermSize=256m'
+
+	应用服务器是windows的情况下,
+		修改tomcat/bin/catalina.bat
+		在set JAVA_OPTS=%JAVA_OPTS% %LOGGING_MANAGER%语句后添加下面内容
+
+		如果应用服务器内存4G时使用下面语句
+		set JAVA_OPTS=%JAVA_OPTS% -Xms512m -Xmx1536m -XX:MaxNewSize=512m
+
+		如果应用服务器内存3G时使用下面语句
+		set JAVA_OPTS=%JAVA_OPTS% -Xms512m -Xmx1024m -XX:MaxNewSize=256m
+	

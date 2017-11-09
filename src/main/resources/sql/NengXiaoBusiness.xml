@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.NengXiaoBusiness">
+	<select id="findBuildingNengXiaoBusiness" resultType="ciMap">
+		select b.sequence,b.hospitalid,b.name from db_building b
+	</select>
+
+	<select id="findPowerUseB" resultType="ciMap" parameterType="map">
+		select build_.wastage*#{unit} value,(select name from db_building where sequence=build_.buildid) name,build_.stattime type from db_stat_build build_ 	where build_.hospid=#{hospid} and build_.power=#{power}	${buildidstr}${sDate}${eDate} order by type
+	</select>
+
+	<select id="findPowerUseBB" resultType="ciMap" parameterType="map">
+		select  sum(build_.wastage)*#{unit} value,(select name from db_building where sequence=build_.buildid) name, substr(stattime,0,4)  type from db_stat_build build_ 	 group by hospid,buildid,power,substr(stattime,0,4) having  build_.hospid=#{hospid} and build_.power=#{power}	${buildidstr}${sDate}${eDate} order by type
+	</select>
+	
+		<select id="findPowerUseUp" resultType="ciMap" parameterType="map">
+		 select   build_.wastage*#{unit}  value, (select name from db_building where sequence=build_.buildid)  name, 
+		  build_.stattime type 
+		   from db_stat_build build_ 
+		    where  build_.hospid=#{hospid} and build_.power=#{power}	${buildidstr}${sDate}${eDate} order by type
+	</select>
+	
+			<select id="findPowerUseDown" resultType="ciMap" parameterType="map">
+		 select    sum(build_.wastage)*#{unit}  value, (select name from db_building where sequence=build_.buildid)  name, 
+		   substr(stattime,0,4)  type 
+		   from db_stat_build build_ 
+		     group by hospid,buildid,power,substr(stattime,0,4) having   build_.hospid=#{hospid} and build_.power=#{power}	${buildidstr}${sDate}${eDate} order by type
+	</select>
+	
+
+			<select id="findPowerUseAvgUp" resultType="ciMap" parameterType="map">
+		 select        round(build_.wastage/round((select avg(wastage) from db_stat_build where buildid= build_.buildid and power=#{power}),2),2)*#{unit}  value, (select name from db_building where sequence=build_.buildid)  name, 
+		  build_.stattime type 
+		   from db_stat_build build_ 
+		    where  build_.hospid=#{hospid} and build_.power=#{power}	${buildidstr}${sDate}${eDate} order by type
+	</select>
+	
+				<select id="findPowerUseAvgDown" resultType="ciMap" parameterType="map">
+		 select round(avg(build_.wastage)/round((select avg(wastage) from db_stat_build where buildid= build_.buildid and power=#{power}),2),2)*#{unit}  value, (select name from db_building where sequence=build_.buildid)  name, 
+		   substr(stattime,0,4)  type 
+		   from db_stat_build build_ 
+		     group by hospid,buildid,power,substr(stattime,0,4) having   build_.hospid=#{hospid} and build_.power=#{power}	${buildidstr}${sDate}${eDate} order by type
+	</select>
+	
+				<select id="findOutpatientsPowerByHospitalUp" resultType="ciMap" parameterType="map">
+		  select value,name,type from( select  bus_.wastage value, '用量' name, bus_.stattime   type   from db_stat_hospital bus_ 
+		      where  bus_.power=#{power} and bus_.hospid=#{hospid}  ${sDate}${eDate}  )union all(
+		         select  bus_.convert  value,  '金额' name, bus_.stattime   type  from db_stat_hospital bus_  where bus_.power=#{power} and bus_.hospid=#{hospid} ${sDate}${eDate}) order by type 
+	</select>
+	
+				<select id="findOutpatientsPowerByHospitalDown" resultType="ciMap" parameterType="map">
+		 select value,name,type from( 
+		   select  sum(bus_.business) value, 
+		    '用量' name, 
+		     substr(bus_.stattime,0,4)   type  
+		     from db_stat_hospital bus_ 
+		      group by bus_.hospid,bus_.businesstype,bus_.power,substr(bus_.stattime,0,4) having 
+		       bus_.power=#{power} and bus_.hospid=#{hospid}  
+		       ${sDate}${eDate} 
+		        )union all(
+		         select  sum(bus_.wastage)  value, 
+		          '金额' name, 
+		           substr(bus_.stattime,0,4)  type  
+		           from db_stat_hospital bus_ 
+		            group by bus_.hospid,bus_.businesstype,bus_.power,substr(bus_.stattime,0,4) having 
+		            bus_.power=#{power} and bus_.hospid=#{hospid} 
+		            ${sDate}${eDate}
+		             ) order by type 
+	</select>
+	
+	
+		<select id="findOutpatientsPowerUp" resultType="ciMap" parameterType="map">
+		   select value,name,type from( 
+		    select  bus_.business*#{unit} value, 
+		    ${showName}量${sname} name,
+		     bus_.stattime  type  
+		      from db_stat_business bus_ 
+		       where 
+		        bus_.businesstype=#{bustype} and bus_.power=#{power} and bus_.hospid=#{hospid} 
+		        ${sDate}${eDate} 
+		         )union all( 
+		          select  bus_.wastage*#{unit} value, 
+		          ${bustype}区域能耗量${sname} name,
+		           bus_.stattime  type  
+		      from db_stat_business bus_  
+		        where 
+		        bus_.businesstype=#{bustype} and bus_.power=#{power} and bus_.hospid=#{hospid} 
+		        ${sDate}${eDate} 
+		         ) order by type
+	</select>
+	
+	<select id="findOutpatientsPowerDown" resultType="ciMap" parameterType="map">
+		 	select value,name,type from( 
+		    select   sum(bus_.business)*#{unit} value, 
+		    ${showName}量${sname} name,
+		      substr(bus_.stattime,0,4)   type  
+		      from db_stat_business bus_ 
+		        group by bus_.hospid,bus_.businesstype,bus_.power,substr(bus_.stattime,0,4) having 
+		        bus_.businesstype=#{bustype} and bus_.power=#{power} and bus_.hospid=#{hospid} 
+		        ${sDate}${eDate} 
+		         )union all( 
+		          select   sum(bus_.wastage)*#{unit} value, 
+		          ${bustype}区域能耗量${sname} name,
+		            substr(bus_.stattime,0,4)   type  
+		      from db_stat_business bus_  
+		        group by bus_.hospid,bus_.businesstype,bus_.power,substr(bus_.stattime,0,4) having 
+		        bus_.businesstype=#{bustype} and bus_.power=#{power} and bus_.hospid=#{hospid} 
+		        ${sDate}${eDate} 
+		         ) order by type
+	</select>
+	
+	
+	<select id="findOutpatientsPowerAvgUp" resultType="ciMap" parameterType="map">
+		   select   round(bus_.avgpower/bus_.business,2)*#{unit}  value,
+		   ${showName}量平均能耗量${sname} name,
+		    bus_.stattime  type 
+		     from db_stat_business bus_ 
+		      where 
+		       bus_.businesstype=#{bustype} and bus_.power=#{power}  and bus_.hospid=#{hospid} 
+		         ${sDate}${eDate}
+		            order by type 
+	</select>
+	
+	<select id="findOutpatientsPowerAvgDown" resultType="ciMap" parameterType="map">
+		 		   select    round(sum(bus_.avgpower)/sum(bus_.business),2)*#{unit}  value,
+		   ${showName}量平均能耗量${sname} name,
+		     substr(bus_.stattime,0,4)  type 
+		     from db_stat_business bus_ 
+		       group by bus_.hospid,bus_.businesstype,bus_.power,substr(bus_.stattime,0,4) having 
+		       bus_.businesstype=#{bustype} and bus_.power=#{power}  and bus_.hospid=#{hospid} 
+		         ${sDate}${eDate}
+		            order by type 
+	</select>
+	
+	
+	<select id="findNengXiaoMenuNull" resultType="ciMap" parameterType="map">
+		select menuid,parentid,name,note from 
+		 (select  hos_.sequence menuid,'0' parentid,hos_.name name,'yiyuan' note from db_hospitalinfo hos_)  
+		  UNION all 
+		   (select bui_.sequence menuid,bui_.hospitalid parentid,bui_.name name,'louyu' note from db_building bui_) 
+		    union all 
+		     (select (select b_.sequence from db_buildinguse b_ where a_.buildingid = b_.buildingid and a_.usetype = b_.usetype and rownum=1) menuid,a_.buildingid parentid,(select dic_.name from db_building_dic dic_ where dic_.stype=1 and dic_.typeid = a_.usetype ) name,
+		      'yongtu' note    
+		       from (select distinct use_.buildingid,use_.usetype from db_buildinguse use_ where area<![CDATA[<>]]>0) a_  )   		     
+	</select>
+	
+	<select id="findNengXiaoMenu" resultType="ciMap" parameterType="map">
+		 select menuid,parentid,name,note from 
+					 (select bui_.sequence menuid,'0' parentid,bui_.name name ,'louyu' note from db_building bui_ where bui_.hospitalid=#{hospid} and del!=1)
+					 union all
+					 (select (select b_.sequence from db_buildinguse b_ where a_.buildingid = b_.buildingid and a_.usetype = b_.usetype and rownum=1) menuid,a_.buildingid parentid,(select dic_.name from db_building_dic dic_ where dic_.stype=1 and dic_.typeid = a_.usetype ) name ,
+					 'yongtu'  note
+					 from (select distinct use_.buildingid,use_.usetype from db_buildinguse use_,(select sequence  from db_building  where hospitalid=#{hospid}) u  where use_.buildingid = u.sequence) a_ )
+					 union all
+					 (select eq_.eq_id menuid,eq_.buildingid parentid,eq_.name,'shebei' note from db_eq_list eq_ where not(eq_.buildingid is null) and eq_.hospitalid=#{hospid})
+	</select>
+	
+	<select id="findMenusNengXiaoBusiness" resultType="ciMap" parameterType="map">
+		  select value,name,type from( select  bus_.wastage value, '用量' name, bus_.stattime   type   from db_stat_hospital bus_ 
+		      where  bus_.power=#{power} and bus_.hospid=#{hospid}  ${sDate}${eDate}  )union all(
+		         select  bus_.convert  value,  '金额' name, bus_.stattime   type  from db_stat_hospital bus_  where bus_.power=#{power} and bus_.hospid=#{hospid} ${sDate}${eDate}) order by type 
+	</select>
+
+</mapper>

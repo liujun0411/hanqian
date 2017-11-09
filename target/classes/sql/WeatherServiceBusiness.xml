@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.WeatherServiceBusiness">
+    <!-- 获取监控设备的实时点位数据信息 -->
+    <select id="getMonitorInfo" resultType="map">
+       select p.*, c.RECORD, c.RECORDTIME, ep.EQUIP_ID, ep.EQUIP_TYPE_ID, ep.EQUIP_GROUP_ID, ep.EQUIP_STATUS, ep.EQUIP_NAME, nvl(ep.EQUIP_GROUP_NAME, ep.EQUIP_NAME) as NAME
+         from rtm_point p, 
+              (select distinct vd.EQUIP_NO, vd.EQUIP_ID, vd.EQUIP_TYPE_ID, vd.EQUIP_GROUP_ID, vd.EQUIP_NAME, vd.EQUIP_GROUP_NAME,vd.EQUIP_STATUS
+                 from v_equip_detail vd, 
+                      (select distinct EQUIP_GROUP_ID 
+                         from v_equip_detail 
+                        where EQUIP_NO=#{equidCode}) g 
+                where vd.EQUIP_GROUP_ID = g.EQUIP_GROUP_ID 
+                   or vd.EQUIP_NO=#{equidCode}) ep, RTM_CONTROLDATA c
+        where p.POINT_ID like (#{hospPrefix} || ep.EQUIP_NO || '.%')
+          and p.POINT_ID = c.POINT_ID(+)
+     order by p.EQUIP_NO,SHOW_TITLE 
+    </select> 
+    
+  	<!-- 取得医院所在地址的邮编 -->
+	<select id="getZipcode" resultType="string">
+		SELECT ZIPCODE
+		FROM HP_HOSP_INFO 
+		WHERE HOSP_CODE = #{hosp_code}
+	</select>
+	
+	<!-- 取得天气预报城市编码 -->
+    <select id="getCityCode" resultType="string">
+       select CITY_CODE from IM_ZIP_REF_REGION where ZIPCODE = #{zipcode}
+    </select> 
+
+    <!-- 取得医院所在地址的编号 -->
+    <select id="getHospZip" resultType="string">
+       select IM_ZIP_REF_REGION.REGION_CODE as REGION_CODE from IM_ZIP_REF_REGION, HP_HOSP_INFO where HP_HOSP_INFO.ZIPCODE=IM_ZIP_REF_REGION.ZIPCODE AND HP_HOSP_INFO.HOSP_CODE = #{hospCode}
+    </select>
+    
+    <!-- 获取七天天气预报信息 -->
+    <select id="getWeather7day" resultType="map">
+       select PTIME from IM_WEATHER_7DAYS where PTIME = #{ptime}
+    </select>
+    
+     <!-- 添加当天天气数据(一条数据)-->
+ 	<insert id="addWeatherDay" parameterType="map">		
+    	insert into DB_WEATHER_RT
+    	<trim prefix="(" suffix=")" suffixOverrides=",">
+	        	ID,DT,CITY_ID,CITY,TEMP,SD,WD,WS,PTIME,OP_TIME,INFO,ALARM,ALARM_URL
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides=",">
+	        	SEQ_WEATHER.NextVal,#{DT},#{CITY_ID},#{CITY},#{TEMP},#{SD},#{WD},#{WS},#{PTIME},#{OP_TIME},#{INFO},#{ALARM},#{ALARM_URL}
+    	</trim>
+  	</insert>
+  	
+  	
+  	
+  	<!-- 添加七天天气数据(一条数据)-->
+ 	<insert id="addWeather7Day" parameterType="map">		
+    	insert into DB_WEATHER
+    	<trim prefix="(" suffix=")" suffixOverrides=",">
+	        	ID,DT,CITY_ID,CITY,TEMP1,TEMP2,IMG1,IMG2,WEATHER,PTIME,OP_TIME
+    	</trim>
+    	<trim prefix="values (" suffix=")" suffixOverrides=",">
+	        	SEQ_WEATHER.NextVal,#{DT},#{CITY_ID},#{CITY},#{TEMP1},#{TEMP2},#{IMG1},#{IMG2},#{WEATHER},#{PTIME},SYSDATE
+    	</trim>
+  	</insert>
+  	
+  	<!-- 修改当天期望 -->
+  	   <update id="updateWeather7Day" parameterType="map"  >    
+          update DB_Weather set 
+
+                        CITY=#{CITY},
+                        TEMP1=#{TEMP1},
+                        TEMP2=#{TEMP2},
+                        IMG1=#{IMG1},
+                        IMG2=#{IMG2},
+                        WEATHER=#{WEATHER},
+                        PTIME=#{PTIME},
+                        OP_TIME=SYSDATE
+                        
+                        where  DT=#{DT} and CITY_ID=#{CITY_ID}  
+         </update>
+         
+         
+         <resultMap id="weatherMap" type="com.hanqian.pojo.Weather">
+        <id property="id" column="ID" />
+        <result property="dt" column="DT" />
+        <result property="cityId" column="CITY_ID" />
+        <result property="city" column="CITY" />
+        <result property="temp1" column="TEMP1" />
+        <result property="temp2" column="TEMP2" />
+        <result property="img1" column="IMG1" />
+        <result property="img2" column="IMG2" />
+        <result property="weather" column="WEATHER" />
+        <result property="ptime" column="PTIME" />
+        <result property="opTime" column="OP_TIME" />
+          </resultMap>
+          
+          <resultMap id="weatherRtMap" type="com.hanqian.pojo.WeatherRt">
+        <id property="id" column="ID" />
+        <result property="dt" column="DT" />
+        <result property="cityId" column="CITY_ID" />
+        <result property="city" column="CITY" />
+        <result property="temp" column="TEMP" />
+        <result property="wd" column="WD" />
+        <result property="ws" column="WS" />
+        <result property="sd" column="SD" />
+        <result property="ptime" column="PTIME" />
+        <result property="opTime" column="OP_TIME" />
+        <result property="alarm" column="ALARM" />
+        <result property="alarmurl" column="ALARM_URL" />
+        <result property="info" column="INFO" />
+        
+    </resultMap>
+         
+         <!-- 查询当前日期   -->
+  	<select id="selectWeatherOne" resultMap="weatherMap" parameterType="map" >    
+       select * from DB_Weather where DT=#{DT} and CITY_ID=#{CITY_ID}  
+   </select>
+   
+         <!-- 查询当前日期 -->
+  	<select id="selectWeatherRTByDT" resultMap="weatherRtMap" parameterType="map" >    
+       select * from DB_Weather_Rt w where w.DT=#{DT} and w.CITY_ID=#{CITY_ID} order by w.OP_TIME DESC
+   </select>
+  	
+</mapper>

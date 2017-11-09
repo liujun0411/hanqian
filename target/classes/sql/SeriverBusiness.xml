@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.SeriverBusiness">
+
+ 	<select id="findServicerList" resultType="ciMap"  parameterType="map">    
+          select s.*,bc.content1,bc.content2 
+            from db_service s ,db_base_comm bc 
+             where s.servtype = bc.seq  and bc.delet_flag = 0 
+              and bc.oper_type =#{opertype} 
+              <if test="serName != null">
+			         	    and s.servname like  '%'||#{serName}||'%' 
+			  </if>
+			  <if test="serType != null">
+			         	    and s.servtype =#{serType}
+			  </if>
+   </select> 
+   
+    	<select id="findServiceTypeList" resultType="ciMap"  parameterType="map">    
+          select bc.* from db_base_comm bc where bc.delet_flag = 0 and bc.oper_type =#{opertype} 
+              
+   </select> 
+   
+       	<select id="findServiceList" resultType="ciMap"  parameterType="map">    
+           select s.* from db_service s
+   </select> 
+   
+     <update id="updateService" parameterType="com.hanqian.pojo.DbService">
+      update DB_SERVICE
+    <set>
+      <if test="servname != null">
+        SERVNAME = #{servname},
+      </if>
+      <if test="dbServiceType != null">
+        SERVTYPE = #{dbServiceType.seq},
+      </if>
+      <if test="tele != null">
+        TELE = #{tele},
+      </if>
+      <if test="mobitele != null">
+        MOBITELE = #{mobitele},
+      </if>
+      <if test="princ != null">
+        PRINC = #{princ},
+      </if>
+      <if test="input != null">
+        INPUT = #{input},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="oper != null">
+        OPER = #{oper},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+    <insert id="insertService" parameterType="com.hanqian.pojo.DbService">
+	<selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_SERVICE.nextval as seq from dual
+	</selectKey>    
+    insert into DB_SERVICE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="servname != null">
+        SERVNAME,
+      </if>
+      <if test="dbServiceType != null">
+        SERVTYPE,
+      </if>
+      <if test="tele != null">
+        TELE,
+      </if>
+      <if test="mobitele != null">
+        MOBITELE,
+      </if>
+      <if test="princ != null">
+        PRINC,
+      </if>
+      <if test="input != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="servname != null">
+        #{servname},
+      </if>
+      <if test="dbServiceType != null">
+        #{dbServiceType.seq},
+      </if>
+      <if test="tele != null">
+        #{tele},
+      </if>
+      <if test="mobitele != null">
+        #{mobitele},
+      </if>
+      <if test="princ != null">
+        #{princ},
+      </if>
+      <if test="input != null">
+        #{input},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+<!--    resultType="ciMap" -->
+<resultMap type="com.hanqian.pojo.DbService" id="dbServiceMap">
+	<id column="SEQ" property="seq"/>
+	<result column="SERVNAME" property="servname"/>
+	<result column="TELE" property="tele"/>
+	<result column="MOBITELE" property="mobitele"/>
+	<result column="PRINC" property="princ"/>
+	<result column="INPUT" property="input"/>
+	<result column="INPUTTIME" property="inputtime"/>
+	<result column="OPER" property="oper"/>
+	<result column="OPERTIME" property="opertime"/>
+	<association column="SERVTYPE" property="dbServiceType" javaType="com.hanqian.pojo.DbServiceType">
+		<id column="SERVTYPE" property="seq"/>
+	</association>
+</resultMap>
+   <select id="findEntityById" resultMap="dbServiceMap">
+    select s.seq,s.servname,s.servtype,s.tele,s.mobitele,s.princ,s.input,s.inputtime,s.oper,s.opertime
+ 		from Db_Service s where s.seq =#{seq}
+   </select> 
+   
+     <delete id="deleteService" parameterType="com.hanqian.pojo.DbService">    
+    delete from DB_SERVICE
+    where SEQ = #{seq}
+  </delete>
+  
+         	<select id="validateIsUnique" resultType="ciMap"  parameterType="map">    
+          select * from  db_service s where s.servname =#{serName} 
+               <if test="seq != null">
+		        	and s.seq <![CDATA[<>]]>#{seq}
+		      </if>
+         
+   </select> 
+    
+   
+</mapper>

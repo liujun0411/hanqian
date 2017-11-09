@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标
+	-->
+<equipment>
+
+	<!-- 冷冻泵1 -->
+	<area title="冷冻泵1#" wd="15" hg="15" marLeft="135" marTop="363"
+		prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX=""
+		postionY="" eventType="click"></area>
+	<!-- 冷冻泵2 -->
+	<area title="冷冻泵2#" wd="15" hg="15" marLeft="125" marTop="346"
+		prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX=""
+		postionY="" eventType="click"></area>
+
+
+	<!-- 冷却泵1 -->
+	<area title="冷却泵1#" wd="15" hg="15" marLeft="255" marTop="415"
+		prop="coolQue" initFlag="hide" eqTypeId="1004002" positionX=""
+		postionY="" eventType="click"></area>
+	<!-- 冷却泵2 -->
+	<area title="冷却泵2#" wd="15" hg="15" marLeft="305" marTop="403"
+		prop="coolQue" initFlag="hide" eqTypeId="1004002" positionX="150"
+		postionY="355" eventType="click"></area>
+
+
+	<!-- 冷却塔B1# -->
+	<area title="冷却塔屋顶" wd="20" hg="20" marLeft="340" marTop="459"
+		prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX=""
+		postionY="" eventType="click"></area>
+	<!-- 冷却塔屋顶 -->
+	<area title="冷却塔B1#" wd="20" hg="20" marLeft="410" marTop="442"
+		prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX=""
+		postionY="" eventType="click"></area>
+
+
+	<!--    分水器 -->
+	<!--
+		<area title="分水器" wd="0" hg="0" marLeft="-1000" marTop="-1020"
+		prop="others" initFlag="hide" eqTypeId="1004005" positionX=""
+		postionY="" eventType="click"></area>
+	-->
+	<!--    集水器 -->
+	<!--
+		<area title="集水器" wd="0" hg="0" marLeft="-1000" marTop="-1020"
+		prop="others" initFlag="hide" eqTypeId="1004006" positionX=""
+		postionY="" eventType="click"></area>
+	-->
+	<!-- 冷冻机1 -->
+	<area title="冷冻机1#" wd="20" hg="20" marLeft="280" marTop="329"
+		prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX=""
+		postionY="" eventType="click"></area>
+
+</equipment>

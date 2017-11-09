@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildRateBusiness">  
+<!-- com.hanqian.pojo.DbBuildingrate   -->
+  <select id="findBuildRate" parameterType="map" resultType="ciMap">
+    select * from DB_BUILDINGRATE
+    where 1=1 
+     <if test="sequence != null">
+			  and   SEQUENCE = #{sequence}
+	</if> 
+	<if test="yt != null">
+			  and   yt = #{yt}
+	</if> 
+		     <if test="infoyear != null">
+			  and   infoyear = #{infoyear}
+	</if> 
+  </select>
+  
+    <insert id="insertBuildRate" parameterType="com.hanqian.pojo.DbBuildingrate">
+ 
+    	 <selectKey resultType="int" keyProperty="sequence" order="BEFORE">
+			select
+			SEQ_BUILDINGRATE.nextval as sequence from dual
+		</selectKey>
+    insert into DB_BUILDINGRATE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sequence != null">
+        SEQUENCE,
+      </if>
+      <if test="infoyear != null">
+        INFOYEAR,
+      </if>
+      <if test="fz != null">
+        FZ,
+      </if>
+      <if test="yt != null">
+        YT,
+      </if>
+      <if test="fh != null">
+        FH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sequence != null">
+        #{sequence},
+      </if>
+      <if test="infoyear != null">
+        #{infoyear},
+      </if>
+      <if test="fz != null">
+        #{fz},
+      </if>
+      <if test="yt != null">
+        #{yt},
+      </if>
+      <if test="fh != null">
+        #{fh},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateBuildRate" parameterType="com.hanqian.pojo.DbBuildingrate">   
+    update DB_BUILDINGRATE
+    <set>
+      <if test="infoyear != null">
+        INFOYEAR = #{infoyear},
+      </if>
+      <if test="fz != null">
+        FZ = #{fz},
+      </if>
+      <if test="yt != null">
+        YT = #{yt},
+      </if>
+      <if test="fh != null">
+        FH = #{fh},
+      </if>
+    </set>
+    where SEQUENCE = #{sequence}
+  </update>
+  
+  
+  <delete id="deleteInsertReportBuilding" parameterType="map">
+  			delete db_Buildingrate where infoyear=#{infoyear}
+  </delete>
+  
+	 
+
+   
+</mapper>

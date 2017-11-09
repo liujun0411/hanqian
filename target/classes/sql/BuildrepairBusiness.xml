@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildrepairBussiness">
+<resultMap type="com.hanqian.pojo.DbBuildingRepair" id="DbBuildingRepairMap">
+	<id column="SEQ" property="seq"/>
+	<result column="REPAIR_TTIME" property="repairttime"/>
+	<result column="OUT_WALL" property="outWall"/>
+	<result column="UP_PRICES" property="upPrices"/>
+	<result column="AUDIT_PRICES" property="auditPrices"/>
+	<result column="TOTAL_COST" property="totalcost"/>
+	<result column="TUJIAN_COST" property="tujianCost"/>
+	<result column="ADORN_COST" property="adornCost"/>
+	<result column="PINUP_COST" property="pinupCost"/>
+	<result column="REMOVE_COST" property="removeCost"/>
+	<result column="TUJIAN_AN_COST" property="tujianAnCost"/>
+	<result column="INSTALL_COST" property="installCost"/>
+	<result column="RUODIAN_COST" property="ruodianCost"/>
+	<result column="JIPAISHUI_COST" property="jipaishuiCost"/>
+	<result column="LIFT_COST" property="liftCost"/>
+	<result column="KONGTIAO_COST" property="kongtiaoCost"/>
+	<result column="GUOLU_COST" property="guoluCost"/>
+	<result column="MEDICALGAS_COST" property="medicalgasCost"/>
+	<result column="INSTALL_AN_COST" property="installAnCost"/>
+	<result column="ANOTHERS_COST" property="anothersCost"/>
+	<result column="QIANGDIAN_COST" property="qiangdianCost"/>
+	<result column="REMARK" property="remark"/>
+	<result column="INPUT" property="input"/>
+	<result column="INPUTTIME" property="inputtime"/>
+	<result column="OPER" property="oper"/>
+	<result column="OPERTIME" property="opertime"/>
+	<result column="DATA_STATUS" property="datastatus"/>
+	<association column="PROBLEM" property="dbBuildMaterByProblem" javaType="com.hanqian.pojo.DbBuildMater">
+		<id column="PROBLEM" property="materId"/>
+	</association>
+	<association column="COST_ACCORD" property="dbBuildMaterByCostAccord" javaType="com.hanqian.pojo.DbBuildMater">
+		<id column="COST_ACCORD" property="materId"/>
+	</association>
+	<association column="QUAKE_PROOF" property="dbBuildMaterByQuakeProof" javaType="com.hanqian.pojo.DbBuildMater">
+		<id column="QUAKE_PROOF" property="materId"/>
+	</association>
+	<association column="WATER_PROOF" property="dbBuildMaterByWaterProof" javaType="com.hanqian.pojo.DbBuildMater">
+		<id column="WATER_PROOF" property="materId"/>
+	</association>
+	<association column="BUILDING_ID" property="dbBuilding" javaType="com.hanqian.pojo.DbBuilding">
+		<id column="BUILDING_ID" property="buildingId"/>
+	</association>
+</resultMap>
+   <select id="findBuildingRepair" resultMap="DbBuildingRepairMap" parameterType="map">    
+        select br.seq,br.building_id,br.repair_ttime,br.water_proof,br.quake_proof,br.out_wall,br.problem,
+		br.cost_accord,br.audit_prices,br.up_prices,br.total_cost,br.tujian_cost,br.adorn_cost,br.pinup_cost,
+		br.remove_cost,br.tujian_an_cost,br.install_cost,br.ruodian_cost,br.jipaishui_cost,br.lift_cost,
+		br.kongtiao_cost,br.guolu_cost,br.medicalgas_cost,br.install_an_cost,br.anothers_cost,br.qiangdian_cost,
+		br.remark,br.input,br.inputtime,br.oper,br.opertime,br.data_status
+		from db_building_repair br where 1=1
+           <if test="buildingId != null">
+			      and br.BUILDING_ID=#{buildingId} 
+			</if> 
+			 <if test="seq != null">
+			      and br.seq=#{seq} 
+			</if>   
+				 <if test="opertime != null">
+			      and br.OPERTIME=#{opertime} 
+			</if> 
+			 and  br.DATA_STATUS=0
+   </select>  
+   
+      <select id="findBuildingRe" resultType="ciMap" >    
+         select b.building_id ,b.building_name   from db_build_mater t right join db_building_repair r on t.mater_id=r.problem inner join db_building b on b.building_id=r.building_id where r.data_status=0 group by b.building_id,b.building_name
+   </select>  
+   
+     <select id="findByIdDbBuildingRepair" parameterType="int" resultType="com.hanqian.pojo.DbBuildingRepair">    
+    select * from DB_BUILDING_REPAIR
+    where SEQ = #{id}
+  </select>
+  
+     <select id="findBuildingRepairPage" resultType="ciMap" parameterType="map">    
+         select b.building_id,b.building_name,r.total_cost totalcost,t.mater_name problem,r.remark,(select (p.mater_name) 
+         from db_build_mater p where p.mater_id=r.cost_accord) costAccord,r.repair_ttime repairttime,r.up_prices upprices 
+         from db_build_mater t right join db_building_repair r on t.mater_id=r.problem 
+         inner join db_building b on b.building_id=r.building_id where r.data_status=0 
+         <if test="buildingId != null">
+         	 and r.building_id=#{buildingId}
+         </if>
+         <if test="beginDate != null and endDate != null">
+         	 and r.repair_ttime between #{beginDate} and #{endDate}
+         </if>
+         <if test="beginDate != null">
+         	     and r.repair_ttime  <![CDATA[>=]]> #{beginDate}
+	      </if> 
+	      <if test="endDate != null">
+         	     and r.repair_ttime  <![CDATA[<=]]> #{endDate}
+	      </if>
+          order by r.repair_ttime desc
+   </select> 
+   
+     <update id="updateBuildingRepair" parameterType="com.hanqian.pojo.DbBuildingRepair">
+      update DB_BUILDING_REPAIR
+    <set>
+      <if test="dbBuilding != null">
+        BUILDING_ID = #{dbBuilding.buildingId},
+      </if>
+      <if test="repairttime != null">
+        REPAIR_TTIME = #{repairttime},
+      </if>
+      <if test="dbBuildMaterByWaterProof != null">
+        WATER_PROOF = #{dbBuildMaterByWaterProof.materId},
+      </if>
+      <if test="dbBuildMaterByQuakeProof != null">
+        QUAKE_PROOF = #{dbBuildMaterByQuakeProof.materId},
+      </if>
+      <if test="outWall != null">
+        OUT_WALL = #{outWall},
+      </if>
+      <if test="dbBuildMaterByProblem != null">
+        PROBLEM = #{dbBuildMaterByProblem.materId},
+      </if>
+      <if test="dbBuildMaterByCostAccord != null">
+        COST_ACCORD = #{dbBuildMaterByCostAccord.materId},
+      </if>
+      <if test="upPrices != null">
+        UP_PRICES = #{upPrices},
+      </if>
+      <if test="auditPrices != null">
+        AUDIT_PRICES = #{auditPrices},
+      </if>
+      <if test="totalcost != null">
+        TOTAL_COST = #{totalcost},
+      </if>
+      <if test="tujianCost != null">
+        TUJIAN_COST = #{tujianCost},
+      </if>
+      <if test="adornCost != null">
+        ADORN_COST = #{adornCost},
+      </if>
+      <if test="pinupCost != null">
+        PINUP_COST = #{pinupCost},
+      </if>
+      <if test="removeCost != null">
+        REMOVE_COST = #{removeCost},
+      </if>
+      <if test="tujianAnCost != null">
+        TUJIAN_AN_COST = #{tujianAnCost},
+      </if>
+      <if test="installCost != null">
+        INSTALL_COST = #{installCost},
+      </if>
+      <if test="ruodianCost != null">
+        RUODIAN_COST = #{ruodianCost},
+      </if>
+      <if test="jipaishuiCost != null">
+        JIPAISHUI_COST = #{jipaishuiCost},
+      </if>
+      <if test="liftCost != null">
+        LIFT_COST = #{liftCost},
+      </if>
+      <if test="kongtiaoCost != null">
+        KONGTIAO_COST = #{kongtiaoCost},
+      </if>
+      <if test="guoluCost != null">
+        GUOLU_COST = #{guoluCost},
+      </if>
+      <if test="medicalgasCost != null">
+        MEDICALGAS_COST = #{medicalgasCost},
+      </if>
+      <if test="installAnCost != null">
+        INSTALL_AN_COST = #{installAnCost},
+      </if>
+      <if test="anothersCost != null">
+        ANOTHERS_COST = #{anothersCost},
+      </if>
+      <if test="qiangdianCost != null">
+        QIANGDIAN_COST = #{qiangdianCost},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark},
+      </if>
+      <if test="input != null">
+        INPUT = #{input},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="oper != null">
+        OPER = #{oper},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+      <if test="datastatus != null">
+        DATA_STATUS = #{datastatus},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update> 
+  
+  
+  <insert id="insertBuildingRepair" parameterType="com.hanqian.pojo.DbBuildingRepair">
+     <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_BUILDREPAIR.nextval as seq from dual
+		</selectKey>
+    insert into DB_BUILDING_REPAIR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dbBuilding.buildingId != null">
+        BUILDING_ID,
+      </if>
+      <if test="repairttime != null">
+        REPAIR_TTIME,
+      </if>
+      <if test="dbBuildMaterByWaterProof.materId != null">
+        WATER_PROOF,
+      </if>
+      <if test="dbBuildMaterByQuakeProof.materId != null">
+        QUAKE_PROOF,
+      </if>
+      <if test="outWall != null">
+        OUT_WALL,
+      </if>
+      <if test="dbBuildMaterByProblem.materId != null">
+        PROBLEM,
+      </if>
+      <if test="dbBuildMaterByCostAccord.materId != null">
+        COST_ACCORD,
+      </if>
+      <if test="upPrices != null">
+        UP_PRICES,
+      </if>
+      <if test="auditPrices != null">
+        AUDIT_PRICES,
+      </if>
+      <if test="totalcost != null">
+        TOTAL_COST,
+      </if>
+      <if test="tujianCost != null">
+        TUJIAN_COST,
+      </if>
+      <if test="adornCost != null">
+        ADORN_COST,
+      </if>
+      <if test="pinupCost != null">
+        PINUP_COST,
+      </if>
+      <if test="removeCost != null">
+        REMOVE_COST,
+      </if>
+      <if test="tujianAnCost != null">
+        TUJIAN_AN_COST,
+      </if>
+      <if test="installCost != null">
+        INSTALL_COST,
+      </if>
+      <if test="ruodianCost != null">
+        RUODIAN_COST,
+      </if>
+      <if test="jipaishuiCost != null">
+        JIPAISHUI_COST,
+      </if>
+      <if test="liftCost != null">
+        LIFT_COST,
+      </if>
+      <if test="kongtiaoCost != null">
+        KONGTIAO_COST,
+      </if>
+      <if test="guoluCost != null">
+        GUOLU_COST,
+      </if>
+      <if test="medicalgasCost != null">
+        MEDICALGAS_COST,
+      </if>
+      <if test="installAnCost != null">
+        INSTALL_AN_COST,
+      </if>
+      <if test="anothersCost != null">
+        ANOTHERS_COST,
+      </if>
+      <if test="qiangdianCost != null">
+        QIANGDIAN_COST,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="input != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="datastatus != null">
+        DATA_STATUS,
+      </if>
+    </trim>
+    VALUES
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dbBuilding.buildingId != null">
+        #{dbBuilding.buildingId},
+      </if>
+      <if test="repairttime != null">
+        #{repairttime},
+      </if>
+      <if test="dbBuildMaterByWaterProof.materId != null">
+        #{dbBuildMaterByWaterProof.materId},
+      </if>
+      <if test="dbBuildMaterByQuakeProof.materId != null">
+        #{dbBuildMaterByQuakeProof.materId},
+      </if>
+      <if test="outWall != null">
+        #{outWall},
+      </if>
+      <if test="dbBuildMaterByProblem.materId != null">
+        #{dbBuildMaterByProblem.materId},
+      </if>
+      <if test="dbBuildMaterByCostAccord.materId != null">
+        #{dbBuildMaterByCostAccord.materId},
+      </if>
+      <if test="upPrices != null">
+        #{upPrices},
+      </if>
+      <if test="auditPrices != null">
+        #{auditPrices},
+      </if>
+      <if test="totalcost != null">
+        #{totalcost},
+      </if>
+      <if test="tujianCost != null">
+        #{tujianCost},
+      </if>
+      <if test="adornCost != null">
+        #{adornCost},
+      </if>
+      <if test="pinupCost != null">
+        #{pinupCost},
+      </if>
+      <if test="removeCost != null">
+        #{removeCost},
+      </if>
+      <if test="tujianAnCost != null">
+        #{tujianAnCost},
+      </if>
+      <if test="installCost != null">
+        #{installCost},
+      </if>
+      <if test="ruodianCost != null">
+        #{ruodianCost},
+      </if>
+      <if test="jipaishuiCost != null">
+        #{jipaishuiCost},
+      </if>
+      <if test="liftCost != null">
+        #{liftCost},
+      </if>
+      <if test="kongtiaoCost != null">
+        #{kongtiaoCost},
+      </if>
+      <if test="guoluCost != null">
+        #{guoluCost},
+      </if>
+      <if test="medicalgasCost != null">
+        #{medicalgasCost},
+      </if>
+      <if test="installAnCost != null">
+        #{installAnCost},
+      </if>
+      <if test="anothersCost != null">
+        #{anothersCost},
+      </if>
+      <if test="qiangdianCost != null">
+        #{qiangdianCost},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+      <if test="input != null">
+        #{input},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="datastatus != null">
+        #{datastatus},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="deleteBuildingRepair" parameterType="int">
+   update db_building_repair r set r.data_status =1 where r.seq=#{id}     
+  </update>
+  
+   <select id="reportBuildRepair" resultType="ciMap" >    
+         select * from db_building_repair where 1 = 1 
+           <if test="lastTime != null">
+			      and opertime<![CDATA[>=]]>#{lastTime} 
+			</if> 
+   </select>  
+   
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EqAnalysisBusiness">
+
+   <select id="findAllEqTypeEqArticleShowData" resultType="ciMap" >   
+       select *  from DIC_EQ_PARAMETER    	        
+   </select>  
+   
+      <select id="findeEqNameEqArticleShowData" resultType="ciMap" >   
+       select t.equip_id eqid,t.equip_type_id eq_type ,t.equip_code equipcode,t.equip_name name from db_equip_list t  where t.equip_id = (
+         select min(a.equip_id) from db_equip_list a where  a.equip_name=t.equip_name and a.equip_type_id=t.equip_type_id 
+          ) order by t.equip_id  	        
+   </select>  
+   
+   <select id="findeEqProduction" resultType="ciMap" >   
+       select t.equip_type_id eq_type ,t.production from db_equip_list t  where  
+        t.equip_id = ( select min(a.equip_id) from db_equip_list a where  a.production=t.production)     
+   </select>  
+   
+   <select id="findCoData" resultType="ciMap" parameterType="map" >   
+       select a.production, 
+       <if test="stattime == null">
+         	stattime	        
+	   </if>
+	   <if test="stattime != null">
+         	substr(stattime,0,4)	        
+	   </if>
+       	stattime,
+       sum(a.wastage) wastage from (
+       	select u.production ,t.stattime,t.wastage
+       		from db_stat_eq t,db_eq_list u
+       			where t.eqcode = u.equipcode
+       				and t.hospitalid=#{hospid}
+       					and t.eqtype=#{dicType}
+       					and t.power=#{powerId}
+      <if test="startDate != null">
+         		and 
+         		<if test="stattime == null">
+		         	stattime	        
+			    </if>
+			    <if test="stattime != null">
+		         	substr(stattime,0,4)	        
+			    </if>
+				<![CDATA[>=]]>#{startDate}	        
+	   </if>	
+	   <if test="endDate != null">
+         		and 
+         		<if test="stattime == null">
+		         	stattime	        
+			    </if>
+			    <if test="stattime != null">
+		         	substr(stattime,0,4)	        
+			    </if>
+				<![CDATA[<=]]>#{endDate}	        
+	   </if>	
+	   	and u.production in(#{conames})
+	   	 ) a group by a.production,
+	   	 <if test="stattime == null">
+		         	stattime	        
+	     </if>
+	     <if test="stattime != null">
+         	substr(stattime,0,4)	        
+	     </if>
+	      order by 
+	     <if test="stattime == null">
+		         	stattime	        
+	     </if>
+	     <if test="stattime != null">
+         	substr(stattime,0,4)	        
+	     </if>
+	      
+   </select>  
+   
+
+   
+   
+   
+</mapper>

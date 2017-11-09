@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+    <!-- 换热器1  -->	
+	<area title="换热器1#" wd="20" hg="20" marLeft="697" marTop="300" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器2 -->	
+	<area title="换热器2#" wd="20" hg="20" marLeft="615" marTop="336" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 换热器3 -->	
+	<area title="换热器3#" wd="20" hg="20" marLeft="525" marTop="371" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+		
+    <!-- 补水泵1(高区) -->
+	<area title="补水泵1#(高区)" wd="15" hg="15" marLeft="290" marTop="375" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 补水泵2(高区) -->
+	<area title="补水泵2#(高区)" wd="15" hg="15" marLeft="278" marTop="360" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>						
+			
+	<!-- 热水泵1(高区) -->
+	<area title="热水泵1#(高区)" wd="15" hg="15" marLeft="744" marTop="385" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵2(高区) -->
+	<area title="热水泵2#(高区)" wd="15" hg="15" marLeft="723" marTop="372" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵3(高区) -->
+	<area title="热水泵3#(高区)" wd="15" hg="15" marLeft="618" marTop="418" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!--热水泵4(高区) -->
+	<area title="热水泵4#(高区)" wd="15" hg="15" marLeft="599" marTop="400" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵5(高区) -->
+	<area title="热水泵5#(高区)" wd="15" hg="15" marLeft="470" marTop="424" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵6(高区) -->
+	<area title="热水泵6#(高区)" wd="15" hg="15" marLeft="453" marTop="410" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+</equipment>

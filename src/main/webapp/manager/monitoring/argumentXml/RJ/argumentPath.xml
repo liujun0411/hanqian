@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!--typeId是指设备类型编号，url是指专家论证文档存放的路径-->
+   <fileUrl typeId="1001" url="xfj_Argument.xml"></fileUrl>
+   <!-- 空调机 -->
+   <fileUrl typeId="1002" url="ktj_Argument.xml"></fileUrl>
+   <!-- 冷却塔 -->
+   <fileUrl typeId="1004001" url="coolTower_Argument.xml"></fileUrl>
+   <!-- 冷却泵 -->
+   <fileUrl typeId="1004002" url="coolQueBeng_Argument.xml"></fileUrl>
+   <!-- 冷冻泵 -->
+   <fileUrl typeId="1004003" url="coolDongBeng_Argument.xml"></fileUrl>
+   <!-- 热水泵 -->
+   <fileUrl typeId="1004007" url="hotWaterBeng_Argument.xml"></fileUrl>
+   <!-- 风冷热泵 -->
+   <fileUrl typeId="1005001" url="fengLengReBeng_Argument.xml"></fileUrl>
+   <!-- 进水管道 -->
+   <fileUrl typeId="1005002" url="jinShuiGuanDao_Argument.xml"></fileUrl>
+   <!-- 出水管道 -->
+   <fileUrl typeId="1005003" url="chuShuiGuanDao_Argument.xml"></fileUrl>
+   <!-- 循环泵 -->
+   <fileUrl typeId="1005004" url="xunHuanBeng_Argument.xml"></fileUrl>
+   <!-- 分水器-->
+   <fileUrl typeId="1004005" url="fsq_Argument_slj_01.xml" groupCode="slj_01"></fileUrl>
+   <!-- 集水器-->
+   <fileUrl typeId="1004006" url="jsq_Argument_slj_01.xml" groupCode="slj_01"></fileUrl>
+    <!-- 分水器-->
+   <fileUrl typeId="1004005" url="fsq_Argument_slj_02.xml" groupCode="slj_02"></fileUrl>
+   <!-- 集水器-->
+   <fileUrl typeId="1004006" url="jsq_Argument_slj_02.xml" groupCode="slj_02"></fileUrl>
+     <!-- 分水器-->
+   <fileUrl typeId="1004005" url="fsq_Argument_slj_03.xml" groupCode="slj_03"></fileUrl>
+   <!-- 集水器-->
+   <fileUrl typeId="1004006" url="jsq_Argument_slj_03.xml" groupCode="slj_03"></fileUrl>
+   
+   <!-- 换热器 -->
+   <fileUrl typeId="1004008" url="hrq_Argument.xml" ></fileUrl>
+   <!-- 冷冻机 -->
+   <fileUrl typeId="1004004" url="ldj_Argument.xml"></fileUrl>
+
+   <!-- 空压机 -->
+   <fileUrl typeId="8001" url="kyj_Argument.xml"></fileUrl>
+   <!-- 压力罐 -->
+   <fileUrl typeId="8002" url="yaLiGuan_Argument.xml"></fileUrl>
+
+   <!--生活水-->
+   <!-- 热水箱 -->
+   <fileUrl typeId="5001" url="shs_rsx_Argument.xml"></fileUrl>
+   <!-- 冷水箱 -->
+   <fileUrl typeId="5002" url="shs_lsx_Argument.xml"></fileUrl>
+   <!-- 热水泵 -->
+   <fileUrl typeId="5003" url="shs_rsb_Argument.xml"></fileUrl>
+   <!-- 冷水泵 -->
+   <fileUrl typeId="5004" url="shs_lsb_Argument.xml"></fileUrl>
+   <!-- 换热器 -->
+   <fileUrl typeId="5005" url="shs_hrq_Argument.xml"></fileUrl>
+   <!-- 热水器 -->
+   <fileUrl typeId="5006" url="shs_rsq_Argument.xml"></fileUrl>
+   
+  
+   <!-- 集水井 -->
+   <!-- 溢水浮球 -->
+   <fileUrl typeId="6001" url="jsj_ysfq_Argument.xml"></fileUrl>
+   <!-- 排水泵 -->
+   <fileUrl typeId="6002" url="jsj_psb_Argument.xml"></fileUrl>
+   
+   <!-- 锅炉 -->
+   <!-- 锅炉本体 -->
+   <fileUrl typeId="2001" url="boilerBody_Argument.xml"></fileUrl>
+   <!-- 给水箱 -->
+   <fileUrl typeId="2002" url="feedTank_Argument.xml"></fileUrl>
+   <!-- 给水泵 -->
+   <fileUrl typeId="2003" url="feedPump_Argument.xml"></fileUrl>
+   <!-- 分气缸 -->
+   <fileUrl typeId="2004" url="subCylinder_Argument.xml"></fileUrl>
+   
+   <!-- 负压吸引 -->
+   <!-- 负压罐 -->
+   <fileUrl typeId="11001" url="fuYaGuan_Argument.xml"></fileUrl>
+   <!-- 吸引泵 -->
+   <fileUrl typeId="11002" url="xiYinBeng_Argument.xml"></fileUrl>
+    <!-- 冷冻水总管（支管） -->
+   <fileUrl typeId="1004011" url="coolDongGuan_Argument.xml"></fileUrl>
+     <!-- 冷却水总管 -->
+   <fileUrl typeId="1004010" url="coolQueGuan_Argument.xml"></fileUrl>
+       <!-- 医用气 -->
+   <fileUrl typeId="7001" url="yeYangGuan_Argument.xml"></fileUrl>
+   
+</equipPath>

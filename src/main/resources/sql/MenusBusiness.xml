@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.MenusBusiness">
+
+	<select id="findMenuDbMenusDAOFirst" resultType="ciMap" >
+        select m.menu_id,m.name from db_menus m where m.menu_id=0
+    </select>
+    
+    	<select id="findMenuDbMenusDAOTwo" resultType="ciMap" parameterType="map">
+        select m.menu_id,m.name from db_menus m where m.parent_id=#{parentId}
+    </select>
+    
+  <resultMap id="DbMenusMap" type="com.hanqian.pojo.DbMenus">
+    <id column="MENU_ID"  property="menuId" />
+    <result column="MENU_CODE"  property="menuCode" />
+    <result column="NAME"  property="name" />   
+    <result column="MENU_URL"  property="menuUrl" />
+    <result column="STATUS"  property="status" />
+    <result column="IMAGES"  property="images" />
+    <result column="REMARKS"  property="remarks" />
+    <result column="DEPICT"  property="depict" />
+    <result column="SORTS"  property="sorts" />
+    <result column="MENU_LEVEL"  property="menuLevel" />
+    <result column="DUE_DATE"  property="dueDate" />
+    <association property="dbMenus"  column="PARENT_CODE"  javaType="com.hanqian.pojo.DbMenus">
+			<id property="menuCode" column="PARENT_CODE" />
+		</association>
+  </resultMap>
+  
+  
+    
+       <!--  
+   select *  from DB_MENUS where  parent_code=#{parentMenuId}
+   		  order by menu_id asc    
+   --> 
+   <!-- 
+   select dbmenus0_.MENU_CODE as MENU_CODE, dbmenus0_.MENU_ID as MENU_ID, 
+			dbmenus0_.PARENT_CODE as PARENT_CODE, dbmenus0_.NAME as NAME,
+			dbmenus0_.MENU_URL as MENU_URL, dbmenus0_.STATUS as STATUS, 
+			dbmenus0_.IMAGES as IMAGES, dbmenus0_.REMARKS as REMARKS, 
+			dbmenus0_.DEPICT as DEPICT, dbmenus0_.SORTS as SORTS,
+			dbmenus0_.MENU_LEVEL as MENU_LEVEL, 
+			dbmenus0_.DUE_DATE as DUE_DATE from DB_MENUS dbmenus0_ 
+			where (dbmenus0_.PARENT_CODE=#{parentMenuId} ) order by  dbmenus0_.MENU_ID asc
+    -->
+   <select id="findMenusTest" resultMap="DbMenusMap"    parameterType="map" >  
+			select *  from DB_MENUS where  parent_code=#{parentMenuId}
+				
+   		  order by menu_id asc   
+		
+   </select>  
+   
+   
+      <select id="findMenusTest1" resultType="ciMap"    parameterType="map" >  
+			select *  from DB_MENUS where  parent_code=#{parentMenuId}
+				
+   		  order by menu_id desc   
+		
+   </select>  
+   
+   
+   
+   <resultMap id="DbMenusMap2" type="com.hanqian.pojo.DbMenus">
+    <id column="MENU_ID"  property="menuId" />
+    <result column="MENU_CODE"  property="menuCode" />
+    <result column="NAME"  property="name" />   
+    <result column="MENU_URL"  property="menuUrl" />
+    <result column="STATUS"  property="status" />
+    <result column="IMAGES"  property="images" />
+    <result column="REMARKS"  property="remarks" />
+    <result column="DEPICT"  property="depict" />
+    <result column="SORTS"  property="sorts" />
+    <result column="MENU_LEVEL"  property="menuLevel" />
+    <result column="DUE_DATE"  property="dueDate" />
+    <association property="dbMenus"  column="PARENT_CODE"  javaType="com.hanqian.pojo.DbMenus">
+			<id property="menuCode" column="PARENT_CODE" />
+	</association>
+   	<collection property="dbMenuses" column="M_MENU_CODE"  ofType="com.hanqian.pojo.DbMenus" >
+		<id column="M_MENU_ID"  property="menuId" />
+    	<result column="M_MENU_CODE"  property="menuCode" />
+		<result column="M_NAME"  property="name" />
+		<association property="dbMenus"  column="M_PARENT_CODE"  javaType="com.hanqian.pojo.DbMenus">
+			<id property="menuCode" column="M_PARENT_CODE" />
+		</association>
+		<collection property="dbMenuses" column="M3_PARENT_CODE"  ofType="com.hanqian.pojo.DbMenus" >
+			<id column="M3_MENU_ID"  property="menuId" />
+	    	<result column="M3_MENU_CODE"  property="menuCode" />
+			<result column="M3_NAME"  property="name" />
+			<association property="dbMenus"  column="M3_PARENT_CODE"  javaType="com.hanqian.pojo.DbMenus">
+				<id property="menuCode" column="M3_PARENT_CODE" />
+			</association>
+			<collection property="dbMenuses" column="M4_MENU_CODE"  ofType="com.hanqian.pojo.DbMenus" >
+				<id column="M4_MENU_ID"  property="menuId" />
+		    	<result column="M4_MENU_CODE"  property="menuCode" />
+				<result column="M4_NAME"  property="name" />
+				<association property="dbMenus"  column="M4_PARENT_CODE"  javaType="com.hanqian.pojo.DbMenus">
+					<id property="menuCode" column="M4_PARENT_CODE" />
+				</association>
+				<collection property="dbMenuses" column="M5_MENU_CODE"  ofType="com.hanqian.pojo.DbMenus" >
+					<id column="M5_MENU_ID"  property="menuId" />
+			    	<result column="M5_MENU_CODE"  property="menuCode" />
+					<result column="M5_NAME"  property="name" />
+					<association property="dbMenus"  column="M5_PARENT_CODE"  javaType="com.hanqian.pojo.DbMenus">
+						<id property="menuCode" column="M5_PARENT_CODE" />
+					</association>
+				</collection>
+			</collection>
+		</collection>
+	</collection>
+  </resultMap>
+  
+     <select id="findMenuAll" resultMap="DbMenusMap2"  >
+		select m.menu_id,m.name,m.parent_code,m.menu_url,m.status,m.due_date,m.menu_code,
+       m1.menu_id m_menu_id,m1.name m_name,m1.parent_code m_parent_code,m1.menu_code m_menu_code,m.status,
+    m3.menu_id m3_menu_id,m3.name m3_name,m3.parent_code m3_parent_code,m3.menu_code m3_menu_code,m3.status,
+     m4.menu_id m4_menu_id,m4.name m4_name,m4.parent_code m4_parent_code,m4.menu_code m4_menu_code,m4.status,
+     m5.menu_id m5_menu_id,m5.name m5_name,m5.parent_code m5_parent_code,m5.menu_code m5_menu_code,m5.status
+     from (select * from db_menus where parent_code =0) m,(select * from db_menus where status != 2 ) m1 ,(select * from db_menus where status != 2 ) m3 ,
+     (select * from db_menus  where status != 2) m4,(select * from db_menus  where status != 2) m5
+       where m1.parent_code(+)=m.menu_code and m3.parent_code(+) = m1.menu_code and m4.parent_code(+) = m3.menu_code 
+       and m5.parent_code(+)= m4.menu_code order by m.menu_code asc
+    </select>
+    
+    	<select id="findMenusByPage" resultType="ciMap" >
+        select m.menu_id,m.name,m.menu_url,m.menu_level,m.remarks,m.depict,
+        (select m1.name from db_menus m1 where m1.menu_id=m.parent_id) as parentName 
+        from db_menus m where m.status=0 
+           <if test="name != null">
+			    and m.name like '%||#{name}||%' 
+	       </if> 
+	       <if test="menuUrl != null">
+         	    and m.menu_url like '%||#{menuUrl}||%'
+	       </if>
+	       	       <if test="remarks != null">
+         	    and m.remarks like '%||#{menuUrl}||%'
+	       </if>
+	       	       <if test="depict != null">
+         	     and m.depict like  '%||#{menuUrl}||%'
+	       </if> 
+	        order by m.parent_id 
+    </select>
+    
+    
+   <select id="getReminders" resultType="ciMap"    parameterType="map" >   
+   		 select count(*) records from db_menus dm where dm.status=0 and round(dm.due_date-sysdate)<![CDATA[<=]]>30 and dm.due_date+#{offset}<![CDATA[>=]]>sysdate         
+   </select>  
+   
+   
+      <select id="findOutDateMens" resultType="ciMap"    parameterType="map" >   
+   		  select round(dm.due_date-sysdate) outday ,dm.name ,dm.due_date duedate,dm.due_date+#{offset} vailddate 
+   		  	from db_menus dm where dm.status=0 and round(dm.due_date-sysdate)<![CDATA[<=]]>30 and dm.due_date+#{offset}<![CDATA[>=]]>sysdate 
+   </select> 
+   
+         <select id="findEquipForEquip" resultType="ciMap"    parameterType="map" >   
+   		  select t.menu_id,t.name,t.menu_code,
+   		  (select m.equip_type_id from db_equip_type m  where m.equip_type_parent_id=#{eqTypeParId} and m.type_name= t.name) eqtypeid 
+   		  from db_menus t where t.parent_code =#{MenuParCode} and t.status !=2 order by eqTypeId 
+   </select>  
+   
+     <update id="updateMenu" parameterType="com.hanqian.pojo.DbMenus">
+    update DB_MENUS
+    <set>
+      <if test="menuId != null">
+        MENU_ID = #{menuId},
+      </if>
+      <if test="name != null">
+        NAME = #{name},
+      </if>
+      <if test="dbMenus != null">
+        PARENT_CODE = #{dbMenus.menuCode},
+      </if>
+      <if test="menuUrl != null">
+        MENU_URL = #{menuUrl},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="images != null">
+        IMAGES = #{images},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks},
+      </if>
+      <if test="depict != null">
+        DEPICT = #{depict},
+      </if>
+      <if test="sorts != null">
+        SORTS = #{sorts},
+      </if>
+      <if test="menuLevel != null">
+        MENU_LEVEL = #{menuLevel},
+      </if>
+      <if test="dueDate != null">
+        DUE_DATE = #{dueDate},
+      </if>
+    </set>
+    where MENU_CODE = #{menuCode}
+  </update>
+	    
+	<update id="deleteMenus" parameterType="map">
+	
+	update db_menus set status=1 where menu_id=#{menuId}
+	
+	</update>
+	
+	  <insert id="insertMenus" parameterType="com.hanqian.pojo.DbMenus">
+	  <selectKey resultType="int" keyProperty="menuId" order="BEFORE">
+			select
+			SEQ_MENU.nextval as menuId from dual
+		</selectKey>
+    insert into DB_MENUS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuCode != null">
+        MENU_CODE,
+      </if>
+      <if test="menuId != null">
+        MENU_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="dbMenus != null">
+        PARENT_CODE,
+      </if>
+      <if test="menuUrl != null">
+        MENU_URL,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="images != null">
+        IMAGES,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="depict != null">
+        DEPICT,
+      </if>
+      <if test="sorts != null">
+        SORTS,
+      </if>
+      <if test="menuLevel != null">
+        MENU_LEVEL,
+      </if>
+      <if test="dueDate != null">
+        DUE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuCode != null">
+        #{menuCode},
+      </if>
+      <if test="menuId != null">
+        #{menuId},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="dbMenus != null">
+        #{dbMenus.menuCode},
+      </if>
+      <if test="menuUrl != null">
+        #{menuUrl},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="images != null">
+        #{images},
+      </if>
+      <if test="remarks != null">
+        #{remarks},
+      </if>
+      <if test="depict != null">
+        #{depict},
+      </if>
+      <if test="sorts != null">
+        #{sorts},
+      </if>
+      <if test="menuLevel != null">
+        #{menuLevel},
+      </if>
+      <if test="dueDate != null">
+        #{dueDate},
+      </if>
+    </trim>
+  </insert>
+  
+     <select id="findObjectMenusBusiness" resultMap="DbMenusMap"    parameterType="map" >   
+   		 select * from DB_MENUS where menu_id=#{menuId}
+   </select>  
+   
+
+
+</mapper>

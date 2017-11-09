@@ -1,0 +1,28 @@
+package com.sample
+ 
+import com.hanqian.pojo.WeatherRt;
+import com.hanqian.drools.WeatherSendsms;
+import org.springframework.web.context.ContextLoader;
+import org.apache.log4j.Logger;
+
+
+global org.springframework.web.context.ContextLoader ContextLoader  
+global org.apache.log4j.Logger logg 
+ 
+rule "天气预警_35度"
+agenda-group "天气预警"
+    when
+      $m : WeatherRt($te : temp>35)
+      
+    then
+
+         logg= Logger.getLogger("天气预警_35度");
+
+           if (logg.isDebugEnabled())
+			logg.debug("进入天气预警35度规则");
+
+         WeatherSendsms s = (WeatherSendsms)ContextLoader.getCurrentWebApplicationContext().getBean("weatherSendsms", WeatherSendsms.class);
+          s.selectrecord("天气预警");
+end
+
+

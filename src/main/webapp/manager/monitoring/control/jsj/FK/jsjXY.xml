@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+	<equip groupCode="jsj_01" flashHeight="300" flashWidth="1000">
+		<xy x="230" y="255" bengIndex="1" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="39977" type="6001"></point>
+			<point id="39992" type="6002" num="1"></point>
+			<point id="39993" type="6002" num="2"></point>
+		</xy>
+		<xy x="370" y="225" bengIndex="2" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="39978" type="6001"></point>
+			<point id="39994" type="6002" num="1"></point>
+			<point id="39995" type="6002" num="2"></point>
+		</xy>
+		<xy x="370" y="475" bengIndex="3" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="39979" type="6001"></point>
+			<point id="39996" type="6002" num="1"></point>
+			<point id="39997" type="6002" num="2"></point>
+		</xy>
+		<xy x="370" y="835" bengIndex="4" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="39980" type="6001"></point>
+			<point id="39998" type="6002" num="1"></point>
+			<point id="39999" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+	 
+	 <equip groupCode="jsj_02" flashHeight="300" flashWidth="1000">
+		<xy x="330" y="175" bengIndex="1" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="39981" type="6001"></point>
+			<point id="40000" type="6002" num="1"></point>
+			<point id="40001" type="6002" num="2"></point>
+		</xy>
+		<xy x="220" y="690" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="39982" type="6001"></point>
+			<point id="40002" type="6002" num="1"></point>
+			<point id="40003" type="6002" num="2"></point>
+		</xy>
+		<xy x="295" y="790" bengIndex="3" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="39983" type="6001"></point>
+			<point id="40004" type="6002" num="1"></point>
+			<point id="40005" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+	 
+	 <equip groupCode="jsj_03" flashHeight="300" flashWidth="1000">
+		<xy x="315" y="270" bengIndex="1" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="39984" type="6001"></point>
+			<point id="40006" type="6002" num="1"></point>
+			<point id="40007" type="6002" num="2"></point>
+		</xy>
+		<xy x="285" y="720" bengIndex="2" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="39985" type="6001"></point>
+			<point id="40008" type="6002" num="1"></point>
+			<point id="40009" type="6002" num="2"></point>
+		</xy>
+		<xy x="310" y="820" bengIndex="3" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="39986" type="6001"></point>
+			<point id="40010" type="6002" num="1"></point>
+			<point id="40011" type="6002" num="2"></point>
+		</xy>
+		<xy x="275" y="895" bengIndex="4" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="39987" type="6001"></point>
+			<point id="40012" type="6002" num="1"></point>
+			<point id="40013" type="6002" num="2"></point>
+		</xy>
+		<xy x="230" y="800" bengIndex="5" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="39988" type="6001"></point>
+			<point id="40014" type="6002" num="1"></point>
+			<point id="40015" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+	 
+	  <equip groupCode="jsj_04" flashHeight="300" flashWidth="1000">
+		<xy x="315" y="165" bengIndex="1" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="39989" type="6001"></point>
+			<point id="40016" type="6002" num="1"></point>
+			<point id="40017" type="6002" num="2"></point>
+		</xy>
+		<xy x="205" y="610" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="39990" type="6001"></point>
+			<point id="40018" type="6002" num="1"></point>
+			<point id="40019" type="6002" num="2"></point>
+		</xy>
+		<xy x="225" y="865" bengIndex="3" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="39991" type="6001"></point>
+			<point id="40020" type="6002" num="1"></point>
+			<point id="40267" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+	 <!-- 2016-08-05保障楼B1集水井 -->
+	 <equip groupCode="BZLB1JSJ_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="90018" type="6001"></point>
+			<point id="90019" type="6002" num="1"></point>
+			<point id="90020" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="90021" type="6001"></point>
+			<point id="90022" type="6002" num="1"></point>
+			<point id="90023" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="90024" type="6001"></point>
+			<point id="90025" type="6002" num="1"></point>
+			<point id="90026" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+	 <!-- 2016-08-05保障楼B2集水井 -->
+	 <equip groupCode="BZLB2JSJ_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="90027" type="6001"></point>
+			<point id="90028" type="6002" num="1"></point>
+			<point id="90029" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="90030" type="6001"></point>
+			<point id="90031" type="6002" num="1"></point>
+			<point id="90032" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+</equipment> 
+
+ 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="锅炉本体" hasParTitle="true">
+   <child title="烟道">
+       <property run="12" des="烟气温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </child>
+</equipment>

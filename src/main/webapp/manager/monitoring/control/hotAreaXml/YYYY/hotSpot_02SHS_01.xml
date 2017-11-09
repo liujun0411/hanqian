@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>			
+	  <child>
+		<!-- 冷水泵1 -->
+		<area title="冷水泵1#" wd="20" hg="20" marLeft="345" marTop="275" prop="lsb"
+			initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+			
+		<!-- 冷水泵2 -->
+		<area title="冷水泵2#" wd="20" hg="20" marLeft="525" marTop="165" prop="lsb"
+			initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+		
+		<!-- 冷水箱 -->	
+		<area title="水箱" wd="20" hg="20" marLeft="275" marTop="170" prop="lsx"
+			initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+	 </child>
+</equipment>

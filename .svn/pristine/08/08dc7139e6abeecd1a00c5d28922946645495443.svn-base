@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildAnalysisBusiness">
+  
+   <select id="findAllHos" resultType="ciMap" >    
+        select * from db_hosp_info t
+   </select>  
+   
+      <select id="findBuildNameAndSequence" resultType="ciMap" parameterType="int">    
+        select b.building_id , b.building_name from db_building b where b.hosp_id =#{hospId}
+   </select>  
+   
+         <select id="findStBAnalysis" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+         
+         select name,round(sum(wastage),3) wastage, 
+         round(sum(convert),3) convert,
+         substr(stattime,0,4) stattime from(
+         
+                     
+			       select name,sum(wastage) wastage,sum(convert) convert,stattime 
+			       from(select bu.name,round(b.wastage/c.wastage,3) wastage,round(b.convert/c.convert,3) convert, 
+			               substr(trim(b.stattime),0,6) stattime 
+			                  from db_stat_build b,db_building bu, 
+			                         (select buildid,round(sum(wastage),2) wastage,round(sum(convert),2) convert,power  
+			           from db_stat_build 
+			      where substr(trim(stattime),0,6)<![CDATA[>=]]>#{startDate}   
+			      and substr(trim(stattime),0,6)<![CDATA[<=]]>#{endDate}   
+			         group by hospid,buildid,power 
+			          <if test="isWastage != null">
+			         	   having sum(wastage)!=0  
+				      </if> 
+				       <if test="isWastage == null">
+			         	   having sum(convert)!=0  
+				      </if>            
+			          and power=#{power}  
+			          and hospid=#{hospid}  ) c 
+			            where b.buildid = building_id  
+			             and substr(trim(b.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+			             and substr(trim(b.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+			             and b.hospid=#{hospid} 
+			              and b.power=#{power} 
+			               <if test="isWastage != null">
+			         	   and b.wastage !=0  
+				      </if> 
+				       <if test="isWastage == null">
+			         	   and b.convert !=0  
+				      </if>  
+				     
+				    and b.buildid = c.buildid  
+				    group by name,stattime 
+				        <if test="isWastage != null">
+			         	     having sum(wastage) !=0   
+				      </if> 
+				       <if test="isWastage == null">
+			         	    having sum(convert) !=0   
+				      </if>  
+				     order by stattime,name 
+				     
+			) group by name,substr(stattime,0,4) 
+			order by substr(stattime,0,4),name 	     
+	      </if> 
+	       <if test="isYear == null">
+ 
+			       select name,sum(wastage) wastage,sum(convert) convert,stattime 
+			       from(select bu.name,round(b.wastage/c.wastage,3) wastage,round(b.convert/c.convert,3) convert, 
+			               substr(trim(b.stattime),0,6) stattime 
+			                  from db_stat_build b,db_building bu, 
+			                         (select buildid,round(sum(wastage),2) wastage,round(sum(convert),2) convert,power  
+			           from db_stat_build 
+			      where substr(trim(stattime),0,6)<![CDATA[>=]]>#{startDate}   
+			      and substr(trim(stattime),0,6)<![CDATA[<=]]>#{endDate}   
+			         group by hospid,buildid,power 
+			          <if test="isWastage != null">
+			         	   having sum(wastage)!=0  
+				      </if> 
+				       <if test="isWastage == null">
+			         	   having sum(convert)!=0  
+				      </if>            
+			          and power=#{power}  
+			          and hospid=#{hospid}  ) c 
+			            where b.buildid = building_id  
+			             and substr(trim(b.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+			             and substr(trim(b.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+			             and b.hospid=#{hospid} 
+			              and b.power=#{power} 
+			               <if test="isWastage != null">
+			         	   and b.wastage !=0  
+				      </if> 
+				       <if test="isWastage == null">
+			         	   and b.convert !=0  
+				      </if>  
+				     
+				    and b.buildid = c.buildid  
+				    group by name,stattime 
+				        <if test="isWastage != null">
+			         	     having sum(wastage) !=0   
+				      </if> 
+				       <if test="isWastage == null">
+			         	    having sum(convert) !=0   
+				      </if>  
+				     order by stattime,name 				       
+	      </if> 
+   </select> 
+   
+   
+   <select id="findStandard" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+   			select round(avg(value),2) value,name,substr(trim(stattime),0,4) stattime from(
+   			
+   			 	 select round(sum(s.standard),2) value,name,sum(substr(trim(s.stattime),0,6)) stattime 
+   			     	from db_stat_standard s 
+   			     	where s.name=#{name}  
+   			     	and substr(trim(s.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			     	and substr(trim(s.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+   			     	group by name,substr(trim(s.stattime),0,6) 
+   			     	order by substr(trim(s.stattime),0,6) 	
+   			
+   			  ) group by name,substr(trim(stattime),0,4) 
+   			 order by substr(trim(stattime),0,4),name 	       
+	     </if> 
+	     <if test="isYear == null">
+   			     	select round(sum(s.standard),2) value,name,sum(substr(trim(s.stattime),0,6)) stattime 
+   			     	 from db_stat_standard s 
+   			     	 where s.name=#{name}  
+   			     	 and substr(trim(s.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			     	 and substr(trim(s.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+   			     	 group by name,substr(trim(s.stattime),0,6) 
+   			     	 order by substr(trim(s.stattime),0,6) 		       
+	     </if> 
+   </select> 
+   
+   
+      <select id="findZH" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+   			select name,sum(wastage) wastage, 
+   			sum(convert) convert,sum(dbm) dbm,
+   			substr(stattime,0,4) stattime from(
+   			
+   			 	   			     	select a.building_name name,sum(wastage) wastage, sum(convert) convert,sum(dbm) dbm, stattime    
+   			     	  from( select bu.building_name, b.wastage,round(b.convert,2) convert, 
+   			     	    decode(b.power, 
+   			     	       1,round(b.wastage*3*0.0341,2),
+   			     	            2,round(b.wastage*0.000123,2),  
+			             3,round(b.wastage*0.001223,2),  
+			             4,round(b.wastage*0.001086,2),  
+			             5,round(b.wastage*0.001330,2), b.wastage ) dbm,  
+			             substr(trim(b.stattime),0,6) stattime 
+				          from db_stat_build b, db_building bu  
+				          where b.buildid = bu.building_id 
+				          and substr(trim(b.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+				          and substr(trim(b.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+				          and b.hospid=#{hospid}  
+				          and b.wastage !=0  
+				         )  a
+				       group by a.building_name,stattime 
+				       having sum(dbm)!=0 
+				       order by stattime,a.building_name 
+   			
+   			 ) a group by a.building_name,substr(stattime,0,4) 
+   			order by substr(stattime,0,4),a.building_name 
+	     </if> 
+	     <if test="isYear == null">
+   			     	select a.building_name name,sum(wastage) wastage, sum(convert) convert,sum(dbm) dbm, stattime    
+   			     	  from( select bu.building_name, b.wastage,round(b.convert,2) convert, 
+   			     	    decode(b.power, 
+   			     	       1,round(b.wastage*3*0.0341,2),
+   			     	            2,round(b.wastage*0.000123,2),  
+			             3,round(b.wastage*0.001223,2),  
+			             4,round(b.wastage*0.001086,2),  
+			             5,round(b.wastage*0.001330,2), b.wastage ) dbm,  
+			             substr(trim(b.stattime),0,6) stattime 
+				          from db_stat_build b, db_building bu  
+				          where b.buildid = bu.building_id 
+				          and substr(trim(b.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+				          and substr(trim(b.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+				          and b.hospid=#{hospid}  
+				          and b.wastage !=0  
+				         )  a
+				       group by a.building_name,stattime 
+				       having sum(dbm)!=0 
+				       order by stattime,a.building_name     
+	     </if> 
+   </select> 
+   
+      
+      <select id="findStB" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+   			select bu.building_name name,sum(wastage) wastage, 
+   			sum(convert) convert,
+   			substr(stattime,0,4) stattime from( 
+   			
+   			 	   	select bu.building_name name ,sum(round(b.wastage,2)) wastage,sum(round(b.convert,2)) convert,  
+   			     	 substr(trim(b.stattime),0,6) stattime 
+   			     	 from db_stat_build b,db_building bu 
+   			     	 where b.buildid = bu.building_id 
+   			     	 and substr(trim(b.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			     	 and substr(trim(b.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+   			     	 and b.hospid=#{hospid} 
+   			     	 and b.power=#{power} 
+   			     	 and  
+   			     	<if test="isWastage != null">
+			         	     b.wastage !=0 
+				    </if> 
+				    <if test="isWastage == null">
+			         	     b.convert !=0  
+				    </if>  
+   			     	group by bu.building_name,substr(trim(b.stattime),0,6) 
+					order by substr(trim(b.stattime),0,6),bu.building_name    			     	  	
+   			
+   			 ) group by name,substr(stattime,0,4) 
+   			order by substr(stattime,0,4),bu.building_name 
+	     </if> 
+	     <if test="isYear == null">
+   			     	select bu.building_name name ,sum(round(b.wastage,2)) wastage,sum(round(b.convert,2)) convert,  
+   			     	 substr(trim(b.stattime),0,6) stattime 
+   			     	 from db_stat_build b,db_building bu 
+   			     	 where b.buildid = bu.building_id 
+   			     	 and substr(trim(b.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			     	 and substr(trim(b.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+   			     	 and b.hospid=#{hospid} 
+   			     	 and b.power=#{power} 
+   			     	 and  
+   			     	<if test="isWastage != null">
+			         	     b.wastage !=0 
+				    </if> 
+				    <if test="isWastage == null">
+			         	     b.convert !=0  
+				    </if>  
+   			     	group by bu.building_name,substr(trim(b.stattime),0,6) 
+					order by substr(trim(b.stattime),0,6),bu.building_name    			     	  
+	     </if> 
+   </select> 
+   
+         <select id="findNameById" resultType="ciMap" parameterType="String">    
+         select hosp_name from db_hosp_info where seq_hosp=#{sequence}
+   </select>  
+   
+   
+</mapper>

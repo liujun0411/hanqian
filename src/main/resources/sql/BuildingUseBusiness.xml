@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildingUseBusiness">
+   <select id="findBuilndingUse" resultType="ciMap" >    
+        select a.content1,sum(bs.acreage) a_area ,a.seq from DB_BUILDING_STOREY bs 
+        left join 
+        (select seq,content1 from db_base_comm where oper_type = 
+        #{hospArea}   ) a 
+       	 on bs.area_id=a.seq where bs.status = 0 group by a.content1,a.seq
+         order by a.seq
+   </select>  
+      <select id="findBuildingArea" resultType="ciMap" >    
+         select b.building_id,b.building_name,bs.total,b.storey_num_down,b.storey_num_up 
+          from db_building b ,
+          (select sum(acreage) total,building_id from DB_BUILDING_STOREY where status = 0 group by building_id) bs 
+           where bs.building_id = b.building_id  and b.status = 0  order by bs.building_id
+   </select>  
+   
+   
+         <select id="findBuildUseArea" resultType="ciMap" >    
+         select a.sa,a.area_id,a.building_id,b.content1 
+         from 
+         (select sum(acreage) sa ,area_id,building_id from db_building_storey bs where bs.status = 0 group by bs.area_id,building_id ) a ,
+         db_base_comm b where b.seq = a.area_id order by building_id
+   </select> 
+   
+</mapper>

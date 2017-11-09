@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="热水器">
+   <rsq title="热水器">
+      <property run="02" des="出水温度" unit="℃" colu="" maxVa=""
+			minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </rsq>
+</equipment>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="dataReport" extends="struts-default" namespace="/">
+		<action name="reportRate_*" class="reportRateAction" method="{1}">
+			<result name="show">/manager/report/reportRate.jsp</result>
+			<result name="showAll">/manager/report/showReportRate.jsp</result>
+		</action>
+		<!-- 临时数据上报 -->
+		<action name="reportTemporary_*" class="reportTemporaryAction" method="{1}">
+			<result name="show">/manager/report/reportTemporary.jsp</result>
+		</action>
+		<!-- 数据上报日志 -->
+		<action name="reportDetail_*" class="reportDetailAction" method="{1}">
+			<result name="show">/manager/report/showReportDetail.jsp</result>
+		</action>
+	</package>
+</struts>

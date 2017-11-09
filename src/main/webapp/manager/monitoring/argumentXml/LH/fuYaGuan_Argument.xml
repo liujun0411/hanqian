@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="负压罐">
+   <fuYaGuan title="负压罐">
+       <property run="01" des="压力超高报警" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|超压" condition="" seTitle="" showFlag="0" isAbs="1" errText="超压"></property>
+       <property run="02" des="压力超低报警" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|欠压" condition="01" seTitle="压力状态" showFlag="1" isAbs="1" errText="欠压"></property>
+   </fuYaGuan>
+</equipment>

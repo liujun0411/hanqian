@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DBBuildingStoreyHisBusiness">
+
+   <select id="findDBBuildingStoreyHis" resultType="ciMap" parameterType="map">    
+        select * from db_building_storey_his t where t.seq in (select max(t.seq) from db_building_storey_his t 
+        where t.building_id=#{buildingId}
+         and t.storey=#{storey}
+          and t.area_id=#{areaId})
+   </select>  
+   
+    <select id="findBySeq" parameterType="int"  resultType="com.hanqian.pojo.DbBuildingStoreyHis">
+    select *  from DB_BUILDING_STOREY_HIS
+    where SEQ = #{seq}
+  </select>
+  
+    <insert id="insertDBBuildingStoreyHis" parameterType="com.hanqian.pojo.DbBuildingStoreyHis">
+   
+   <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_BUILDING_STOREY_HIS.nextval as seq from dual
+		</selectKey>
+    insert into DB_BUILDING_STOREY_HIS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dbHospInfo != null">
+        HOSP_ID,
+      </if>
+      <if test="dbBuilding != null">
+        BUILDING_ID,
+      </if>
+      <if test="storey != null">
+        STOREY,
+      </if>
+      <if test="acreage != null">
+        ACREAGE,
+      </if>
+      <if test="recordDate != null">
+        RECORD_DATE,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="input != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="dbBaseComm != null">
+        AREA_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dbHospInfo != null">
+        #{dbHospInfo.seqHosp},
+      </if>
+      <if test="dbBuilding != null">
+        #{dbBuilding.buildingId},
+      </if>
+      <if test="storey != null">
+        #{storey},
+      </if>
+      <if test="acreage != null">
+        #{acreage},
+      </if>
+      <if test="recordDate != null">
+        #{recordDate},
+      </if>
+      <if test="remarks != null">
+        #{remarks},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="input != null">
+        #{input},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="dbBaseComm != null">
+        #{dbBaseComm.seq},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateDbBuildingStoreyHis" parameterType="com.hanqian.pojo.DbBuildingStoreyHis">
+   
+    update DB_BUILDING_STOREY_HIS
+    <set>
+      <if test="dbHospInfo != null">
+        HOSP_ID = #{dbHospInfo.seqHosp},
+      </if>
+      <if test="dbBuilding != null">
+        BUILDING_ID = #{dbBuilding.buildingId},
+      </if>
+      <if test="storey != null">
+        STOREY = #{storey},
+      </if>
+      <if test="acreage != null">
+        ACREAGE = #{acreage},
+      </if>
+      <if test="recordDate != null">
+        RECORD_DATE = #{recordDate},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="input != null">
+        INPUT = #{input},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="oper != null">
+        OPER = #{oper},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+      <if test="dbBaseComm != null">
+        AREA_ID = #{dbBaseComm.seq},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+   
+</mapper>

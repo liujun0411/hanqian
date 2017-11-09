@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+	<!-- 换热器1 -->	
+	<area title="换热器1#" wd="20" hg="20" marLeft="455" marTop="525" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器2 -->
+	<area title="换热器2#" wd="20" hg="20" marLeft="570" marTop="485" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器3 -->
+	<area title="换热器3#" wd="20" hg="20" marLeft="680" marTop="435" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+		
+</equipment>

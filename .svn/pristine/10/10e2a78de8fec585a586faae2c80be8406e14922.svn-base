@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EquipGroupBusiness">
+
+   <select id="findEquipGroupList" resultType="ciMap">    
+        select group_id,group_name from db_equip_group group by group_id,group_name order by group_id asc
+   </select> 
+   
+     <resultMap id="GroupListsResultMap" type="com.hanqian.pojo.DbGroupEquip">  
+	    
+	    <association property="dbEquipGroup" column="seq"
+		javaType="com.hanqian.pojo.DbEquipGroup">
+			<id property="seq" column="seq" />
+			<result column="group_id"  property="groupId" />
+	    	<result column="group_name"  property="groupName" /> 	    	
+	    	<result column="remark"  property="remark" />
+	    	<result column="picname"  property="groupPic" /> 	    	
+	    	<result column="groupcode"  property="groupCode" />
+	    	<association property="dbEquipType" column="equip_type"
+				javaType="com.hanqian.pojo.DbEquipType">
+				<id property="equipTypeId" column="equip_type" />					    	
+			</association>   
+		</association> 
+		<association property="dbEquipList" column="equip_id"
+		javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" column="equip_id" />
+			<result column="equip_name"  property="equipName" />	    
+	    	<association property="dbBuilding" column="building_id"
+				javaType="com.hanqian.pojo.DbBuilding">
+				<id property="buildingId" column="building_id" />					    	
+			</association>   
+		</association>    
+	  </resultMap>
+	  
+	  <!--  select k.seq as seq,k.group_id as group_id,k.group_name as group_name,k.remark as remark,k.group_pic as picname,
+       k.groupcode as groupcode,e.building_id as building_id,e.equip_name as equip_name,
+       e.equip_id as equip_id ,k.equip_type  as equip_type -->
+	  
+	   <select id="findEquipGroupLists" resultType="ciMap" parameterType="string">   
+	   select k.seq,k.group_id,k.group_name,k.remark,k.group_pic picname,k.groupcode,e.building_id,e.equip_name,e.equip_id,k.equip_type  
+      
+       from db_equip_group k,db_group_equip g,db_equip_list e 
+       where k.seq= g.equip_group and g.equip_id=e.equip_id and (k.group_id <![CDATA[<>1 ]]>  or k.group_id is null) 
+          <if test="_parameter != null">
+         	  and (instr(k.group_name, #{_parameter})<![CDATA[>0 ]]> or instr(e.equip_name,#{_parameter})<![CDATA[>0 ]]>)       
+	      </if>
+	       order by k.opertime desc 
+   </select> 
+   
+    <select id="findEquipGroupById" resultType="com.hanqian.pojo.DbEquipGroup"  parameterType="com.hanqian.pojo.DbEquipGroup"  >   
+	 	select * from db_equip_group t where t.seq=#{seq}
+   </select> 
+
+  <delete id="deleteEquipGroup" parameterType="com.hanqian.pojo.DbEquipGroup">  
+    delete from db_equip_group
+    where seq = #{seq}
+  </delete>
+  
+      <select id="findGroupEquipTypeNotPei" resultType="ciMap"   >   
+       select det.equip_type_id        equipTypeId,
+            det.type_name            equipTypeName,
+            det.equip_type_parent_id equipTypeParentId
+       from DB_EQUIP_TYPE det
+      where det.equip_type_id in
+            (select distinct det.equip_type_parent_id
+               from db_point dp
+               left join db_point_equip dpe on dp.seq = dpe.seq
+               left join db_equip_type det on dpe.equip_type_id = det.equip_type_id
+              where dp.alert_level <![CDATA[>]]> 0
+                and length(det.equip_type_parent_id) <![CDATA[<= 4 ]]>)
+   </select> 
+         <select id="findEqList" resultType="ciMap"   parameterType="map" >   
+	 	select e.equip_id equipid,e.equip_name equipname,e.equip_type_id typeid 
+	 	from db_equip_list e where e.equip_type_id in 
+	 	(select t.equip_type_id from db_equip_type t 
+	 	where t.equip_type_id=#{eqtype}
+	 	  or t.equip_type_parent_id=#{eqtype} )
+	 	  <if test="groupId != null">
+         	  and  e.equip_id not in (select ge.equip_id from (select t.equip_id  from db_group_equip t 
+         	  where t.equip_group=#{groupId} 
+         	  )ge,db_equip_list el where ge.equip_id=el.equip_id)   
+	      </if> 
+   </select>
+   
+   <select id="findEqLists" resultType="ciMap"   parameterType="map" >   
+	 	select e.equip_id equipid,e.equip_name equipname,e.equip_type_id typeid ,e.building_id buildingId,e.storey storey 
+	 	from db_equip_list e where e.equip_type_id in (select t.equip_type_id from db_equip_type t 
+	 	where t.equip_type_id=#{eqtype}  or t.equip_type_parent_id=#{eqtype}) and e.control_flag = 1 and e.status =0 
+	 	  <if test="buildId != null">
+         	 and e.building_id =#{buildId}
+	      </if> 
+	      <if test="groupId != null">
+         	   and  e.equip_id not in 
+         	 (select ge.equip_id from (select t.equip_id  from db_group_equip t 
+         	 where t.equip_group= #{groupId} 
+         	 )ge,db_equip_list el where ge.equip_id=el.equip_id) 
+	      </if> 
+   </select> 
+   
+   <select id="findEquipList" resultType="ciMap"   parameterType="String" >   
+	 	select ge.equip_id,el.equip_name,el.equip_type_id from (select t.equip_id  from db_group_equip t
+	 	 where t.equip_group=#{id}
+	 	 ) ge,db_equip_list el
+	 	  where ge.equip_id=el.equip_id
+   </select> 
+
+   <insert id="insertEquipGroup" parameterType="com.hanqian.pojo.DbEquipGroup">  
+   		<selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_DEVICEGROUP.nextval as seq from dual
+		</selectKey>
+    insert into DB_EQUIP_GROUP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME,
+      </if>
+      <if test="PGroupId != null">
+        P_GROUP_ID,
+      </if>
+      <if test="dbEquipType != null">
+        EQUIP_TYPE,
+      </if>
+      <if test="dbUsersByOper != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>     
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="buildId != null">
+        BUILD_ID,
+      </if>
+      <if test="storey != null">
+        STOREY,
+      </if>
+      <if test="groupPic != null">
+        GROUP_PIC,
+      </if>
+      <if test="groupCode != null">
+        GROUPCODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="groupId != null">
+        #{groupId},
+      </if>
+      <if test="groupName != null">
+        #{groupName},
+      </if>
+      <if test="PGroupId != null">
+        #{PGroupId},
+      </if>
+      <if test="dbEquipType != null">
+        #{dbEquipType.equipTypeId},
+      </if>
+      <if test="dbUsersByOper != null">
+        #{dbUsersByOper.seq},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>     
+      <if test="remark != null">
+        #{remark},
+      </if>
+      <if test="buildId != null">
+        #{buildId},
+      </if>
+      <if test="storey != null">
+        #{storey},
+      </if>
+      <if test="groupPic != null">
+        #{groupPic},
+      </if>
+      <if test="groupCode != null">
+        #{groupCode},
+      </if>
+    </trim>
+  </insert>
+  
+    <insert id="insertGroupEquip" parameterType="com.hanqian.pojo.DbGroupEquip">   
+    insert into DB_GROUP_EQUIP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null and id.equipGroup !=null ">
+        EQUIP_GROUP,
+      </if>
+      <if test="id != null and id.equipId !=null ">
+        EQUIP_ID,
+      </if>     
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null and id.equipGroup !=null ">
+        #{id.equipGroup},
+      </if>
+      <if test="id != null and id.equipId !=null ">
+        #{id.equipId},
+      </if>      
+    </trim>
+  </insert>
+  
+    <update id="updateEquipGroupByKey" parameterType="com.hanqian.pojo.DbEquipGroup">   
+    update DB_EQUIP_GROUP
+    <set>
+      <if test="groupId != null">
+        GROUP_ID = #{groupId},
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME = #{groupName},
+      </if>
+      <if test="PGroupId != null">
+        P_GROUP_ID = #{PGroupId},
+      </if>
+      <if test="dbEquipType != null">
+        EQUIP_TYPE = #{dbEquipType.equipTypeId},
+      </if>
+     
+      <if test="dbUsersByOper != null">
+        OPER = #{dbUsersByOper.seq},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark},
+      </if>
+      <if test="buildId != null">
+        BUILD_ID = #{buildId},
+      </if>
+      <if test="storey != null">
+        STOREY = #{storey},
+      </if>
+      <if test="groupPic != null">
+        GROUP_PIC = #{groupPic},
+      </if>
+      <if test="groupCode != null">
+        GROUPCODE = #{groupCode},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+    <update id="updateGroupEquip" parameterType="com.hanqian.pojo.DbGroupEquip">
+  
+    update DB_GROUP_EQUIP
+    set EQUIP_GROUP = #{id.equipGroup},
+      EQUIP_ID = #{id.equipId}    
+  </update>
+  
+    <delete id="deleteGroupEquip" parameterType="com.hanqian.pojo.DbGroupEquip">  
+    delete from DB_GROUP_EQUIP
+    where EQUIP_GROUP = #{id.equipGroup}
+      and EQUIP_ID = #{id.equipId}
+  </delete>
+  
+    <delete id="deleteGroupEquip2" parameterType="com.hanqian.pojo.DbGroupEquip">  
+    delete from DB_GROUP_EQUIP
+    where EQUIP_GROUP = #{id.equipGroup}
+  </delete>
+  
+  
+  
+             <select id="findEquipGroupListss" resultType="ciMap"   parameterType="map" >   
+	 	select kge.seq,kge.group_name,kge.equip_id,kge.equip_type,t.type_name,kge.build_id ,kge.remark,kge.groupcode from db_equip_type t,
+	 	(select k.seq,k.group_name,e.equip_name,e.equip_id,k.equip_type,k.build_id ,k.remark,k.groupcode 
+	 	from db_equip_group k,db_group_equip g,db_equip_list e 
+	 	where k.seq= g.equip_group and g.equip_id=e.equip_id) kge 
+	 	where t.equip_type_id=kge.equip_type and t.equip_type_id =#{typeId}
+	 	  <if test="groupId != null">
+         	 and kge.seq =#{groupId}
+	      </if> 
+	      order by kge.group_name,t.equip_type_id
+   </select> 
+   
+            <select id="findEquipGroup" resultType="ciMap"   parameterType="map" >   
+	 	select k.seq,k.group_id,k.group_name,e.equip_name,e.equip_code 
+	 	from db_equip_group k,db_group_equip g,db_equip_list e 
+	 	where k.seq= g.equip_group and g.equip_id=e.equip_id 
+	 	  <if test="groupId != null">
+         	 and k.seq=#{groupId}
+	      </if> 
+	      order by e.equip_code asc
+   </select> 
+   
+               <select id="findPeiDian" resultType="ciMap"   parameterType="map" >   
+	 	select t.seq,t.group_id,t.group_name,t.p_group_id,t.equip_type,b.building_name,b.STOREY_NUM_DOWN,b.STOREY_NUM_UP,t.storey,t.remark,(select count(*) from db_equip_group m where m.p_group_id=t.seq ) totalCount from db_equip_group t inner join db_building b on t.build_id=b.building_id where 1=1 
+	 	  <if test="eqTypeId != null">
+         	 and t.equip_type=#{eqTypeId}
+	      </if> 
+	       <if test="buildingId != null">
+         	  and t.build_id=#{buildingId}
+	      </if> 
+	       <if test="stroey != null">
+         	  and t.storey==#{stroey}
+	      </if> 
+	      and t.p_group_id is null order by t.group_name
+   </select> 
+   
+   
+     <select id="findChildGroup" resultType="ciMap"   parameterType="map" >   
+	 	select t.seq,t.group_id,t.group_name,t.equip_type from db_equip_group t where t.p_group_id=#{groupId} order by t.group_name
+   </select> 
+   
+        <select id="findByIdEquipGroupBusiness" resultType="ciMap"   parameterType="map" >   
+	 	select t.group_name from db_equip_group t where t.seq=#{groupId}
+   </select> 
+      
+        <select id="findGroupByEquip" resultType="ciMap"   parameterType="map" >   
+	 	select el.seq,et.equip_type_id,el.group_name,et.type_name,el.remark from db_group_equip ge inner join db_equip_group el on ge.equip_group=el.seq inner join db_equip_type et on et.equip_type_id=el.equip_type where ge.equip_id=#{equipId}
+   </select> 
+   
+           <select id="findGroupByEQTypeId" resultType="ciMap"   parameterType="map" >   
+	 	select kge.seq,kge.group_name from db_equip_type t,(select k.seq,k.group_name,e.equip_name,e.equip_id,k.equip_type from db_equip_group k,db_group_equip g,db_equip_list e where k.seq= g.equip_group and g.equip_id=e.equip_id) kge where t.equip_type_id=kge.equip_type and
+	 	 t.equip_type_id =#{eqTypeId} group by kge.seq,kge.group_name  order by kge.group_name
+   </select> 
+   
+      
+           <select id="findPicNameByGroupId" resultType="ciMap"   parameterType="map" >   
+	 	select * from db_equip_group where seq =#{groupId}
+   </select> 
+   
+              <select id="findPicNameByEquipId" resultType="ciMap"   parameterType="map" >   
+	 	 select * from (select p.pic_address from db_equip_pic_rel r inner join db_equip_pic p on p.equip_pic_id=r.pic_id where p.pic_type_id=1 and
+	 	  r.equip_id=#{equipId}  order by p.opertime desc ) where rownum<![CDATA[<]]>2
+   </select>
+   
+  
+</mapper>

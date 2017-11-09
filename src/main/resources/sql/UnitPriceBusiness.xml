@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.UnitPriceBusiness">  
+
+ <!-- SEQ_DB_UNIT_PRICE_ID -->
+
+	<select id="findUnitPrice" resultType="ciMap" parameterType="map">	
+		 select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where 1=1 
+		 <if test="type != null">
+		  	and w.type =#{type}
+		 </if>
+		 <if test="id != null">
+		  	and w.id =#{id}
+		 </if>
+	</select>
+	
+	
+	<insert id="insertUnitPrice" parameterType="com.hanqian.pojo.DbUnitPrice">
+	    <selectKey order="BEFORE" keyProperty="id" resultType="int">
+	    select SEQ_DB_UNIT_PRICE_ID.nextval as id from dual
+	   
+	    </selectKey>
+    insert into DB_UNIT_PRICE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="priiceMonthRangStart != null">
+        PRIICE_MONTH_RANG_START,
+      </if>
+      <if test="priiceMonthRangEnd != null">
+        PRIICE_MONTH_RANG_END,
+      </if>
+      <if test="unitPrice != null">
+        UNIT_PRICE,
+      </if>
+      <if test="customerCode != null">
+        CUSTOMER_CODE,
+      </if>
+      <if test="opTime != null">
+        OP_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="type != null">
+        #{type},
+      </if>
+      <if test="priiceMonthRangStart != null">
+        #{priiceMonthRangStart},
+      </if>
+      <if test="priiceMonthRangEnd != null">
+        #{priiceMonthRangEnd},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice},
+      </if>
+      <if test="customerCode != null">
+        #{customerCode},
+      </if>
+      <if test="opTime != null">
+        #{opTime},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateUnitPrice" parameterType="com.hanqian.pojo.DbUnitPrice">
+    update DB_UNIT_PRICE
+    <set>
+      <if test="type != null">
+        TYPE = #{type},
+      </if>
+      <if test="priiceMonthRangStart != null">
+        PRIICE_MONTH_RANG_START = #{priiceMonthRangStart},
+      </if>
+      <if test="priiceMonthRangEnd != null">
+        PRIICE_MONTH_RANG_END = #{priiceMonthRangEnd},
+      </if>
+      <if test="unitPrice != null">
+        UNIT_PRICE = #{unitPrice},
+      </if>
+      <if test="customerCode != null">
+        CUSTOMER_CODE = #{customerCode},
+      </if>
+      <if test="opTime != null">
+        OP_TIME = #{opTime},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  
+  <delete id="" parameterType="map">
+  	delete from db_unit_price where id =#{id}
+  </delete>
+  
+  	<select id="findIsHasUnitPricelt" resultType="ciMap" parameterType="map">	
+		  select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where w.type =#{energyType} 
+		 	and w.priice_month_rang_start<![CDATA[<]]>#{billMonth} order by priice_month_rang_start 
+	</select>
+	
+	  	<select id="findIsHasUnitPricegt" resultType="ciMap" parameterType="map">	
+		  select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where w.type =#{energyType} 
+		 	 and w.priice_month_rang_start<![CDATA[>]]>#{billMonth}  order by priice_month_rang_start desc 
+	</select>
+	
+	  	<select id="findIsHasUnitPrice" resultType="ciMap" parameterType="map">	
+		  select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where w.type =#{energyType} 
+		 	and w.bill_month=#{billMonth} order by priice_month_rang_start desc 
+	</select>
+	
+	
+	
+	<select id="findHasRecord" resultType="ciMap" parameterType="map">	
+		   select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where w.id =#{id} 
+		    and w.unit_price =#{unitPrice}  
+		    and (w.priice_month_rang_end =#{end} or w.priice_month_rang_start =#{end})
+	</select>
+	
+	
+		<select id="findHasRecordstart" resultType="ciMap" parameterType="map">	
+		   select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where w.id =#{id} 
+		    and w.unit_price =#{unitPrice}  
+		    and w.priice_month_rang_start =#{end}
+	</select>
+	
+		<select id="findHasRecordend" resultType="ciMap" parameterType="map">	
+		   select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where w.id =#{id} 
+		    and w.unit_price =#{unitPrice}  
+		     and w.priice_month_rang_end =#{end}
+	</select>
+	
+		<select id="findHasRecordand" resultType="ciMap" parameterType="map">	
+		   select w.*,to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime from db_unit_price w where w.id =#{id} 
+		    and w.unit_price =#{unitPrice}  
+		     and w.priice_month_rang_end <![CDATA[>]]>#{end} and w.priice_month_rang_start <![CDATA[<]]>#{end})
+	</select>
+  
+
+   
+</mapper>

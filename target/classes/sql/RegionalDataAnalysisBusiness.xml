@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.RegionalDataAnalysisBusiness">
+
+ 	<select id="findAllHosVOStatCondition" resultType="ciMap">
+		select * from db_hosp_info
+	</select>
+	
+	   <select id="findZHAna" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+   			select sum(dbm) dbm,name,substr(stattime,0,4) stattime  from (
+   			
+   			     	select round(sum( 	
+   			     	   decode(power, 
+			   1,round(wastage*3*0.0341,2), 
+			   2,round(wastage*0.000123,2), 
+			   3,round(wastage*0.001223,2), 
+			   4,round(wastage*0.001086,2), 
+			   5,round(wastage*0.001330,2), 
+			   wastage "+
+			   )/s.avgwas "+
+			 ),3) dbm, "+
+			 h.name,substr(trim(a.stattime),0,6) stattime 
+			 from db_stat_area a,db_hospitalinfo h, 
+			 (select sum( 
+			   decode(power, 
+			     1,round(wastage*3*0.0341,2), 
+			     2,round(wastage*0.000123,2), 
+			     3,round(wastage*0.001223,2), 
+			     4,round(wastage*0.001086,2), 
+			     5,round(wastage*0.001330,2), 
+			     wastage 
+			     ) 
+			   ) avgwas from db_stat_area sa 
+			   where sa.yt =#{yt} 
+			   and sa.hospitalid in(#{hospids}) 
+			   and substr(trim(stattime),0,6)<![CDATA[>=]]>#{startDate}
+			   and substr(trim(stattime),0,6)<![CDATA[<=]]>#{endDate}
+			 ) s 
+			 where a.yt =#{yt}   
+			 and a.hospitalid = h.sequence 
+			 and a.hospitalid in(#{hospids}) 
+			 and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+			 and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+			 group by name,substr(trim(a.stattime),0,6) 
+			 order by stattime,name   
+   			
+   			 ) 
+   			 group by name,substr(stattime,0,4) 
+   			 order by substr(stattime,0,4),name   
+	     </if> 
+	     <if test="isYear == null">
+   			     	select round(sum( 	
+   			     	   decode(power, 
+			   1,round(wastage*3*0.0341,2), 
+			   2,round(wastage*0.000123,2), 
+			   3,round(wastage*0.001223,2), 
+			   4,round(wastage*0.001086,2), 
+			   5,round(wastage*0.001330,2), 
+			   wastage "+
+			   )/s.avgwas "+
+			 ),3) dbm, "+
+			 h.name,substr(trim(a.stattime),0,6) stattime 
+			 from db_stat_area a,db_hospitalinfo h, 
+			 (select sum( 
+			   decode(power, 
+			     1,round(wastage*3*0.0341,2), 
+			     2,round(wastage*0.000123,2), 
+			     3,round(wastage*0.001223,2), 
+			     4,round(wastage*0.001086,2), 
+			     5,round(wastage*0.001330,2), 
+			     wastage 
+			     ) 
+			   ) avgwas from db_stat_area sa 
+			   where sa.yt =#{yt} 
+			   and sa.hospitalid in(#{hospids}) 
+			   and substr(trim(stattime),0,6)<![CDATA[>=]]>#{startDate}
+			   and substr(trim(stattime),0,6)<![CDATA[<=]]>#{endDate}
+			 ) s 
+			 where a.yt =#{yt}   
+			 and a.hospitalid = h.sequence 
+			 and a.hospitalid in(#{hospids}) 
+			 and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+			 and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+			 group by name,substr(trim(a.stattime),0,6) 
+			 order by stattime,name       
+	     </if> 
+   </select> 
+   
+   	   <select id="findStatAna" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+         select sum(wastage) wastage,name,substr(stattime,0,4) stattime 
+         from (
+         
+   			     select sum(wastage) wastage,name,stattime  
+   			       from(select round(a.wastage/s.wastage,3) wastage,h.name,substr(trim(a.stattime),0,6) stattime 
+   			           from db_stat_area a,db_hospitalinfo h ,
+   			               (select sum(sa.wastage) wastage  
+   			                       from db_stat_area sa  
+   			                             where sa.yt =#{yt} 
+   			                                   and sa.hospitalid in(#{hospids})  
+   			                                          and sa.power =#{power} 
+   			          and substr(trim(stattime),0,6)<![CDATA[>=]]>#{startDate}  
+			          and substr(trim(stattime),0,6)<![CDATA[<=]]>#{endDate} 
+			              ) s  
+			                where a.yt =#{yt}  
+			                   and a.hospitalid = h.sequence 
+			                     and a.hospitalid in(#{hospids}) 
+			                        and a.power =#{power}  
+			                           and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+			                              and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+			                               ) 
+			                                 group by name,stattime
+			                                   order by stattime,name 
+			                                   
+			        ) 
+			        group by name,substr(stattime,0,4) 
+			        order by substr(stattime,0,4),name                            
+	     </if> 
+	     <if test="isYear == null">
+   			     select sum(wastage) wastage,name,stattime  
+   			       from(select round(a.wastage/s.wastage,3) wastage,h.name,substr(trim(a.stattime),0,6) stattime 
+   			           from db_stat_area a,db_hospitalinfo h ,
+   			               (select sum(sa.wastage) wastage  
+   			                       from db_stat_area sa  
+   			                             where sa.yt =#{yt} 
+   			                                   and sa.hospitalid in(#{hospids})  
+   			                                          and sa.power =#{power} 
+   			          and substr(trim(stattime),0,6)<![CDATA[>=]]>#{startDate}  
+			          and substr(trim(stattime),0,6)<![CDATA[<=]]>#{endDate} 
+			              ) s  
+			                where a.yt =#{yt}  
+			                   and a.hospitalid = h.sequence 
+			                     and a.hospitalid in(#{hospids}) 
+			                        and a.power =#{power}  
+			                           and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+			                              and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+			                               ) 
+			                                 group by name,stattime
+			                                   order by stattime,name 
+	     </if> 
+   </select> 
+	
+	   	   <select id="findZH" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+                        select sum(dbm) dbm,name,substr(stattime,0,4) stattime  
+                        from (
+                        
+                          select round(sum( 
+		         decode(power, 
+		           1,round(wastage*3*0.0341,2), 
+		           2,round(wastage*0.000123,2), 
+		           3,round(wastage*0.001223,2), 
+		           4,round(wastage*0.001086,2), 
+		           5,round(wastage*0.001330,2), 
+		           wastage 
+		          ) 
+		         ),2) dbm,
+		         h.hosp_name name,substr(trim(a.stattime),0,6) stattime 
+		       from db_stat_area a,db_hosp_info h 
+		      where a.yt =#{yt}  
+		       and a.hospitalid = h.seq_hosp 
+		       and a.hospitalid in(#{hospids}) 
+		       and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+		       and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+		     group by h.hosp_name,substr(trim(a.stattime),0,6) 
+		     order by substr(trim(a.stattime),0,6),h.hosp_name
+                        
+                        ) 
+                        group by name,substr(stattime,0,4) 
+                        order by substr(stattime,0,4),name  
+	     </if> 
+	     <if test="isYear == null">
+   			  select round(sum( 
+		         decode(power, 
+		           1,round(wastage*3*0.0341,2), 
+		           2,round(wastage*0.000123,2), 
+		           3,round(wastage*0.001223,2), 
+		           4,round(wastage*0.001086,2), 
+		           5,round(wastage*0.001330,2), 
+		           wastage 
+		          ) 
+		         ),2) dbm,
+		         h.hosp_name name,substr(trim(a.stattime),0,6) stattime 
+		       from db_stat_area a,db_hosp_info h 
+		      where a.yt =#{yt}  
+		       and a.hospitalid = h.seq_hosp 
+		       and a.hospitalid in(#{hospids}) 
+		       and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+		       and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+		     group by h.hosp_name,substr(trim(a.stattime),0,6) 
+		     order by substr(trim(a.stattime),0,6),h.hosp_name
+			                         
+	     </if> 
+   </select> 
+   
+   	   	   <select id="findStat" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+                     select sum(wastage) wastage,name,substr(stattime,0,4) stattime 
+                        from (
+                        
+                        select round(sum(a.wastage),2) wastage,h.hosp_name name ,substr(trim(a.stattime),0,6) stattime 
+   			    from db_stat_area a,db_hosp_info h 
+   			      where a.yt =#{yt} 
+   			         and a.hospitalid = h.seq_hosp 
+   			           and a.hospitalid in(#{hospids}) 
+   			             and a.power =#{power} 
+   			               and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			                  and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+   			                   group by h.hosp_name,substr(trim(a.stattime),0,6) 
+   			                   order by stattime,h.hosp_name
+                        
+                        ) 
+                        group by name,substr(stattime,0,4) 
+                        order by substr(stattime,0,4),name 
+                   
+	     </if> 
+	     <if test="isYear == null">
+   			 select round(sum(a.wastage),2) wastage,h.hosp_name name ,substr(trim(a.stattime),0,6) stattime 
+   			    from db_stat_area a,db_hosp_info h 
+   			      where a.yt =#{yt} 
+   			         and a.hospitalid = h.seq_hosp 
+   			           and a.hospitalid in(#{hospids}) 
+   			             and a.power =#{power} 
+   			               and substr(trim(a.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			                  and substr(trim(a.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+   			                   group by h.hosp_name,substr(trim(a.stattime),0,6) 
+   			                   order by stattime,h.hosp_name
+			                         
+	     </if> 
+   </select> 
+   
+   
+      	   	   <select id="findStandard" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+                   select round(avg(value),2) value,name,substr(stattime,0,4) stattime from( 
+                   
+                            select round(sum(s.standard),2) value,name,substr(trim(s.stattime),0,6) stattime 
+   			     from db_stat_standard s 
+   			       where s.name=#{name} 
+   			          and substr(trim(s.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			             and substr(trim(s.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+   			               group by name,substr(trim(s.stattime),0,6)
+   			                 order by name,substr(trim(s.stattime),0,6)           
+                   
+                   ) group by name,substr(stattime,0,4) 
+                   order by substr(stattime,0,4),name 
+                   
+	     </if> 
+	     <if test="isYear == null">
+   			 select round(sum(s.standard),2) value,name,substr(trim(s.stattime),0,6) stattime 
+   			     from db_stat_standard s 
+   			       where s.name=#{name} 
+   			          and substr(trim(s.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			             and substr(trim(s.stattime),0,6)<![CDATA[<=]]>#{endDate}  
+   			               group by name,substr(trim(s.stattime),0,6)
+   			                 order by name,substr(trim(s.stattime),0,6) 
+			                         
+	     </if> 
+   </select> 
+	
+	
+   
+</mapper>

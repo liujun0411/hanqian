@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 热区绘制说明 -->
+<!-- 1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标 -->
+<equipment>
+   <!-- 20150129热水泵新加点位 -->
+   <!-- 热水泵1 -->
+   <!--<area title="热水泵1#" wd="30" hg="25" marLeft="420" marTop="226" prop="hotBeng" initFlag="hide" eqTypeId="1004007" positionX="" postionY="" eventType="click"></area>-->
+   <!-- 热水泵2 -->
+   <!--<area title="热水泵2#" wd="30" hg="25" marLeft="451" marTop="242" prop="hotBeng" initFlag="hide" eqTypeId="1004007" positionX="" postionY="" eventType="click"></area>-->
+   
+   
+   <!-- 换热器1 -->
+   <!--<area title="3#热水锅炉[约克]1" wd="20" hg="20" marLeft="-1265" marTop="-1400" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="" postionY="" eventType="click"></area>-->
+   <!--<area title="1#热水锅炉[约克]2" wd="20" hg="20" marLeft="-1300" marTop="-1450" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="" postionY="" eventType="click"></area>-->
+   <!--<area title="2#热水锅炉[约克]3" wd="20" hg="20" marLeft="-1265" marTop="-1420" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="" postionY="" eventType="click"></area>-->
+ 
+   <!--<area title="真空锅炉1#" wd="20" hg="20" marLeft="233" marTop="286" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="" postionY="" eventType="click"></area>-->
+   <!--<area title="真空锅炉2#" wd="20" hg="20" marLeft="204" marTop="265" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="" postionY="" eventType="click"></area>-->	
+   
+  <!-- 分水器 -->
+   <!--<area title="分水器" wd="0" hg="0" marLeft="-1000" marTop="-1020" prop="coolTower" initFlag="hide" eqTypeId="1004005" positionX="" postionY="" eventType="click"></area>-->
+   <!-- 集水器 -->
+   <!--<area title="集水器" wd="0" hg="0" marLeft="-1000" marTop="-1020" prop="coolTower" initFlag="hide" eqTypeId="1004006" positionX="" postionY="" eventType="click"></area>-->
+</equipment>

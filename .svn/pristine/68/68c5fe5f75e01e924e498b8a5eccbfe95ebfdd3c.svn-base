@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+	<equip groupCode="jsj_01" flashHeight="300" flashWidth="1000">
+		<xy x="335" y="290" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="80364" type="6001"></point>
+			<point id="80365" type="6002" num="1"></point>
+		</xy>
+	 </equip>
+</equipment>
+
+ 

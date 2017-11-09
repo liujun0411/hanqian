@@ -1,0 +1,697 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EquipListBusiness">
+<select id="findEquipByBuildingId" resultType="ciMap" parameterType="map">    
+        select * from db_equip_list t where t.building_id=#{buildingId}
+   </select> 
+   
+   
+   <select id="findDbEquipListByIdFuWu" resultType="ciMap" parameterType="map">    
+        select equip.equip_id, equip.equip_name, bui.building_id, bui.building_name, comm.seq, comm.content1, ser.seq,
+			 ser.storey from db_equip_list equip left join equip_service ser 
+       on ser.equip_id=equip.equip_id left join db_building  bui 
+       on bui.building_id=ser.build_id left join db_base_comm  comm 
+       on comm.seq=ser.areas where ser.equip_id = #{equipId}
+   </select>
+   <!-- 查询第三方点位信息 2016-08-04 -->
+   <select id="threePointList" resultType="ciMap" parameterType="map">    
+        select po.project_point,da.record,po.point_name,da.recordtime 
+          from db_point po left join db_controldata da
+           on po.project_point = da.project_point
+            where po.descr in ('精中1号楼空调系统5层1#新风机--累计流量','精中1号楼空调系统5层1#新风机--蒸汽压力','精中1号楼空调系统5层1#新风机--出水温度')
+   </select>
+<select id="findAllEquipment" resultType="ciMap" parameterType="map">    
+        select e.control_flag controlflag, e.equip_id equipId, e.equip_code equipCode, e.equip_name equip_name,
+          e.brand brand, e.unit_type unitType, e.place place, e.assetscode, e.storey storey, d.Building_Name,
+          d.storey_num_down, d.storey_num_up, d.building_id, t.type_name, t.equip_type_id
+     		from db_equip_list e inner join db_building d on 1 = 1
+   			 inner join db_equip_type t on t.equip_type_id = e.equip_type_id and e.building_id = d.building_id and d.status = 0
+          <if test="buildingid != null">
+         	  and d.building_id = #{buildingid}
+	      </if>
+          <if test="storey != null">
+         	  and e.storey = #{storey} 
+	      </if>
+          <if test="place != null">
+         	  and e.place like '%${place}%'
+	      </if>
+          <if test="unitType != null">
+         	  and e.unit_type like '%${unitType}%'
+	      </if>
+	      <if test="equipCode != null">
+         	  and e.equip_code like '%${equipCode}%'
+	      </if>
+	      <if test="equipName != null">
+         	  and e.equip_name like '%${equipName}%'
+	      </if>
+	     <if test="controlFlag != null">
+         	  and e.control_flag = #{controlFlag}
+	      </if>
+	      <if test="hisName != null">
+         	  and d.his_name like '%${hisName}%'
+	      </if>
+	      <if test="equipStatus != null">
+         	  and e.status = #{equipStatus}
+	      </if>
+	      <if test="equipStatus == null">
+         	  and e.status = 0
+	      </if>
+          <if test="eqTypeId != null">
+         	  and e.equip_type_id in
+         	  (select t.EQUIP_TYPE_ID_CHILDREN as equip_id from V_equip_type t where t.equip_type_id = #{eqTypeId})
+	      </if>
+	     order by e.equip_type_id, e.building_id, e.storey desc 
+	     
+   </select> 
+   
+   <select id="findALlEquipTaipingjianList" resultType="ciMap" parameterType="map">    
+      select dc.controlpoint,del.equip_id as equipid, del.equip_code, del.equip_name,del.equip_type_id,det.type_name,
+       del.brand, del.place,del.unit_type as unittype, del.building_id, db.building_name,del.storey, es.comments as server_comments,
+       db1.building_name as server_building_name, es.storey as server_storey, dc.record as da
+		  from db_controldata dc left join db_point dp on dc.project_point = dp.project_point left join db_point_equip dpe on dp.seq = dpe.seq
+		  left join db_equip_list del on dpe.equip_id = del.equip_id left join db_building db on del.building_id = db.building_id
+		  left join db_equip_type det on del.equip_type_id = det.equip_type_id left join equip_service es on del.equip_id = es.equip_id
+		  left join db_building db1 on es.build_id = db1.building_id
+		  where 1 = 1 and del.equip_type_id = 10001 and substr(dp.project_point, instr(dp.project_point, '.', 1) + 1, 2) = '21'
+         <if test="buildingId != null">
+         	  and del.building_id=#{buildingId}  
+	      </if>
+         <if test="storey != null">
+         	  and del.storey=#{storey}
+	      </if>
+         <if test="place != null">
+         	  and del.place=#{place}
+	      </if>
+	      order by del.building_id ,del.storey , del.equip_code
+   </select> 
+   
+   <select id="findALlEquipListyongdianxitong" resultType="ciMap" parameterType="map">    
+      select dc.controlpoint, del.equip_id as equipid, del.equip_code, del.equip_name, del.equip_type_id, det.type_name, del.brand,
+       del.place, del.unit_type as unittype, del.building_id, db.building_name, del.storey, es.comments as server_comments,
+       db1.building_name as server_building_name, es.storey as server_storey, dc.record as da
+		  from db_controldata dc left join db_point dp on dc.project_point = dp.project_point
+		  left join db_point_equip dpe on dp.seq = dpe.seq left join db_equip_list del on dpe.equip_id = del.equip_id
+		  left join db_building db on del.building_id = db.building_id left join db_equip_type det on del.equip_type_id = det.equip_type_id
+		  left join equip_service es on del.equip_id = es.equip_id left join db_building db1 on es.build_id = db1.building_id
+		 where del.status = 0 and dp.alert_level > 0 and del.equip_type_id = 10001 and substr(dp.project_point, instr(dp.project_point, '.', 1) + 1, 2) = '19'
+         <if test="buildingId != null">
+         	  and del.building_id=#{buildingId}  
+	      </if>
+         <if test="storey != null">
+         	  and del.storey=#{storey}
+	      </if>
+         <if test="place != null">
+         	  and del.place like '%${place}%'
+	      </if>
+	      <if test="serviceBuildingId != null">
+         	  and es.build_id = #{serviceBuildingId}
+	      </if>
+	      <if test="serviceStorey != null">
+         	  and es.storey = #{serviceStorey}
+	      </if>
+	      <if test="serviceArea != null">
+         	  and  upper(es.areas) like '%' || upper(#{serviceArea}) || '%'
+	      </if>
+	        order by del.building_id ,del.storey , del.equip_code
+   </select>
+   
+   <select id="findPower" resultType="ciMap" parameterType="map">                      
+      select dc.controlpoint,  
+	  del.equip_id as equipid, 
+	  dc.recordtime,           
+	  db1.STOREY_NUM_DOWN,    
+	  db1.STOREY_NUM_UP,       
+	  del.equip_code,          
+	  del.equip_name,          
+	  del.equip_type_id,       
+	  det.type_name,          
+	  del.brand,               
+	  del.place,               
+	  del.unit_type as unittype,
+	  del.building_id,         
+	  db.building_name,        
+	  dp.unit_type unit,       
+	  del.storey,              
+	  es.comments as server_comments,
+	  db1.building_name as server_building_name,
+	  es.storey as server_storey,      
+	  dc.record as data_value,    
+	  db.building_name||es.storey||'层('||es.comments||')'     
+	  from db_controldata dc                 
+	  left join db_point dp                  
+	  on dc.project_point=dp.project_point   
+	  left join db_point_equip dpe           
+	  on dp.seq=dpe.seq                      
+	  left join db_equip_list del            
+	  on dpe.equip_id=del.equip_id           
+	  left join db_building db               
+	  on del.building_id=db.building_id     
+	  left join db_equip_type det            
+	  on del.equip_type_id=det.equip_type_id 
+	  left join equip_service es             
+	  on del.equip_id=es.equip_id            
+	  left join db_building db1              
+	  on es.build_id=db1.building_id         
+	  where del.status=0  
+          <if test="equipTypeId != null">
+         	and dp.project_point like '%.16'  
+	      </if>           
+	      <if test="equipTypeId2 != null">
+         	and del.equip_type_id =#{equipTypeId2}  
+	      </if>
+	      <if test="buildingId != null">
+         	and del.building_id =#{buildingId}  
+	      </if>
+	      <if test="storey != null">
+         	and del.storey =#{storey}  
+	      </if>
+	      <if test="place != null">
+         	and del.place like '%${place}%'  
+	      </if>
+	      <if test="unitType != null">
+	        and upper(del.unit_type) like '%'||upper(#{unitType})||'%' 
+	      </if>
+	      <if test="buildId != null">
+         	 and es.build_id=#{buildId}
+	      </if>
+	      <if test="storey1 != null">
+         	 and es.storey  =#{storey1}
+	      </if>
+	      <if test="content1 != null">
+	         and db.building_name||es.storey||'层('||es.comments||')' like '%'||upper(#{content1})||'%'
+	      </if>
+	         order by del.building_id ,del.storey , del.equip_code
+   </select> 
+   
+   <select id="checkEquipCode" resultType="ciMap" parameterType="map">    
+        select t.equip_code equipCode from db_equip_list t where t.equip_code=#{equipCode}
+         <if test="equipId != null">
+         	   and equip_id = #{equipId}
+	      </if>
+   </select> 
+
+  <update id="deleteEquipList" parameterType="String">  
+    update db_equip_list t set t.status =1 where t.equip_id=#{equipListId}
+  </update>
+  
+   <insert id="insertEquipList" parameterType="com.hanqian.pojo.DbEquipList">
+  		<selectKey resultType="int" keyProperty="equipId" order="BEFORE">
+			select
+			SEQ_DEVICE.nextval as equipId from dual
+		</selectKey> 
+    insert into DB_EQUIP_LIST
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipId != null">
+        EQUIP_ID,
+      </if>
+      <if test="equipCode != null">
+        EQUIP_CODE,
+      </if>
+      <if test="dbEquipType != null">
+        EQUIP_TYPE_ID,
+      </if>
+      <if test="equipName != null">
+        EQUIP_NAME,
+      </if>
+      <if test="assetscode != null">
+        ASSETSCODE,
+      </if>
+      <if test="dbHospInfo != null">
+        HOSP_ID,
+      </if>
+      <if test="dbBuilding != null">
+        BUILDING_ID,
+      </if>
+      <if test="storey != null">
+        STOREY,
+      </if>
+      <if test="place != null">
+        PLACE,
+      </if>
+      <if test="controlFlag != null">
+        CONTROL_FLAG,
+      </if>
+      <if test="brand != null">
+        BRAND,
+      </if>
+      <if test="unitType != null">
+        UNIT_TYPE,
+      </if>
+      <if test="production != null">
+        PRODUCTION,
+      </if>
+      <if test="field != null">
+        FIELD,
+      </if>
+      <if test="productionDate != null">
+        PRODUCTION_DATE,
+      </if>
+      <if test="installDate != null">
+        INSTALL_DATE,
+      </if>
+      <if test="useDate != null">
+        USE_DATE,
+      </if>
+      <if test="serviceLife != null">
+        SERVICE_LIFE,
+      </if>
+      <if test="limited != null">
+        LIMITED,
+      </if>
+      <if test="purchase != null">
+        PURCHASE,
+      </if>
+      <if test="serviceCycle != null">
+        SERVICE_CYCLE,
+      </if>
+      <if test="accessory != null">
+        ACCESSORY,
+      </if>      
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="dbUsers != null">
+        OPER,
+      </if>
+      <if test="dbEnergyType != null">
+        POWER_TYPE,
+      </if>
+      <if test="node_level != null">
+        node_level,
+      </if>
+      <if test="node_parent != null">
+        node_parent
+      </if>      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipId != null">
+        #{equipId},
+      </if>
+      <if test="equipCode != null">
+        #{equipCode},
+      </if>
+      <if test="dbEquipType != null">
+        #{dbEquipType.equipTypeId}, 
+      </if>
+      <if test="equipName != null">
+        #{equipName},
+      </if>
+      <if test="assetscode != null">
+        #{assetscode},
+      </if>
+      <if test="dbHospInfo != null">
+        #{dbHospInfo.seqHosp},
+      </if>
+      <if test="dbBuilding != null">
+        #{dbBuilding.buildingId},
+      </if>
+      <if test="storey != null">
+        #{storey},
+      </if>
+      <if test="place != null">
+        #{place},
+      </if>
+      <if test="controlFlag != null">
+        #{controlFlag},
+      </if>
+      <if test="brand != null">
+        #{brand},
+      </if>
+      <if test="unitType != null">
+        #{unitType},
+      </if>
+      <if test="production != null">
+        #{production},
+      </if>
+      <if test="field != null">
+        #{field},
+      </if>
+      <if test="productionDate != null">
+        #{productionDate},
+      </if>
+      <if test="installDate != null">
+        #{installDate},
+      </if>
+      <if test="useDate != null">
+        #{useDate},
+      </if>
+      <if test="serviceLife != null">
+        #{serviceLife},
+      </if>
+      <if test="limited != null">
+        #{limited},
+      </if>
+      <if test="purchase != null">
+        #{purchase},
+      </if>
+      <if test="serviceCycle != null">
+        #{serviceCycle},
+      </if>
+      <if test="accessory != null">
+        #{accessory},
+      </if>     
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="dbUsers != null">
+        #{dbUsers.seq},
+      </if>
+      <if test="dbEnergyType != null">
+        #{dbEnergyType.seq},
+      </if>
+      <if test="node_level != null">
+        #{node_level},
+      </if>
+      <if test="node_parent != null">
+        #{node_parent}
+      </if>
+    </trim>
+  </insert>
+  
+   <update id="updateEquipList" parameterType="com.hanqian.pojo.DbEquipList">
+   
+    update DB_EQUIP_LIST
+    <set>
+      <if test="equipCode != null">
+        EQUIP_CODE = #{equipCode},
+      </if>
+      <if test="dbEquipType != null">
+        EQUIP_TYPE_ID = #{dbEquipType.equipTypeId},
+      </if>
+      <if test="equipName != null">
+        EQUIP_NAME = #{equipName},
+      </if>
+      <if test="assetscode != null">
+        ASSETSCODE = #{assetscode},
+      </if>
+      <if test="dbHospInfo != null">
+        HOSP_ID = #{dbHospInfo.seqHosp},
+      </if>
+      <if test="dbBuilding != null">
+        BUILDING_ID = #{dbBuilding.buildingId},
+      </if>
+      <if test="storey != null">
+        STOREY = #{storey},
+      </if>
+      <if test="place != null">
+        PLACE = #{place},
+      </if>
+      <if test="controlFlag != null">
+        CONTROL_FLAG = #{controlFlag},
+      </if>
+      <if test="brand != null">
+        BRAND = #{brand},
+      </if>
+      <if test="unitType != null">
+        UNIT_TYPE = #{unitType},
+      </if>
+      <if test="production != null">
+        PRODUCTION = #{production},
+      </if>
+      <if test="field != null">
+        FIELD = #{field},
+      </if>
+      <if test="productionDate != null">
+        PRODUCTION_DATE = #{productionDate},
+      </if>
+      <if test="installDate != null">
+        INSTALL_DATE = #{installDate},
+      </if>
+      <if test="useDate != null">
+        USE_DATE = #{useDate},
+      </if>
+      <if test="dbEnergyType != null">
+        POWER_TYPE = #{dbEnergyType.seq},
+      </if>
+      <if test="serviceLife != null">
+        SERVICE_LIFE = #{serviceLife},
+      </if>
+      <if test="limited != null">
+        LIMITED = #{limited},
+      </if>
+      <if test="purchase != null">
+        PURCHASE = #{purchase},
+      </if>
+      <if test="serviceCycle != null">
+        SERVICE_CYCLE = #{serviceCycle},
+      </if>
+      <if test="accessory != null">
+        ACCESSORY = #{accessory},
+      </if>    
+      <if test="status != null">
+        STATUS = #{status},
+      </if>     
+      <if test="node_level != null">
+        node_level = #{node_level},
+      </if>
+      <if test="node_level == null">
+        node_level = '',
+      </if>     
+      <if test="node_parent != null">
+        node_parent = #{node_parent},
+      </if>      
+      <if test="node_parent == null">
+        node_parent = '',
+      </if>     
+    </set>
+    where EQUIP_ID = #{equipId}
+  </update>
+<!--    resultType="com.hanqian.pojo.DbEquipList" -->
+  <select id="findDbEquipListById" parameterType="int" resultMap="DbEquipListMap">
+	select e.*,t.*,b.*,en.*,
+       es.seq es_seq,es.equip_id es_equip_id,es.build_id es_build_id,es.storey es_storey,
+       es.areas es_areas,es.square es_square,es.comments es_comments ,es.energy_id es_energy_id,
+       se.equip_id as ser_equip_id,
+       se.equip_code as ser_equip_code,
+       se.equip_type_id as ser_equip_type_id,
+       se.equip_name as ser_equip_name,
+       e.node_level,
+       e.node_parent
+        from db_equip_list  e,
+        db_building         b,
+        db_equip_type       t,
+        EQUIP_SERVICE_EQUIP s,
+        db_equip_list       se,
+        DB_ENERGY_TYPE      en,
+        EQUIP_SERVICE       es
+        where e.building_id = b.building_id
+        and e.equip_type_id = t.equip_type_id
+        and e.EQUIP_ID = #{equipId}
+        and e.equip_id = s.equip_id(+)
+        and s.ser_equip_id = se.equip_id(+)
+        and e.power_type = en.seq(+)
+        and e.equip_id= es.equip_id(+)
+
+  </select>
+  
+  <resultMap id="DbEquipListMap" type="com.hanqian.pojo.DbEquipList">
+   
+    <id column="EQUIP_ID"  property="equipId" />
+    <result column="EQUIP_CODE"  property="equipCode" />
+    <result column="EQUIP_NAME"  property="equipName" />
+    <result column="ASSETSCODE"  property="assetscode" />
+    <result column="STOREY"  property="storey" />
+    <result column="PLACE"  property="place" />
+    <result column="CONTROL_FLAG"  property="controlFlag" />
+    <result column="BRAND"  property="brand" />
+    <result column="UNIT_TYPE"  property="unitType" />
+    <result column="PRODUCTION"  property="production" />
+    <result column="FIELD"  property="field" />
+    <result column="PRODUCTION_DATE"  property="productionDate" />
+    <result column="INSTALL_DATE"  property="installDate" />
+    <result column="USE_DATE"  property="useDate" />
+    <result column="SERVICE_LIFE"  property="serviceLife" />
+    <result column="LIMITED"  property="limited" />
+    <result column="PURCHASE"  property="purchase" />
+    <result column="SERVICE_CYCLE"  property="serviceCycle" />
+    <result column="ACCESSORY"  property="accessory" />
+    <result column="STATUS"  property="status" />
+    <result column="OPERTIME"  property="opertime" />
+		<association property="dbHospInfo"  column="HOSP_ID" javaType="com.hanqian.pojo.DbHospInfo">
+			<id property="seqHosp" column="HOSP_ID" />
+		</association>
+		<association property="dbUsers" column="OPER" javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="OPER" />
+		</association>
+		<association property="dbEquipType"  column="EQUIP_TYPE_ID" javaType="com.hanqian.pojo.DbEquipType">
+			<id property="equipTypeId" column="EQUIP_TYPE_ID" />
+			<id property="typeName" column="TYPE_NAME" />
+		</association>
+		<association property="dbEnergyType"  column="POWER_TYPE" javaType="com.hanqian.pojo.DbEnergyType">
+			<id property="seq" column="POWER_TYPE" />
+			<result property="energy" column="ENERGY" />
+		</association>
+		<association property="dbBuilding"  column="BUILDING_ID" javaType="com.hanqian.pojo.DbBuilding">
+			<id property="buildingId" column="BUILDING_ID" />
+			<id property="storeyNumDown" column="STOREY_NUM_DOWN" />
+			<id property="storeyNumUp" column="STOREY_NUM_UP" />
+			<association property="dbBaseComm"  column="BUILDSTATUS" javaType="com.hanqian.pojo.DbBaseComm">
+				<id property="seq" column="BUILDSTATUS" />
+				<result property="content1" column="c_content1" />
+			</association>			
+		</association>         
+	<collection property="equipService" ofType="com.hanqian.pojo.DbEquipList">
+		<id column="SER_EQUIP_ID"  property="equipId" />
+	    <result column="SER_EQUIP_CODE"  property="equipCode" />
+	    <result column="SER_EQUIP_NAME"  property="equipName" />
+	    <result column="SER_ASSETSCODE"  property="assetscode" />
+	    <result column="SER_STOREY"  property="storey" />
+	    <result column="SER_PLACE"  property="place" />
+	    <result column="SER_CONTROL_FLAG"  property="controlFlag" />
+	    <result column="SER_BRAND"  property="brand" />
+	    <result column="SER_UNIT_TYPE"  property="unitType" />
+	    <result column="SER_PRODUCTION"  property="production" />
+	    <result column="SER_FIELD"  property="field" />
+	    <result column="SER_PRODUCTION_DATE"  property="productionDate" />
+	    <result column="SER_INSTALL_DATE"  property="installDate" />
+	    <result column="SER_USE_DATE"  property="useDate" />
+	    <result column="SER_SERVICE_LIFE"  property="serviceLife" />
+	    <result column="SER_LIMITED"  property="limited" />
+	    <result column="SER_PURCHASE"  property="purchase" />
+	    <result column="SER_SERVICE_CYCLE"  property="serviceCycle" />
+	    <result column="SER_ACCESSORY"  property="accessory" />
+	    <result column="SER_STATUS"  property="status" />
+	    <result column="SER_OPERTIME"  property="opertime" />
+	</collection>
+	<collection property="equipServices" ofType="com.hanqian.pojo.EquipService">
+		<id column="es_seq"  property="seq" />
+	    <result column="es_BUILD_ID"  property="buildId" />
+	    <result column="es_STOREY"  property="storey" />
+	    <result column="es_SQUARE"  property="square" />
+	    <result column="es_COMMENTS"  property="comments" />
+	    
+	    
+	    <association property="dbEnergyType"  column="es_ENERGY_ID" javaType="com.hanqian.pojo.DbEnergyType">
+			<id property="seq" column="es_ENERGY_ID" />
+			<result property="energy" column="ENERGY" />
+		</association>
+		<association property="dbBaseComm"  column="es_AREAS" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="es_AREAS" />
+			<result property="content1" column="c_content1" />
+		</association>		
+		<association property="dbEquipList"  column="es_EQUIP_ID" javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" column="es_EQUIP_ID" />
+			<result property="equipName" column="EQUIP_NAME" />
+		</association>		
+	</collection>
+  </resultMap>
+  
+  <select id="findEquipmentByParam" parameterType="map" resultType="ciMap">
+    select e.equip_id equipId,e.equip_name equipName from db_equip_list e inner join db_building d on 1=1 and e.building_id= d.building_id and e.status=0  
+      <if test="BuildingId != null">
+         and d.building_id=#{BuildingId}
+      </if>
+      <if test="HisName != null">
+         and d.his_name like '%${HisName}%'
+      </if>  
+      <if test="Storey != null">
+          and e.storey=#{Storey}
+      </if> 
+      <if test="Place != null">
+          and e.place like'%${Place}%' 
+      </if>
+       <if test="UnitType != null">
+          and e.unit_type like'%${UnitType}%' 
+      </if>
+      <if test="EquipTypeId != null">
+          and e.equip_type_id=#{EquipTypeId}
+      </if>
+        order by e.equip_name
+  </select>
+  
+    <select id="findByEquipId" resultType="ciMap" parameterType="int">    
+        select t.* from db_equip_list t where t.equip_id=#{equipId}
+   </select> 
+  
+  
+  
+  <select id="findByEquipControl" resultType="ciMap" parameterType="com.hanqian.pojo.DbEquipList">    
+       select e.equip_id equipId,e.equip_name equipName,d.storey_num_down,d.storey_num_up,e.storey storey,d.building_id,e.equip_type_id from db_equip_list e inner join db_building d on 1=1  
+       inner join db_equip_type t on t.equip_type_id=e.equip_type_id and e.building_id= d.building_id and e.status=0 and e.equip_type_id=#{dbEquipType.equipTypeId}
+        and d.building_id=#{dbBuilding.buildingId} 
+         and e.control_flag=1 and e.status =0 order by e.storey,e.equip_name
+   </select> 
+  
+  
+
+
+	<select id="findEquipMaintenance" resultType="ciMap" parameterType="String">    
+         SELECT temp_.equip_name,temp_.equip_id,temp_.place,temp_.assetscode,temp_.production,
+                temp_.install_date,temp_. service_life,temp_. service_cycle FROM (
+                SELECT list_.*,ROWNUM RN ,
+                CASE 
+                WHEN gro_.maxtime IS NULL 
+                THEN list_.service_cycle-(sysdate-list_.install_date) 
+                ELSE list_.service_cycle-(sysdate-gro_.maxtime) 
+                END CASE 
+                FROM db_equip_list list_ LEFT JOIN
+                (SELECT mai_.equip_id,MAX(mai_.servicetime) maxtime FROM db_maintenance mai_ group by mai_.equip_id) gro_ 
+                ON list_.equip_id = gro_.equip_id
+                WHERE list_.hosp_id=#{hospId} AND status = 0
+                ) temp_ WHERE temp_.case BETWEEN -7 AND 7
+   </select> 
+   
+   
+     <select id="findEquipListEquipListBusiness" resultType="ciMap" parameterType="map">    
+       select e.equip_id equipid,e.equip_code equipCode,e.equip_name equipName,t.type_name,t.equip_type_id eqtypeid,
+       e.brand brand,e.unit_type unitType,e.place place,e.storey storey,d.building_name,d.storey_num_down,d.storey_num_up,
+       d.building_id from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+       where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id 
+       and e.status=0 and d.status=0 and e.control_flag=1 and g.equip_group=#{groupId}
+   </select> 
+   
+        <select id="findEquipIdList" resultType="ciMap" parameterType="map">    
+       select e.equip_id equipId from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t  
+       where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id 
+       and e.status=0 and d.status=0 and g.equip_group=#{groupId}
+   </select> 
+   
+   
+           <select id="findIdListByGroupId" resultType="ciMap" parameterType="map">    
+      select e.equip_id equipId,e.equip_name equipName,e.equip_type_id eqTypeId from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+       where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id 
+       and e.status=0 and d.status=0 
+        <if test="groupId != null">
+         	  and g.equip_group=#{groupId}  
+	      </if>
+	       order by e.equip_type_id,e.equip_code,e.equip_id
+   </select> 
+   
+       <select id="reportEquipment" resultType="ciMap" parameterType="DATE">    
+        select t.* from db_equip_list t where 1=1 
+         <if test="lastTime != null">
+         	  and OPERTIME  <![CDATA[>=]]>#{lastTime}  
+	      </if>
+   </select> 
+   
+    <select id="findEquipList1" resultType="ciMap" parameterType="map">    
+        select e.equip_id equipId,e.equip_code equipCode,e.equip_name equipName,t.type_name,t.equip_type_id,
+        e.brand brand,e.unit_type unitType,e.place place,e.storey storey,d.building_name,
+        d.building_id from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+        where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id 
+        and e.status=0 and d.status=0 and g.equip_group=#{groupId}
+   </select> 
+   
+    <select id="findPowerContorl" resultType="ciMap" parameterType="map">    
+        select * from v_equip_control_point_record where eq =#{equipId}
+   </select> 
+   
+      <select id="findByEquipTypeId" resultType="ciMap" parameterType="map">    
+        select * from db_equip_list  where equip_type_id=#{equipTypeId}        
+   </select> 
+   
+	<!-- 获取所有的电表 -->			
+	<select id="getAllElec" resultType="ciMap" parameterType="java.lang.String">
+		select t.* from DB_EQUIP_LIST t where t.equip_type_id=10001 
+		<if test="_parameter!=null">
+          and t.equip_id != #{_parameter}
+        </if>
+	</select>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>				
+   <child>
+	<!-- 循环泵1 -->
+	<area title="循环泵1#" id="xhb" wd="30" hg="20" marLeft="415"
+		marTop="340" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+	<!-- 循环泵2 -->
+	<area title="循环泵2#" id="xhb" wd="30" hg="20" marLeft="350"
+		marTop="300" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+	<!-- 风冷热泵1 -->
+	<area title="风冷热泵" id="flrb" wd="30" hg="20" marLeft="500"
+		marTop="110" prop="fljz" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+    </child>		
+</equipment>

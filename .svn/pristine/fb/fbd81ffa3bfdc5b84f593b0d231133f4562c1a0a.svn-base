@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 集水井系统01 -->
+	 <equip groupCode="jsj_01" flashHeight="500" flashWidth="1000">
+<!--第一排  -->
+	    <xy x="205" y="310" bengIndex="JSJ-17PS" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="384" type="6001"></point>
+			<point id="441" type="6002" num="1"></point>
+			<point id="442" type="6002" num="2"></point>
+		</xy>
+        <xy x="205" y="422" bengIndex="JSJ-1WPS" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="373" type="6001"></point>
+			<point id="419" type="6002" num="1"></point>
+			<point id="420" type="6002" num="2"></point>
+		</xy>
+		<xy x="205" y="531" bengIndex="JSJ-24PS" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="368" type="6001"></point>
+			<point id="409" type="6002" num="1"></point>
+			<point id="410" type="6002" num="2"></point>
+		</xy>
+		<xy x="205" y="641" bengIndex="JSJ-25PS" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="369" type="6001"></point>
+			<point id="411" type="6002" num="1"></point>
+			<point id="412" type="6002" num="2"></point>
+		</xy>
+		<xy x="205" y="761" bengIndex="JSJ-26PS" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="383" type="6001"></point>
+			<point id="439" type="6002" num="1"></point>
+			<point id="440" type="6002" num="2"></point>
+		</xy>
+<!--第二排 -->		
+		<xy x="298" y="300" bengIndex="JSJ-27PS" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="370" type="6001"></point>
+			<point id="413" type="6002" num="1"></point>
+			<point id="414" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="416" bengIndex="JSJ-28PS" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="371" type="6001"></point>
+			<point id="415" type="6002" num="1"></point>
+			<point id="416" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="531" bengIndex="JSJ-29PS" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="365" type="6001"></point>
+			<point id="403" type="6002" num="1"></point>
+			<point id="404" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="650" bengIndex="JSJ-2WPS" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="382" type="6001"></point>
+			<point id="437" type="6002" num="1"></point>
+			<point id="438" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="776" bengIndex="JSJ-30PS" keyNameRed="red10" keyNameGreen="greend10">
+			<point id="380" type="6001"></point>
+			<point id="433" type="6002" num="1"></point>
+			<point id="434" type="6002" num="2"></point>
+		</xy>
+<!--第三排  -->		
+		<xy x="394" y="285" bengIndex="JSJ-31PS" keyNameRed="red11" keyNameGreen="greend11">
+			<point id="378" type="6001"></point>
+			<point id="429" type="6002" num="1"></point>
+			<point id="430" type="6002" num="2"></point>
+		</xy>
+        <xy x="394" y="408" bengIndex="JSJ-32PS" keyNameRed="red12" keyNameGreen="greend12">
+			<point id="379" type="6001"></point>
+			<point id="431" type="6002" num="1"></point>
+			<point id="432" type="6002" num="2"></point>
+		</xy>
+		<xy x="394" y="530" bengIndex="JSJ-33PS" keyNameRed="red13" keyNameGreen="greend13">
+			<point id="374" type="6001"></point>
+			<point id="421" type="6002" num="1"></point>
+			<point id="422" type="6002" num="2"></point>
+		</xy>
+		<xy x="394" y="657" bengIndex="JSJ-34PS" keyNameRed="red14" keyNameGreen="greend14">
+			<point id="375" type="6001"></point>
+			<point id="423" type="6002" num="1"></point>
+			<point id="424" type="6002" num="2"></point>
+		</xy>
+		<xy x="394" y="789" bengIndex="JSJ-35PS" keyNameRed="red15" keyNameGreen="greend15">
+			<point id="372" type="6001"></point>
+			<point id="417" type="6002" num="1"></point>
+			<point id="418" type="6002" num="2"></point>
+		</xy>
+<!--第四排  -->		
+		<xy x="495" y="269" bengIndex="JSJ-39PS" keyNameRed="red16" keyNameGreen="greend16">
+			<point id="366" type="6001"></point>
+			<point id="405" type="6002" num="1"></point>
+			<point id="406" type="6002" num="2"></point>
+		</xy>
+		<xy x="495" y="403" bengIndex="JSJ-3WPS" keyNameRed="red17" keyNameGreen="greend17">
+			<point id="381" type="6001"></point>
+			<point id="435" type="6002" num="1"></point>
+			<point id="436" type="6002" num="2"></point>
+		</xy>
+		<xy x="495" y="531" bengIndex="JSJ-5XPS" keyNameRed="red18" keyNameGreen="greend18">
+			<point id="367" type="6001"></point>
+			<point id="407" type="6002" num="1"></point>
+			<point id="408" type="6002" num="2"></point>
+		</xy>
+		<xy x="495" y="665" bengIndex="JSJ-6XPS" keyNameRed="red19" keyNameGreen="greend19">
+			<point id="377" type="6001"></point>
+			<point id="427" type="6002" num="1"></point>
+			<point id="428" type="6002" num="2"></point>
+		</xy>
+		<xy x="495" y="807" bengIndex="JSJ-7XPS" keyNameRed="red20" keyNameGreen="greend20">
+			<point id="376" type="6001"></point>
+			<point id="425" type="6002" num="1"></point>
+			<point id="426" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+<!-- 集水井系统02 -->
+	<equip groupCode="jsj_02" flashHeight="410" flashWidth="1000">
+<!--第一排  -->
+	    <xy x="205" y="310" bengIndex="JSJ-10PS" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="393" type="6001"></point>
+			<point id="457" type="6002" num="1"></point>
+			<point id="458" type="6002" num="2"></point>
+		</xy>
+        <xy x="205" y="422" bengIndex="JSJ-11PS" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="394" type="6001"></point>
+			<point id="459" type="6002" num="1"></point>
+			<point id="460" type="6002" num="2"></point>
+		</xy>
+		<xy x="205" y="531" bengIndex="JSJ-12PS" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="398" type="6001"></point>
+			<point id="467" type="6002" num="1"></point>
+			<point id="468" type="6002" num="2"></point>
+		</xy>
+		<xy x="205" y="641" bengIndex="JSJ-13PS" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="399" type="6001"></point>
+			<point id="469" type="6002" num="1"></point>
+			<point id="470" type="6002" num="2"></point>
+		</xy>
+		<xy x="205" y="761" bengIndex="JSJ-15PS" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="400" type="6001"></point>
+			<point id="471" type="6002" num="1"></point>
+			<point id="472" type="6002" num="2"></point>
+		</xy>
+<!--第二排 -->		
+		<xy x="298" y="300" bengIndex="JSJ-16PS" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="396" type="6001"></point>
+			<point id="463" type="6002" num="1"></point>
+			<point id="464" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="416" bengIndex="JSJ-18PS" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="385" type="6001"></point>
+			<point id="443" type="6002" num="1"></point>
+			<point id="444" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="531" bengIndex="JSJ-19PS" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="387" type="6001"></point>
+			<point id="447" type="6002" num="1"></point>
+			<point id="448" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="650" bengIndex="JSJ-20PS" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="386" type="6001"></point>
+			<point id="445" type="6002" num="1"></point>
+			<point id="446" type="6002" num="2"></point>
+		</xy>
+		<xy x="298" y="776" bengIndex="JSJ-21PS" keyNameRed="red10" keyNameGreen="greend10">
+			<point id="388" type="6001"></point>
+			<point id="449" type="6002" num="1"></point>
+			<point id="450" type="6002" num="2"></point>
+		</xy>
+<!--第三排  -->		
+		<xy x="394" y="285" bengIndex="JSJ-22PS" keyNameRed="red11" keyNameGreen="greend11">
+			<point id="389" type="6001"></point>
+			<point id="451" type="6002" num="1"></point>
+			<point id="452" type="6002" num="2"></point>
+		</xy>
+        <xy x="394" y="408" bengIndex="JSJ-23PS" keyNameRed="red12" keyNameGreen="greend12">
+			<point id="390" type="6001"></point>
+			<point id="453" type="6002" num="1"></point>
+			<point id="454" type="6002" num="2"></point>
+		</xy>
+		<xy x="394" y="530" bengIndex="JSJ-2XPS" keyNameRed="red13" keyNameGreen="greend13">
+			<point id="391" type="6001"></point>
+			<point id="455" type="6002" num="1"></point>
+			<point id="456" type="6002" num="2"></point>
+		</xy>
+		<xy x="394" y="657" bengIndex="JSJ-3XPS" keyNameRed="red14" keyNameGreen="greend14">
+			<point id="401" type="6001"></point>
+			<point id="473" type="6002" num="1"></point>
+			<point id="474" type="6002" num="2"></point>
+		</xy>
+		<xy x="394" y="789" bengIndex="JSJ-4XPS" keyNameRed="red15" keyNameGreen="greend15">
+			<point id="395" type="6001"></point>
+			<point id="461" type="6002" num="1"></point>
+			<point id="462" type="6002" num="2"></point>
+		</xy>
+<!--第四排  -->		
+		<xy x="495" y="269" bengIndex="JSJ-9PS" keyNameRed="red16" keyNameGreen="greend16">
+			<point id="397" type="6001"></point>
+			<point id="465" type="6002" num="1"></point>
+			<point id="466" type="6002" num="2"></point>
+		</xy>
+		<xy x="495" y="403" bengIndex="生活水池" keyNameRed="red17" keyNameGreen="greend17">
+			<point id="402" type="6001"></point>
+			<point id="0" type="6002" num="0"></point>
+		</xy>
+		<xy x="495" y="531" bengIndex="污水处理池" keyNameRed="red18" keyNameGreen="greend18">
+			<point id="392" type="6001"></point>
+			<point id="0" type="6002" num="0"></point>
+		</xy>
+     </equip>
+</equipment> 
+
+  

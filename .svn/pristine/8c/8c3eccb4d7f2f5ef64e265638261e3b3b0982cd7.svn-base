@@ -1,0 +1,418 @@
+.datetimepicker {
+	color: #333333;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.input-append,.input-prepend {
+	font-size: 0;
+	margin-bottom: 5px;
+	white-space: nowrap;
+}
+
+[class^="icon-"],[class*=" icon-"] {
+	background-image: url("../img/glyphicons-halflings.png");
+	background-repeat: no-repeat;
+	display: inline-block;
+	height: 14px;
+	line-height: 14px;
+	margin-top: 2px;
+	vertical-align: text-top;
+	width: 14px;
+}
+
+.input-append input,.input-append select,.input-append .uneditable-input
+	{
+	border-radius: 4px 0 0 4px;
+}
+
+.input-append input,.input-prepend input,.input-append select,.input-prepend select,.input-append .uneditable-input,.input-prepend .uneditable-input
+	{
+	margin-bottom: 0;
+	position: relative;
+	vertical-align: top;
+}
+
+.input-append input,.input-prepend input,.input-append select,.input-prepend select,.input-append .uneditable-input,.input-prepend .uneditable-input,.input-append .dropdown-menu,.input-prepend .dropdown-menu
+	{
+	font-size: 14px;
+}
+
+input[disabled],select[disabled],textarea[disabled],input[readonly],select[readonly],textarea[readonly]
+	{
+	background-color: #EEEEEE;
+	cursor: not-allowed;
+}
+
+textarea,input[type="text"],input[type="password"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],.uneditable-input
+	{
+	border: 1px solid #CCCCCC;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+
+select,textarea,input[type="text"],input[type="password"],input[type="datetime"],input[type="datetime-local"],input[type="date"],input[type="month"],input[type="time"],input[type="week"],input[type="number"],input[type="email"],input[type="url"],input[type="search"],input[type="tel"],input[type="color"],.uneditable-input
+	{
+	color: #555555;
+	display: inline-block;
+	font-size: 14px;
+	height: 20px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+input,textarea,.uneditable-input {
+	margin-left: 0;
+}
+
+input,textarea,.uneditable-input {
+	margin-left: 0;
+}
+
+input,textarea,.uneditable-input {
+	width: 206px;
+}
+
+input,button,select,textarea {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.input-append .add-on,.input-append .btn,.input-append .btn-group {
+	margin-left: -1px;
+}
+
+.input-append .add-on,.input-prepend .add-on,.input-append .btn,.input-prepend .btn,.input-append .btn-group>.dropdown-toggle,.input-prepend .btn-group>.dropdown-toggle
+	{
+	border-radius: 0 0 0 0;
+	vertical-align: top;
+}
+
+.input-append .add-on,.input-prepend .add-on {
+	background-color: #EEEEEE;
+	border: 1px solid #CCCCCC;
+	display: inline-block;
+	font-size: 14px;
+	font-weight: normal;
+	height: 20px;
+	line-height: 20px;
+	min-width: 16px;
+	padding: 4px 5px;
+	border-radius: 0px 4px 4px 0px;
+	text-align: center;
+	text-shadow: 0 1px 0 #FFFFFF;
+	width: auto;
+}
+
+.input-append.date .add-on i,.input-prepend.date .add-on i {
+	cursor: pointer;
+	height: 14px;
+	width: 14px;
+}
+
+.icon-th {
+	background-position: -240px 0;
+}
+
+.datetimepicker-dropdown:before {
+	border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+	border-left: 7px solid rgba(0, 0, 0, 0);
+	border-right: 7px solid rgba(0, 0, 0, 0);
+	content: "";
+	display: inline-block;
+	left: 6px;
+	position: absolute;
+	top: -7px;
+}
+
+.datetimepicker-dropdown:after {
+	border-bottom: 6px solid #FFFFFF;
+	border-left: 6px solid rgba(0, 0, 0, 0);
+	border-right: 6px solid rgba(0, 0, 0, 0);
+	content: "";
+	display: inline-block;
+	left: 7px;
+	position: absolute;
+	top: -6px;
+}
+
+.datetimepicker-dropdown,.datetimepicker-dropdown-left {
+	left: 0;
+	top: 0;
+}
+
+.datetimepicker {
+	border-radius: 4px 4px 4px 4px;
+	direction: ltr;
+	margin-top: 1px;
+	padding: 4px;
+}
+
+.dropdown-menu {
+	background-clip: padding-box;
+	background-color: #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 6px 6px 6px 6px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	display: none;
+	float: left;
+	left: 0;
+	list-style: none outside none;
+	margin: 2px 0 0;
+	min-width: 160px;
+	padding: 5px 0;
+	position: absolute;
+	top: 100%;
+	z-index: 1000;
+}
+
+.datetimepicker table {
+	margin: 0;
+}
+
+table {
+	background-color: rgba(0, 0, 0, 0);
+	border-collapse: collapse;
+	border-spacing: 0;
+	max-width: 100%;
+}
+
+element.style {
+	visibility: visible;
+}
+
+.datetimepicker thead tr:first-child th,.datetimepicker tfoot tr:first-child th
+	{
+	cursor: pointer;
+}
+
+.datetimepicker td,.datetimepicker th {
+	border: medium none;
+	border-radius: 4px 4px 4px 4px;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+}
+
+.table-condensed th,.table-condensed td {
+	padding: 4px 5px;
+}
+
+.icon-arrow-left {
+	background-position: -240px -96px;
+}
+
+.icon-arrow-seconds {
+	background-position: -215px 0px;
+}
+
+.datetimepicker thead tr:first-child th,.datetimepicker tfoot tr:first-child th
+	{
+	cursor: pointer;
+}
+
+.datetimepicker th.switch {
+	width: 145px;
+}
+
+.datetimepicker td,.datetimepicker th {
+	border: medium none;
+	border-radius: 4px 4px 4px 4px;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+}
+
+.table-condensed th,.table-condensed td {
+	padding: 4px 5px;
+}
+
+.datetimepicker thead tr:first-child th,.datetimepicker tfoot tr:first-child th
+	{
+	cursor: pointer;
+}
+
+.datetimepicker td,.datetimepicker th {
+	border: medium none;
+	border-radius: 4px 4px 4px 4px;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+}
+
+.table-condensed th,.table-condensed td {
+	padding: 4px 5px;
+}
+
+.icon-arrow-right {
+	background-position: -264px -96px;
+}
+
+.datetimepicker td,.datetimepicker th {
+	border: medium none;
+	border-radius: 4px 4px 4px 4px;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+}
+
+.table-condensed th,.table-condensed td {
+	padding: 4px 5px;
+}
+
+.datetimepicker .datetimepicker-minutes span {
+	height: 26px;
+	line-height: 26px;
+}
+
+.datetimepicker table tr td span {
+	border-radius: 4px 4px 4px 4px;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 54px;
+	line-height: 54px;
+	margin: 1%;
+	width: 23%;
+}
+
+.datetimepicker table tr td span.active:active,.datetimepicker table tr td span.active:hover:active,.datetimepicker table tr td span.active.disabled:active,.datetimepicker table tr td span.active.disabled:hover:active,.datetimepicker table tr td span.active.active,.datetimepicker table tr td span.active.active:hover,.datetimepicker table tr td span.active.disabled.active,.datetimepicker table tr td span.active.disabled.active:hover
+	{
+	
+}
+
+.datetimepicker table tr td span.active:hover,.datetimepicker table tr td span.active:hover:hover,.datetimepicker table tr td span.active.disabled:hover,.datetimepicker table tr td span.active.disabled:hover:hover,.datetimepicker table tr td span.active:active,.datetimepicker table tr td span.active:hover:active,.datetimepicker table tr td span.active.disabled:active,.datetimepicker table tr td span.active.disabled:hover:active,.datetimepicker table tr td span.active.active,.datetimepicker table tr td span.active.active:hover,.datetimepicker table tr td span.active.disabled.active,.datetimepicker table tr td span.active.disabled.active:hover,.datetimepicker table tr td span.active.disabled,.datetimepicker table tr td span.active.disabled:hover,.datetimepicker table tr td span.active.disabled.disabled,.datetimepicker table tr td span.active.disabled.disabled:hover,.datetimepicker table tr td span.active[disabled],.datetimepicker table tr td span.active[disabled]:hover,.datetimepicker table tr td span.active.disabled[disabled],.datetimepicker table tr td span.active.disabled[disabled]:hover
+	{
+	background-color: #0044CC;
+}
+
+.datetimepicker table tr td span.active,.datetimepicker table tr td span.active:hover,.datetimepicker table tr td span.active.disabled,.datetimepicker table tr td span.active.disabled:hover
+	{
+	background-color: #006DCC;
+	background-image: -moz-linear-gradient(center top, #0088CC, #0044CC);
+	background-repeat: repeat-x;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	color: #FFFFFF;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.datetimepicker .datetimepicker-minutes span {
+	height: 26px;
+	line-height: 26px;
+}
+
+.datetimepicker table tr td span {
+	border-radius: 4px 4px 4px 4px;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 54px;
+	line-height: 54px;
+	margin: 1%;
+	width: 23%;
+}
+
+.datetimepicker table tr td span:hover {
+	background: none repeat scroll 0 0 #EEEEEE;
+}
+
+.datetimepicker thead tr:first-child th,.datetimepicker tfoot tr:first-child th
+	{
+	cursor: pointer;
+}
+
+.datetimepicker td,.datetimepicker th {
+	border: medium none;
+	border-radius: 4px 4px 4px 4px;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+}
+
+.table-condensed th,.table-condensed td {
+	padding: 4px 5px;
+}
+
+.datetimepicker thead tr:first-child th.switch:hover {
+	background: none repeat scroll 0 0 #EEEEEE;
+	/*cursor:default;*/
+}
+
+.datetimepicker td,.datetimepicker th {
+	border: medium none;
+	border-radius: 4px 4px 4px 4px;
+	height: 20px;
+	text-align: center;
+	width: 20px;
+}
+
+.table-condensed th,.table-condensed td {
+	padding: 4px 5px;
+}
+
+.datetimepicker table tr td.active,.datetimepicker table tr td.active:hover,.datetimepicker table tr td.active.disabled,.datetimepicker table tr td.active.disabled:hover
+	{
+	background-color: #006DCC;
+	background-image: -moz-linear-gradient(center top, #0088CC, #0044CC);
+	background-repeat: repeat-x;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	color: #FFFFFF;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.datetimepicker table tr td.day:hover {
+	background-color: #EEEEEE;
+	cursor: pointer;
+}
+
+.datetimepicker table tr td.minutes:hover {
+	background-color: #EEEEEE;
+	cursor: pointer;
+}
+
+.datetimepicker table tr td.seconds:hover {
+	background-color: #EEEEEE;
+	cursor: pointer;
+}
+
+.datetimepicker table tr td.hour:hover {
+	background-color: #EEEEEE;
+	cursor: pointer;
+}
+
+.datetimepicker table tr td.month:hover {
+	background-color: #EEEEEE;
+	cursor: pointer;
+}
+
+.datetimepicker table tr td.week:hover {
+	background-color: #EEEEEE;
+	cursor: pointer;
+}
+
+div.changeOption {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 5px 5px 5px 5px;
+	height: 70px;
+	left: 5px;
+	position: absolute;
+	top: 32px;
+	width: 80px;
+}
+
+.changeOption table tr th:hover {
+	background: #EEEEEE;
+	cursor: pointer;
+}
+
+.datetimepicker .datetimepicker-minutes span.week {
+	border-radius: 4px 4px 4px 4px;
+	cursor: pointer;
+	display: block;
+	float: left;
+	height: 54px;
+	line-height: 54px;
+	margin: 1%;
+	width: 23%;
+}

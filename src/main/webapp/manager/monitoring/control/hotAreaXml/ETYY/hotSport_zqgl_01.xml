@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID
+	-->
+<equipment>
+	<child>
+		<!-- 锅炉本体1 -->
+		<area title="锅炉本体1#" id="glbt" wd="18" hg="18" marLeft="465"
+			marTop="456" prop="boilerBody" initFlag="hide" eqTypeId="2001"
+			positionX="" postionY="" eventType="click"></area>
+	
+		<!-- 锅炉本体2 -->
+		<area title="锅炉本体2#" id="glbt" wd="18" hg="18" marLeft="670"
+			marTop="373" prop="boilerBody" initFlag="hide" eqTypeId="2001"
+			positionX="" postionY="" eventType="click"></area>
+	
+		<!-- 给水泵1 -->
+		<area title="给水泵1#" id="gxb" wd="18" hg="18" marLeft="292"
+			marTop="513" prop="feedPump" initFlag="hide" eqTypeId="2003"
+			positionX="" postionY="" eventType="click"></area>
+	
+		<!-- 给水泵2 -->
+		<area title="给水泵2#" id="gxb" wd="18" hg="18" marLeft="325"
+			marTop="502" prop="feedPump" initFlag="hide" eqTypeId="2003"
+			positionX="" postionY="" eventType="click"></area>
+		
+		<!-- 给水泵3 -->
+		<area title="给水泵3#" id="gxb" wd="18" hg="18" marLeft="539"
+			marTop="418" prop="feedPump" initFlag="hide" eqTypeId="2003"
+			positionX="" postionY="" eventType="click"></area>
+	
+		<!-- 给水泵4 -->
+		<area title="给水泵4#" id="gxb" wd="18" hg="18" marLeft="562"
+			marTop="410" prop="feedPump" initFlag="hide" eqTypeId="2003"
+			positionX="" postionY="" eventType="click"></area>
+		<!-- 分汽缸 -->
+		<area title="分汽缸" id="glbt" wd="18" hg="18" marLeft="180"
+			marTop="544" prop="fenqigZG" initFlag="hide" eqTypeId="2004"
+			positionX="" postionY="" eventType="click"></area>
+	
+	
+	</child>
+</equipment>

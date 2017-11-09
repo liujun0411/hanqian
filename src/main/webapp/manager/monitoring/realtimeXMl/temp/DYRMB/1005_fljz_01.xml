@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--第一个节点Water_cooled，节点名字可以自定义，但是Water_cooled节点下面的所有的子节点都必须是Equip。-->
+<!--element节点书写的是当前设备类型ID的值-->
+<!--AxisA是设备小方块元件X的坐标-->
+<!--AxisB是设备小方块元件Y的坐标-->
+<!--AxisX是当前水流元件的X轴坐标-->
+<!--AxisY是当前水流元件的Y轴坐标-->
+<!--State是当前节点的值，其中0代表停止对应蓝色，1代表运行对应绿色，2代表故障对应红色，3代表未监控对应灰色-->
+<!--每一个监控设备，对应一个equip节点-->
+<equipstate>
+
+    <!--循环泵1-->
+	<Equip eqTypeId="1005004" run="01" warn="02" keyName="beng1">
+		<element>xhb1</element>
+		<AxisX>0</AxisX>
+		<AxisY>0</AxisY>
+		<AxisA>30</AxisA>
+		<AxisB>180</AxisB>
+		<State>3</State>
+	</Equip>
+	    <!--循环泵2-->
+	<Equip eqTypeId="1005004" run="01" warn="02" keyName="beng2">
+		<element>xhb1</element>
+		<AxisX>0</AxisX>
+		<AxisY>0</AxisY>
+		<AxisA>30</AxisA>
+		<AxisB>180</AxisB>
+		<State>3</State>
+	</Equip>
+	<!--循环泵3-->
+	<Equip eqTypeId="1005004" run="01" warn="02" keyName="beng3">
+		<element>xhb2</element>
+		<AxisX>0</AxisX>
+		<AxisY>0</AxisY>
+		<AxisA>300</AxisA>
+		<AxisB>425</AxisB>
+		<State>3</State>
+	</Equip>
+        <!--循环泵4-->
+	<Equip eqTypeId="1005004" run="01" warn="02" keyName="beng4">
+		<element>xhb1</element>
+		<AxisX>0</AxisX>
+		<AxisY>0</AxisY>
+		<AxisA>30</AxisA>
+		<AxisB>180</AxisB>
+		<State>3</State>
+	</Equip>
+    <!--风冷热泵1-->
+	<Equip eqTypeId="1005001" run="02" warn="03" keyName="fengshan1">
+		<element>flrb1</element>
+		<AxisX>-6.9</AxisX>
+		<AxisY>-283.15</AxisY>
+		<AxisA>500</AxisA>
+		<AxisB>2</AxisB>
+		<State>3</State>
+	</Equip>
+	 <!--风冷热泵2-->
+	<Equip eqTypeId="1005001" run="02" warn="03" keyName="fengshan2">
+		<element>flrb2</element>
+		<AxisX>-6.9</AxisX>
+		<AxisY>-283.15</AxisY>
+		<AxisA>500</AxisA>
+		<AxisB>2</AxisB>
+		<State>3</State>
+	</Equip>
+</equipstate>

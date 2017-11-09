@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DbinfoBuiness">  
+  
+	<select id="findinfoAllDbControlData" resultType="ciMap" parameterType="map">    
+         select  *  from DB_MESSAGE  order by otime asc 
+   </select>
+   
+   	<select id="findInfobynumDbControlData" resultType="ciMap" parameterType="map">    
+         SELECT * FROM (select mid,title,otime,rownum CD  from (select mid ,title,otime  
+         from db_message where flag = 1  order by otime  desc))   DD ,
+         (SELECT MID,READED FROM READED  where user_id=#{userid}) RR  WHERE  
+         DD.CD>#{min}  and  DD.CD<![CDATA[<=]]>#{max}  AND DD.MID=RR.MID(+) ORDER BY OTIME DESC
+   </select>
+   
+      	<select id="findinfoByidDbControlData" resultType="ciMap" parameterType="map">    
+        select * from  DB_MESSAGE where mid=#{mid}
+   </select>
+ 
+       	<select id="finddbmessageMaxId" resultType="ciMap" parameterType="map">    
+        select  max(mid) mtid  from db_message
+   </select>
+   
+     <insert id="insertDbmessage" parameterType="map">
+    insert into db_message (mid,	info_from,from_name,info_to,to_name,title,content,attach_file,flag,otime) 
+    values (#{mid}, #{info_from}, #{from_name}, 
+      #{info_to}, #{to_name}, #{title}, 
+      #{trycontent}, #{cesi}, 0,to_date(#{otime},'yyyy-MM-dd HH24:mi:ss')
+      )
+  </insert>
+  
+  
+   
+       <insert id="insertReaded" parameterType="map">
+    insert into readed  (user_id ,mid,readed ,otime) values 
+    (#{userid},#{mid},1,to_date(#{otime},'yyyy-MM-dd HH24:mi:ss')
+      )
+  </insert>
+  
+         	<select id="findallpagenum" resultType="ciMap" parameterType="map">    
+        select count(*) pagenum  from db_message  where flag=1
+   </select>
+  
+        <insert id="insertDbmessage1" parameterType="map">
+    insert into db_message (mid,	info_from,from_name,info_to,to_name,title,content,attach_file,flag,otime) 
+    values (#{mid}, #{info_from}, #{from_name}, 
+      #{info_to}, #{to_name}, #{title}, 
+      #{trycontent}, #{cesi}, 1,to_date(#{otime},'yyyy-MM-dd HH24:mi:ss')
+      )
+  </insert>
+  
+           	<select id="updateInfoStatusByid1" resultType="ciMap" parameterType="map">    
+        select * from readed where user_id=#{userid} and    mid =#{mid}
+   </select>
+   
+      <update id="updateInfoStatusByid2" parameterType="map">
+      update readed set readed = 1 where mid=#{mid} and user_id=#{userid}
+      </update>
+    <!-- 对clob数据的处理 -->
+	<update id="updateDbmessageClob" parameterType="map">
+	   update db_message
+	   set content=#{content,typeHandler=org.apache.ibatis.type.ClobTypeHandler}
+	   where mid=#{mid}
+	</update>
+	    <!-- 对clob数据的处理 -->
+	<update id="updateDbmessageClobinserInfoByMap" parameterType="map">
+	   update db_message
+	   set content=#{content,typeHandler=org.apache.ibatis.type.ClobTypeHandler}
+	   where mid=#{mid}
+	</update>
+   
+</mapper>

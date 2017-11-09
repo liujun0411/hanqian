@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!--typeId是指设备类型编号，url是指热区文档存放的路径-->
+   <!-- 锅炉 -->
+   <fileUrl typeId="2_gl_01" url="hotSport_gl_01.xml"></fileUrl>
+   <!-- 空压机 -->
+   <fileUrl typeId="8_kyj_02" url="hotSpot_kyj_02.xml"></fileUrl>
+   <fileUrl typeId="8_kyj_01" url="hotSpot_kyj_01.xml"></fileUrl>
+   <!-- 水冷机组夏天 -->
+   <fileUrl typeId="1004_1_slj_01" url="hotSport_slj_01_xt.xml"></fileUrl>
+   <!-- 水冷机组冬天 -->
+   <fileUrl typeId="1004_2_slj_01" url="hotSport_slj_01_dt.xml"></fileUrl>
+   <!-- 医用气体_液氧 -->
+   <fileUrl typeId="7_yy_01" url="hotSpot_yy_01.xml"></fileUrl>
+   <!-- 生活水 -->
+   <fileUrl typeId="5_shs_01" url="hotSpot_shs_01.xml"></fileUrl>
+   <fileUrl typeId="5_shs_02" url="hotSpot_shs_02.xml"></fileUrl>
+   <fileUrl typeId="5_shs_03" url="hotSpot_shs_03.xml"></fileUrl>
+   <!-- 新风机 -->
+   <fileUrl typeId="1001" url="xfj_hotSpot.xml"></fileUrl>
+   <!-- 空调机 -->
+   <fileUrl typeId="1002" url="ktj_hotSpot.xml"></fileUrl>
+</equipPath>

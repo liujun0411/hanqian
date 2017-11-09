@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE definition SYSTEM "hq-aries-definition.dtd">
+<definition id="" name="医院楼宇能耗按月提醒">
+
+<desc>按月将本院某栋楼宇的能耗数据进行提醒</desc>
+<import-js  src="/static/js/aries_plugin_sendInfo.js"/>
+<import-js  src="/static/js/aries_plugin_sqlData.js"/>
+<import-css src="/static/css/aries_plugin_sendInfo.css"/>
+<import-css src="/static/css/aries_plugin_simplesql.css"/>
+
+<showInPage/>
+
+<role>
+    <role-html>
+       <![CDATA[
+                        汇总本院本月的<a href="#" id="ariesBind_1">某栋建筑</a>的能耗数据后,<a href="#" id="ariesBind_4">执行哪些操作</a>
+         
+         <script>
+            /*做什么时的提醒方式*/
+            var infoPluginShowTabs = [1,2,3];
+            
+            var resultSql = '{"ariesBind_1":"select building_id,building_name from dw_dim_building where building_id<>-1"}';
+            
+            /*用来指出执行ariesBind_1 sql时需要使用的数据连接池*/
+            setCondition('sqlDataSourceParam', '{"ariesBind_1":"analyze"}');
+            
+            /*短信人员列表的sql语句*/
+            var pluginSmsSql = 'select u.phone as id, u.username as name,u.email as email,u.phone as phone from db_users u';
+            
+            /*邮件人员列表的sql语句*/
+            var pluginEmailSql = 'select u.email as id, u.username as name,u.email as email,u.phone as phone from db_users u';
+            
+            /*为短信,邮件,医院平台的提醒信息设置为相同内容.在需要时,可以为每种设置不同的提醒内容.*/
+            var pluginEmailContent = platFormContent = 
+                "智能推送(Aries)系统:\r\n按照频率对您进行提醒:{aries_cron_word}\r\n{ariesBind_1}在{本月}的能耗值:{本月能耗}\r\n同比:{同比}\r\n环比:{环比}\r\n提醒信息:";
+            var pluginSmsContent = "智能推送(Aries)系统:\r\n{ariesBind_1}在{本月}的能耗值:{本月能耗}\r\n同比:{同比}\r\n环比:{环比}\r\n提醒信息:";
+
+            setCondition('resultSql', 'select max(t1) as nMenergy,max(t2) as pMenergy,max(t3) as lYenergy from ' + 
+                                      '(select sum(dfe.record) as t1,0 as t2,0 as t3 from dw_fact_getdata_energy dfe left join dw_dim_point ddp on dfe.point_id=ddp.point_id left join dw_dimv_equip dde on ddp.equip_id=dde.equip_id left join dw_dim_date ddd on dfe.date_id=ddd.date_id where dde.node_level=2 and ddd.month_code=#{monthCode} and dde.building_id=#{building_id} ' + 
+                                      'union select 0 as t1,sum(dfe.record) as t2,0 as t3 from dw_fact_getdata_energy dfe left join dw_dim_point ddp on dfe.point_id=ddp.point_id left join dw_dimv_equip dde on ddp.equip_id=dde.equip_id left join dw_dim_date ddd on dfe.date_id=ddd.date_id where dde.node_level=2 and ddd.month_code=to_char(to_date(#{monthCode},\'yyyymm\')+numtoyminterval(-1,\'month\'),\'yyyymm\') and dde.building_id=#{building_id} ' +
+                                      'union select 0 as t1,0 as t2,sum(dfe.record) as t3 from dw_fact_getdata_energy dfe left join dw_dim_point ddp on dfe.point_id=ddp.point_id left join dw_dimv_equip dde on ddp.equip_id=dde.equip_id left join dw_dim_date ddd on dfe.date_id=ddd.date_id where dde.node_level=2 and ddd.month_code=to_char(to_date(#{monthCode},\'yyyymm\')+numtoyminterval(-1,\'year\'),\'yyyymm\') and dde.building_id=#{building_id}) t');
+         </script>
+       ]]>
+    </role-html>
+    
+    <bind id="ariesBind_1" paramKey="{'show':'building_name',submit:['building_id']}" jsFunc="sqlDataPlugin"/>
+    <bind id="ariesBind_4" paramKey="d" jsFunc="sendInfoPlugin "/>
+        
+    <script>
+    <![CDATA[
+    import org.springframework.web.context.ContextLoader;
+    import org.springframework.web.context.WebApplicationContext;
+    import com.hanqian.aries.plugin.simplesql.manager.SimpleSqlPluginMgr;
+    import com.hanqian.aries.plugin.platform.service.SendSmsService;
+    import com.hanqian.aries.plugin.platform.service.SendEmailService;
+    import com.hanqian.aries.plugin.platform.service.PlatformService;
+    import com.hanqian.aries.common.MsgRegExpUtil;
+    import net.sf.json.JSONObject;
+    import org.apache.log4j.*;
+    import groovy.util.logging.*;
+    import com.hanqian.util.DateUtil;
+    import com.hanqian.util.DecimalUtil;
+    
+    Logger log = Logger.getInstance(getClass());
+    log.level = Level.DEBUG;
+    
+    def logHead = "Aries groovy,规则id:" + ariesParam.get("aries_runtime_id") + ",";
+    def resultBoolean = false;
+    log.info logHead + "开始执行.";
+                                                                                                                                                
+    WebApplicationContext context = ContextLoader.getCurrentWebApplicationContext();
+    SimpleSqlPluginMgr pluginMgr = context.getBean("pluginMgr", SimpleSqlPluginMgr.class);
+
+    ariesParam.put("monthCode", DateUtil.getCurrDate("yyyyMM"));
+    def resultlist = pluginMgr.findSQLData(ariesParam, "analyze");
+
+    log.debug logHead + "执行查询的结果集为:" + resultlist;
+        
+    def isDo = false;
+    for(map in resultlist){
+        
+        def nMenergy = map.get("nMenergy") as BigDecimal;
+        def lYenergy = map.get("lYenergy") as BigDecimal;
+        def pMenergy = map.get("pMenergy") as BigDecimal;
+        
+        log.debug logHead + "本月能耗：" + nMenergy + ", 去年同月能耗:" + lYenergy + ", 上月能耗:" + pMenergy;
+            
+        isDo = true;    
+                
+        /*这里添加当前值是为了后面发信息时,需要替换字符串的内容时使用当前值*/
+        ariesParam.put("本月", DateUtil.getCurrDate("yyyy/MM"));
+        ariesParam.put("本月能耗", nMenergy);
+        ariesParam.put("同比", DecimalUtil.rate(nMenergy, lYenergy) + "%");
+        ariesParam.put("环比", DecimalUtil.rate(nMenergy, pMenergy) + "%");
+        
+        log.info logHead +  + "本月能耗：" + nMenergy + ", 去年同月能耗:" + lYenergy + ", 上月能耗:" + pMenergy + ",判断后是否执行触发操作:" + isDo;
+    };
+    
+    if(isDo) {
+        
+        if (ariesParam.get("smsTo")?.next()) {
+            log.debug logHead + "准备执行发短信操作";
+            SendSmsService sendSmsService = context.getBean("sendSmsService", SendSmsService.class);
+
+            /*将短信文字内的大括号替换内容进行替换*/
+            ariesParam.put("smsContent", MsgRegExpUtil.replaceBrace(ariesParam.get("smsContent"), ariesParam));
+            sendSmsService.sendSms(ariesParam);
+            log.info logHead + "完成执行发短信操作";
+        } else {
+            log.debug logHead + "短信号码不存在,不需要做发短信操作";
+        };
+            
+        if (ariesParam.get("eTo")?.next()) {
+            log.debug logHead + "准备执行发发邮件操作";
+            SendEmailService sendEmailService = context.getBean("sendEmailService", SendEmailService.class);
+
+            /*将邮件文字内的大括号替换内容进行替换*/
+            ariesParam.put("eContent", MsgRegExpUtil.replaceBrace(ariesParam.get("eContent"), ariesParam));
+            sendEmailService.sendEmail(ariesParam);
+            log.info logHead + "完成执行发发邮件操作";
+        } else {
+            log.debug logHead + "邮箱地址不存在,不需要做发邮件操作";
+        };
+            
+        if (ariesParam.get("hospcontent")?.next()) {
+            log.debug logHead + "准备执行医院平台报警装置操作";
+            PlatformService platformService = context.getBean("platformService", PlatformService.class);
+
+            /*将医院平台文字内的大括号替换内容进行替换*/
+            ariesParam.put("hospcontent", MsgRegExpUtil.replaceBrace(ariesParam.get("hospcontent"), ariesParam));
+            platformService.addPlatForm(ariesParam);
+            log.info logHead + "完成执行医院平台报警装置操作";
+        } else {
+            log.debug logHead + "医院平台报警装置标志不存在,不需要做医院平台报警操作";
+        };              
+        resultBoolean = true;
+    };  
+    
+    log.info logHead + "结束执行规则, 返回结果:" + resultBoolean;
+    resultBoolean;
+    ]]>
+    </script>
+</role>
+</definition>

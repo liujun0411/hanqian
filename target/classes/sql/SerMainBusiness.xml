@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.SerMainBusiness">
+<!-- SEQ_BASECOMM -->
+ 	<select id="findALertLevelIntervalDate" resultType="ciMap" >    
+        select * from DB_ALERTLEVEL_INTERVAL_DATE d order by d.alertlevel asc
+   </select> 
+   
+      <update id="updateALertLevelIntervalDate1" parameterType="String"  >
+     			update DB_ALERTLEVEL_INTERVAL_DATE d set d.interval_date=#{level1}  where d.alertlevel=1
+   </update>
+   
+      <update id="updateALertLevelIntervalDate2" parameterType="String"  >
+     			update DB_ALERTLEVEL_INTERVAL_DATE d set d.interval_date=#{level2} where d.alertlevel=2
+   </update>
+   
+      <update id="updateALertLevelIntervalDate3" parameterType="String"  >
+     			update DB_ALERTLEVEL_INTERVAL_DATE d set d.interval_date=#{level3} where d.alertlevel=3
+   </update>
+   
+    	<select id="findSerMain" resultType="ciMap" parameterType="map"   >    
+        select c.seq,c.content1 as  name, 
+        (select  count(*) from DB_SERMAIN_REPAIR sr where sr.repair_team=c.seq) as serviceCount,
+        (select count(*) from db_equip_sermain es where es.team_id=c.seq ) as equipCount 
+        from db_base_comm c where c.oper_type=42 and  
+        c.delet_flag=0   
+         <if test="groupName != null">
+			         	  and c.content1 like '%'||#{groupName}||'%'  
+			  </if> 
+         order by c.seq desc 
+   </select> 
+   
+ <select id="findSerCueLog" resultType="ciMap" parameterType="map"   >    
+     select t.name,t.mem_name as menName,t.alarm_depict as alartmDepict,t.send_time as sendTime 
+     from V_CUE_LOG t where 1=1
+         <if test="name != null">
+			         	  and t.name like '%'||#{name}||'%' 
+		 </if> 
+		 <if test="menName != null">
+			         	  and t.mem_name like '%'||#{menName}||'%'
+		 </if> 
+		 <if test="sendTime != null">
+		                  and to_char(t.send_time,'yyyy-mm-dd') = #{sendTime}
+		 </if> 
+		 <if test="sendTime == null">
+		                  and to_char(t.send_time,'yyyy-mm-dd') = to_char(sysdate,'yyyy-mm-dd')
+		 </if> 
+         order by t.send_time desc 
+   </select> 
+   
+       	<select id="findClassList" resultType="ciMap" parameterType="map"   >    
+        select bc.* from db_base_comm bc where bc.delet_flag = 0 and bc.oper_type =#{opertype}
+   </select> 
+   
+     <insert id="insertSerMain" parameterType="com.hanqian.pojo.DbBaseComm">
+    <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_BASECOMM.nextval as seq from dual
+		</selectKey>
+    insert into DB_BASE_COMM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="content1 != null">
+        CONTENT1,
+      </if>
+      <if test="content2 != null">
+        CONTENT2,
+      </if>
+      <if test="dbBaseType != null">
+        OPER_TYPE,
+      </if>
+      <if test="deletFlag != null">
+        DELET_FLAG,
+      </if>
+      <if test="input != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="content1 != null">
+        #{content1},
+      </if>
+      <if test="content2 != null">
+        #{content2},
+      </if>
+      <if test="dbBaseType != null">
+        #{dbBaseType.seq},
+      </if>
+      <if test="deletFlag != null">
+        #{deletFlag},
+      </if>
+      <if test="input != null">
+        #{input},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+  
+   <insert id="insertSerMainString" parameterType="String">
+   	insert into  db_base_comm(seq,content1,oper_type)   
+   	 values(seq_basecomm.nextval,#{groupName},42)
+  </insert>
+  
+     <insert id="insertSerMainEquip" parameterType="map">
+   	  insert into db_equip_sermain (seq ,equip_id,team_id) values(SEQ_equipSermain.Nextval,#{equipId},#{groupId})
+  </insert>
+
+         	<select id="findSerMianEquip" resultType="ciMap" parameterType="map"   >    
+        select e.equip_id,e.equip_name from db_equip_list e 
+        where e.status=0 and e.equip_id in 
+        (select es.equip_id from db_equip_sermain es where es.team_id=#{groupId})
+   </select> 
+   
+        <insert id="insertSerMainRepalr" parameterType="map">
+   	  insert into DB_SERMAIN_REPAIR (seq ,repair_man,repair_team,repair_level) values( SEQ_equipSermain.Nextval,#{pepalrId},#{groupId},#{repairLevel})
+  </insert>
+  
+    <update id="updateSerMainAll" parameterType="map"  >
+     			update db_base_comm c set c.content1=#{groupName} where c.seq=#{groupId}
+   </update>
+   
+  
+   <select id="gaojingjibie" resultType="ciMap" parameterType="map"   >    
+        select repair_level as repairLevel from DB_SERMAIN_REPAIR where repair_team=#{groupId}  and rownum='1' 
+   </select> 
+   
+   <delete id="updateSerMainAllDeleteRepair" parameterType="String">
+   	delete DB_SERMAIN_REPAIR e where e.repair_team=#{groupId}
+   </delete>
+   
+      <delete id="updateSerMainAllDeleteEquip" parameterType="String">
+   	 delete db_equip_sermain e where e.team_id=#{groupId}
+   </delete>
+   
+  <delete id="deleteEquipSerMain" parameterType="String">
+   	 delete db_equip_sermain e where e.team_id=#{groupId}
+   </delete>
+  <delete id="deleteSerMainDetail" parameterType="String">
+   	 delete db_sermain_repair e where e.repair_team=#{groupId}
+   </delete>
+         <update id="deleteSerMain" parameterType="String"  >
+     			update db_base_comm c set c.delet_flag=1 where c.seq=#{groupId}
+   </update>
+  
+   
+ 
+</mapper>

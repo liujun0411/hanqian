@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.action.MenuInterceptor">  
+   <select id="findApplyForMenu" resultType="ciMap" parameterType="map">    
+         select * from db_hosp_info h where 
+         h.seq_hosp in(select  us.hosp_id from db_users us where seq=#{seq}
+   </select>  
+  
+   
+</mapper>

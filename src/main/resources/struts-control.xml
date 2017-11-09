@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<!-- 国际化文件 -->
+ 
+
+	<!-- struts2委托spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<constant name="struts.configuration.xml.reload" value="true" />
+
+	<package name="controlPages" extends="struts-default" namespace="/">
+		<!--设备实时监控-->
+		<action name="control_*" class="controlEquipAction" method="{1}">
+			<result name="show">manager/monitoring/control/air/showTabList.jsp</result>
+			<result name="showBuildEquip">manager/monitoring/control/air/showTopDesc.jsp</result>
+			<result name="1001">manager/monitoring/control/air/xfj_Control.jsp</result>
+			<result name="1002">manager/monitoring/control/air/ktj_Control.jsp</result>
+			<result name="1004">manager/monitoring/control/air/sljz_Control.jsp</result>
+			<result name="1005">manager/monitoring/control/air/fljz_Control.jsp</result>
+			<result name="2">manager/monitoring/control/boiler/showBoiler.jsp</result>
+			<result name="3">manager/monitoring/control/illumine/illumineControl.jsp</result>
+			<result name="4">manager/monitoring/control/elevator/elevatorControl.jsp</result>
+			<result name="5">manager/monitoring/control/shs/shs_Control.jsp</result>
+			<result name="11">manager/monitoring/control/fuYaXiYin/fuYaXiYin.jsp</result>
+			<result name="6">manager/monitoring/control/jsj/jsj_Control.jsp</result>
+			<result name="7">manager/monitoring/control/yiYongQi/yiYongQi.jsp</result>
+			<result name="8">manager/monitoring/control/kongYaJi/kongYaJi.jsp</result>
+			<result name="peiDianPage">manager/monitoring/control/air/pdxt_Control.jsp</result>
+			<result name="showChild">manager/monitoring/control/common/childEquipList.jsp</result>
+			<result name="powerContorl">manager/monitoring/control/energyMeasurement/showEnergyComputation.jsp</result>
+			<result name="childList">manager/monitoring/control/common/itemList.jsp</result>
+			
+			<!-- 集水井页面  -->
+			<result name="GBB1">manager/monitoring/control/jsj/GBB1.jsp</result>
+			<result name="GBB2">manager/monitoring/control/jsj/GBB2.jsp</result>
+			<result name="GBDXB2">manager/monitoring/control/jsj/GBDXB2.jsp</result>
+		</action>
+		
+		     <!-- 申康信息 -->
+        <action name="info_*" class="skmanagementAction" method="{1}">
+			        <result name="infomain">/manager/info/infomain.jsp</result>
+			        <result name="infobyid">/manager/info/infoDetail.jsp</result>
+			        <result name="reply">/manager/info/inforeply.jsp</result>
+			        <result name="createView">/manager/info/infoCreateReply.jsp</result>
+			        <result name="successInfomain" type="redirectAction">
+			                        <param name="actionName">info_infoMain.action</param>
+                                    <param name="pg_num">1</param>
+                                    <param name="pageNumber">20</param>
+                                    <param name="fanException">${fanException}</param>
+			       </result>
+        </action>
+		<!-- 监控告警 -->
+		<action name="alarm_*" class="alarmAction" method="{1}">
+		    <result name="showAlarm">manager/monitoring/control/alarm/alarmControl.jsp</result>
+		    <result name="alarmHisList">/manager/monitoring/control/monitoringPlatform/historyAlarm.jsp</result>
+			<result name="alarmList">manager/monitoring/control/monitoringPlatform/alarmList.jsp</result>
+			<result name="alarmListLess">manager/monitoring/control/monitoringPlatform/alarmListLess.jsp</result>
+			<result name="input">manager/monitoring/control/error.jsp</result>
+			<!-- 新加任意提醒 -->
+			<result name="alarmListSuiYitixing">manager/monitoring/control/monitoringPlatform/alarmListSuiYitixing.jsp</result>
+			<!-- 任意提醒详情页面 -->
+			<result name="ariesIdlist">manager/monitoring/control/monitoringPlatform/ariesIdlist.jsp</result>
+			 <result name="findCurrentAlarmInfoSuiYiIsDone" type="redirectAction">
+                <param name="actionName">alarm_findCurrentAlarmInfoSuiYi.action</param>
+                <param name="hisCurrentPage">1</param>
+            </result>
+		</action>
+		
+		<!-- 监控读数 -->
+		<action name="controlRed_*" class="controldataAction" method="{1}">
+		    <result name="show">manager/monitoring/control/alarm/alarmControl.jsp</result>
+		    <result name="collectList">manager/system/sysytemCollect/collectInfoList.jsp</result>
+			<result name="collectByEquipTypeList">manager/system/sysytemCollect/collectInfoByEquipTypeList.jsp</result>
+			
+			<!-- 这是一个空的，就是一个选项卡页面而已 -->
+			<result name="showTabList">manager/system/sysytemCollect/showTabList.jsp</result>
+			
+			<!-- 这个是业务库的List页面 -->
+			<result name="selectDianweiInfoList">manager/system/sysytemCollect/selectDianweiInfoList.jsp</result>
+			<!-- 这个是SDCD对应库的List页面 -->
+			<result name="selectSDCDdianweiInfoList">manager/system/sysytemCollect/selectSDCDdianweiInfoList.jsp</result>			
+		</action>
+		
+		<!-- 平台静态历史数据查看-->
+		<action name="staticHistory_*" class="staticHistoryDataAction" method="{1}">
+		    <result name="show">manager/system/staticHistoryData/staticHistoryData.jsp</result>
+		    <result name="voDetail">manager/system/staticHistoryData/staticHistoryDetail.jsp</result>
+		</action>
+		
+		<!-- 监控页面转向 -->
+		<action name="controlPage_*" class="controlPageAction" method="{1}">
+		   <result name="unGroupEquip">manager/monitoring/control/common/showUnControlList.jsp</result>
+		   <result name="groupEquip">manager/monitoring/control/common/showGroupList.jsp</result>
+		   <result name="peidian">manager/monitoring/control/common/peiDianList.jsp</result>
+		   <!-- 太平间监控[只有仁济医院有这个功能] -->
+           <result name="showTaiPingJian">manager/monitoring/control/common/showTaiPingJian.jsp</result>
+           <!-- 电力安全[只有胸科医院有这个功能] -->
+		   <result name="yongdianxitong">manager/monitoring/control/common/showYongdianxitong.jsp</result>
+		   <!-- 第三方点位展示[6院和一妇婴保健特有的] -->
+		   <result name="threePointExhibition">manager/monitoring/control/common/threePointExhibition.jsp</result>
+		</action>
+		<!-- 楼宇设备 -->
+		<action name="navigation_*" class="navigationAction" method="{1}">
+		   <result name="equipBuild">manager/monitoring/control/buildingEquip/eqNavigation.jsp</result>
+		</action>
+		
+		<!-- 电流监控 -->
+		<action name="electricityAction_*" class="electricityAction" method="{1}">
+		   <result name="threeElect">manager/monitoring/control/electricity/electPicShow.jsp</result>
+		   <result name="energySaveing">manager/monitoring/control/electricity/electSaving.jsp</result>
+		</action>
+		
+		<!-- 安全统计 -->
+		<action name="statisticsSafe_*" class="statisticsSafeAction" method="{1}">
+		    <result name="show">manager/monitoring/control/monitoringPlatform/monitorDesk.jsp</result>
+		</action>
+	</package>
+</struts>

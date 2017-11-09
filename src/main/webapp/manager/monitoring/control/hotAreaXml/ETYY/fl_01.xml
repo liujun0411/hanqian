@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>				
+	<!-- 风冷热泵1 -->
+		<area title="风冷热泵1#" id="flrb1" wd="30" hg="20" marLeft="700"
+			marTop="320" prop="fenglengrebeng1" initFlag="hide" eqTypeId="1005001"
+			positionX="" postionY="" eventType="click"></area>
+		
+		<!-- 风冷热泵2 -->
+		<area title="风冷热泵2#" id="flrb2" wd="30" hg="20" marLeft="530"
+			marTop="230" prop="fenglengrebeng2" initFlag="hide" eqTypeId="1005001"
+			positionX="" postionY="" eventType="click"></area>
+</equipment>

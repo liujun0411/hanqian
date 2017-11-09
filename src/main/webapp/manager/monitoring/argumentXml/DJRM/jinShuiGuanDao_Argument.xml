@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipment>
+   <newFau title="进水管道">
+       <property run="04" des="累计流量" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="05" des="瞬时流量" unit="T/h" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="06" des="进水温度" unit="℃" colu="0" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="0601" des="进水温度" unit="℃" colu="0" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="0602" des="进水温度" unit="℃" colu="0" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="07" des="进水压力" unit="Mpa"  colu="0" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </newFau>
+</equipment>

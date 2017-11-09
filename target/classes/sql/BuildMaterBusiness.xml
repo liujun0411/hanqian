@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildMaterBusiness1">
+   <select id="findBuildingMater" resultType="ciMap" parameterType="map">    
+         select *  from DB_BUILD_MATER where 1=1
+         	<if test="materId != null">
+			          and mater_id=#{materId} 
+			</if>
+         
+   </select>  
+   
+      <select id="findBuildUsetype" resultType="ciMap"  parameterType="map">    
+         select *  from DB_BUILD_MATER where 1=1
+         	<if test="materId != null">
+			          and mater_id=#{materId} 
+			</if>         
+   </select> 
+   
+         <select id="findAllBuildMater" resultType="ciMap"  parameterType="int">    
+        select m.mater_id masterId, m.mater_name masterName, m.mater_parent_id parentId from db_build_mater m
+         where m.mater_parent_id =#{materId} 		 
+   </select> 
+   
+<!--    resultType="com.hanqian.pojo.DbBuildMater" -->
+    <select id="findByIdBuildMaterBusiness1" parameterType="map" resultMap="DBBuildMaterMap">  
+    select *  from DB_BUILD_MATER
+    where MATER_ID=#{materId}
+  </select>
+   
+  <resultMap id="DBBuildMaterMap" type="com.hanqian.pojo.DbBuildMater">
+	    <id column="MATER_ID"  property="materId" />
+	    <result column="MATER_NAME"  property="materName" />
+	    <result column="DEPICT"  property="depict" />
+  </resultMap>
+   
+</mapper>

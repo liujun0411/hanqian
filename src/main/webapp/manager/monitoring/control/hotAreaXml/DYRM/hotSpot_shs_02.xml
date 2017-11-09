@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+	<!-- 冷水泵1 -->
+	<area title="冷水泵1#" wd="20" hg="20" marLeft="455" marTop="455" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 冷水泵2 -->
+	<area title="冷水泵2#" wd="20" hg="20" marLeft="515" marTop="435" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 冷水泵3 -->
+	<area title="冷水泵3#" wd="20" hg="20" marLeft="570" marTop="415" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 冷水泵4 -->
+	<area title="冷水泵4#" wd="20" hg="20" marLeft="620" marTop="395" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 冷水箱1 -->	
+	<area title="水箱1#" wd="20" hg="20" marLeft="335" marTop="315" prop="lsx"
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 冷水箱2 -->
+	<area title="水箱2#" wd="20" hg="20" marLeft="565" marTop="255" prop="lsx"
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+</equipment>

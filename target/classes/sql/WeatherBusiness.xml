@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.WeatherBusiness">
+<resultMap id="weatherMap" type="com.hanqian.pojo.Weather">
+        <id property="id" column="ID" />
+        <result property="dt" column="DT" />
+        <result property="cityId" column="CITY_ID" />
+        <result property="city" column="CITY" />
+        <result property="temp1" column="TEMP1" />
+        <result property="temp2" column="TEMP2" />
+        <result property="img1" column="IMG1" />
+        <result property="img2" column="IMG2" />
+        <result property="weather" column="WEATHER" />
+        <result property="ptime" column="PTIME" />
+        <result property="opTime" column="OP_TIME" />
+    </resultMap>
+
+<resultMap id="weatherRtMap" type="com.hanqian.pojo.WeatherRt">
+        <id property="id" column="ID" />
+        <result property="dt" column="DT" />
+        <result property="cityId" column="CITY_ID" />
+        <result property="city" column="CITY" />
+        <result property="temp" column="TEMP" />
+        <result property="wd" column="WD" />
+        <result property="ws" column="WS" />
+        <result property="sd" column="SD" />
+        <result property="ptime" column="PTIME" />
+        <result property="opTime" column="OP_TIME" />
+    </resultMap>
+    
+   <select id="findWeatherByDT" resultMap="weatherMap">    
+            select * from DB_Weather w 
+            <where> 
+                <if test="_parameter != null"> w.dt = #{0}</if>            
+            </where>
+            order by w.op_Time desc
+   </select>  
+   
+   <insert id="insertWeather" parameterType="com.hanqian.pojo.Weather">    
+             insert into DB_Weather(ID,DT,CITY_ID,CITY,TEMP1,TEMP2,IMG1,IMG2,WEATHER,PTIME,OP_TIME) 
+             values (
+                     SEQ_WEATHER.NextVal, 
+                     #{dt}, 
+                     #{cityId}, 
+                     #{city},
+                     #{temp1},
+                     #{temp2},
+                     #{img1},
+                     #{img2},
+                     #{weather},
+                     #{ptime},
+                     #{opTime}
+                     )
+   </insert>
+   
+   <update id="updateWeather" parameterType="com.hanqian.pojo.Weather"  >    
+   update DB_Weather set 
+                        DT=#{dt},
+                        CITY_ID=#{cityId}, 
+                        CITY=#{city},
+                        TEMP1=#{temp1},
+                        TEMP2=#{temp2},
+                        IMG1=#{img1},
+                        IMG2=#{img2},
+                        WEATHER=#{weather},
+                        PTIME=#{ptime},
+                        OP_TIME=#{opTime}
+   </update>
+   
+   <insert id="insertWeatherRt" parameterType="com.hanqian.pojo.WeatherRt"  >    
+             insert into DB_Weather_Rt(ID,DT,CITY_ID,CITY,TEMP,SD,WD,WS,PTIME,OP_TIME) 
+             values (
+                     SEQ_WEATHER_RT.NextVal, 
+                     #{dt}, 
+                     #{cityId}, 
+                     #{city},
+                     #{temp},
+                     #{wd},
+                     #{ws},
+                     #{sd},
+                     #{ptime},
+                     #{opTime}
+                     )
+   </insert>
+   
+   <select id="findWeatherRTByDT" resultMap="weatherRtMap"  >    
+       select * from DB_Weather_Rt w order by w.op_Time desc
+   </select>
+   
+   <select id="findAvgWeather" resultType="map">    
+       select t.id,t.reading,t.address,trim(t.stattime) stattime from db_stat_weather t where t.address='上海' order by t.stattime
+   </select>
+   
+   <select id="findAvgWeather2" resultType="map" parameterType="map">    
+       select avg(reading) reading,address||'月平均气温' address,substr(trim(stattime),0,6) stattime 
+         from db_stat_weather 
+           where 
+           <if test="key != null"> address=#{key} and </if> 
+              substr(trim(stattime),0,6)>=#{startTime} 
+               and  substr(trim(stattime),0,6)<![CDATA[<=]]>#{endTime} 
+                 group by address,substr(trim(stattime),0,6) 
+                   order by substr(trim(stattime),0,6) 
+   </select>
+<!--    
+    
+   
+   <select id="findWeatherByDTDate" resultType="com.hanqian.logistics.pojo.Weather"  >    
+            select * from DB_Weather w where w.dt =#{date} order by w.opTime desc
+   </select>
+   
+   
+   
+   
+    -->
+</mapper>

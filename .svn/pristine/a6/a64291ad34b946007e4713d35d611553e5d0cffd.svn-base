@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipment>
+   <newFau title="热水总管">
+       <property run="01" des="出水温度" unit="℃"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="02" des="出水压力" unit="Mpa"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </newFau>
+</equipment>

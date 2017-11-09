@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="溢水浮球">
+   <ysfq title="溢水浮球">
+       <property run="01" des="溢水状态" unit="" colu="" maxVa="" minVa=""
+	   remark="0|正常,1|溢水" condition="" seTitle="" showFlag="1" isAbs="1" errText="溢水"></property>
+   </ysfq>
+</equipment>

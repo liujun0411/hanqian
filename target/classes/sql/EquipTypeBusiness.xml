@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EquipTypeBusiness">
+  
+   <select id="findAllTopEquipType" resultType="ciMap" >    
+         select t.equip_type_id equipTypeId,t.type_name equipTypeName,t.equip_type_parent_id 
+         equipTypeParentId from db_equip_type t where t.equip_type_parent_id is null order by t.equip_type_id 
+   </select>  
+   
+      <select id="findAllChildByPId" resultType="ciMap" parameterType="map">    
+        select t.equip_type_id equipTypeId,t.type_name equipTypeName,t.equip_type_parent_id equipTypeParentId 
+        from db_equip_type t where t.equip_type_parent_id =#{parentId}
+   </select>  
+
+
+
+        <resultMap id="BaseResultMap" type="com.hanqian.pojo.DbEquipType">
+    <id column="EQUIP_TYPE_ID"  property="equipTypeId" />
+    <result column="TYPE_NAME" property="typeName" />
+    <result column="DEPICT"  property="depict" />
+    <result column="EQUIP_TYPE_PARENT_ID"  property="dbEquipType.equipTypeId" />    
+    <result column="CONTROL_SOURCE"  property="controlSource" />
+    <result column="POWER_TYPE"  property="powerType" />
+    <result column="EN_NAME"  property="enName" />
+    <result column="EQUIP_TYPE_CODE"  property="equipTypeCode" />
+    <result property="groupStatus" column="GROUP_STATUS" javaType="Boolean"  jdbcType="DECIMAL"/> 
+  </resultMap>
+   
+        <select id="findById1" parameterType="int" resultMap="BaseResultMap">
+    select *  from db_equip_type
+    where equip_type_id = #{eqTypeId}
+  </select>
+      <!-- 
+     <select id="findById1" parameterType="com.hanqian.pojo.DbEquipType" resultType="com.hanqian.pojo.DbEquipType">
+    select *  from db_equip_type
+    where equip_type_id = #{equipTypeId}
+  </select>
+  -->
+
+  
+     <select id="findParentTypeId" parameterType="int" resultType="com.hanqian.pojo.DbEquipType">
+   
+    select *
+    from DB_EQUIP_TYPE
+    where equip_type_parent_id = #{eqTypeId}
+  </select>
+  
+  
+    
+     <select id="HasChilds" parameterType="map" resultType="com.hanqian.pojo.DbEquipType">
+   select t.equip_type_id equipTypeId,t.type_name equipTypeName,t.equip_type_parent_id equipTypeParentId from db_equip_type t where t.equip_type_parent_id =#{parentId}
+  </select>
+  
+   
+</mapper>

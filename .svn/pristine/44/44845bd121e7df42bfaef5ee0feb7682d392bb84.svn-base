@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	version="3.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	
+	<absolute-ordering>    
+        <name>hq_aries_kernel_web</name>
+        <name>hq_aries_plugin_simpleinput</name>
+        <name>hq_aries_plugin_simpledate</name>
+        <name>hq_aries_plugin_platform</name>
+        <name>hq_aries_plugin_simplesql</name>    
+    </absolute-ordering>
+    
+	<!-- 配置spring的监听器 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		  classpath:config/spring/*-context.xml,
+          classpath*:META-INF/hq-*-context.xml
+		</param-value>
+	</context-param>
+	
+	<context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:config/log4j/log4j.properties</param-value>
+    </context-param>
+    
+    
+	<!-- LogisticsListener是用来产生log目录的和 -->
+	<listener>
+        <listener-class>com.hanqian.common.listener.HqCustomLogFolderListener</listener-class>
+    </listener>
+    <listener>    
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>    
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>com.hanqian.aries.listener.AriesListener</listener-class>
+    </listener>
+	<!-- 控制Session的开关，保持在请求范围内
+	<filter>
+		<filter-name>openSession</filter-name>
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>openSession</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+ -->
+
+	<filter>
+         <filter-name>encodingFilter</filter-name>
+         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+         <init-param>
+             <param-name>encoding</param-name>
+             <param-value>UTF-8</param-value>
+         </init-param>
+         <init-param>
+             <param-name>forceEncoding</param-name>
+             <param-value>true</param-value> 
+         </init-param>
+    </filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 用户Session -->
+	<filter>
+		<filter-name>userLoginFilter</filter-name>
+		<filter-class>com.hanqian.util.UsersFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>userLoginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+<!--		 日志操作 -->
+		<filter>	
+			<filter-name>logFilter</filter-name>
+			<filter-class>com.hanqian.common.LogFilter</filter-class>
+			
+		</filter>
+		<filter-mapping>
+			<filter-name>logFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+			
+		</filter-mapping>
+	
+	
+
+	<!-- 设置监听加载上下文 -->
+	<filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+		
+	<servlet>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value></param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DispatcherServlet</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+        
+	<welcome-file-list>
+		<welcome-file>manager/login.jsp</welcome-file>
+	</welcome-file-list>
+
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+
+<!--<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/jsp/error/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/jsp/error/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/jsp/error/403.jsp</location>
+	</error-page> -->
+</web-app>
+

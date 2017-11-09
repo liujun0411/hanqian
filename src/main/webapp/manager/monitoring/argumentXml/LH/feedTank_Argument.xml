@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="给水箱">
+   <feedTank title="给水箱">
+       <property run="01" des="温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="02" des="累计流量" unit="T" colu="add(01,02,03)" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="03" des="液位" unit="mm" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>  
+       <property run="04" des="液位低报警" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|报警" condition="" seTitle="" showFlag="1" isAbs="1" errText='报警'></property>
+   </feedTank>
+</equipment>

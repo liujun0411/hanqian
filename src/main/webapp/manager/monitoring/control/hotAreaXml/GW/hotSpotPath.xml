@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!--typeId是指设备类型编号，url是指热区文档存放的路径-->
+  
+   <!-- 空压机 -->
+   <fileUrl typeId="8_MZKY_01" url="hotSpot_ky_01.xml"></fileUrl>
+   <fileUrl typeId="8_A4KY_01" url="hotSpot_ky_02.xml"></fileUrl>
+   <fileUrl typeId="8_B4KY_01" url="hotSpot_ky_03.xml"></fileUrl>
+   <!-- 负压吸引 -->
+   <fileUrl typeId="11_MZFY_01" url="hotSport_fyxy_02.xml"></fileUrl>
+   <fileUrl typeId="11_A4FY_01" url="hotSport_fyxy_03.xml"></fileUrl>
+   <fileUrl typeId="11_B4FY_01" url="hotSport_fyxy_01.xml"></fileUrl>
+  
+   <!-- 水冷机组夏天 -->
+   <fileUrl typeId="1004_1_NYZXLDJF_01" url="hotSport_NYZXLDJF_01_xt.xml"></fileUrl>
+   <!-- 水冷机组冬天 -->
+   <fileUrl typeId="1004_2_NYZXLDJF_01" url="hotSport_NYZXLDJF_01_dt.xml"></fileUrl>
+   
+   <!-- 新风机 -->
+   <fileUrl typeId="1001" url="xfj_hotSpot.xml"></fileUrl>  
+   <!-- 空调机 -->
+   <fileUrl typeId="1002" url="ktj_hotSpot.xml"></fileUrl>
+</equipPath>

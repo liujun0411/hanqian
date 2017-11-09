@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.HospDetailBusiness">
+	<resultMap id="hospDetailMap" type="com.hanqian.pojo.DbHospDetail">
+		<id property="seq" column="SEQ" />
+		<result property="buildareas" column="BUILDAREAS" />
+		<result property="innerareas" column="INNERAREAS" />
+		<result property="outareas" column="OUTAREAS" />
+		<result property="leaseareas" column="LEASEAREAS" />
+		<result property="setupareas" column="SETUPAREAS" />
+		<result property="demolishareas" column="DEMOLISHAREAS" />
+		<result property="buildamount" column="BUILDAMOUNT" />
+		<result property="landareas" column="LANDAREAS" />
+		<result property="landamount" column="LANDAMOUNT" />
+		<result property="plotratio" column="PLOTRATIO" />
+		<result property="afforestation" column="AFFORESTATION" />
+		<result property="hireareas" column="HIREAREAS" />
+		<result property="hire" column="HIRE" />
+		<result property="rentareas" column="RENTAREAS" />
+		<result property="rent" column="RENT" />
+		<result property="principal" column="PRINCIPAL" />
+		<result property="landdept" column="LANDDEPT" />
+		<result property="medicalareas" column="MEDICALAREAS" />
+		<result property="bedspace" column="BEDSPACE" />
+		<result property="bedcheck" column="BEDCHECK" />
+		<result property="carplaceUp" column="CARPLACE_UP" />
+		<result property="carplaceDown" column="CARPLACE_DOWN" />
+		<result property="buildsumareas" column="BUILDSUMAREAS" />
+		<result property="inputtime" column="INPUTTIME" />
+		<result property="opertime" column="OPERTIME" />
+
+		<association property="dbHospInfo" javaType="com.hanqian.pojo.DbHospInfo">
+			<id property="seqHosp" column="HOSP_ID" />
+			<id property="hospName" column="HOSP_NAME" />
+		</association>
+		<association property="dbUsers" javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="OPER" />
+		</association>
+	</resultMap>
+	
+	<select id="findHospDetail" resultMap="hospDetailMap"
+		parameterType="map">
+		select d.* , i.hosp_name from db_hosp_detail d , db_hosp_info i where 1=1	
+			<if test="opertime != null">
+				and opertime<![CDATA[>=]]>#{opertime}
+			</if>	
+	</select>
+	
+	<select id="findYearThere" resultMap="hospDetailMap" parameterType="map">
+			select inputtime from db_hosp_detail hd where hd.hosp_id = #{seqHosp} and to_char(inputtime,'yyyy')= #{inputtime}
+			<if test="seqHosp != null">
+				and hd.seq <![CDATA[<>]]> #{seqHosp}
+			</if>
+	</select>
+	
+  <select id="findDetailByid" parameterType="int" resultType="com.hanqian.pojo.DbHospDetail">
+    select * from DB_HOSP_DETAIL
+    where SEQ = #{seq}
+  </select>
+	
+		<select id="findDetailHospLid" resultMap="hospDetailMap"
+		parameterType="map">
+		select * from DB_HOSP_DETAIL where 1=1		
+			<if test="inputtime != null">
+				and inputtime=#{inputtime}
+			</if>	
+			<if test="seqHosp != null">
+				and hosp_id=#{seqHosp}
+			</if>
+	</select>
+	
+	
+	  <insert id="insertDetailDbHospDetail" parameterType="com.hanqian.pojo.DbHospDetail">
+    
+     <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_HOSPDETAIL.nextval as seq from dual
+		</selectKey>
+    insert into DB_HOSP_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dbHospInfo != null">
+        HOSP_ID,
+      </if>
+      <if test="buildareas != null">
+        BUILDAREAS,
+      </if>
+      <if test="innerareas != null">
+        INNERAREAS,
+      </if>
+      <if test="outareas != null">
+        OUTAREAS,
+      </if>
+      <if test="leaseareas != null">
+        LEASEAREAS,
+      </if>
+      <if test="setupareas != null">
+        SETUPAREAS,
+      </if>
+      <if test="demolishareas != null">
+        DEMOLISHAREAS,
+      </if>
+      <if test="buildamount != null">
+        BUILDAMOUNT,
+      </if>
+      <if test="landareas != null">
+        LANDAREAS,
+      </if>
+      <if test="landamount != null">
+        LANDAMOUNT,
+      </if>
+      <if test="plotratio != null">
+        PLOTRATIO,
+      </if>
+      <if test="afforestation != null">
+        AFFORESTATION,
+      </if>
+      <if test="hireareas != null">
+        HIREAREAS,
+      </if>
+      <if test="hire != null">
+        HIRE,
+      </if>
+      <if test="rentareas != null">
+        RENTAREAS,
+      </if>
+      <if test="rent != null">
+        RENT,
+      </if>
+      <if test="principal != null">
+        PRINCIPAL,
+      </if>
+      <if test="landdept != null">
+        LANDDEPT,
+      </if>
+      <if test="medicalareas != null">
+        MEDICALAREAS,
+      </if>
+      <if test="bedspace != null">
+        BEDSPACE,
+      </if>
+      <if test="bedcheck != null">
+        BEDCHECK,
+      </if>
+      <if test="carplaceUp != null">
+        CARPLACE_UP,
+      </if>
+      <if test="carplaceDown != null">
+        CARPLACE_DOWN,
+      </if>
+      <if test="buildsumareas != null">
+        BUILDSUMAREAS,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="dbUsers != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dbHospInfo != null">
+        #{dbHospInfo.seqHosp},
+      </if>
+      <if test="buildareas != null">
+        #{buildareas},
+      </if>
+      <if test="innerareas != null">
+        #{innerareas},
+      </if>
+      <if test="outareas != null">
+        #{outareas},
+      </if>
+      <if test="leaseareas != null">
+        #{leaseareas},
+      </if>
+      <if test="setupareas != null">
+        #{setupareas},
+      </if>
+      <if test="demolishareas != null">
+        #{demolishareas},
+      </if>
+      <if test="buildamount != null">
+        #{buildamount},
+      </if>
+      <if test="landareas != null">
+        #{landareas},
+      </if>
+      <if test="landamount != null">
+        #{landamount},
+      </if>
+      <if test="plotratio != null">
+        #{plotratio},
+      </if>
+      <if test="afforestation != null">
+        #{afforestation},
+      </if>
+      <if test="hireareas != null">
+        #{hireareas},
+      </if>
+      <if test="hire != null">
+        #{hire},
+      </if>
+      <if test="rentareas != null">
+        #{rentareas},
+      </if>
+      <if test="rent != null">
+        #{rent},
+      </if>
+      <if test="principal != null">
+        #{principal},
+      </if>
+      <if test="landdept != null">
+        #{landdept},
+      </if>
+      <if test="medicalareas != null">
+        #{medicalareas},
+      </if>
+      <if test="bedspace != null">
+        #{bedspace},
+      </if>
+      <if test="bedcheck != null">
+        #{bedcheck},
+      </if>
+      <if test="carplaceUp != null">
+        #{carplaceUp},
+      </if>
+      <if test="carplaceDown != null">
+        #{carplaceDown},
+      </if>
+      <if test="buildsumareas != null">
+        #{buildsumareas},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="dbUsers != null">
+        #{dbUsers.seq},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+	
+	
+	
+	<select id="findDetailByYearAndHospitalId" resultType="ciMap"
+		parameterType="map">
+			select * from ( select row_.*, rownum rownum_ from 
+			( select this_.SEQUENCE , this_.HOSPITALID , this_.BUILDAREAS buildareas, this_.INNERAREAS INNERAREAS , this_.OUTAREAS OUTAREAS, this_.LEASEAREAS LEASEAREAS, this_.SETUPAREAS SETUPAREAS, this_.DEMOLISHAREAS DEMOLISHAREAS, this_.BUILDAMOUNT BUILDAMOUNT, this_.LANDAREAS LANDAREAS, this_.LANDAMOUNT LANDAMOUNT, this_.PLOTRATIO PLOTRATIO, this_.AFFORESTATION  AFFORESTATION,this_.HIREAREAS HIREAREAS, this_.HIRE HIRE, this_.RENTAREAS RENTAREAS, this_.RENT RENT, this_.PRINCIPAL1 , this_.PRINCIPAL2 , this_.PRINCIPAL3 , this_.PRINCIPAL4 , this_.LANDDEPT1 , this_.LANDDEPT2 , this_.LANDDEPT3 , this_.LANDDEPT4 , this_.MEDICALAREAS MEDICALAREAS, this_.BEDSPACE BEDSPACE, this_.CARPLACE_UP CARPLACE_UP, this_.CARPLACE_DOWN CARPLACE_DOWN,this_.INPUTTIME  INPUTTIME, this_.OPER , this_.OPERTIME OPERTIME 
+				from DB_HOSPITALDETAIL this_ where this_.HOSPITALID=#{hospitalid}
+				<if test="inputtime != null">
+						and to_char(this_.INPUTTIME,'YYYY')=#{inputtime}
+				</if>
+				  order by this_.inputtime desc 
+	</select>
+	
+	
+	  <update id="updateHospDetail" parameterType="com.hanqian.pojo.DbHospDetail">
+
+    update DB_HOSP_DETAIL
+    <set>
+      <if test="dbHospInfo.seqHosp != null">
+        HOSP_ID = #{dbHospInfo.seqHosp},
+      </if>
+      <if test="buildareas != null">
+        BUILDAREAS = #{buildareas},
+      </if>
+      <if test="innerareas != null">
+        INNERAREAS = #{innerareas},
+      </if>
+      <if test="outareas != null">
+        OUTAREAS = #{outareas},
+      </if>
+      <if test="leaseareas != null">
+        LEASEAREAS = #{leaseareas},
+      </if>
+      <if test="setupareas != null">
+        SETUPAREAS = #{setupareas},
+      </if>
+      <if test="demolishareas != null">
+        DEMOLISHAREAS = #{demolishareas},
+      </if>
+      <if test="buildamount != null">
+        BUILDAMOUNT = #{buildamount},
+      </if>
+      <if test="landareas != null">
+        LANDAREAS = #{landareas},
+      </if>
+      <if test="landamount != null">
+        LANDAMOUNT = #{landamount},
+      </if>
+      <if test="plotratio != null">
+        PLOTRATIO = #{plotratio},
+      </if>
+      <if test="afforestation != null">
+        AFFORESTATION = #{afforestation},
+      </if>
+      <if test="hireareas != null">
+        HIREAREAS = #{hireareas},
+      </if>
+      <if test="hire != null">
+        HIRE = #{hire},
+      </if>
+      <if test="rentareas != null">
+        RENTAREAS = #{rentareas},
+      </if>
+      <if test="rent != null">
+        RENT = #{rent},
+      </if>
+      <if test="principal != null">
+        PRINCIPAL = #{principal},
+      </if>
+      <if test="landdept != null">
+        LANDDEPT = #{landdept},
+      </if>
+      <if test="medicalareas != null">
+        MEDICALAREAS = #{medicalareas},
+      </if>
+      <if test="bedspace != null">
+        BEDSPACE = #{bedspace},
+      </if>
+      <if test="bedcheck != null">
+        BEDCHECK = #{bedcheck},
+      </if>
+      <if test="carplaceUp != null">
+        CARPLACE_UP = #{carplaceUp},
+      </if>
+      <if test="carplaceDown != null">
+        CARPLACE_DOWN = #{carplaceDown},
+      </if>
+      <if test="buildsumareas != null">
+        BUILDSUMAREAS = #{buildsumareas},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="dbUsers != null and dbUsers.seq !=null">
+        OPER = #{dbUsers.seq},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+	
+
+	<select id="findHospDetailBusiness" resultMap="hospDetailMap"
+		parameterType="map">
+
+		select a.*,b.HOSP_NAME as HOSP_NAME from DB_HOSP_DETAIL a,DB_HOSP_INFO b   where b.seq_hosp=a.hosp_id  
+
+			<if test="seqHosp != null">
+				and a.HOSP_ID = #{seqHosp}
+			</if>
+			<if test="startDate != null and stopDate != null">
+				and a.inputtime between #{startDate} and #{stopDate}
+			</if>
+
+		order by a.inputtime desc
+	</select>
+	
+
+	
+		<select id="findHospitaldetail" resultMap="hospDetailMap"
+		parameterType="map">
+
+		select a.*,b.HOSP_NAME as HOSP_NAME from DB_HOSP_DETAIL a,DB_HOSP_INFO b   where b.seq_hosp=a.hosp_id  
+
+			<if test="seqHosp != null">
+				 and a.HOSP_ID = #{seqHosp}
+			</if>
+			<if test="inputtime != null">
+				and a.inputtime between #{startDate} and #{stopDate}
+			</if>
+
+		order by a.inputtime desc
+	</select>
+	
+			<select id="findSumArea" resultMap="hospDetailMap"
+		parameterType="map">
+			select sum(BUILDING_AREAS) hosparea from db_building
+	</select>
+	<select id="dateTimeById" resultMap="hospDetailMap"
+		parameterType="map">
+			select seq,inputtime from DB_HOSP_DETAIL
+			where to_char(inputtime,'YYYY')= #{dateById}
+	</select>
+
+ 
+</mapper>

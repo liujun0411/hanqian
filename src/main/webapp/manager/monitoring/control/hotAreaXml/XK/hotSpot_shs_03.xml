@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<!--设备信息-->
+
+<equipment>
+
+	
+
+	<!-- 热水泵1 -->
+
+	<area title="热水泵1#" wd="15" hg="15" marLeft="305" marTop="359" prop="rsb"
+
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 热水泵2 -->
+
+	<area title="热水泵2#" wd="15" hg="15" marLeft="340" marTop="346" prop="rsb"
+
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 热水泵3 -->
+
+	<area title="热水泵3#" wd="15" hg="15" marLeft="220" marTop="279" prop="rsb"
+
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!--热水泵4 -->
+
+	<area title="热水泵4#" wd="15" hg="15" marLeft="255" marTop="269" prop="rsb"
+
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!--热水泵5 -->
+
+	<area title="热水泵5#" wd="15" hg="15" marLeft="155" marTop="215" prop="rsb"
+
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!--热水泵6 -->
+
+	<area title="热水泵6#" wd="15" hg="15" marLeft="187" marTop="207" prop="rsb"
+
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+
+	
+
+	<!-- 冷水箱 -->	
+
+	<area title="水箱" wd="20" hg="20" marLeft="600" marTop="145" prop="lsx"
+
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 换热器1 -->	
+
+	<area title="换热器1#" wd="20" hg="20" marLeft="480" marTop="285" prop="hrq"
+
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 换热器2 -->	
+
+	<area title="换热器2#" wd="20" hg="20" marLeft="545" marTop="261" prop="hrq"
+
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 换热器3 -->	
+
+	<area title="换热器3#" wd="20" hg="20" marLeft="370" marTop="232" prop="hrq"
+
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 换热器4 -->	
+
+	<area title="换热器4#" wd="20" hg="20" marLeft="435" marTop="211" prop="hrq"
+
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 换热器5 -->	
+
+	<area title="换热器5#" wd="20" hg="20" marLeft="265" marTop="176" prop="hrq"
+
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 换热器6 -->	
+
+	<area title="换热器6#" wd="20" hg="20" marLeft="325" marTop="161" prop="hrq"
+
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+</equipment>

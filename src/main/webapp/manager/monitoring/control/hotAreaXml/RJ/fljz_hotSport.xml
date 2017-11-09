@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 热区绘制说明 -->
+<!-- 1、equipment节点名不能改变，里面的子项全部是area，id="自定义名字"，
+wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+eqTypeId是指设备类型ID -->
+<equipment>
+   <!-- 风冷热泵1-->
+   <area title="风冷热泵1#" id="flrb1" wd="30" hg="20" marLeft="220" marTop="232"   prop="newFau" initFlag="show" eqTypeId="1005001" positionX="60" postionY="120" eventType="click"></area>
+   <!-- 风冷热泵2 -->
+   <area title="风冷热泵2#" id="flrb2" wd="30" hg="20" marLeft="504" marTop="146"  prop="newFau" initFlag="hide" eqTypeId="1005001"  positionX="" postionY="" eventType="click"></area>
+   <!-- 循环泵1 -->
+   <area title="循环泵1#" id="xhb1" wd="30" hg="20" marLeft="785" marTop="278"  prop="newFau" initFlag="hide" eqTypeId="1005004" positionX="" postionY="" eventType="click"></area>
+   <!-- 循环泵2 -->
+   <area title="循环泵2#" id="xhb2" wd="30" hg="20" marLeft="505" marTop="370"  prop="newFau" initFlag="hide" eqTypeId="1005004" positionX="" postionY="" eventType="click"></area>
+   <!-- 进水管道1 -->
+   <area title="进水管道1#" id="jsgd1" wd="30" hg="20" marLeft="790" marTop="227" prop="newFau" initFlag="hide" eqTypeId="1005002" positionX="" postionY="" eventType="click"></area>
+    <!-- 进水管道2 -->
+   <area title="进水管道2#" id="jsgd2" wd="30" hg="20" marLeft="645" marTop="271" prop="newFau" initFlag="hide" eqTypeId="1005002" positionX="" postionY="" eventType="click"></area>
+   <!-- 进水管道3 -->
+   <area title="进水管道3#" id="jsgd3" wd="30" hg="20" marLeft="416" marTop="263" prop="newFau" initFlag="hide" eqTypeId="1005002" positionX="" postionY="" eventType="click"></area>
+    <!-- 进水管道4 -->
+   <area title="进水管道4#" id="jsgd4" wd="30" hg="20" marLeft="647" marTop="183" prop="newFau" initFlag="hide" eqTypeId="1005002" positionX="" postionY="" eventType="click"></area>
+   <!-- 出水管道1 -->
+   <area title="出水管道1#" id="csgd1" wd="30" hg="20" marLeft="569" marTop="247" prop="newFau" initFlag="hide" eqTypeId="1005003" positionX="" postionY="" eventType="click"></area>
+   <!-- 出水管道2 -->
+   <area title="出水管道2#" id="csgd2" wd="30" hg="20" marLeft="698" marTop="188" prop="newFau" initFlag="hide" eqTypeId="1005003" positionX="" postionY="" eventType="click"></area>
+   <!-- 出水管道3 -->
+   <area title="出水管道3#" id="csgd3" wd="30" hg="20" marLeft="750" marTop="198" prop="newFau" initFlag="hide" eqTypeId="1005003" positionX="" postionY="" eventType="click"></area>
+</equipment>

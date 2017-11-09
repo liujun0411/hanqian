@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EquipSerEquipBusiness">
+<!-- 	resultType="ciMap" -->
+   <select id="findEquipSerEquipByEquipId"  resultMap="EquipServiceEquipMap"  parameterType="int" >    
+<!--     	select  e.* ,s.seq as serSeq , s.equip_id as serEquipId , s.ser_equip_id , t.equip_type_id , t.type_name  from equip_service_equip s , db_equip_list e , db_equip_type t -->
+<!--     		where s.equip_id = e.equip_id and e.equip_type_id = t.equip_type_id and e.equip_id = #{equipId} -->
+
+		   select e.*, t.equip_type_id typeId, t.type_name typeName
+		     from db_equip_list e, db_equip_type t
+		    where equip_id in (select ser_equip_id
+		                         from equip_service_equip
+		                        where equip_id = #{equipId} )
+		      and e.equip_type_id = t.equip_type_id
+   </select>  
+   
+   <resultMap id="EquipServiceEquipMap" type="com.hanqian.pojo.EquipServiceEquip">
+    	<id column="EQUIP_ID"  property="seq" />
+    	<association property="dbEquipListBySerEquipId"  column="EQUIP_ID" javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" column="EQUIP_ID" />
+				<association property="dbEquipType" column="EQUIP_TYPE_ID" javaType="com.hanqian.pojo.DbEquipType">
+					<id property="equipTypeId" column="EQUIP_TYPE_ID" />
+					<id property="typeName" column="TYPE_NAME" />
+				</association>
+		</association>
+		<association property="dbEquipListByEquipId"  column="EQUIP_ID" javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" column="EQUIP_ID" />
+			<association property="dbEquipType" column="EQUIP_TYPE_ID" javaType="com.hanqian.pojo.DbEquipType">
+					<id property="equipTypeId" column="EQUIP_TYPE_ID" />
+					<id property="typeName" column="TYPE_NAME" />
+				</association>
+		</association>
+  </resultMap>
+   
+     <insert id="insertEquipServiceEquip" parameterType="com.hanqian.pojo.EquipServiceEquip">
+    <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_EQUIP_SERVICE_EQUIP.nextval as seq from dual
+		</selectKey>
+    insert into EQUIP_SERVICE_EQUIP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dbEquipListByEquipId != null">
+        EQUIP_ID,
+      </if>
+      <if test="dbEquipListBySerEquipId != null">
+        SER_EQUIP_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dbEquipListByEquipId != null">
+        #{dbEquipListByEquipId.equipId},
+      </if>
+      <if test="dbEquipListBySerEquipId != null">
+        #{dbEquipListBySerEquipId.equipId},
+      </if>
+    </trim>
+  </insert>
+  
+    <delete id="deleteEquipSerEquip" parameterType="String">
+       delete EQUIP_SERVICE_EQUIP ese where ese.equip_id = #{equipId}
+  </delete>
+   
+</mapper>

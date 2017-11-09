@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+	<!--空压泵1#-->
+	<area title="空压泵1#" wd="30" hg="30" marLeft="438" marTop="418"
+		prop="newFau" initFlag="hide" eqTypeId="8001" positionX="" postionY=""
+		eventType="click"></area>
+	<!--空压泵2#-->
+	<area title="空压泵2#" wd="30" hg="30" marLeft="347" marTop="446"
+		prop="newFau" initFlag="hide" eqTypeId="8001" positionX="" postionY=""
+		eventType="click"></area>
+	<!--空压泵3#-->
+	<area title="空压泵3#" wd="30" hg="30" marLeft="233" marTop="500"
+		prop="newFau" initFlag="hide" eqTypeId="8001" positionX="" postionY=""
+		eventType="click"></area>
+	<!--压力罐1#-->
+	<area title="压力罐1#" wd="30" hg="30" marLeft="629" marTop="320"
+		prop="newFau" initFlag="hide" eqTypeId="8002" positionX="" postionY=""
+		eventType="click"></area>
+</equipment>

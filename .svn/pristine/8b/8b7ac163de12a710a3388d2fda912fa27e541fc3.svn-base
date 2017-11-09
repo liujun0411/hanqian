@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx
+						   http://www.springframework.org/schema/tx/spring-tx.xsd
+						   http://www.springframework.org/schema/aop
+						   http://www.springframework.org/schema/aop/spring-aop.xsd">
+  
+    <!--  数据源 -->
+    <bean id="defaultDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass">
+            <value>oracle.jdbc.OracleDriver</value>
+        </property>
+        <property name="jdbcUrl">
+            <value>jdbc:oracle:thin:@192.168.0.27:1521/ORCL</value>
+        </property>
+        <property name="user">
+            <value>hdlog</value>
+        </property>
+        <property name="password">
+            <value>hdlog</value>
+        </property>
+        <property name="minPoolSize">
+            <value>10</value>
+        </property>
+        <property name="maxPoolSize">
+            <value>100</value>
+        </property>
+        <property name="initialPoolSize">
+            <value>10</value>
+        </property>
+        <property name="maxIdleTime">
+            <value>3600</value>    <!-- 一个数据库连接Connection可以存活1小时 -->
+        </property>
+        <property name="acquireIncrement">
+            <value>20</value>       <!-- 原来数据库连接用尽,每次创建20个数据库连接 -->
+        </property>
+        <property name="maxStatements">
+            <value>100</value>
+        </property>
+        <property name="idleConnectionTestPeriod">
+            <value>60</value>    <!-- 空闲的连接每隔1分钟检查一次数据库连接状态 -->
+        </property>
+        <property name="acquireRetryAttempts">
+            <value>0</value>    <!-- 无限尝试连接数据库 -->
+        </property>
+        <property name="acquireRetryDelay">
+            <value>60000</value>   <!-- 每隔1分钟连接一次,这个属性和 acquireRetryAttempts配套使用-->
+        </property>
+        <property name="checkoutTimeout">
+            <value>3000</value>  <!-- 调用getConnection后1秒未得到数据库连接就将抛出异常,从池中获得数据库连接是很快的,所以1秒如果获得不到,也就不需要再等待了,尤其是大并发量时,业务线程会不停的创建但是每个线程都在等待数据库,那时就可能出现OOM异常 -->
+        </property>
+        <property name="testConnectionOnCheckout">
+            <value>false</value>
+        </property>
+        <property name="testConnectionOnCheckin">
+            <value>true</value>
+        </property>
+    </bean>
+    
+    <!-- 配置 mybatis 的sqlSessionFactory 由 spring 的 SqlSessionFactoryBean 代理 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="defaultDataSource"/>
+        <property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:sql/**/*.xml"/>
+    </bean>
+    
+    <!-- 使用spring 的 SqlSessionTemplate 创建一个 可以批量操作的sqlSession  -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    
+    <!-- 事务管理器 -->
+    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">    
+          <property name="dataSource" ref="defaultDataSource"></property>
+    </bean>
+
+    <tx:advice id="txAdviceRequired">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="query*" read-only="true" />
+            <tx:method name="is*" read-only="true" />
+            <tx:method name="load*" read-only="true" />
+            <tx:method name="select*" read-only="true" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>   
+        <aop:advisor pointcut="execution(* com.hanqian..business.*.*(..))" advice-ref="txAdviceRequired" />
+    </aop:config>
+</beans>

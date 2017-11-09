@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DroolsBusinesss">
+
+
+      <!-- 查询今日总表峰值-->
+   <select id="selectrecord" resultType="com.hanqian.pojo.Watthourmeter">    
+             <!--  select 
+        NVL(max(y.record),0)record
+         from db_controldata_3days y inner join db_point p on(y.project_point = p.project_point)
+           inner join db_point_equip e on(p.seq=e.seq) 
+      inner join db_equip_list l on(l.equip_id=e.equip_id)
+          where l.node_level =1 
+        
+          AND  (Y.PROJECT_POINT like  '%.01'or  Y.PROJECT_POINT like  '%.02' or  Y.PROJECT_POINT like '%.03')
+          
+           -->
+          select 
+          NVL(y.record,0)record,
+          y.recordtime recordtime,
+          pm.param_value paramvalue,
+          l.equip_name equipname
+          from db_controldata_3days y
+           inner join db_point p on(y.project_point = p.project_point)
+           inner join db_point_equip e on(p.seq=e.seq) 
+           inner join db_equip_list l on(l.equip_id=e.equip_id)
+           left join db_eq_param pm on(pm.equip_id=l.equip_id)
+           where l.node_level =1 and  l.equip_type_id=10001
+            AND  (Y.PROJECT_POINT like  '%.01'or  Y.PROJECT_POINT like  '%.02' or  Y.PROJECT_POINT like '%.03')
+            and  to_char(y.recordtime,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')
+           order by  y.record desc 
+
+   </select> 
+
+      <!-- 根据日期和规则名查询-->
+   <select id="selectdroolssend" resultType="String"  parameterType="map">    
+         select ruletime from db_rule where rulename=#{rulename} and  to_char(ruletime,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd')
+   </select> 
+
+      <!-- 查询关系员工表-->
+   <select id="selectmoble" resultType="String" parameterType="String"  >    
+      select MEM_MOBTELE from  DB_RULE r inner join DB_RULE_RELATION_INDEX tt on(r.seq=tt.ruleseq)
+       inner join     DB_SERMAIN_DETAIL d  on (tt.sermainseq=d.seq)
+      where 1=1   and r.rulename  =#{rulename} 
+   </select> 
+         <!-- 查询消息模板-->
+   <select id="selectsms" resultType="String" parameterType="String"  >    
+       select cue_depict from db_alarm_cue where control_point=#{control_point}
+   </select> 
+   
+
+
+
+
+
+
+
+
+<update id="updaterule" parameterType="String">
+      update db_rule set ruletime=SYSDATE where RULENAME=#{rulename}
+</update>
+
+
+<!-- 删除规则关系 -->   
+   <delete id="deleteDbruleindex" parameterType="map">
+    delete DB_RULE_RELATION_INDEX where RULESEQ =#{ruleseq}
+   
+   </delete>
+   
+   
+       <!-- 查询关系员工表-->
+   <select id="selectDbruleindex" resultType="com.hanqian.pojo.Dbrule" parameterType="com.hanqian.pojo.Dbrule"  >    
+      select d.seq sermainseql,d.mem_name name from DB_RULE_RELATION_INDEX t,DB_SERMAIN_DETAIL d
+      where t.sermainseq=d.seq 
+      
+            <if test="sermainseql != 0">
+               and  t.ruleseq =#{sermainseql} 
+            </if>
+      
+   </select> 
+   
+   
+         <!-- 查询关系员工表-->
+   <select id="selectDbrulenotindex" resultType="com.hanqian.pojo.Dbrule" parameterType="com.hanqian.pojo.Dbrule"  >    
+            select d.seq sermainseql,d.mem_name name 
+            from DB_SERMAIN_DETAIL d where d.seq not in (     select d.seq  from DB_RULE_RELATION_INDEX t,DB_SERMAIN_DETAIL d
+           where t.sermainseq=d.seq
+                <if test="sermainseql != 0">
+                  and  t.ruleseq =#{sermainseql} 
+                  </if>
+            )
+       
+   
+     
+   </select> 
+   
+   
+   
+   
+   
+    <!-- 查询关系-->
+      <select id="selectDbruleindexone" resultType="com.hanqian.pojo.Dbrule" parameterType="map"  >    
+      select * from  DB_RULE_RELATION_INDEX where  sermainseq=#{sermainseq} and ruleseq=#{ruleseq}
+   </select> 
+   
+   
+   
+      <!-- 插入关系表 -->
+   <insert id="insertDbruleindex" parameterType="map">
+   
+     INSERT INTO DB_RULE_RELATION_INDEX (SERMAINSEQ,RULESEQ) VALUES(#{sermainseql},#{ruleseq})
+   </insert>
+   
+   
+      <!-- 查询所有的规则 -->
+   <select id="finddbruleall" resultType="String" parameterType="com.hanqian.pojo.Dbrule"  >    
+        select 
+        RULENAME rulename
+        
+         from DB_RULE t
+    
+       where 1=1
+	      <if test="ruletype != null and ruletype != ''">
+         	and t.RULETYPE = #{ruletype}     
+	      </if>	      
+	   
+   </select> 
+   
+   
+         <!-- 查询所有的规则 -->
+   <select id="finddbrulealldbrule" resultType="com.hanqian.pojo.Dbrule" parameterType="com.hanqian.pojo.Dbrule"  >    
+        select 
+        RULENAME rulename,
+        SEQ id
+         from DB_RULE t
+    
+       where 1=1
+	      <if test="ruletype != null and ruletype != ''">
+         	and t.RULETYPE = #{ruletype}     
+	      </if>	      
+	   
+   </select> 
+   
+   
+   
+   <!-- 插入数据库 -->
+   <insert id="insertDbrule" parameterType="com.hanqian.pojo.Dbrule">
+     INSERT INTO DB_RULE (RULENAME,RULETYPE) VALUES(#{rulename},#{ruletype})
+   </insert>
+   
+   
+   
+</mapper>

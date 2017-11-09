@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DeptBusiness">
+
+<resultMap type="com.hanqian.pojo.DbDept" id="dbDeptMap">
+	<id property="seq" column="SEQ" />
+	<result property="name" column="NAME" />
+	<result property="principal" column="PRINCIPAL" />
+	<result property="opertime" column="OPERTIME" />
+	<result property="updatetime" column="UPDATETIME" />
+	<result property="status" column="STATUS" />
+	
+	<association property="dbUsersByOper" column="OPER" javaType="com.hanqian.pojo.DbUsers">
+		<id property="seq" column="OPER" />
+		<result property="username" column="USERNAME"/>
+ 	</association>
+</resultMap>
+
+   <!-- 信息管理下级   组织管理 开始 -->
+   <select id="findDept" resultMap="dbDeptMap" parameterType="map"  >    
+         select d.seq,d.name,d.PRINCIPAL,d.OPERTIME,d.UPDATETIME,d.STATUS,d.OPER,u.USERNAME
+         from DB_DEPT d ,db_users u where d.STATUS=0  and d.oper = u.seq(+)
+         <if test="dbDeptName != null and dbDeptName != ''">
+         	and d.name like '%${dbDeptName}%'	        
+	      </if>
+	      <if test="dbDeptPrincipal != null and dbDeptPrincipal != ''">
+         	and d.principal like '%${dbDeptPrincipal}%'	        
+	      </if>	      
+	      order by d.opertime desc 
+   </select>  
+   
+    <insert id="insertDept" parameterType="com.hanqian.pojo.DbDept">
+    <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_DEPT.nextval as seq from dual
+		</selectKey>
+    
+     insert into DB_DEPT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="principal != null">
+        PRINCIPAL,
+      </if>     
+      <if test="opertime != null">
+        OPERTIME,
+      </if>      
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="dbUsersByOper != null">
+        OPER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="principal != null">
+        #{principal},
+      </if>     
+      <if test="opertime != null">
+        #{opertime},
+      </if>      
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="dbUsersByOper != null">
+        #{dbUsersByOper.seq},
+      </if>
+    </trim>
+  </insert>  
+  
+  <select id="findDbDeptById" parameterType="int" resultType="com.hanqian.pojo.DbDept">  
+    select 
+    SEQ, NAME, PRINCIPAL, OPER, OPERTIME, UPDATER, UPDATETIME, STATUS
+    from DB_DEPT
+    where SEQ = #{seq} and STATUS=0
+  </select>
+
+  <update id="updateDept" parameterType="com.hanqian.pojo.DbDept">
+      update DB_DEPT
+    <set>
+      <if test="name != null">
+        NAME = #{name},
+      </if>
+      <if test="principal != null">
+        PRINCIPAL = #{principal},
+      </if>  
+      <if test="updatetime != null">
+        UPDATETIME = #{updatetime},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+  <select id="findUserDept" parameterType="int" resultType="ciMap">  
+   select u.seq,u.username from db_users u where  
+   u.status!=1 and u.seq  in(select uh.seq from db_user_hosp uh where uh.dept=#{deptId})
+  </select>
+  
+  <select id="findUserNotDept" parameterType="int" resultType="ciMap">  
+   select u.seq,u.username from db_users u where 
+   u.status!=1 and u.seq not in(select uh.seq from db_user_hosp uh where uh.dept=#{deptId})
+  </select>
+  
+   <delete id="deleteDeptUser" parameterType="int">  
+    delete from db_user_hosp
+    where dept = #{deptId}
+  </delete>
+  
+   <insert id="insertDeptUser" parameterType="map">    
+    insert into DB_USER_HOSP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seqHosp != null">
+        SEQ_HOSP,
+      </if>
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dept != null">
+        DEPT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seqHosp != null">
+        #{seqHosp},
+      </if>
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dept != null">
+        #{dept},
+      </if>
+    </trim>
+  </insert>   
+   <!-- 信息管理下级   组织管理结束 -->
+   
+  <update id="updateDeptStatus" parameterType="com.hanqian.pojo.DbDept"  >
+      update db_dept set status=1 where seq=#{seq} 
+  </update>
+  
+   <delete id="deleteDept" parameterType="com.hanqian.pojo.DbDept">
+     delete from DB_DEPT
+    where SEQ = #{seq}
+  </delete>
+  
+   <select id="findAll" parameterType="com.hanqian.pojo.DbDept" resultType="ciMap">  
+    select * from DB_DEPT where status=0    
+  </select>
+   
+   
+</mapper>

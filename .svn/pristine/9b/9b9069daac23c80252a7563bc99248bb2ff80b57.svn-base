@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID
+	-->
+<equipment>
+	<!-- 负压罐1 -->
+	<area title="负压罐1#" id="fyg" wd="18" hg="18" marLeft="605" marTop="371"
+		prop="fuYaGuan" initFlag="hide" eqTypeId="11001" positionX=""
+		postionY="" eventType="click"></area>
+	<!-- 负压罐 2-->
+	<area title="负压罐2#" id="fyg" wd="18" hg="18" marLeft="762" marTop="408"
+		prop="fuYaGuan" initFlag="hide" eqTypeId="11001" positionX=""
+		postionY="" eventType="click"></area>	
+	<!-- 吸引泵1 -->
+	<area title="吸引泵1#" id="xyb" wd="18" hg="18" marLeft="405" marTop="492"
+		prop="xiYinBeng" initFlag="hide" eqTypeId="11002" positionX=""
+		postionY="" eventType="click"></area>
+		
+	<!-- 吸引泵2 -->
+	<area title="吸引泵2#" id="xyb" wd="18" hg="18" marLeft="323" marTop="505"
+		prop="xiYinBeng" initFlag="hide" eqTypeId="11002" positionX=""
+		postionY="" eventType="click"></area>
+		 
+	<!-- 吸引泵3 -->
+	<area title="吸引泵3#" id="xyb" wd="18" hg="18" marLeft="234" marTop="577"
+		prop="xiYinBeng" initFlag="hide" eqTypeId="11002" positionX=""
+		postionY="" eventType="click"></area>
+</equipment>

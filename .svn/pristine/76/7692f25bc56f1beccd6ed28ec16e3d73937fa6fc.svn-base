@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 热区绘制说明 -->
+<!-- 1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+eqTypeId是指设备类型ID -->
+<equipment>
+   <!-- 空压机1-->
+   <area title="空压机1#" id="kyj1" wd="30" hg="20" marLeft="738" marTop="594" prop="KongYaJi" initFlag="hide" eqTypeId="8001" positionX="200" postionY="500" eventType="click"></area>
+    <!-- 空压机2-->
+   <area title="空压机2#" id="kyj2" wd="30" hg="20" marLeft="756" marTop="541" prop="KongYaJi" initFlag="hide" eqTypeId="8001" positionX="200" postionY="500" eventType="click"></area>
+   
+   <area title="空压机3#" id="kyj3" wd="30" hg="20" marLeft="784" marTop="489" prop="KongYaJi" initFlag="hide" eqTypeId="8001" positionX="200" postionY="500" eventType="click"></area>
+   
+   <area title="空压机4#" id="kyj4" wd="30" hg="20" marLeft="802" marTop="451" prop="KongYaJi" initFlag="hide" eqTypeId="8001" positionX="200" postionY="500" eventType="click"></area>
+   
+   	<!-- 压力罐1 -->
+    <area title="压力罐1#" id="ylg1" wd="30" hg="20" marLeft="480" marTop="374" prop="YaLiGuan" initFlag="hide" eqTypeId="8002" positionX="" postionY="" eventType="click"></area>   
+    
+    <area title="压力罐2#" id="ylg2" wd="30" hg="20" marLeft="537" marTop="352" prop="YaLiGuan" initFlag="hide" eqTypeId="8002" positionX="" postionY="" eventType="click"></area>   
+    
+    <area title="压力罐3#" id="ylg3" wd="30" hg="20" marLeft="572" marTop="339" prop="YaLiGuan" initFlag="hide" eqTypeId="8002" positionX="" postionY="" eventType="click"></area>   
+ 
+    <area title="压力罐4#" id="ylg4" wd="30" hg="20" marLeft="620" marTop="315" prop="YaLiGuan" initFlag="hide" eqTypeId="8002" positionX="" postionY="" eventType="click"></area>    
+</equipment>

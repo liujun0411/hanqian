@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.VolumeBusiness">
+<!-- SEQ_BUISNESS -->
+ 	<select id="findBusinessSumByYear" resultType="ciMap" parameterType="map">    
+       select sum(bus_.out_patient) outpatient,sum(bus_.emergency) emergency,sum(bus_.in_patient) inpatient 
+        from db_business bus_ where bus_.hosp_id=#{seqHosp}
+        and substr(monthly,0,4)=#{year}
+   </select> 
+   <resultMap type="com.hanqian.pojo.DbBusiness" id="DbBusinessMap">
+	   	<id column="SEQ" property="seq"/>
+	   	<result column="OUT_PATIENT" property="outPatient"/>
+	   	<result column="EMERGENCY" property="emergency"/>
+	   	<result column="IN_PATIENT" property="inPatient"/>
+	   	<result column="MONTHLY" property="monthly"/>
+	   	<result column="OPERTIME" property="opertime"/>
+	   	<association column="HOSP_ID" property="dbHospInfo" javaType="com.hanqian.pojo.DbHospInfo">
+		   	<id column="HOSP_ID" property="seqHosp"/>
+		   	<result column="HOSP_NAME" property="hospName"/>
+	   	</association>
+	   	<association column="OPER" property="dbUsers"  javaType="com.hanqian.pojo.DbUsers">
+		   	<id column="OPER" property="seq"/>
+		   	<result column="USERNAME" property="username"/>
+	   	</association>
+   </resultMap>
+   <select id="findBusinessVOBusiness" resultMap="DbBusinessMap" parameterType="map">    
+       select b.SEQ, b.OUT_PATIENT, b.EMERGENCY , b.IN_PATIENT , b.MONTHLY , b.HOSP_ID, b.OPER,h.HOSP_NAME
+       from DB_BUSINESS b,Db_Hosp_Info h
+       where b.HOSP_ID = h.SEQ_HOSP
+        <if test="seqHosp != null">
+			     and b.HOSP_ID=#{seqHosp}
+		</if>
+		<if test="startDate != null">
+			     and b.MONTHLY<![CDATA[>=]]>#{startDate}
+		</if>
+		<if test="stopDate != null">
+			     and b.MONTHLY<![CDATA[<=]]>#{stopDate}
+		</if> 
+		order by b.monthly desc
+   </select> 
+   
+      <select id="findBusinessDbBusiness" resultType="ciMap" parameterType="map">    
+       select *  from DB_BUSINESS  where 1=1
+        <if test="businessTime != null">
+			      and opertime<![CDATA[>=]]>#{businessTime}
+		</if>
+		order by opertime desc
+   </select> 
+   
+         <select id="findMonthThere" resultType="ciMap" parameterType="map">    
+      select monthly from db_business where hosp_Id=#{hospId}
+       and monthly=#{monthly}
+        <if test="seq != null">
+			        and seq !=#{seq}
+		</if>	
+   </select> 
+   
+   
+     <select id="findByIdBusinessDAO" parameterType="int" resultType="com.hanqian.pojo.DbBusiness">
+       select *  from DB_BUSINESS
+    where SEQ = #{seq}
+  </select>
+   
+     <update id="updateBusinessDAO" parameterType="com.hanqian.pojo.DbBusiness">
+      update DB_BUSINESS
+    <set>
+      <if test="dbHospInfo != null">
+        HOSP_ID = #{dbHospInfo.seqHosp},
+      </if>
+      <if test="outPatient != null">
+        OUT_PATIENT = #{outPatient},
+      </if>
+      <if test="emergency != null">
+        EMERGENCY = #{emergency},
+      </if>
+      <if test="inPatient != null">
+        IN_PATIENT = #{inPatient},
+      </if>
+      <if test="monthly != null">
+        MONTHLY = #{monthly},
+      </if>
+      <if test="dbUsers != null">
+        OPER = #{dbUsers.seq},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+    <select id="findByIdHospInfoDAO" parameterType="map" resultType="com.hanqian.pojo.DbHospInfo">
+       select *   from DB_HOSP_INFO
+    where SEQ_HOSP =#{seqHosp}
+  </select>
+   
+   
+     <insert id="insertBusinessDAO" parameterType="com.hanqian.pojo.DbBusiness">
+    <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_BUISNESS.nextval as seq from dual
+		</selectKey>
+    insert into DB_BUSINESS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dbHospInfo != null">
+        HOSP_ID,
+      </if>
+      <if test="outPatient != null">
+        OUT_PATIENT,
+      </if>
+      <if test="emergency != null">
+        EMERGENCY,
+      </if>
+      <if test="inPatient != null">
+        IN_PATIENT,
+      </if>
+      <if test="monthly != null">
+        MONTHLY,
+      </if>
+      <if test="dbUsers != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dbHospInfo != null">
+        #{dbHospInfo.seqHosp},
+      </if>
+      <if test="outPatient != null">
+        #{outPatient},
+      </if>
+      <if test="emergency != null">
+        #{emergency},
+      </if>
+      <if test="inPatient != null">
+        #{inPatient},
+      </if>
+      <if test="monthly != null">
+        #{monthly},
+      </if>
+      <if test="dbUsers != null">
+        #{dbUsers.seq},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+   
+   
+ 
+</mapper>

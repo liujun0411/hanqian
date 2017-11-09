@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.StaticHistoryDataBusiness">
+
+ 	<select id="StaticHistoryDataMethod1" resultType="ciMap" >    
+         select t.log_seq, t.building_id  id, t.flag  col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss')  col5 from db_building_log t order by col5
+   </select> 
+   
+    	<select id="StaticHistoryDataMethod2" resultType="ciMap" >    
+        select t.log_seq,t.pic_id  id,t.flag  col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss')  col5 from DB_BUILDING_PIC_LOG t 
+         left join db_building b on t.building_id=b.building_id 
+          left join db_base_comm c on t.pic_type=c.seq order by col5
+   </select> 
+   
+    	<select id="StaticHistoryDataMethod3" resultType="ciMap" >    
+         select t.log_seq, t.seq id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from db_building_repair_log t left join db_building b on t.building_id=b.building_id order by col5
+   </select> 
+   
+    	<select id="StaticHistoryDataMethod4" resultType="ciMap" >    
+         select t.log_seq, t.seq id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from db_building_storey_log t
+           left join db_hosp_info h on t.hosp_id=h.seq_hosp left join db_building b on t.building_id=b.building_id 
+            left join db_base_comm c on t.area_id=c.seq order by col5
+   </select> 
+   
+    	<select id="StaticHistoryDataMethod5" resultType="ciMap" >    
+         select t.log_seq, t.seq id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from DB_BUILD_AREA_LOG t left join db_building b on t.building_id=b.building_id order by col5
+   </select> 
+   
+       	<select id="StaticHistoryDataMethod6" resultType="ciMap" >    
+         select t.mater_id id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from db_build_mater_log t left join db_build_mater m on t.mater_parent_id= m.mater_id order by col5
+   </select> 
+   
+       	<select id="StaticHistoryDataMethod7" resultType="ciMap" >    
+         select t.log_seq, t.seq id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from DB_EQUIP_GROUP_LOG t 
+          left join db_equip_type e on t.equip_type=e.equip_type_id left join db_building b on t.build_id=b.building_id order by col5
+   </select> 
+   
+       	<select id="StaticHistoryDataMethod8" resultType="ciMap" >    
+         select t.log_seq, t.equip_id id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from DB_EQUIP_LIST_LOG t 
+          left join db_equip_type e on t.equip_type_id=e.equip_type_id order by col5
+   </select> 
+   
+          	<select id="StaticHistoryDataMethod9" resultType="ciMap" >    
+         select t.log_seq, t.equip_pic_id id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from DB_EQUIP_PIC_LOG t 
+           left join db_equip_pic_type p on t.pic_type_id=p.pic_type_id left join db_building b on t.build_id=b.building_id order by col5
+   </select> 
+   
+          	<select id="StaticHistoryDataMethod10" resultType="ciMap" >    
+         select t.log_seq, t.equip_type_id id,t.flag col4,to_char(t.optime,'yyyy-MM-dd hh24:mi:ss') col5 from DB_EQUIP_TYPE_LOG t 
+          left join DB_EQUIP_TYPE e on t.equip_type_parent_id=e.equip_type_id left join db_energy_type c on t.power_type=c.seq order by col5
+   </select> 
+   
+<select id="StaticHistoryDataByIdMethod1" resultType="ciMap" parameterType="int">    
+         select * from db_building_log bg  where bg.log_seq=#{seq}
+   </select> 
+   
+   <select id="StaticHistoryDataByIdMethod2" resultType="ciMap" parameterType="int">    
+         select * from DB_BUILDING_PIC_LOG t  where t.log_seq=#{seq}
+   </select> 
+   
+      <select id="StaticHistoryDataByIdMethod3" resultType="ciMap" parameterType="int">    
+         select * from db_building_repair_log t  where t.log_seq=#{seq}
+   </select> 
+         <select id="StaticHistoryDataByIdMethod4" resultType="ciMap" parameterType="int">    
+        select * from db_building_storey_log t  
+         where t.log_seq=#{seq}
+   </select> 
+   
+            <select id="StaticHistoryDataByIdMethod5" resultType="ciMap" parameterType="int">    
+        select * from DB_BUILD_AREA_LOG t  where t.log_seq=#{seq}
+   </select> 
+   
+               <select id="StaticHistoryDataByIdMethod6" resultType="ciMap" parameterType="int">    
+        select * from db_build_mater_log t  where t.log_seq=#{seq}
+   </select> 
+   
+               <select id="StaticHistoryDataByIdMethod7" resultType="ciMap" parameterType="int">    
+        select * from DB_EQUIP_GROUP_LOG t where t.log_seq=#{seq}
+   </select> 
+   
+                 <select id="StaticHistoryDataByIdMethod8" resultType="ciMap" parameterType="int">    
+        select * from DB_EQUIP_LIST_LOG t 
+         where t.log_seq=#{seq}
+   </select> 
+   
+                  <select id="StaticHistoryDataByIdMethod9" resultType="ciMap" parameterType="int">    
+        select * from DB_EQUIP_PIC_LOG t where  t.log_seq=#{seq}
+   </select> 
+   
+                     <select id="StaticHistoryDataByIdMethod10" resultType="ciMap" parameterType="int">    
+         select * from DB_EQUIP_TYPE_LOG t  where t.log_seq=#{seq}
+   </select> 
+   
+<select id="dblogdetailById" resultType="ciMap" parameterType="int">    
+         select d.* from db_log_detail d where d.log_seq=#{seq}
+   </select> 
+   
+   
+   
+  
+</mapper>

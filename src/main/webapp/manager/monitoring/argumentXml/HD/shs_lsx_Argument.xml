@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="冷水箱">
+   <lsx title="冷水箱">
+       <property run="01" des="水位高报警" unit="" colu="" maxVa="" minVa=""
+	   remark="0|正常,1|水位高" condition="" seTitle="" showFlag="0" isAbs="1" errText="水位高"></property>
+       <property run="02" des="水位低报警" unit="" colu="" maxVa="" minVa=""
+	   remark="0|正常,1|水位低" condition="01" seTitle="水位" showFlag="1" isAbs="1" errText="水位低"></property>
+   </lsx>
+</equipment>

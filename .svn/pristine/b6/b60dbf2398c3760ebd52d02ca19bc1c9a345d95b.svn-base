@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- 模板：flash动画与AS3交互的XML文档模板 -->
+<!--equipstate节点名不能修改，每一类型的设备，对应一个equip节点，eqTypeId为设备类型ID-->
+<!--1、element节点为设备Id节点，模板值为空-->
+<!--2、AxisX节点为小方块展示X坐标，模板值不为空-->
+<!--3、AxisY节点为小方块展示Y坐标，模板值不为空-->
+<!--4、State节点为设备状态值，模板值为空-->
+<!--5、run:运行状态 ， warn ： 告警状态-->
+<equipstate>
+<!--真空泵1-->  
+  <Equip eqTypeId="11002" run="03" warn="04" keyName="beng1"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>-0.15</AxisA>
+	<AxisB>-114.1</AxisB>
+    <State>1</State> 
+  </Equip>  
+  <!--真空泵2-->  
+  <Equip eqTypeId="11002" run="03" warn="04" keyName="beng2"> 
+    <element>coolTower2</element>  
+    <AxisX>101</AxisX>  
+    <AxisY>101</AxisY> 
+	<AxisA>-0.1</AxisA>
+	<AxisB>-114</AxisB>
+    <State>1</State> 
+  </Equip>    
+  <!--真空泵3-->  
+  <Equip eqTypeId="11002" run="03" warn="04" keyName="beng3"> 
+    <element>coolTower3</element>  
+    <AxisX>101</AxisX>  
+    <AxisY>101</AxisY> 
+	<AxisA>-0.1</AxisA>
+	<AxisB>-114</AxisB>
+    <State>1</State> 
+  </Equip>   
+</equipstate>

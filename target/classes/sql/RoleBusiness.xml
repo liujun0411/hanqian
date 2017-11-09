@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.RoleBusiness">
+
+	<insert id="insertRole" parameterType="com.hanqian.pojo.DbRoles">
+
+		<selectKey resultType="int" keyProperty="roleId" order="BEFORE">
+			select
+			SEQ_RULE.nextval as roleId from dual
+		</selectKey>
+		insert into DB_ROLES
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				ROLE_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="depict != null">
+				DEPICT,
+			</if>
+			<if test="roleLevel != null">
+				ROLE_LEVEL,
+			</if>
+			<if test="oper != null">
+				OPER,
+			</if>
+			<if test="opertime != null">
+				OPERTIME,
+			</if>
+			<if test="updater != null">
+				UPDATER,
+			</if>
+			<if test="updatertime != null">
+				UPDATERTIME,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">
+				#{roleId},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="depict != null">
+				#{depict},
+			</if>
+			<if test="roleLevel != null">
+				#{roleLevel},
+			</if>
+			<if test="oper != null">
+				#{oper},
+			</if>
+			<if test="opertime != null">
+				#{opertime},
+			</if>
+			<if test="updater != null">
+				#{updater},
+			</if>
+			<if test="updatertime != null">
+				#{updatertime},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+		</trim>
+	</insert>
+
+
+
+	<select id="findRoles" parameterType="com.hanqian.pojo.DbRoles"
+		resultType="ciMap">
+		select r.role_id,r.depict,r.name,r.role_level,r.opertime,r.updatertime,
+		(select u.username from db_users u where u.seq=r.oper) as oper,
+		(select u.username from db_users u where u.seq=r.updater) as updater
+		from db_roles r
+		where r.status=0 order by r.opertime desc
+	</select>
+
+	<select id="FindMenu" parameterType="int" resultType="ciMap">
+		select m.menu_code,m.name from db_menus m where m.menu_code=#{id}
+	</select>
+
+	<update id="updateDbRole" parameterType="com.hanqian.pojo.DbRoles">
+		update DB_ROLES
+		<set>
+			<if test="name != null">
+				NAME = #{name},
+			</if>
+			<if test="depict != null">
+				DEPICT = #{depict},
+			</if>
+			<if test="roleLevel != null">
+				ROLE_LEVEL = #{roleLevel},
+			</if>
+			<if test="oper != null">
+				OPER = #{oper},
+			</if>
+			<if test="opertime != null">
+				OPERTIME = #{opertime},
+			</if>
+			<if test="updater != null">
+				UPDATER = #{updater},
+			</if>
+			<if test="updatertime != null">
+				UPDATERTIME = #{updatertime},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+		</set>
+		where ROLE_ID = #{roleId}
+	</update>
+	
+	<update id="updateDbUsers" parameterType="com.hanqian.pojo.DbRoles">
+		update db_userole set status=1 where roleid = #{id}
+	</update>
+
+	<select id="findRoleAll" resultType="ciMap">
+		select * from db_roles where status=0
+	</select>
+	
+	
+	<select id="findLevels" resultType="ciMap">
+		select b.seq,b.content1 from db_base_comm b  where b.oper_type in(select t.seq from db_base_type t where t.oper_table='角色级别') 
+	</select>
+	
+
+	<select id="findRoleUsers" resultType="ciMap">
+		select u.seq,u.username from db_users u where u.seq in(select userid from
+		db_userole where roleid=#{roleId} ) and u.status=0
+	</select>
+
+	<delete id="deleteBySQL" parameterType="int">
+		delete db_userole ur where ur.roleid=#{roleId}
+	</delete>
+
+	<insert id="insertBySQL" parameterType="map">
+		insert into DB_USEROLE (ROLEID, USERID, OPER,
+		OPERTIME, STATUS)
+		values (#{roleid}, #{userid}, #{oper},
+		sysdate, #{status})
+	</insert>
+	
+	<select id="findRoleNotUsers" resultType="ciMap">
+		select u.seq,u.username from db_users u 
+		where u.seq not  in(select userid from db_userole where roleid=#{roleId} ) and u.status=0
+	</select>
+	
+	  <insert id="insertRoleMenu" parameterType="com.hanqian.pojo.DbRoleMenu">
+   
+    insert into DB_ROLE_MENU
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id.menuid != null">
+        MENUID,
+      </if>
+      <if test="id.roleid != null">
+        ROLEID,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id.menuid != null">
+        #{id.menuid},
+      </if>
+      <if test="id.roleid != null">
+        #{id.roleid},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  
+  	<delete id="deleteRoleMenu" parameterType="int">
+		delete db_role_menu rm where rm.roleid=#{roleId}
+	</delete>
+	
+	<select id="findRoleMenuCodeAll"  parameterType="int" resultType="ciMap">
+		select rm.menuid from db_role_menu rm where rm.roleid=#{roleId}
+	</select>
+	
+	<select id="findListRole"  parameterType="int" resultType="ciMap">
+		select userrole.userid,userrole.roleid,userrole.oper,userrole.opertime,userrole.status  from db_userole userrole where userrole.roleid = #{id}
+	</select>
+	
+	<select id="findDbRoles" resultType="com.hanqian.pojo.DbRoles"  parameterType="int">
+		select * from db_roles where status=0 and role_id=#{roleId}
+	</select>
+	
+	<select id="findDbRoleByRoleId" resultType="ciMap"  parameterType="map">
+		select rm.menuid from db_role_menu rm where rm.roleid=#{roleId}
+	</select>
+	
+
+</mapper>

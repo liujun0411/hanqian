@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>漫画jQuery消息提示插件 - Jquery-school</title>
+<meta name="author" content="Jquery-School" />
+<meta name="Copyright" content="Jquery-School,www.jq-school.com" />
+<meta name="keywords" content="Jquery,Jquery资源,前端设计,div+css" />
+<meta name="description" content="" />
+<link rel="stylesheet" type="text/css" href="css/manhuaTip.1.0.css">
+<link href="http://www.jq-school.com/css/style.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/manhuaTip.1.0.js"></script>
+<script type="text/javascript">
+$(function (){
+	$(".manhuaTip").manhuaTip({					       
+		Event : "click",//可选				       
+		timeOut : 2000//停留时间
+	});
+});
+</script>
+
+</head>
+<body>
+<div id="top">
+  <h2 class="subtitle"> JQuery让你的前端设计更精彩！</h2>
+  <div id="meun"><a href="/" title="Jquery-School"><img src="http://www.jq-school.com/logo.png" /></a>
+    <ul id="submeun">
+      <li><a href="/">首 页</a></li>    
+	   <li class="cur"><a href="javascript:void(0)">提示插件</a></li>
+    </ul>
+  </div>
+</div>
+<pre>
+
+&lt;script type="text/javascript"&gt;
+$(function (){
+	$(".manhuaTip").manhuaTip({					       
+		Event : "click",//可选				       
+		timeOut : 200//停留时间
+	});
+});
+&lt;/script&gt;
+用法如下：
+1、一共有4种提示操作，1、错误（error）  2、 成功（succ）  3、消息（notice）  4、等待（loading）
+2、每个使用的元素加上以下3种属性
+   1）class必需为manhuaTip
+   2) ty类别必需为第一条的4种之一
+   3）msg提示的消息
+用法如下：
+&lt;input type="button" value="错误" class="manhuaTip" ty="error" msg="出错了" /&gt;
+&lt;input type="button"  value="成功" class="manhuaTip" ty="succ" msg="漫画的提示插件发布成功了" /&gt;
+&lt;input type="button"  value="消息" class="manhuaTip" ty="notice" msg="好消息，漫画的提示插件发布了" /&gt;
+&lt;input type="button"  value="等待" class="manhuaTip" ty="loading" msg="正在提交您的请求，请稍候..." /&gt;
+</pre>
+<br /><br />
+<h1>demo</h1>
+<input type="button"  class="manhuaTip" ty="error" msg="出错了" />
+<input type="button"  class="manhuaTip" ty="succ" msg="漫画的提示插件发布成功了" />
+<input type="button"  value="消息" class="manhuaTip" ty="notice" msg="好消息，漫画的提示插件发布了" />
+<input type="button"  class="manhuaTip" ty="loading" msg="正在提交您的请求，请稍候..." />
+</body>
+</html>

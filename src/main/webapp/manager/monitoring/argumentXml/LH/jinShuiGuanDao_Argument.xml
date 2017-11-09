@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipment>
+   <newFau title="进水管道">
+       <property run="01" des="瞬时流量" unit="T/h" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="02" des="进水温度" unit="℃" colu="0" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="03" des="进水压力" unit="Mpa"  colu="0" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </newFau>
+</equipment>

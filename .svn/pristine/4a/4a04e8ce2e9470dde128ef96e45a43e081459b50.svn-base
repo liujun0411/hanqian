@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildingBusiness">
+
+   <select id="findAllBuilding" resultType="ciMap" > 
+    select * from DB_BUILDING  
+   </select>  
+   
+    <select id="findByIdDbBUILDING" parameterType="int"  resultMap="DBBuildingMap">  
+    select *  from DB_BUILDING
+    where BUILDING_ID = #{buildingId}
+  	</select>
+  	
+  	    <select id="findBuildingById" parameterType="int"  resultMap="DBBuildingMap">  
+    select *  from DB_BUILDING
+    where BUILDING_ID = #{buildingId}
+  	</select>
+  	
+  	
+  	 <resultMap id="DBBuildingMap" type="com.hanqian.pojo.DbBuilding">
+   
+    <id column="BUILDING_ID"  property="buildingId" />
+    <result column="BUILDING_CODE"  property="buildingCode" />
+    <result column="BUILDING_NAME"  property="buildingName" />
+    <result column="HIS_NAME"  property="hisName" />
+    <result column="BUILDING_EN_CODE"  property="buildingEnCode" />
+    <result column="BUILDING_AREAS"  property="buildingAreas" />
+    <result column="AMOUNT"  property="amount" />
+    <result column="COMPLETIME"  property="completime" />
+    <result column="STOREY_NUM_DOWN"  property="storeyNumDown" />
+    <result column="STOREY_NUM_UP"  property="storeyNumUp" />
+    <result column="MEND_NUM"  property="mendNum" />
+    <result column="STRUCTURE"  property="structure" />
+    <result column="HEIGHT"  property="height" />
+    <result column="OUT_WALL"  property="outWall" />
+    <result column="AUDITS"  property="audits" />
+    <result column="PRO_COST"  property="proCost" />
+    <result column="DOOR_MATER"  property="doorMater" />
+    <result column="WINDOW_MATER"  property="windowMater" />
+    <result column="CEILING_MATER"  property="ceilingMater" />
+    <result column="WALL_MATER"  property="wallMater" />
+    <result column="FLOOR_MATER"  property="floorMater" />
+    <result column="PLACE"  property="place" />
+    <result column="OWER"  property="ower" />
+    <result column="STATUS"  property="status" />
+    <result column="INPUTTIME"  property="inputtime" />
+    <result column="OPERTIME"  property="opertime" />
+   	 	<association property="dbBuildMaterByWaterproof"  column="WATERPROOF"  javaType="com.hanqian.pojo.DbBuildMater">
+			<id property="materId" column="WATERPROOF" />
+		</association>
+    	<association property="dbBuildMaterByQuakeproof"  column="QUAKEPROOF"  javaType="com.hanqian.pojo.DbBuildMater">
+			<id property="materId" column="QUAKEPROOF" />
+		</association>
+		 <association property="dbBuildMaterByCostaccord"  column="COSTACCORD"  javaType="com.hanqian.pojo.DbBuildMater">
+			<id property="materId" column="COSTACCORD" />
+		</association>
+		    <association property="dbBuildMaterByUsetype"  column="USETYPE"  javaType="com.hanqian.pojo.DbBuildMater">
+			<id property="materId" column="USETYPE" />
+		</association>
+		<association property="dbBuildMaterByProblem"  column="PROBLEM"  javaType="com.hanqian.pojo.DbBuildMater">
+			<id property="materId" column="PROBLEM" />
+		</association>
+		<association property="dbHospInfo"  column="HOSP_ID" javaType="com.hanqian.pojo.DbHospInfo">
+			<id property="seqHosp" column="HOSP_ID" />
+		</association> 
+		 <association property="dbUsersByInput"   column="INPUT"   javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="INPUT" />
+		</association>
+		<association property="dbUsersByOper"  column="OPER"   javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="OPER" />
+		</association>   
+		<association property="dbBaseComm"  column="BUILDSTATUS"   javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="BUILDSTATUS" />
+			<association property="dbBaseType"  column="BUILDSTATUS" javaType="com.hanqian.pojo.DbBaseType">
+				<id property="seq" column="BUILDSTATUS" />
+			</association>
+		</association>
+  </resultMap>
+
+  	  	<!--  select *  from DB_BUILDING where  1=1 -->
+  	<select id="findDBBuilding" parameterType="map" resultMap="DBBuildingMap">  
+  	   select t.*,c.content1 from db_building t inner join
+	     db_base_comm c on t.buildstatus=c.seq where  1=1
+    <if test="buildingId != null">
+			         	and   BUILDING_ID=#{buildingId} 
+	</if>  
+    <if test="hospId != null">
+			         	and   HOSP_ID=#{hospId} 
+	</if>
+	<if test="buildingName != null">
+			          and BUILDING_NAME=#{buildingName} 
+	</if>
+	<if test="status != null">
+			        and STATUS=#{status} 
+	</if>
+    	and STATUS=0  
+     order by to_number(BUILDING_ID) asc
+  	</select>
+  	
+  	<!--  resultMap="DBBuildingMap" -->
+  	  	    <select id="findBuildingBySql"  resultType="ciMap"  >  
+   select bd.building_id,bd.building_name,bd.storey_num_down,bd.storey_num_up from db_building bd where bd.status=0
+  	</select>
+  	
+  	    <select id="findBuildingStroey" parameterType="int" resultType="ciMap">  
+    select bd.storey_num_down,bd.storey_num_up from db_building bd where bd.building_id= #{buildingId}
+  	</select>
+  	
+  	  	    <select id="findBuildNameAndSequenceBuildingBusiness" parameterType="int" resultType="ciMap">  
+    select b.building_id , b.building_name from db_building b where b.hosp_id =#{hospId}
+  	</select>
+  	
+  	<!-- resultType="com.hanqian.pojo.DbBuilding" -->
+  	<select id="findBuilding" parameterType="map" resultMap="DBBuildingMap">  
+	    select t.*,c.content1 from db_building t inner join
+	     db_base_comm c on t.buildstatus=c.seq where t.status = 0
+	    <if test="buildstatus != null">
+				         	 and t.buildstatus=#{buildstatus}  
+		</if>  
+	    <if test="buildingName != null">
+				         	 and t.building_name like '%${buildingName}%' 
+		</if>
+		<if test="hisName != null">
+				         and t.his_name like '%${hisName}%'  
+		</if>
+		<if test="structure != null">
+				         and t.structure like '%${structure}%'  
+		</if>
+	    	 order by t.building_id , t.buildstatus
+  	</select>
+  	
+  	
+  	<insert id="insertDbBuilding" parameterType="com.hanqian.pojo.DbBuilding">
+  	<selectKey resultType="int" keyProperty="buildingId" order="BEFORE">
+			select
+			SEQ_BUILDS.nextval as buildingId from dual
+		</selectKey>  
+    insert into DB_BUILDING
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="buildingId != null">
+        BUILDING_ID,
+      </if>
+      <if test="buildingCode != null">
+        BUILDING_CODE,
+      </if>
+      <if test="buildingName != null">
+        BUILDING_NAME,
+      </if>
+      <if test="hisName != null">
+        HIS_NAME,
+      </if>
+      <if test="buildingEnCode != null">
+        BUILDING_EN_CODE,
+      </if>
+      <if test="buildingAreas != null">
+        BUILDING_AREAS,
+      </if>
+      <if test="amount != null">
+        AMOUNT,
+      </if>
+      <if test="completime != null">
+        COMPLETIME,
+      </if>
+      <if test="storeyNumDown != null">
+        STOREY_NUM_DOWN,
+      </if>
+      <if test="storeyNumUp != null">
+        STOREY_NUM_UP,
+      </if>
+      <if test="mendNum != null">
+        MEND_NUM,
+      </if>
+      <if test="structure != null">
+        STRUCTURE,
+      </if>
+      <if test="height != null">
+        HEIGHT,
+      </if>
+      <if test="outWall != null">
+        OUT_WALL,
+      </if>
+      <if test="audits != null">
+        AUDITS,
+      </if>
+      <if test="proCost != null">
+        PRO_COST,
+      </if>
+      <if test="doorMater != null">
+        DOOR_MATER,
+      </if>
+      <if test="windowMater != null">
+        WINDOW_MATER,
+      </if>
+      <if test="ceilingMater != null">
+        CEILING_MATER,
+      </if>
+      <if test="wallMater != null">
+        WALL_MATER,
+      </if>
+      <if test="floorMater != null">
+        FLOOR_MATER,
+      </if>
+      <if test="place != null">
+        PLACE,
+      </if>
+      <if test="dbBuildMaterByWaterproof != null">
+        WATERPROOF,
+      </if>
+      <if test="dbBuildMaterByWaterproof != null">
+        QUAKEPROOF,
+      </if>
+      <if test="dbBuildMaterByWaterproof != null">
+        COSTACCORD,
+      </if>
+      <if test="dbBuildMaterByProblem != null">
+        PROBLEM,
+      </if>
+      <if test="dbBuildMaterByUsetype != null">
+        USETYPE,
+      </if>
+      <if test="dbHospInfo != null">
+        HOSP_ID,
+      </if>
+      <if test="ower != null">
+        OWER,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="dbUsersByInput != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="dbUsersByOper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="dbBaseComm != null">
+        BUILDSTATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="buildingId != null">
+        #{buildingId},
+      </if>
+      <if test="buildingCode != null">
+        #{buildingCode},
+      </if>
+      <if test="buildingName != null">
+        #{buildingName},
+      </if>
+      <if test="hisName != null">
+        #{hisName},
+      </if>
+      <if test="buildingEnCode != null">
+        #{buildingEnCode},
+      </if>
+      <if test="buildingAreas != null">
+        #{buildingAreas},
+      </if>
+      <if test="amount != null">
+        #{amount},
+      </if>
+      <if test="completime != null">
+        #{completime},
+      </if>
+      <if test="storeyNumDown != null">
+        #{storeyNumDown},
+      </if>
+      <if test="storeyNumUp != null">
+        #{storeyNumUp},
+      </if>
+      <if test="mendNum != null">
+        #{mendNum},
+      </if>
+      <if test="structure != null">
+        #{structure},
+      </if>
+      <if test="height != null">
+        #{height},
+      </if>
+      <if test="outWall != null">
+        #{outWall},
+      </if>
+      <if test="audits != null">
+        #{audits},
+      </if>
+      <if test="proCost != null">
+        #{proCost},
+      </if>
+      <if test="doorMater != null">
+        #{doorMater},
+      </if>
+      <if test="windowMater != null">
+        #{windowMater},
+      </if>
+      <if test="ceilingMater != null">
+        #{ceilingMater},
+      </if>
+      <if test="wallMater != null">
+        #{wallMater},
+      </if>
+      <if test="floorMater != null">
+        #{floorMater},
+      </if>
+      <if test="place != null">
+        #{place},
+      </if>
+      <if test="dbBuildMaterByWaterproof != null">
+        #{dbBuildMaterByWaterproof.materId},
+      </if>
+      <if test="dbBuildMaterByWaterproof != null">
+        #{dbBuildMaterByQuakeproof.materId},
+      </if>
+      <if test="dbBuildMaterByWaterproof != null">
+        #{dbBuildMaterByCostaccord.materId},
+      </if>
+      <if test="dbBuildMaterByProblem != null">
+        #{problem},
+      </if>
+      <if test="dbBuildMaterByUsetype != null">
+        #{dbBuildMaterByUsetype.materId},
+      </if>
+      <if test="dbHospInfo != null">
+        #{dbHospInfo.seqHosp},
+      </if>
+      <if test="ower != null">
+        #{ower},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="dbUsersByInput != null">
+        #{dbUsersByInput.seq},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="dbUsersByOper != null">
+        #{dbUsersByOper.seq},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="dbBaseComm != null">
+        #{dbBaseComm.seq},
+      </if>
+    </trim>
+  </insert>
+  	
+    <update id="updateBuilding" parameterType="com.hanqian.pojo.DbBuilding">    
+    update DB_BUILDING
+    <set>
+      <if test="buildingCode != null">
+        BUILDING_CODE = #{buildingCode},
+      </if>
+      <if test="buildingName != null">
+        BUILDING_NAME = #{buildingName},
+      </if>
+      <if test="hisName != null">
+        HIS_NAME = #{hisName},
+      </if>
+      <if test="buildingEnCode != null">
+        BUILDING_EN_CODE = #{buildingEnCode},
+      </if>
+      <if test="buildingAreas != null">
+        BUILDING_AREAS = #{buildingAreas},
+      </if>
+      <if test="amount != null">
+        AMOUNT = #{amount},
+      </if>
+      <if test="completime != null">
+        COMPLETIME = #{completime},
+      </if>
+      <if test="storeyNumDown != null">
+        STOREY_NUM_DOWN = #{storeyNumDown},
+      </if>
+      <if test="storeyNumUp != null">
+        STOREY_NUM_UP = #{storeyNumUp},
+      </if>
+      <if test="mendNum != null">
+        MEND_NUM = #{mendNum},
+      </if>
+      <if test="structure != null">
+        STRUCTURE = #{structure},
+      </if>
+      <if test="height != null">
+        HEIGHT = #{height},
+      </if>
+      <if test="outWall != null">
+        OUT_WALL = #{outWall},
+      </if>
+      <if test="audits != null">
+        AUDITS = #{audits},
+      </if>
+      <if test="proCost != null">
+        PRO_COST = #{proCost},
+      </if>
+      <if test="doorMater != null">
+        DOOR_MATER = #{doorMater},
+      </if>
+      <if test="windowMater != null">
+        WINDOW_MATER = #{windowMater},
+      </if>
+      <if test="ceilingMater != null">
+        CEILING_MATER = #{ceilingMater},
+      </if>
+      <if test="wallMater != null">
+        WALL_MATER = #{wallMater},
+      </if>
+      <if test="floorMater != null">
+        FLOOR_MATER = #{floorMater},
+      </if>
+      <if test="place != null">
+        PLACE = #{place},
+      </if>
+      <if test="dbBuildMaterByWaterproof != null">
+        WATERPROOF = #{dbBuildMaterByWaterproof.materId},
+      </if>
+      <if test="dbBuildMaterByQuakeproof != null">
+        QUAKEPROOF = #{dbBuildMaterByQuakeproof.materId},
+      </if>
+      <if test="dbBuildMaterByCostaccord != null">
+        COSTACCORD = #{dbBuildMaterByCostaccord.materId},
+      </if>
+      <if test="dbBuildMaterByProblem != null">
+        PROBLEM = #{dbBuildMaterByProblem.materId},
+      </if>
+      <if test="dbBuildMaterByUsetype != null">
+        USETYPE = #{dbBuildMaterByUsetype.materId},
+      </if>
+      <if test="dbHospInfo != null">
+        HOSP_ID = #{dbHospInfo.seqHosp},
+      </if>
+      <if test="ower != null">
+        OWER = #{ower},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="dbUsersByInput != null">
+        INPUT = #{dbUsersByInput.seq},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="dbUsersByOper != null">
+        OPER = #{dbUsersByOper.seq},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+      <if test="dbBaseComm != null">
+        BUILDSTATUS = #{dbBaseComm.seq},
+      </if>
+    </set>
+    where BUILDING_ID = #{buildingId}
+  </update>
+  
+<update id="updateBuildingForMendNum" parameterType="com.hanqian.pojo.DbBuilding">    
+ 	update DB_BUILDING b 
+ 	<set>
+		b.mend_num = b.mend_num-1 
+ 	</set>
+	where b.BUILDING_ID = #{buildingId}
+</update>
+  
+<update id="updateBuildingForMendNumPlus" parameterType="com.hanqian.pojo.DbBuilding">    
+ 	update DB_BUILDING b 
+ 	<set>
+		b.mend_num = b.mend_num+1 
+ 	</set>
+	where b.BUILDING_ID = #{buildingId}
+</update>
+  	    <select id="findBuildByParam" parameterType="map" resultType="ciMap">  
+    select b.building_id buildingId,b.building_name buildingName from 
+     db_building b inner join db_equip_list e on b.building_id=e.building_id 
+     and e.equip_type_id=#{equipTypeId} and
+      e.status=0 and b.status=0  group by b.building_id,b.building_name order by b.building_id     
+  	</select>
+  
+     <select id="findBuildByEquipId" parameterType="map" resultType="ciMap">  
+    select b.building_id buildingId,b.building_name buildingName from
+     db_building b inner join db_equip_list e on b.building_id=e.building_id 
+     and e.equip_id=#{equipId} and
+      e.status=0 and b.status=0  group by b.building_id,b.building_name order by b.building_id     
+  	</select>
+  	
+  	
+  	 	<select id="reportBuilding" parameterType="map" resultType="ciMap">  
+    select *  from DB_BUILDING where  1=1
+    <if test="opertime != null">
+			        and 	opertime<![CDATA[>=]]>#{lastTime}
+	</if>  
+    
+  	</select>
+  	
+  	
+</mapper>

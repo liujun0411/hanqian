@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipment title="风冷热泵" hasParTitle="true">
+   <child title="风冷热泵">
+       <property run="01" des="运行模式" unit="" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+       <property run="02" des="运行状态" unit="" colu="" maxVa="" minVa="" remark="0|停止,1|运行" condition="03" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+	   <property run="03" des="故障状态" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|故障" condition="" seTitle="" showFlag="0" isAbs="1" errText="故障"></property>
+   </child>
+   <child title="进水管道">
+       <property run="04" des="累计流量" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+       <property run="05" des="瞬时流量" unit="T/h" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+	   <property run="06" des="进水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+	   <property run="07" des="进水压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+   </child>
+   <child title="出水管道">
+       <property run="08" des="出水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+       <property run="09" des="出水压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+	   <property run="10" des="水流开关" unit="" colu="" maxVa="" minVa="" remark="0|关,1|开" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+   </child>
+</equipment>

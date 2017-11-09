@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="软化水系统" hasParTitle="true">
+   <child title="除氧器">
+       <property run="01" des="除氧器压力" unit="Kpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="0" isAbs="1"></property>
+       <property run="02" des="除氧器温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="0" isAbs="1"></property>
+	   <property run="03" des="除氧器液位" unit="mm" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="0" isAbs="1"></property>
+	   <property run="04" des="除氧器液位极低停炉" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|报警" condition="" seTitle="" showFlag="1" isAbs="1"></property>
+	   <property run="05" des="除氧器液位极高报警" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|报警" condition="" seTitle="" showFlag="0" isAbs="1"></property>
+   </child>
+   <child title="除氧器水泵">
+       <property run="06" des="除氧补水泵状态" unit="" colu="" maxVa="" minVa="" remark="0|停止,1|运行" condition="" seTitle="" showFlag="1" isAbs="0"></property>
+       <property run="07" des="除氧器补水泵过载报警" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|报警" condition="" seTitle="" showFlag="1" isAbs="0"></property>
+   </child>
+   <child title="水处理器">
+       <property run="08" des="1#水处理器状态" unit="" colu="" maxVa="" minVa="" remark="0|待用,1|使用" condition="" seTitle="" showFlag="1" isAbs="0"></property>
+       <property run="09" des="2#水处理器状态" unit="" colu="" maxVa="" minVa="" remark="0|待用,1|使用" condition="" seTitle="" showFlag="1" isAbs="1"></property>
+   </child>
+</equipment>

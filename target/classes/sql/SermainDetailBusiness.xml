@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.SermainDetailBsiness">
+
+ 	<select id="findSerMainAll" resultType="ciMap" >    
+         select d.seq,d.mem_name  from DB_SERMAIN_DETAIL d 
+   </select> 
+   
+    	<select id="findSerMainUserAll" resultType="ciMap"   parameterType="map" >
+         select d.seq,d.mem_name from DB_SERMAIN_DETAIL d where d.seq in
+         (select sr.repair_man from DB_SERMAIN_REPAIR sr where sr.repair_team =#{serMainId})
+   </select> 
+   
+   <select id="findSerMainNotUserAll" resultType="ciMap"   parameterType="map" >    
+         select d.seq,d.mem_name from DB_SERMAIN_DETAIL d where d.seq not in
+         (select sr.repair_man from DB_SERMAIN_REPAIR sr where sr.repair_team =#{serMainId})
+   </select> 
+   
+      <select id="findSerMainNotIds" resultType="ciMap"   parameterType="map" >    
+       select sermain.seq,sermain.service_seq serviceSeq from db_sermain_detail sermain where sermain.seq =#{sermainId}
+   </select> 
+   
+   <select id="findSerMainList" resultType="ciMap"   parameterType="map" >     
+         select sd.*,brc.content1,brc.content2 ,s.servname 
+          from db_sermain_detail sd 
+           left join 
+           (select bc.*,sr.repair_man from db_base_comm bc ,DB_SERMAIN_REPAIR sr where bc.oper_type =#{opertype}
+            and bc.delet_flag = 0 and bc.seq = sr.repair_team) brc 
+             on  brc.repair_man = sd.seq 
+              left join db_service s on sd.service_seq = s.seq 
+               where 1 = 1 
+              <if test="name != null">
+		         and  sd.mem_name like '%'||upper(#{name})||'%'
+		      </if>
+		      <if test="serBusinessId != null">
+		          and   s.seq =#{serBusinessId}
+		      </if>
+		      <if test="serClassId != null">
+		            and  brc.seq =#{serClassId}
+		      </if>
+   </select> 
+   
+      <select id="findSerMainListBySerId" resultType="ciMap"   parameterType="map" >    
+         select sd.*,brc.content1,brc.content2 ,s.servname 
+          from db_sermain_detail sd 
+           left join 
+           (select bc.*,sr.repair_man from db_base_comm bc ,DB_SERMAIN_REPAIR sr where bc.oper_type =#{opertype}
+             and bc.delet_flag = 0 and bc.seq = sr.repair_team) brc 
+              on  brc.repair_man = sd.seq 
+               left join db_service s on sd.service_seq = s.seq 
+                where 1 = 1 
+		      <if test="serBusinessId != null">
+		            and   s.seq =#{serBusinessId}
+		      </if>
+   </select> 
+   
+   
+   <select id="deleteMenFindDbSermainDetail" resultType="ciMap"   parameterType="map" >    
+         select sr.seq seq,sr.repair_man rpman ,sr.repair_team reteam from DB_SERMAIN_REPAIR sr where sr.repair_man =#{seq}
+   </select> 
+   
+  <delete id="deleteMenSerRepairStr" parameterType="int">
+    delete DB_SERMAIN_REPAIR sr where sr.repair_man =#{seq}
+  </delete>
+  
+    <delete id="deleteMenSerUserStr" parameterType="string">
+    delete db_alarm_cue_user sr where sr.user_id =#{seq}
+  </delete>
+  
+    <delete id="deleteMenSerDetailStr" parameterType="string">
+    delete DB_SERMAIN_DETAIL sr where sr.seq =#{seq}
+  </delete>
+  
+    <insert id="insertSerRepairAddStr" parameterType="com.hanqian.pojo.DbSermainRepair">
+     <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_SERMAINREPAIR.nextval as seq from dual
+		</selectKey>
+    
+    insert into DB_SERMAIN_REPAIR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="repairMan != null">
+        REPAIR_MAN,
+      </if>
+      <if test="repairTeam != null">
+        REPAIR_TEAM,
+      </if>
+        REPAIR_LEVEL,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="repairMan != null">
+        #{repairMan},
+      </if>
+      <if test="repairTeam != null">
+        #{repairTeam},
+      </if>
+        #{repairLevel},
+    </trim>
+  </insert>
+  
+        <select id="findSerMainByMenId" resultType="ciMap"   parameterType="map" >    
+          select bc.seq,bc.content1,d.repair_man 
+           from db_base_comm  bc,
+            (select dr.* from db_sermain_repair dr where dr.repair_man =#{seq} )d 
+             where bc.seq = d.repair_team and bc.delet_flag = 0 and bc.oper_type =#{opertype}
+   </select> 
+   
+           <select id="findMenDetailByMenIdDbSermainDetail" resultType="ciMap"   parameterType="map" >    
+            select sd.* from DB_SERMAIN_DETAIL sd  
+             where sd.seq =#{seq} 
+              order by sd.opertime 
+   </select> 
+   
+   <select id="findClassAllDbSermainDetail" resultType="ciMap"   parameterType="map" >    
+            select bc.seq, bc.content1
+        from db_base_comm bc
+       where bc.seq not in (select dr.repair_team
+                              from db_sermain_repair dr
+                             where dr.repair_man = #{seq})
+         and bc.delet_flag = 0
+         and bc.oper_type = #{opertype}
+   </select> 
+   
+      <select id="findClassBanzuAll" resultType="ciMap"   parameterType="map" >    
+         select bc.seq,bc.content1  from db_base_comm  bc  where bc.delet_flag = 0 and bc.oper_type =#{opertype}
+      </select> 
+  <select id="updateMenInfoRepairLevelss" resultType="ciMap" parameterType="map" >    
+               select sr.seq,sr.repair_man,sr.repair_team,
+               sr.repair_level repairLevel from 
+               DB_SERMAIN_REPAIR sr where sr.repair_man = '${sermainDetailSeq}'
+   </select>
+     <insert id="insertDbSermainDetail" parameterType="com.hanqian.pojo.DbSermainDetail">
+      <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_SERMAIN_DETAIL.nextval as seq from dual
+		</selectKey>
+    insert into DB_SERMAIN_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="memName != null">
+        MEM_NAME,
+      </if>
+      <if test="memMobtele != null">
+        MEM_MOBTELE,
+      </if>
+      <if test="memTele != null">
+        MEM_TELE,
+      </if>
+      <if test="dbSermain != null">
+        SERVICE_SEQ,
+      </if>
+      <if test="input != null">
+        INPUT,
+      </if>
+     
+        INPUTTIME,
+     
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="memName != null">
+        #{memName},
+      </if>
+      <if test="memMobtele != null">
+        #{memMobtele},
+      </if>
+      <if test="memTele != null">
+        #{memTele},
+      </if>
+      <if test="dbSermain != null">
+        #{dbSermain.dbService.seq},
+      </if>
+      <if test="input != null">
+        #{input},
+      </if>
+    	 sysdate,
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMenInfoDbSermainDetail" parameterType="com.hanqian.pojo.DbSermainDetail">
+    update DB_SERMAIN_DETAIL
+    <set>
+      <if test="memName != null">
+        MEM_NAME = #{memName},
+      </if>
+      <if test="memMobtele != null">
+        MEM_MOBTELE = #{memMobtele},
+      </if>
+      <if test="memTele != null">
+        MEM_TELE = #{memTele},
+      </if>
+      <if test="oper != null">
+        OPER = #{oper},
+      </if>
+      <if test="dbSermain != null">
+        SERVICE_SEQ = #{dbSermain.dbService.seq},
+      </if>
+      <if test="input != null">
+        INPUT = #{input},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      OPERTIME = sysdate
+    </set>
+        where SEQ = #{seq}
+  </update>
+  
+  <select id="isExistSermainDetail" resultType="ciMap"   parameterType="map" >    
+          select ac.* from db_alarm_cue_user ac where ac.user_id =#{userId}
+  </select> 
+  
+  
+  
+</mapper>

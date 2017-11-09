@@ -1,0 +1,6 @@
+.selectTr{
+	background-color: lightgreen;
+	}
+.noSelectTr{
+	background-color: none;
+	}

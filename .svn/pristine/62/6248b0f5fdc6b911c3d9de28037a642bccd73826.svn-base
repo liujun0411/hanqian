@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>				
+   <child>
+   <!-- 风冷热泵1 -->
+	<area title="C楼屋顶热泵机组1#" id="flrb" wd="30" hg="20" marLeft="214"
+		marTop="163" prop="fljz" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+	<!-- 风冷热泵2 -->
+	<area title="C楼屋顶热泵机组2#" id="flrb" wd="30" hg="20" marLeft="504"
+		marTop="89" prop="fljz" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+		
+	
+   </child>
+</equipment>

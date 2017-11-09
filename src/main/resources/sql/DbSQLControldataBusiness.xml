@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DbControldataBusiness">
+
+   <!-- select count(*) from sys_config -->
+   <!-- select id="mysqltest" resultType="int"  -->
+   <!--  LIMIT ${currentPage},${pageSize} -->
+    <select id="sDCDfindDiwanweiInfoList" resultType="ciMap" parameterType="map">  
+      select bb.project_point,bb.real_data,bb.calc_data,bb.date_time,bb.optime
+            from unupdate_real_data bb where 1=1
+              <if test="projectpoint != null"> 
+                   and  bb.project_point   like '%${projectpoint}%'
+              </if>  
+              <if test="datetime != null">  
+                   and date_format(bb.optime,'%Y-%m-%d')  <![CDATA[=]]> #{datetime} 
+              </if>
+              <!-- date_sub(curdate(),interval 1 day)  取前一天数据 -->
+			  <if test="datetime == null">  
+			       and date_format(bb.optime,'%Y-%m-%d')  <![CDATA[=]]> date_format(now(),'%Y-%m-%d') 
+			  </if>
+   </select>  
+</mapper>

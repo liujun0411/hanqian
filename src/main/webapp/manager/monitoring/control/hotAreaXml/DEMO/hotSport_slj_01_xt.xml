@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标
+	-->
+<equipment>
+	<child>
+<!--		 冷却泵1 -->
+<!--		<area title="冷却泵1#" eventType="click" postionY="" positionX=""-->
+<!--			eqTypeId="1004002" initFlag="hide" prop="coolQue" marTop="455"-->
+<!--			marLeft="550" hg="15" wd="15" />-->
+<!--			-->
+<!--		 冷冻泵1 -->
+<!--		<area title="冷冻泵1#" eventType="click" postionY="" positionX=""-->
+<!--			eqTypeId="1004003" initFlag="hide" prop="coolDong" marTop="565"-->
+<!--			marLeft="470" hg="15" wd="15" />-->
+			
+		<!-- 冷冻机1 -->
+		<area title="冷冻机1" eventType="click" wd="30" hg="25" marLeft="440"
+			marTop="435" prop="coolTower1" initFlag="hide" eqTypeId="1004004"
+			positionX="0" postionY="869"></area>
+		
+		<!-- 集水器 -->
+		<area title="集水器" eventType="click" postionY="" positionX=""
+			eqTypeId="1004006" initFlag="hide" prop="others" marTop="-1020"
+			marLeft="-1000" hg="0" wd="0" />
+		
+		<!-- 分水器 -->
+		<area title="分水器" eventType="click" wd="0" hg="0" marLeft="-1000"
+			marTop="-1020" prop="others" initFlag="hide" eqTypeId="1004005"
+			positionX="" postionY=""></area>
+			
+		<!-- 冷却塔1 -->
+		<area title="冷却塔1#" eventType="click" wd="30" hg="25" marLeft="565"
+			marTop="395" prop="coolTower" initFlag="hide" eqTypeId="1004001"
+			positionX="16" postionY="350"></area>
+	</child>
+</equipment>

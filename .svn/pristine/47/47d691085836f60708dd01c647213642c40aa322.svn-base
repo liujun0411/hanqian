@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EquipParamBusiness">
+   <select id="findDicParamByTypeId" resultType="ciMap" parameterType="map" >    
+        select d.seq,d.equip_type_id,d.param_name,d.param_unit,d.status,d.default_value,
+        d.input_type,d.comm_code from DIC_EQ_PARAMETER d where d.status=0 
+        and d.equip_type_id=#{equipTypeId} 
+         order by  d.seq asc
+   </select>  
+   
+      <select id="findDicParamByTypeIdNewNum" resultType="ciMap" parameterType="map" >    
+        select dic.seq,dic.equip_type_id,dic.param_name,dic.param_unit,dic.status,dic.default_value,dic.input_type,
+        dic.comm_code  from dic_eq_parameter dic where 
+        dic.seq not in(select eqpar.dic_id from db_eq_param eqpar where eqpar.equip_id=#{equipTypeId}) 
+        and dic.status=0  and dic.equip_type_id=#{equipType}
+   </select> 
+   
+         <select id="findDicParamByTypeIdXLK" resultType="ciMap" parameterType="map" >    
+         select d.seq dseq,baseType.Seq typeseq,comm.seq commseq,comm.content1 from DIC_EQ_PARAMETER d 
+          left join  db_base_type baseType on d.comm_code=baseType.Seq  
+           left join   DB_BASE_COMM comm on baseType.Seq=comm.oper_type 
+            where d.status=0 and d.equip_type_id=#{equipTypeId}
+             and d.input_type <![CDATA[<>]]>1 
+   </select> 
+   
+            <select id="findDicParamByEquipId" resultType="ciMap" parameterType="map" >    
+        select p.seq,p.dic_id,p.equip_id,p.param_value,d.param_name,d.param_unit,d.status,
+        d.default_value,d.input_type,d.comm_code from  db_eq_param p  
+        inner join dic_eq_parameter d on p.dic_id=d.seq and p.equip_id=#{equipId}  order by  p.dic_id asc
+   </select> 
+   
+               <select id="findDicParamByEquipIdNew" resultType="ciMap" parameterType="map" >    
+        select * from dic_eq_parameter dicpar left join 
+        db_eq_param dbpar on dicpar.seq=dbpar.dic_id  where dbpar.equip_id=#{equipId}
+   </select> 
+   
+                  <select id="findDicParamByEquipIdXLK" resultType="ciMap" parameterType="map" >    
+        select pa.seq,pa.dic_id,pa.equip_id,pa.param_value from DB_EQ_PARAM pa  
+        where pa.equip_id=#{equipId}
+   </select> 
+   
+    <select id="findEqParamByEquipId" resultType="ciMap" parameterType="map" >    
+        select pa.seq,pa.dic_id,pa.equip_id,pa.param_value from DB_EQ_PARAM pa  where pa.equip_id=#{equipId}
+   </select> 
+   
+   
+</mapper>

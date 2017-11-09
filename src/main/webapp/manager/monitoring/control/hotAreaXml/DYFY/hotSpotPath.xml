@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!-- 空压系统 -->
+   <fileUrl typeId="8_ky_01" url="hotSport_ky_01.xml"></fileUrl>
+   <!-- 负压吸引 -->
+   <fileUrl typeId="11_fy_01" url="hotSport_fy_01.xml"></fileUrl>
+</equipPath>

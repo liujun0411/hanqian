@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EqNavigationBusiness">
+
+   <select id="findCurrentAlarmCount" resultType="ciMap"  parameterType="map">    
+         select al.*,es.build_id servicebuildid,es.storey servicestorey,es.areas,es.square from ( 
+          select b.building_name,b.building_id,el.equip_id,el.equip_name, 
+           el.equip_type_id,et.type_name,el.unit_type,el.storey,el.place 
+            from db_equip_list el,db_building b,db_equip_type et 
+             where b.building_id = el.building_id  and et.equip_type_id = el.equip_type_id 
+            <if test="eqTypeId != null">
+         	 	and el.equip_type_id =#{eqTypeId}	        
+	   		</if>
+	   		<if test="buildId != null">
+         	 	and el.building_id =#{buildId}	        
+	   		</if>	   		
+	   			   		<if test="unitType != null">
+         	 	 and  upper(el.unit_Type) like '%||upper(#{unitType})||%'	        
+	   		</if>
+	   		
+	   			   		<if test="site != null">
+         	 	 and el.place like '%||#{site}||%'	        
+	   		</if>
+	   			   		<if test="storey != null">
+         	 	 and  el.storey =#{storey}	        
+	   		</if>	   		
+	   		  order by  el.building_id,el.equip_name )al left join equip_service es on al.equip_id = es.equip_id where 1 = 1 
+	   		<if test="serviceStorey != null">
+         	 	 and es.storey like '%||#{serviceStorey}||%'      
+	   		</if>
+	   		<if test="serviceBuildId != null">
+         	 	  and  es.BUILD_ID like  '%||#{serviceBuildId}||%'      
+	   		</if>
+	   		<if test="areas != null">
+         	 	  and es.AREAS like    '%||#{areas}||%'      
+	   		</if>
+	   		<if test="square != null">
+         	 	  and es.SQUARE like     '%||#{square}||%'      
+	   		</if>
+	   		
+	   		
+   </select>  
+   
+</mapper>

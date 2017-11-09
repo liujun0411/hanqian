@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 2号楼集水井系统 -->
+	 <equip groupCode="02JSJ_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="96" type="6001"></point>
+			<point id="105" type="6002" num="1"></point>
+			<point id="106" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="97" type="6001"></point>
+			<point id="107" type="6002" num="1"></point>
+			<point id="108" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="98" type="6001"></point>
+			<point id="109" type="6002" num="1"></point>
+			<point id="110" type="6002" num="2"></point>
+		</xy>
+		
+		<xy x="345" y="321" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="99" type="6001"></point>
+			<point id="111" type="6002" num="1"></point>
+			<point id="112" type="6002" num="2"></point>
+		</xy>
+		<xy x="344" y="537" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="100" type="6001"></point>
+			<point id="113" type="6002" num="1"></point>
+			<point id="114" type="6002" num="2"></point>
+		</xy>
+		<xy x="342" y="760" bengIndex="6" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="101" type="6001"></point>
+			<point id="115" type="6002" num="1"></point>
+			<point id="116" type="6002" num="2"></point>
+		</xy>
+		<xy x="437" y="308" bengIndex="7" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="102" type="6001"></point>
+			<point id="117" type="6002" num="1"></point>
+			<point id="118" type="6002" num="2"></point>
+		</xy>
+		<xy x="438" y="534" bengIndex="8" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="103" type="6001"></point>
+			<point id="119" type="6002" num="1"></point>
+			<point id="120" type="6002" num="2"></point>
+		</xy>
+		<xy x="436" y="775" bengIndex="9" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="104" type="6001"></point>
+			<point id="121" type="6002" num="1"></point>
+			<point id="122" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+   <!-- 6号楼集水井系统 -->
+	 <equip groupCode="06JSJ_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="40" type="6001"></point>
+			<point id="47" type="6002" num="1"></point>
+			<point id="48" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="41" type="6001"></point>
+			<point id="49" type="6002" num="1"></point>
+			<point id="50" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="42" type="6001"></point>
+			<point id="51" type="6002" num="1"></point>
+			<point id="52" type="6002" num="2"></point>
+		</xy>
+		
+		<xy x="345" y="321" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="43" type="6001"></point>
+			<point id="53" type="6002" num="1"></point>
+			<point id="54" type="6002" num="2"></point>
+		</xy>
+		<xy x="344" y="537" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="44" type="6001"></point>
+			<point id="55" type="6002" num="1"></point>
+			<point id="56" type="6002" num="2"></point>
+		</xy>
+		<xy x="342" y="760" bengIndex="6" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="45" type="6001"></point>
+			<point id="57" type="6002" num="1"></point>
+			<point id="58" type="6002" num="2"></point>
+		</xy>
+		<xy x="437" y="308" bengIndex="7" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="46" type="6001"></point>
+			<point id="59" type="6002" num="1"></point>
+			<point id="60" type="6002" num="2"></point>
+		</xy>
+<!-- 		<xy x="438" y="534" bengIndex="2" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="20260" type="6001"></point>
+			<point id="20259" type="6002" num="1"></point>
+		</xy>
+		<xy x="436" y="775" bengIndex="消防" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="20263" type="6001"></point>
+			<point id="20261" type="6002" num="1"></point>
+			<point id="20262" type="6002" num="2"></point>
+		</xy>
+ -->	 </equip>
+</equipment> 
+
+  

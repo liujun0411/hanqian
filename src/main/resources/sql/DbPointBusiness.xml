@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DbPointBussiness">
+
+   <select id="findBySQLDbPoint" resultType="ciMap" >    
+         select DB_POINT.PROJECT_POINT, DB_POINT.REFLASH 
+         from DB_POINT, DB_CONTROLDATA where DB_POINT.PROJECT_POINT = DB_CONTROLDATA.PROJECT_POINT and DB_POINT.REFLASH >= 0
+   </select>  
+   
+</mapper>

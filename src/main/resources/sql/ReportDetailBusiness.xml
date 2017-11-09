@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.ReportDetailBusiness">
+
+   <select id="findREportRate" resultType="ciMap"  parameterType="map" >    
+          select *  from DB_REPORT_DETAIL where 1=1 
+          <if test="reporttime != null">
+			and reporttime<![CDATA[>=]]>#{reporttime} 
+		  </if>
+		            <if test="dbReportType != null">
+			and dbReportType=#{dbReportType} 
+		  </if>
+		            <if test="status != null">
+			and status=#{status} 
+		  </if>
+		  order by reporttime desc
+   </select> 
+   
+     <insert id="insertReportDetail" parameterType="com.hanqian.pojo.DbReportDetail">
+    <selectKey resultType="int" keyProperty="id" order="BEFORE">
+			select
+			SEQ_REPORT_DETAIL.nextval as id from dual
+		</selectKey>
+    insert into DB_REPORT_DETAIL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="dbReportType != null">
+        TYPE_ID,
+      </if>
+      <if test="reporttime != null">
+        REPORTTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="lh != null">
+        LH,
+      </if>
+      <if test="source != null">
+        SOURCE,
+      </if>
+      <if test="datadescr != null">
+        DATADESCR,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="statusdescr != null">
+        STATUSDESCR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="typeId != null">
+        #{dbReportType.typeId},
+      </if>
+      <if test="reporttime != null">
+        #{reporttime},
+      </if>
+      <if test="endtime != null">
+        #{endtime},
+      </if>
+      <if test="lh != null">
+        #{lh},
+      </if>
+      <if test="source != null">
+        #{source},
+      </if>
+      <if test="datadescr != null">
+        #{datadescr},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="statusdescr != null">
+        #{statusdescr},
+      </if>
+    </trim>
+  </insert> 
+   
+</mapper>

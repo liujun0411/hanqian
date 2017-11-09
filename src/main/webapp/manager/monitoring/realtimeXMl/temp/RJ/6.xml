@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- 模板：flash动画与AS3交互的XML文档模板 -->
+<!--equipstate节点名不能修改，每一类型的设备，对应一个equip节点，eqTypeId为设备类型ID-->
+<!--1、element节点为设备Id节点，模板值为空-->
+<!--2、AxisX节点为小方块展示X坐标，模板值不为空-->
+<!--3、AxisY节点为小方块展示Y坐标，模板值不为空-->
+<!--4、State节点为设备状态值，模板值为空-->
+<!--5、run:运行状态 ， warn ： 告警状态-->
+<equipstate>
+	<!--一号井-->  
+	  <!--一号井 液位开关-->  
+   <Equip title="溢水浮球" group="1" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>130</AxisA>
+	<AxisB>112</AxisB>
+    <State>1</State> 
+  </Equip> 
+  <Equip title="排水泵2" group="1"  eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>130</AxisA>
+	<AxisB>112</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="1" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140</AxisA>
+	<AxisB>112</AxisB>
+    <State>1</State> 
+  </Equip>  
+  
+  <!--2号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="2" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>200</AxisA>
+	<AxisB>18</AxisB>
+    <State>1</State> 
+  </Equip> 
+  <Equip title="排水泵1" group="2" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>200</AxisA>
+	<AxisB>18</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="2" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>210</AxisA>
+	<AxisB>8</AxisB>
+    <State>1</State> 
+  </Equip>  
+  
+  <!--3号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="3" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip> 
+  <Equip title="排水泵1" group="3" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="3" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>385</AxisA>
+	<AxisB>5</AxisB>
+    <State>1</State> 
+  </Equip>
+  
+  <!--4号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="4" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 0
+  </Equip> 
+  <Equip title="排水泵1" group="4" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="4" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>610</AxisA>
+	<AxisB>105</AxisB>
+    <State>1</State> 
+  </Equip>    
+  
+     <!--5号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="5" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 0
+  </Equip> 
+  <Equip title="排水泵1" group="5" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="5" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>610</AxisA>
+	<AxisB>218</AxisB>
+    <State>1</State> 
+  </Equip>  
+  
+   <!--6号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="6" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>610</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 0
+  </Equip> 
+  <Equip title="排水泵1" group="6" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="6" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>610</AxisA>
+	<AxisB>458</AxisB>
+    <State>1</State> 
+  </Equip>  
+  
+   <!--7号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="7" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 0
+  </Equip> 
+  <Equip title="排水泵1" group="7" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="7" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>610</AxisA>
+	<AxisB>608</AxisB>
+    <State>1</State> 
+  </Equip>  
+  
+   <!--8号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="8" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 0
+  </Equip> 
+  <Equip title="排水泵1" group="8" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="8" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>399</AxisA>
+	<AxisB>640</AxisB>
+    <State>1</State> 
+  </Equip>  
+  
+   <!--9号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="9" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 0
+  </Equip> 
+  <Equip title="排水泵1" group="9" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="9" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>185</AxisA>
+	<AxisB>535</AxisB>
+    <State>1</State> 
+  </Equip>  
+   <!--10号井-->  
+	  <!-- 液位开关-->  
+   <Equip title="溢水浮球" group="10" eqTypeId="6001" run="01" warn=""> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 0
+  </Equip> 
+  <Equip title="排水泵1" group="10" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140.5</AxisA>
+	<AxisB>228.5</AxisB>
+    <State>1</State> 
+  </Equip>  
+    <Equip title="排水泵2" group="10" eqTypeId="6002" run="01" warn="02"> 
+    <element>coolTower1</element>  
+    <AxisX>100</AxisX>  
+    <AxisY>100</AxisY> 
+	<AxisA>140</AxisA>
+	<AxisB>273</AxisB>
+    <State>1</State> 
+  </Equip>  
+ 
+</equipstate>

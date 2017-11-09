@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.ApplyBusiness">  
+
+<!-- resultType="ciMap" -->
+   <select id="findApply" resultMap="DbApplyMap" parameterType="map">
+         select  t.seq , t.applydept ,t.applier ,t.reason ,t.material , t.usetype ,t.acount ,
+			t.status , m.name 
+			from db_apply t , db_material m where t.status=0 and t.material = m.seq
+   </select>
+   
+<!--     resultType="ciMap" -->
+   <select id="findApply1" parameterType="int" resultMap="DbApplyMap">
+         select * from db_apply t , db_material m where t.seq = #{seq} and t.status=0 and t.material = m.seq
+   </select>  
+   
+     <select id="findByIdApplyBusiness" parameterType="map" resultType="com.hanqian.pojo.DbApply">
+    select *  from DB_APPLY
+    where SEQ = #{id}
+  </select>
+  
+    <insert id="insertApply" parameterType="com.hanqian.pojo.DbApply">
+    <selectKey resultType="int" keyProperty="seq"  order="BEFORE">
+    	select
+			SEQ_APPLY.nextval as seq from dual
+    </selectKey>    
+    insert into DB_APPLY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="applydept != null">
+        APPLYDEPT,
+      </if>
+      <if test="applier != null">
+        APPLIER,
+      </if>
+      <if test="reason != null">
+        REASON,
+      </if>
+      <if test="dbMaterial != null">
+        MATERIAL,
+      </if>
+      <if test="usetype != null">
+        USETYPE,
+      </if>
+      <if test="acount != null">
+        ACOUNT,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="dbUsers != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="applydept != null">
+        #{applydept},
+      </if>
+      <if test="applier != null">
+        #{applier},
+      </if>
+      <if test="reason != null">
+        #{reason},
+      </if>
+      <if test="dbMaterial != null">
+        #{dbMaterial.seq},
+      </if>
+      <if test="usetype != null">
+        #{usetype},
+      </if>
+      <if test="acount != null">
+        #{acount},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="dbUsers != null">
+        #{dbUsers.seq},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateApply" parameterType="com.hanqian.pojo.DbApply">
+      update DB_APPLY
+    <set>
+      <if test="applydept != null">
+        APPLYDEPT = #{applydept},
+      </if>
+      <if test="applier != null">
+        APPLIER = #{applier},
+      </if>
+      <if test="reason != null">
+        REASON = #{reason},
+      </if>
+      <if test="dbMaterial != null">
+        MATERIAL = #{dbMaterial.seq},
+      </if>
+      <if test="usetype != null">
+        USETYPE = #{usetype},
+      </if>
+      <if test="acount != null">
+        ACOUNT = #{acount},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="dbUsers != null">
+        INPUT = #{dbUsers.seq},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="oper != null">
+        OPER = #{oper},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+  
+  <resultMap id="DbApplyMap" type="com.hanqian.pojo.DbApply">
+   
+    <id column="SEQ"  property="seq" />
+    <result column="APPLYDEPT"  property="applydept" />
+    <result column="APPLIER"  property="applier" />
+    <result column="REASON"  property="reason" />
+    <result column="USETYPE"  property="usetype" />
+    <result column="ACOUNT"  property="acount" />
+    <result column="STATUS"  property="status" />
+    <result column="OPER"  property="oper" />
+    <result column="OPERTIME"  property="opertime" />
+   	 	<association property="dbMaterial"  column="MATERIAL"  javaType="com.hanqian.pojo.DbMaterial">
+			<id property="seq" column="MATERIAL" />
+			<result property="name" column="NAME"/>
+		</association>
+  </resultMap>
+  
+   
+</mapper>

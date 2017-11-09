@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+  <!-- 冷水泵1 -->
+	<area title="污水处理" wd="15" hg="15" marLeft="456" marTop="249" prop="lsx"
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+</equipment>

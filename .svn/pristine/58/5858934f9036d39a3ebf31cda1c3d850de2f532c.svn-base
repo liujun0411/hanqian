@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* CSS Document */
+.footer{
+	  background:url(../images/common/bottom_bg.png) no-repeat;
+	  height:80px;
+	  bottom:0px; 
+	  bottom:0;
+	  position:absolute;
+	  z-index:999;
+	  width:1440px;
+  }
+  .footer #info{ padding:15px; text-align:center; color: #666666; font-size:12px;}
+  .footer #info span{ word-spacing:5pt; color:#6B6B6B; font-size:13px; font-family:'黑体';}
+  .footer #info .td_company{ width:90px; padding-right: 10px;}
+  .footer #info .td_infos{ padding-left: 20px;}
+  .footer #info .seperator{ padding:0 10px; font-weight:bold; color:#666666;}
+  .footer a.info, a.info:visited{text-decoration:none; font-family:'黑体';color:#6B6B6B; font-size:13px;}
+  .footer a.info:hover{ text-decoration:underline;}

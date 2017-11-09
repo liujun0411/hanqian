@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+	 <equip groupCode="jsj_01" flashHeight="667" flashWidth="1000">
+	 	<xy x="300" y="140" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="19110" type="6001"></point>
+			<point id="19111" type="6002" num="1"></point>
+			<point id="19112" type="6002" num="2"></point>
+		</xy>
+		<xy x="275" y="225" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="19113" type="6001"></point>
+			<point id="19114" type="6002" num="1"></point>
+			<point id="19115" type="6002" num="2"></point>
+		</xy>
+		<xy x="405" y="420" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="19116" type="6001"></point>
+			<point id="19117" type="6002" num="1"></point>
+			<point id="19118" type="6002" num="2"></point>
+		</xy>
+		<xy x="285" y="470" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="19119" type="6001"></point>
+			<point id="19120" type="6002" num="1"></point>
+			<point id="19121" type="6002" num="2"></point>
+		</xy>
+		<xy x="410" y="655" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="19122" type="6001"></point>
+			<point id="19123" type="6002" num="1"></point>
+			<point id="19124" type="6002" num="2"></point>
+		</xy>
+		<xy x="250" y="680" bengIndex="6" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="19125" type="6001"></point>
+			<point id="19126" type="6002" num="1"></point>
+			<point id="19127" type="6002" num="2"></point>
+		</xy>
+		<xy x="380" y="915" bengIndex="7" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="19128" type="6001"></point>
+			<point id="19129" type="6002" num="1"></point>
+			<point id="19130" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+</equipment> 
+
+ 

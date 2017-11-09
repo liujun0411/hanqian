@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.AlarmCueUserBusiness">  
+   <select id="findMSInfo" resultType="ciMap" >    
+          select  acu.*,sd.mem_name,sd.mem_mobtele,sd.mem_tele ,a.alertlevel ,a.alarm_desc,ac.cue_depict 
+           from DB_ALARM_CUE_USER acu 
+            left join DB_SERMAIN_DETAIL sd on acu.user_id = sd.seq 
+             left join DB_ALARM_CUE ac on ac.cue_id = acu.cue_id left join DB_ALARM a on a.seq = acu.seq
+   </select>  
+   
+</mapper>

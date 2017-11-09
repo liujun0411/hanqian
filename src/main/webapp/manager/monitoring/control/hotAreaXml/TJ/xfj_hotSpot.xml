@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--设备信息-->
+
+<equipment>
+   <!-- 风机 -->
+   <area title="风机" wd="65" hg="90" marLeft="313" marTop="531" prop="FENGJI" initFlag="hide" eqTypeId="1001" positionX="" postionY="" eventType="click"></area>
+   <!--出风管  -->
+   <area title="出风管" wd="70" hg="110" marLeft="193" marTop="536" prop="outfeng" initFlag="hide" eqTypeId="1001" positionX="" postionY="" eventType="click"></area>
+   <!-- 滤网 -->
+   <area title="滤网压差" wd="40" hg="35" marLeft="605" marTop="467" prop="fauLvW" initFlag="hide" eqTypeId="1001" positionX="" postionY="" eventType="click"></area>
+</equipment>

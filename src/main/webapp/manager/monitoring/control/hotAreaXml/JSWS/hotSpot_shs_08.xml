@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>				
+	<child>
+		
+		
+	<!-- 生活水系统水箱 -->
+	<area title="生活水系统水箱" wd="15" hg="15" marLeft="264" marTop="530" prop="lsx"
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+	
+	</child>		
+</equipment>

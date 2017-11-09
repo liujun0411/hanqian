@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.FeatureBusiness">
+
+      <select id="findFeature" resultType="ciMap"  parameterType="map">    
+         select a.yt,a.name,round(sum(areas),2) areas,round(sum(a.wastage),2) wastage,
+           round(sum(a.convert),2) convert,
+            <if test="timestr != null">
+			         	substr(stattime,0,4)
+			</if>  
+			  <if test="timestr == null">
+			         	stattime
+			</if>  
+			 stattime from(
+			    select t.yt,t.areas,t.wastage,t.convert,substr(t.stattime,0,6) stattime,b.name
+			       from db_stat_feature t,(select d.name,d.typeid 
+			           from db_building_dic d where d.stype=1) b
+			             where power=#{powerid}
+			    <if test="statDate != null">
+			         	   and 
+							<if test="timestr != null">
+				         	substr(stattime,0,4)
+							</if>  
+							<if test="timestr == null">
+							         	stattime
+							</if>  
+							<![CDATA[>=]]>#{statDate}
+			</if>    
+			  <if test="endDate != null">
+			         	   and 
+			         	   <if test="timestr != null">
+				         	substr(stattime,0,4)
+							</if>  
+							<if test="timestr == null">
+							         	stattime
+							</if> 
+							<![CDATA[<=]]>#{endDate}
+			</if>     
+			   and t.yt=b.typeid ) a
+			     group by a.yt,
+			      <if test="timestr != null">
+			         	substr(stattime,0,4)
+			</if>  
+			  <if test="timestr == null">
+			         	stattime
+			</if>  
+				,a.name     
+			     order by   
+			        <if test="timestr != null">
+			         	substr(stattime,0,4)
+			</if>  
+			  <if test="timestr == null">
+			         	stattime
+			</if>         
+			
+		           
+   </select>
+   
+</mapper>

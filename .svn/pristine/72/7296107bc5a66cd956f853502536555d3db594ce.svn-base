@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标
+	-->
+<equipment>
+	<!-- 液氧罐1 -->
+	<area title="液氧罐1#" wd="30" hg="25" marLeft="400" marTop="360"
+		prop="Yeyang" initFlag="hide" eqTypeId="7001" positionX="95" postionY="390"></area>
+	<!-- 液氧罐2 -->
+	<area title="液氧罐2#" wd="30" hg="25" marLeft="560" marTop="310"
+		prop="Yeyang" initFlag="hide" eqTypeId="7001" positionX="330"
+		postionY="390"></area>
+	<!-- 液氧罐2 -->
+	<area title="氧气末端" wd="30" hg="25" marLeft="900" marTop="570"
+		prop="yangqimoduan" initFlag="hide" eqTypeId="7" positionX="330"
+		postionY="390"></area>
+</equipment>

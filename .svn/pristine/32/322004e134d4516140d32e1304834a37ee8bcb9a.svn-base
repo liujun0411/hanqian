@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="换热器" hasParTitle="true">
+   <child title="进水管">
+       <property run="01" des="累计流量" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="02" des="进水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </child>
+   <child title="出水管">
+       <property run="03" des="出水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </child>
+   <child title="蒸汽管">
+       <property run="04" des="累计流量" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="05" des="蒸汽压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </child>
+<!--   <child title="冷凝管">-->
+<!--       <property run="06" des="温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0"></property>-->
+<!--   </child>-->
+<!--   <child title="进出水管">-->
+       <property run="07" des="进出口压差" unit="Mpa" colu="cut(01,02)" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0"></property>
+       <property run="0701" des="进出口压差" unit="Mpa" colu="cut(01,02)" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0"></property>
+       <property run="0702" des="进出口压差" unit="Mpa" colu="cut(01,02)" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0"></property>
+<!--   </child>-->
+</equipment>

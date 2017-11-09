@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="空调机">
+   <!--  <fengOut title="出风管">
+       <property run="07" des="机外余压" unit="pa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="08" des="送风温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+         </fengOut>
+   <fengji title="风机">
+       <property run="01" des="变频反馈" unit="Hz" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+  <property run="02" des="变频控制" unit="Hz" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="03" des="故障状态" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|故障" condition="" seTitle="" showFlag="0" isAbs="1" errText="故障"></property>
+	   <property run="04" des="运行状态" unit="" colu="" maxVa="" minVa="" remark="0|停止,1|运行" condition="03" seTitle="运行状态" showFlag="1" isAbs="1" errText=""></property>
+	   <property run="05" des="操作方式" unit="" colu="" maxVa="" minVa="" remark="0|手动,1|自动" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+  	   <property run="06" des="开关控制" unit="" colu="" maxVa="" minVa="" remark="0|关,1|开" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+   </fengji>
+   <waterOut title="出水管">
+       <property run="14" des="水阀开度" unit="%" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="16" des="出水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </waterOut>
+   <waterIn title="进水管">
+       <property run="15" des="进水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="17" des="累计流量" unit="m³" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </waterIn>
+   <fauLvW title="滤网">
+       <property run="13" des="滤网" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|需清洗" condition="" seTitle="" showFlag="1" isAbs="1" errText="需清洗"></property>
+   </fauLvW> -->
+   <Newfeng title="新风管">
+       <!-- <property run="10" des="新风温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="11" des="防冻温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="12" des="新风阀开度" unit="%" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+        --><property run="26" des="室内温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="27" des="室内湿度" unit="%" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </Newfeng>
+<!--   <Newfeng title="新风管">-->
+<!--     <property run="09" des="回风温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>-->
+<!-- "C:/Users/lj/AppData/Roaming/Tencent/QQ/Temp/[[TRUAVV{B0$64708H7H6`V.png"      <property run="10" des="新风温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>-->
+<!--       <property run="11" des="防冻温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>-->
+<!--	   <property run="12" des="新风阀" unit="%" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>-->
+<!--   </Newfeng>-->
+<!--   <ZQG title="蒸汽管">-->
+<!--       <property run="18" des="蒸汽阀开度" unit="%" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1"></property>-->
+<!--	   <property run="19" des="蒸汽压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1"></property>-->
+<!--	   <property run="20" des="蒸汽温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1"></property>-->
+<!--	   <property run="21" des="累计流量" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1"></property>-->
+<!--   </ZQG>-->
+</equipment>

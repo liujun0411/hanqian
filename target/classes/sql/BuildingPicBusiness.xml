@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildingPicBusiness">  
+   <select id="findPicTypes" resultType="ciMap" >    
+          select b.seq,b.content1 from db_base_comm b where b.oper_type=6  
+   </select>  
+   
+   
+   
+   <select id="findBuildingPic" resultType="ciMap"  parameterType="map">    
+         select b.pic_id,b.pic_name,b.opertime,b.storey,b.pic_address, b.building_id ,
+         (select u.username from db_users u where u.seq=b.oper ) as oper,
+         (select bd.building_name from db_building bd where b.building_id=bd.building_id) as building_name,
+          (select bd.storey_num_up from db_building bd where b.building_id=bd.building_id) as storey_up,
+          (select bd.storey_num_down from db_building bd where b.building_id=bd.building_id) as storey_down ,
+          (select base.content1 from db_base_comm base where base.seq=b.pic_type) as pic_type_name
+           from db_building_pic b where b.status=0 
+            <if test="storey != null">
+			         	and b.storey=#{storey} 
+			</if>  
+			 <if test="picType != null">
+			         	and b.pic_type=#{picType} 
+			</if> 
+			<if test="picName != null">
+			         	and b.pic_name like '%${picName}%'
+			</if>
+			<if test="buildingName != null">
+			         	 and b.building_id in (select bd.building_id from db_building bd 
+			         	 where bd.building_name =#{buildingName}  ) 
+			</if>
+			 <if test="buildingId != null">
+			         	 and b.building_id in (select bd.building_id from db_building bd 
+			         	 where bd.building_id =#{buildingId}  ) 
+			</if>
+			 order by b.opertime desc             
+   </select>  
+   
+   
+   <resultMap id="DBBuildingPicMap" type="com.hanqian.pojo.DbBuildingPic">
+	    <id column="PIC_ID"  property="picId" />
+	    <result column="HIS_NAME"  property="hisName" />
+	    <result column="STOREY"  property="storey" />
+	    <result column="PIC_ADDRESS"  property="picAddress" />
+	    <result column="PIC_NAME"  property="picName" />
+<!-- 	    <result column="PIC_TYPE"  property="picType" /> -->
+	    <result column="INPUTTIME"  property="inputtime" />
+	    <result column="OPERTIME"  property="opertime" />
+	    	<association property="dbBuilding" column="BUILDING_ID" javaType="com.hanqian.pojo.DbBuilding">
+				<id property="buildingId" column="BUILDING_ID" />
+				<result property="buildingName" column="BUILDING_NAME"/>
+			</association>
+	    	<association property="picType" column="SEQ" javaType="com.hanqian.pojo.DbBaseComm">
+				<id property="picType" column="SEQ" />
+			</association>
+			<association property="dbHospInfo" column="HOSP_ID" javaType="com.hanqian.pojo.DbHospInfo">
+				<id property="seqHosp" column="HOSP_ID" />
+			</association>
+			<association property="dbUsersByOper" column="OPER" javaType="com.hanqian.pojo.DbUsers">
+				<id property="seq" column="OPER" />
+			</association>  
+			<association property="dbUsersByInput" column="INPUT" javaType="com.hanqian.pojo.DbUsers">
+				<id property="seq" column="INPUT" />
+			</association>
+   </resultMap>
+   
+<!--    resultType="com.hanqian.pojo.DbBuildingPic" -->
+   <select id="selectByPrimaryKey" parameterType="int" resultMap="DBBuildingPicMap" >
+    select p.pic_id,p.building_id,p.storey,p.pic_address,p.pic_name,p.status ,p.hosp_id , p.input , p.inputtime , p.oper , p.opertime,
+            p.pic_type , b.building_id as buildId , b.building_name from db_building_pic p , db_building b  where p.building_id = b.building_id and p.PIC_ID = #{picId}
+  </select>
+   
+   
+   
+     <insert id="insertBuildingPic" parameterType="map">
+     <selectKey resultType="int" keyProperty="picId" order="BEFORE">
+     	select
+			SEQ_BUILDINGPIC.nextval as picId from dual
+     </selectKey>  
+    insert into DB_BUILDING_PIC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="picId != null">
+        PIC_ID,
+      </if>
+      <if test="buildingId != null">
+        BUILDING_ID,
+      </if>
+      <if test="storey != null">
+        STOREY,
+      </if>
+      <if test="picAddress != null">
+        PIC_ADDRESS,
+      </if>
+      <if test="picName != null">
+        PIC_NAME,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="picType != null">
+        PIC_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="picId != null">
+        #{picId},
+      </if>
+      <if test="buildingId != null">
+        #{buildingId},
+      </if>
+      <if test="storey != null">
+        #{storey},
+      </if>
+      <if test="picAddress != null">
+        #{picAddress},
+      </if>
+      <if test="picName != null">
+        #{picName},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="picType != null">
+        #{picType},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+    <update id="updateBuildingPic" parameterType="com.hanqian.pojo.DbBuildingPic">
+      update DB_BUILDING_PIC
+    <set>
+<!--       <if test="dbBuilding != null"> -->
+<!--         BUILDING_ID = #{dbBuilding.buildingId}, -->
+<!--       </if> -->
+<!--       <if test="storey != null"> -->
+<!--         STOREY = #{storey}, -->
+<!--       </if> -->
+<!--       <if test="picAddress != null"> -->
+<!--         PIC_ADDRESS = #{picAddress}, -->
+<!--       </if> -->
+<!--       <if test="picName != null"> -->
+<!--         PIC_NAME = #{picName}, -->
+<!--       </if> -->
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+<!--       <if test="dbHospInfo != null"> -->
+<!--         HOSP_ID = #{dbHospInfo.seqHosp}, -->
+<!--       </if> -->
+<!--        <if test="dbUsersByOper != null"> -->
+<!--         OPER = #{dbUsersByOper.seq}, -->
+<!--       </if> -->
+<!--       <if test="opertime != null"> -->
+<!--         OPERTIME = #{opertime}, -->
+<!--       </if> -->
+<!--       <if test="picType != null"> -->
+<!--         PIC_TYPE = #{picType.seq}, -->
+<!--       </if> -->
+    </set>
+    where PIC_ID = #{picId}
+  </update>
+   
+   
+</mapper>

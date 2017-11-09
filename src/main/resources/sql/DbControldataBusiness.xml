@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DbControldataBusiness">
+
+   <select id="findControlData" resultType="ciMap" parameterType="String">    
+        select c.project_point,c.record,c.controlpoint,t.rate,t.descr,
+        #{equipId}
+         equipId from db_controldata c inner join db_point t on c.c_seq=t.seq where c.c_seq in
+         (select t.seq from db_point_equip t inner join db_equip_list e on e.equip_id=t.equip_id  where t.equip_id=#{equipId}
+          and e.control_flag=1) order by c.project_point         
+   </select>  
+   
+   <select id="findAirFlSljzControl" resultType="ciMap" parameterType="map">    
+        select f.point_name, m.record, f.unit_type 
+			from db_point f, db_point_equip g, db_controldata m 
+			where m.c_seq = f.seq 
+			and g.seq = f.seq 
+			and g.equip_id in (select el.equip_id
+      from db_equip_list el
+      where el.equip_code like '%ST%'
+      and el.equip_type_id = '1')       
+   </select> 
+   <!-- com.hanqian.pojo.DbControldata -->
+   
+    <update id="updateControlData" parameterType="map">
+	   update DB_CONTROLDATA set RECORD=#{recode},
+	   RECORDTIME=TO_DATE(#{recodetime},'yyyy-mm-dd hh24:mi:ss') 
+	    where PROJECT_POINT=#{projectpoint}
+  </update>
+  
+     <select id="findControlDataList1" resultType="ciMap" parameterType="map">    
+           select three.*,to_char(three.recordtime,'yyyy-MM-dd hh24:mi:ss') retime,p.descr,p.alert_level alertlevel from ( 
+             select c.*,two.* from db_controldata c, 
+               (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                 db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+                   where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                     )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is not null order by three.recordtime,three.equip_type_id 
+   </select>  
+   
+   <select id="selectfindDianweiInfoList" resultType="ciMap" parameterType="map">  
+          select 工程点位   as gcdw,点位编码 as dwbm,点位名称 as dwmc,读数  as ds,采集时间  as cjsj,记录时间  as jlsj,设备类型编码  as sbdlbm,设备类型  as sbdl,
+                                                           设备类型 as sblx,设备型号  as sbxh,设备名称 as sbmc,设备编码  as sbbm,安装楼宇  as azly,安装楼层  as azlc,服务楼宇  as fwly,服务楼层  as fwlc,备注   as bz      
+               from v_unupdate_daily bb  where 1=1
+              <if test="pointname != null">  
+                   and  bb.点位名称   like '%${pointname}%'   
+              </if>
+              <if test="equipname != null">
+                   and  bb.设备名称   like '%${equipname}%'
+              </if> 
+              <if test="dwbmSDCD != null">
+                   and  bb.点位编码   like '%${dwbmSDCD}%'
+              </if> 
+              <if test="starttime != null and endtime != null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[>]]> #{starttime}
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[<=]]> #{endtime}
+              </if>   
+              <if test="starttime == null and endtime != null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[<=]]> #{endtime}
+              </if>     
+              <if test="starttime != null and endtime == null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[>]]> #{starttime}
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[<=]]> to_char(sysdate,'yyyy-mm-dd')
+              </if>    
+              <!-- 默认为当天的数据 -->
+              <if test="starttime == null and endtime == null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[=]]> to_char(sysdate,'yyyy-mm-dd')
+              </if>        
+                             
+   </select>  
+   
+      <select id="selectfindDianweiExcelList" resultType="ciMap" parameterType="map">  
+          select 工程点位   as gcdw,点位编码 as dwbm,点位名称 as dwmc,读数  as ds,采集时间  as cjsj,记录时间  as jlsj,设备类型编码  as sbdlbm,设备类型  as sbdl,
+                                                           设备类型 as sblx,设备型号  as sbxh,设备名称 as sbmc,设备编码  as sbbm,安装楼宇  as azly,安装楼层  as azlc,服务楼宇  as fwly,服务楼层  as fwlc,备注   as bz   
+               from v_unupdate_daily bb  where 1=1
+              <if test="dwbmSDCD != null">
+                   and  bb.点位编码   like '%${dwbmSDCD}%'
+              </if>  
+              <if test="pointname != null">  
+                   and  bb.点位名称   like '%${pointname}%'   
+              </if>
+              <if test="equipname != null">
+                   and  bb.设备名称   like '%${equipname}%'
+              </if> 
+              <if test="starttime != null and endtime != null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[>]]> #{starttime}
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[<=]]> #{endtime}
+              </if>   
+              <if test="starttime == null and endtime != null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[<=]]> #{endtime}
+              </if>     
+              <if test="starttime != null and endtime == null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[>]]> #{starttime}
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[<=]]> to_char(sysdate,'yyyy-mm-dd')
+              </if>    
+              <if test="starttime == null and endtime == null">
+	              and to_char(bb.记录时间,'yyyy-mm-dd') <![CDATA[=]]> to_char(sysdate,'yyyy-mm-dd')
+              </if>        
+   </select>  
+         
+    <select id="selectfindDianweiBiaoTaoCount" resultType="ciMap" parameterType="map">  
+           select column_name as cols from user_tab_columns where table_name = 'V_UNUPDATE_DAILY' order by column_id
+    </select>
+     <select id="findControlDataList2" resultType="ciMap" parameterType="map">    
+        select cd.*,vp.unit
+        from (select three.*,to_char(three.recordtime,'yyyy-MM-dd hh24:mi:ss') retime,p.descr,p.alert_level alertlevel from ( 
+         select c.*,two.* from db_controldata c, 
+         (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+         db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+         where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id and c.controlpoint is not null 
+         )three left join db_point p on three.c_seq = p.seq order by three.recordtime,three.equip_type_id) cd ,
+         db_view_point vp where (cd.project_point= vp.control_point  
+          or ( 
+           case (INSTR(cd.project_point,'_')) 
+           when 0 
+           then substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2)) 
+             else 
+            substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2))|| substr(cd.project_point,(INSTR(cd.project_point,'_'))) 
+             end 
+            )= vp.control_point) and cd.controlpoint is not null     
+             and vp.unit is not null order by cd.recordtime,cd.equip_type_id   
+   </select>  
+   
+        <select id="findControlDataList3" resultType="ciMap" parameterType="map">    
+        select cd.*,vp.unit
+        from (select three.*,to_char(three.recordtime,'yyyy-MM-dd hh24:mi:ss') retime,p.descr,p.alert_level alertlevel from ( 
+         select c.*,two.* from db_controldata c, 
+         (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+         db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+         where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id and c.controlpoint is not null 
+         )three left join db_point p on three.c_seq = p.seq order by three.recordtime,three.equip_type_id) cd ,
+         db_view_point vp where (cd.project_point= vp.control_point  
+          or ( 
+           case (INSTR(cd.project_point,'_')) 
+           when 0 
+           then substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2)) 
+             else 
+            substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2))|| substr(cd.project_point,(INSTR(cd.project_point,'_'))) 
+             end 
+            )= vp.control_point) and cd.controlpoint is not null      
+             and vp.unit is null  order by cd.recordtime,cd.equip_type_id  
+   </select>  
+   
+       <select id="findControlDataList4" resultType="ciMap" parameterType="map">    
+          select three.*,to_char(three.recordtime,'yyyy-MM-dd hh24:mi:ss') retime,p.descr,p.alert_level alertlevel from ( 
+            select c.*,two.* from db_controldata c, 
+              (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                 db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+                   where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id and c.controlpoint is not null 
+                     )three left join db_point p on three.c_seq = p.seq where p.alert_level is not null and p.alert_level<![CDATA[<>]]>0  order by three.recordtime,three.equip_type_id 
+   </select>  
+   
+       <select id="findControlDataList5" resultType="ciMap" parameterType="map">    
+          select three.*,to_char(three.recordtime,'yyyy-MM-dd hh24:mi:ss') retime,p.descr,p.alert_level alertlevel from ( 
+            select c.*,two.* from db_controldata c, 
+              (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+                  where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                    )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is  null order by three.recordtime,three.equip_type_id 
+   </select>  
+   
+          <select id="findControlDataList" resultType="ciMap" parameterType="map">    
+         select three.*,to_char(three.recordtime,'yyyy-MM-dd hh24:mi:ss') retime,p.descr,p.alert_level alertlevel from (
+          select c.*,two.* from db_controldata c, 
+           (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+            db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+             where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+             )three left join db_point p on three.c_seq = p.seq order by three.recordtime,three.equip_type_id
+   </select>  
+   
+       <select id="findControlDataListByEquipType" resultType="ciMap" parameterType="map">    
+          select three.*,p.descr from ( 
+           select c.*,two.* from db_controldata c, 
+              (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                  db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id 
+                   <if test="type != null and type !=0">
+                      and( et.equip_type_id=#{type} or et.equip_type_parent_id=#{type}  )
+                   </if>
+                   	 ) two where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                   	    )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is not null order by three.recordtime,three.equip_type_id  
+   </select>  
+   
+                <select id="findControlCount" resultType="ciMap" parameterType="map">    
+          select   
+          ( select count(*) from (  
+            select three.*,p.descr from ( 
+            select c.*,two.* from db_controldata c, 
+            (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+              db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+               where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is not null order by three.recordtime,three.equip_type_id)) 
+                 totaldatacount , 
+                   (  select count(*) from (  select cd.* 
+                    from (select three.*,p.descr from ( 
+                    select c.*,two.* from db_controldata c, 
+                     (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                      db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+                        where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id and c.controlpoint is not null 
+                         )three left join db_point p on three.c_seq = p.seq  order by three.recordtime,three.equip_type_id) cd , 
+                          db_view_point vp where (cd.project_point= vp.control_point  
+                            or ( 
+                             case (INSTR(cd.project_point,'_')) 
+                               when 0 
+                                   then substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2)) 
+                                    else 
+                                    substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2))|| substr(cd.project_point,(INSTR(cd.project_point,'_'))) 
+                                     end 
+                                      )= vp.control_point) and vp.unit is not null and cd.controlpoint is not null )) collectdatacount, 
+                                      (select count(*) from (  select cd.*  
+                                      from (select three.*,p.descr from ( 
+                                      select c.*,two.* from db_controldata c, 
+                                       (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                                        db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+                                         where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id and c.controlpoint is not null 
+                                          )three left join db_point p on three.c_seq = p.seq  order by three.recordtime,three.equip_type_id) cd , 
+                                            db_view_point vp where (cd.project_point= vp.control_point 
+                                              or ( 
+                                               case (INSTR(cd.project_point,'_')) 
+                                                 when 0 
+                                                    then substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2)) 
+                                                      else 
+                                                         substr(cd.project_point,0,(INSTR(cd.project_point,'.')+2))|| substr(cd.project_point,(INSTR(cd.project_point,'_'))) 
+                                                            end 
+                                                              )= vp.control_point) and vp.unit is  null and cd.controlpoint is not null )) statusdatacount, 
+                                                              (select count(*) from ( select three.*,p.descr from ( 
+                                                               select c.*,two.* from db_controldata c, 
+                                                                (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                                                                 db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id) two 
+                                                                  where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id and c.controlpoint is not null 
+                                                                    )three left join db_point p on three.c_seq = p.seq  where p.alert_level is not null and p.alert_level<![CDATA[<>]]>0  order by three.recordtime,three.equip_type_id  )) alarmdatacount from dual
+   </select>  
+   
+   
+                <select id="findControlCountByEquipType" resultType="ciMap" parameterType="map">    
+           select   
+           ( select count(*) from (
+            select three.*,p.descr from ( 
+             select c.*,two.* from db_controldata c, 
+                (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                    db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id and( et.equip_type_id=2 or et.equip_type_parent_id=2  )) two
+                      where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                         )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is not null order by three.recordtime,three.equip_type_id ) 
+                           ) 
+                            boildercount , 
+                            ( select count(*) from (
+                             select three.*,p.descr from ( 
+                              select c.*,two.* from db_controldata c, 
+                              	   (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                              	   	    db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id and( et.equip_type_id=1004 or et.equip_type_parent_id=1004  )) two 
+                              	   	    	  where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                              	   	    	  	   )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is not null order by three.recordtime,three.equip_type_id )  
+                              	   	    	  	     ) 
+                              	   	    	  	      shuilengcount , 
+                              	   	    	  	      ( select count(*) from (
+                              	   	    	  	       select three.*,p.descr from ( 
+                              	   	    	  	        select c.*,two.* from db_controldata c, 
+                              	   	    	  	        	   (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                              	   	    	  	        	   	    db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id and( et.equip_type_id=10002 or et.equip_type_parent_id=10002  )) two
+                              	   	    	  	        	   	    	  where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                              	   	    	  	        	   	    	  	   )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is not null order by three.recordtime,three.equip_type_id )  
+                              	   	    	  	        	   	    	  	      ) 
+                              	   	    	  	        	   	    	  	       watercount , 
+                              	   	    	  	        	   	    	  	       ( select count(*) from (
+                              	   	    	  	        	   	    	  	        select three.*,p.descr from ( 
+                              	   	    	  	        	   	    	  	         select c.*,two.* from db_controldata c, 
+                              	   	    	  	        	   	    	  	         	   (select el.equip_name,el.place ,et.type_name,el.equip_id,et.equip_type_id from 
+                              	   	    	  	        	   	    	  	         	   	    db_equip_list el ,db_equip_type et where et.equip_type_id = el.equip_type_id and( et.equip_type_id=10001 or et.equip_type_parent_id=10001  )) two
+                              	   	    	  	        	   	    	  	         	   	      where substr(c.project_point,0,(instr(c.project_point,'.')-1)) = two.equip_id 
+                              	   	    	  	        	   	    	  	         	   	         )three left join db_point p on three.c_seq = p.seq  where three.controlpoint is not null order by three.recordtime,three.equip_type_id ) 
+                              	   	    	  	        	   	    	  	         	   	            ) 
+                              	   	    	  	        	   	    	  	         	   	             elecount from dual
+   </select>  
+   
+   
+    <select id="findControlDataByGroupByJsj" resultType="ciMap" parameterType="map">    
+        select c.project_point,c.record,m.equip_id equipId,m.equip_type_id eqTypeId,m.descr from db_controldata c inner join
+         (select t.seq,t.equip_id,t.equip_type_id,e.equip_code,dp.descr from db_point_equip t inner join db_equip_list e on t.equip_id=e.equip_id inner join db_point dp on dp.seq=t.seq where t.equip_id in (
+          select e.equip_id equipId from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+           where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id
+            and e.status=0 and d.status=0 and e.control_flag=1 and g.equip_group=#{groupId}
+                   ))m on c.c_seq=m.seq  where m.equip_type_id<![CDATA[<>]]>6002 order by eqTypeId,c.project_point,m.equip_code
+                   
+   </select>  
+   
+   <select id="findControlDataByGroup" resultType="ciMap" parameterType="map">    
+       select c.project_point,c.record,c.controlpoint,m.equip_id equipId,m.equip_type_id eqTypeId,m.descr,m.rate from db_controldata c inner join
+        (select t.seq,t.equip_id,t.equip_type_id,e.equip_code,dp.descr,dp.rate from db_point_equip t inner join db_equip_list e on t.equip_id=e.equip_id inner join db_point dp on dp.seq=t.seq where t.equip_id in (
+         select e.equip_id equipId from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+          where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id
+           and e.status=0 and d.status=0 and e.control_flag=1 and g.equip_group=#{groupId}
+           ))m on c.c_seq=m.seq order by eqTypeId,m.equip_code,c.project_point
+                   
+   </select> 
+    
+   
+   <select id="findControlDataByGroupByJsjReason" resultType="ciMap" parameterType="map">    
+      select c.project_point,c.record,m.equip_id equipId,m.equip_type_id eqTypeId,m.descr ,
+      ${caseWhen} as bengNum 
+      from db_controldata c inner join 
+       (select t.seq,t.equip_id,t.equip_type_id,e.equip_code,dp.descr from db_point_equip t inner join db_equip_list e on t.equip_id=e.equip_id inner join db_point dp on dp.seq=t.seq where t.equip_id in (
+        select e.equip_id equipId from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+         where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id 
+          and e.status=0 and d.status=0 and e.control_flag=1 and g.equip_group=#{groupId} 
+          ))m on c.c_seq=m.seq where c.project_point in(
+          ${whereSql}
+          ) order by eqTypeId asc,m.equip_id asc,c.project_point desc 
+      
+                   
+   </select>  
+   
+      <select id="findControlDataByGroupByJsjIndex" resultType="ciMap" parameterType="map">    
+      select c.project_point,c.record,m.equip_id equipId,m.equip_type_id eqTypeId,m.descr from db_controldata c inner join
+       (select t.seq,t.equip_id,t.equip_type_id,e.equip_code,dp.descr from db_point_equip t inner join db_equip_list e on t.equip_id=e.equip_id inner join db_point dp on dp.seq=t.seq where t.equip_id in (
+        select e.equip_id equipId from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+         where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id
+          and e.status=0 and d.status=0 and e.control_flag=1 and g.equip_group=#{groupId}
+          ))m on c.c_seq=m.seq where m.equip_type_id<![CDATA[<>]]>6001 and m.descr like '%排水泵||#{bengIndex}||#%' order by eqTypeId,c.project_point,m.equip_code
+      
+                   
+   </select>  
+   
+         <select id="findElevatorControlData" resultType="ciMap" parameterType="map">    
+      select l.* from  (select be.down,be.up,be.equip_name,be.equip_id,pc.point_name,pc.record,pc.project_point,pc.seq from 
+      (select b.storey_num_down down,b.storey_num_up up,b.building_id,el.equip_name,pe.seq,el.equip_id 
+       from db_building b,db_equip_list el,db_point_equip pe where 
+         b.building_id=el.building_id and el.equip_id=pe.equip_id) be, 
+           (select p.project_point,p.point_name,ca.record,p.seq 
+            from DB_POINT p ,DB_CONTROLDATA ca 
+            where ca.c_seq=p.seq ) pc where be.seq=pc.seq and be.equip_id
+             in (select ge.equip_id from db_group_equip ge where 1=1 
+             <if test="groupId == null">
+             	 and ge.equip_group in (select eg.seq from db_equip_group eg where eg.equip_type='4' and rownum=1)
+             </if>    
+             <if test="groupId != null">
+             	 and ge.equip_group =#{groupId}
+             </if>    
+             ) )l left join db_group_equip o on l.equip_id=o.equip_id order by o.sorts ,l.equip_id asc
+             
+   </select>  
+   
+   
+            <select id="findIllumineControlData" resultType="ciMap" parameterType="map">    
+        select p.build_id,
+               p.storey_num_down,
+               p.storey_num_up,
+               p.floor,
+               l.projectpoint,
+               l.controlpoint,
+               l.inde,
+               l.record,
+               l.equip_id
+          from (select y.build_id,
+                       u.storey_num_down,
+                       u.storey_num_up,
+                       y.storey floor,
+                       y.equip_id dd
+                  from equip_service y, db_building u
+                 where u.building_id = y.build_id) p
+         inner join (select h.*, o.sorts
+                       from (select g.equip_id ff,
+                                    m.seq inde,
+                                    m.record record,
+                                    m.project_point projectpoint,
+                                    m.controlpoint controlpoint,
+                                    g.equip_id
+                               from db_point_equip g, db_controldata m
+                              where m.c_seq = g.seq
+                                and g.equip_id in
+                                    (select a.equip_id
+                                       from db_group_equip a, db_equip_group e
+                                      where a.equip_group = e.seq
+                                        and e.build_id = #{buldId}
+                                        and e.seq = #{groupId})) h
+                       left join db_group_equip o on o.equip_id = h.ff) l on l.ff = p.dd
+         order by p.floor, l.projectpoint
+             
+   </select>  
+   
+               <select id="findOutdoorIllumination" resultType="ciMap" parameterType="map">    
+     select f.point_name,m.record,f.unit_type from db_point f ,db_point_equip g ,db_controldata  m
+      where m.c_seq=f.seq and    g.seq=f.seq and g.equip_id  in 
+       (select el.equip_id from db_equip_list el where el.equip_name like '%室外温度%' or el.equip_name like '%室外湿度%' or el.equip_name like '%室外照度%' and el.equip_type_id='3' )  
+             
+   </select>  
+   
+   
+   
+   
+   
+   
+   
+  
+   
+</mapper>

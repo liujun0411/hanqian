@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment>
+   <YaLiGuan title="压力罐">
+       <property run="01" des="空气压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </YaLiGuan>
+</equipment>

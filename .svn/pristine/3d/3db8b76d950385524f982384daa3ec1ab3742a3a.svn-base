@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.action.excludePattern" value=".*.html,/static/.*" />
+
+	<!-- 国际化文件 -->
+	<constant name="struts.custom.i18n.resources" value="globleMessages" />
+
+	<!-- struts2 乱码过滤器 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<!-- struts2委托spring管理 -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<!-- 100M的上传最大限额 -->
+	<constant name="struts.multipart.maxSize" value="1073741824" />
+	<!-- 实时监控 -->
+	<include file="struts-control.xml"></include>
+	<!-- 数据上报 -->
+	<include file="struts-report.xml"></include>
+
+	<!-- 短信平台 -->
+	<include file="struts-SMS.xml"></include>
+
+
+	<package name="logisticsNewsPage" extends="struts-default"
+		namespace="/">
+		<!-- 登录 -->
+		<action name="userLogin" class="usersAction" method="login">
+			<result name="login" type="redirect">manager/login.jsp</result>
+			<result name="change">manager/buildSelect.jsp</result>
+			<result name="hosp_main">manager/common/hosp_main.jsp</result>
+		</action>
+		<!-- 注销登录 -->
+		<action name="closeUsers" class="usersAction" method="closeUsers">
+			<result name="login" type="redirect">manager/login.jsp</result>
+			<result name="hosp_main">manager/common/hosp_main.jsp</result>
+		</action>
+		<!-- 根据父权限获取子项 -->
+		<action name="findMenus" class="menusAction" method="findMenus">
+			<result name="menuTop">manager/common/hosp_top.jsp</result>
+			<result name="menuLeft">manager/common/hosp_content.jsp</result>
+		</action>
+
+		<!-- 设备信息 -->
+		<action name="equipment_*" class="equipAction" method="{1}">
+			<result name="input" type="redirect">equipment_findEquipmentByPage.action?currentPage=1
+			</result>
+			<result name="equipList">manager/logistics/equipment/equiplist.jsp
+			</result>
+			<result name="addEquipPage">manager/logistics/equipment/addEquipment.jsp
+			</result>
+			<result name="editEquipPage">manager/logistics/equipment/editEquipment.jsp
+			</result>
+			<result name="equipDetailPage">manager/logistics/equipment/equipmentDetail.jsp
+			</result>
+			<result name="addParam">manager/logistics/equipment/addEqParam.jsp
+			</result>
+			<result name="editParam">manager/logistics/equipment/editEqParam.jsp
+			</result>
+		</action>
+
+
+		<!-- 设备信息 -->
+		<action name="equipment_*" class="equipAction" method="{1}">
+			<result name="input" type="redirect">equipment_findEquipmentByPage.action?currentPage=1
+			</result>
+			<result name="equipList">manager/logistics/equipment/equiplist.jsp
+			</result>
+			<result name="addEquipPage">manager/logistics/equipment/addEquipment.jsp
+			</result>
+			<result name="editEquipPage">manager/logistics/equipment/editEquipment.jsp
+			</result>
+			<result name="equipDetailPage">manager/logistics/equipment/equipmentDetail.jsp
+			</result>
+			<result name="addParam">manager/logistics/equipment/addEqParam.jsp
+			</result>
+			<result name="editParam">manager/logistics/equipment/editEqParam.jsp
+			</result>
+		</action>
+
+		<!--导入excle -->
+		<action name="importExcle_*" class="importExcle" method="{1}">
+			<interceptor-ref name="fileUpload">
+				<!-- 可以支持上传的文件类型 -->
+				<param name="allowedTypesSet">xls</param>
+				<!-- 设置上传文件的大小不能超过20M -->
+				<param name="maximumSize">1024*1024*20</param>
+			</interceptor-ref>
+			<!-- 必须配置系统默认的拦截器 -->
+			<interceptor-ref name="defaultStack" />
+			<param name="savePath">upload</param>
+			<result name="success">manager/logistics/equipment/importPage.jsp
+			</result>
+			<result name="input">manager/logistics/equipment/importPage.jsp
+			</result>
+		<!-- 	<result name="toImportPage" type="redirect">importExcle!toImportExcle.action?improtMsg=${improtMessage}</result> -->
+			<result name="toImportPage" type="redirect">importExcle!toImportExcle.action</result>
+		</action>
+		<!-- 设备维护 -->
+        <action name="maintenance_*" class="maintenanceAction" method="{1}">
+            <result name="maintenanceList">manager/logistics/equipment/equipMaintenance.jsp
+            </result>
+            <result name="addUI">manager/logistics/equipment/addMaintenance.jsp
+            </result>
+            <result name="showMaintenance">manager/logistics/equipment/maintenance.jsp
+            </result>
+            <result name="showRujMaintenance">manager/logistics/equipment/rujMaintenance.jsp
+            </result>
+            <result name="edit">manager/logistics/equipment/addMaintenance.jsp
+            </result>
+            <result name="editMain">manager/logistics/equipment/editMaintenance.jsp
+            </result>
+            <result name="showNeedServe">manager/logistics/equipment/maintRemind.jsp
+            </result>
+        </action>
+		<!-- 设备参数 -->
+		<action name="equipParam_*" class="equipParamAction" method="{1}">
+			<result name="showEquipParam">manager/logistics/equipment/eqparam.jsp</result>
+		</action>
+
+		<!-- 设备参数维护 -->
+		<action name="dbEquipParam_*" class="eqDbParamAction" method="{1}">
+			<result name="showEquipParams">manager/logistics/equipment/eqparam.jsp</result>
+			<result name="showDetails">manager/logistics/equipment/equipmentDetail.jsp
+			</result>
+		</action>
+
+		<!-- 设备图纸 -->
+		<action name="equipPic_*" class="equipPicAction" method="{1}">
+			<result name="equipPicList">manager/logistics/equipment/eqPicList.jsp
+			</result>
+			<result name="showAddPicUI">manager/logistics/equipment/eqPicUpload.jsp
+			</result>
+			<!-- 下载 -->
+			<param name="fileEncoding">utf-8</param>
+			<result name="download" type="stream">
+				<!-- <param name="inputName">inputStream</param> -->
+				<!-- <param name="contentType">application/octet-stream;charset=UTF-8</param> -->
+				<!-- <param name="contentDisposition">attachment;fileName="${fileName}"</param> -->
+			</result>
+			<result name="showList">manager/logistics/equipment/eqPicList.jsp
+			</result>
+			<!-- 上传文件需要拦截器 -->
+			<interceptor-ref name="fileUpload"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+		<!-- 数据分析 -->
+		<action name="dataAnalysis" class="dataAnalysis">
+			<result name="aa" type="redirectAction">
+				<param name="query">olappage.jsp</param>
+			</result>
+			<result name="showJSP">
+				olappage.jsp
+			</result>
+		</action>
+
+
+		<!-- <global-results> <result name="hosp_login">manager/login.jsp</result>
+			</global-results> -->
+
+		<!-- 用户信息 -->
+		<action name="user" class="usersAction">
+			<result name="login" type="redirect">manager/login.jsp</result>
+			<result name="input">manager/login.jsp</result>
+			<result name="top">/manager/common/hosp_top.jsp</result>
+			<result name="hosp_main">manager/common/hosp_main.jsp</result>
+			<result name="userAdd">manager/system/userAddOrUpdate.jsp</result>
+			<result name="userList">manager/system/userList.jsp</result>
+		</action>
+		<action name="build" class="BuildDetailsAction">
+			<result name="lyxqJB">/manager/building/lyxqJB.jsp</result>
+		</action>
+
+		<!-- 面积详情 -->
+		<action name="buildStoreys" class="BuildingStoreyAction">
+			<result name="input">/manager/building/buildDetails.jsp</result>
+		</action>
+
+		<!-- 楼宇信息 -->
+		<action name="building_*" class="BuildingAction" method="{1}">
+			<result name="showBuild" type="redirectAction">
+				<param name="actionName">building_findBuild.action</param>
+				<param name="editFlag">${editFlag}</param>
+				<param name="message">${message}</param>
+			</result>
+			<result name="login">/manager/error.jsp</result>
+			<result name="addBuild">/manager/building/buildingEdit.jsp</result>
+			<result name="input">/manager/building/building.jsp</result>
+		</action>
+		<!-- 楼宇用途 -->
+		<action name="buildUse_*" class="buildingUseAction" method="{1}">
+			<result name="buildUse">/manager/building/buildingUse.jsp</result>
+		</action>
+		<!-- 楼宇详细信息 -->
+		<action name="buildDetails" class="BuildDetailsAction">
+			<result name="input">/manager/building/buildDetails.jsp</result>
+			<result name="lyxqJG">/manager/building/lyxqJG.jsp</result>
+		</action>
+		<action name="build" class="BuildDetailsAction">
+			<result name="lyxqJB">/manager/building/lyxqJB.jsp</result>
+		</action>
+		<!-- 楼宇维修信息 -->
+		<action name="buildRepair" class="BuildRepairAction">
+			<result name="addRepair">/manager/building/addBuildRepair.jsp</result>
+			<result name="showList" type="redirectAction">
+				<param name="actionName">buildDetails!showBuildDetails.action</param>
+				<param name="message">${message}</param>
+				<param name="buildingId">${buildingId}</param>
+				<param name="hospid">${hospid}</param>
+				<param name="tabIndex">${tabIndex}</param>
+			</result>
+			<result name="showRepairList">/manager/building/repair.jsp</result>
+			<result name="lyxqJG">/manager/building/lyxqJG.jsp</result>
+			<result name="repairDetails">/manager/building/repairDetails.jsp</result>
+		</action>
+
+
+		<!-- 物资管理 -->
+		<action name="MaterialAction" class="MaterialAction">
+			<result name="show">/manager/logistics/material/hosp_showMaterial.jsp
+			</result>
+			<result name="updateMaterial">/manager/logistics/material/addMaterial.jsp
+			</result>
+			<result name="materialadd">/manager/logistics/material/addMaterial.jsp
+			</result>
+		</action>
+
+		<!-- 领用 -->
+		<action name="ApplyAction" class="ApplyAction">
+			<result name="show">/manager/logistics/apply/showApply.jsp</result>
+			<result name="applyjsp">/manager/logistics/apply/addApply.jsp</result>
+		</action>
+		<!-- 医院详细信息 -->
+		<action name="hospDetailAction_*" class="detailAction" method="{1}">
+			<result name="show">manager/logistics/history/historyList.jsp
+			</result>
+			<result name="showdetail" type="redirectAction">
+				<param name="actionName">hospDetailAction_showHospDetail.action</param>
+				<param name="seqHosp">${seqHosp}</param>
+				<param name="editFlag">${editFlag}</param>
+				<param name="startDate">${startDate}</param>
+				<param name="message">${message}</param>
+			</result>
+			<result name="edit">/manager/logistics/history/historyEdit.jsp
+			</result>
+			<result name="add">/manager/logistics/history/historyEdit.jsp
+			</result>
+		</action>
+
+		<!-- 医院业务量 -->
+		<action name="businessAction" class="businessAction">
+			<result name="show">manager/logistics/hospInfo/business.jsp</result>
+			<result name="edit">/manager/logistics/hospInfo/business.jsp</result>
+			<result name="add">/manager/logistics/hospInfo/business.jsp</result>
+		</action>
+
+
+		<!-- 权限 -->
+		<action name="menu" class="menusAction">
+			<result name="menuTop">manager/common/hosp_top.jsp</result>
+			<result name="menuLeft">manager/common/hosp_content.jsp</result>
+			<result name="menuList">/manager/system/menuList.jsp</result>
+			<result name="menuAdd">/manager/system/menuAddOrUpdate.jsp</result>
+			<result name="menuUpdate">/manager/system/menuAddOrUpdate.jsp</result>
+			<result name="outDatemenuList">/manager/common/outDateMenuList.jsp</result>
+		</action>
+
+		<!-- 角色 -->
+		<action name="role" class="roleAction">
+			<result name="roleUser">/manager/system/userRole.jsp</result>
+			<result name="roleList">/manager/system/roleList.jsp</result>
+			<result name="roleAdd">/manager/system/roleAddOrUpdate.jsp</result>
+			<result name="roleUpdate">/manager/system/roleAddOrUpdate.jsp</result>
+		</action>
+
+		<!-- 组织 -->
+		<action name="dept" class="deptAction">
+			<result name="deptList">/manager/system/deptList.jsp</result>
+			<result name="deptAddOrUpdate">/manager/system/deptAddOrUpdate.jsp</result>
+			<result name="findDepts" type="redirectAction">dept!findDepts.action</result>
+			<result name="userDept">manager/system/userDept.jsp</result>
+		</action>
+
+		<!-- 医院信息 -->
+		<action name="hospInfoAction" class="HospInfoAction">
+			<result name="show">manager/logistics/hospInfo/hospInfo.jsp</result>
+			<result name="edit">manager/logistics/hospInfo/hospInfoEdit.jsp
+			</result>
+		</action>
+
+
+		<!-- 楼宇比例图 -->
+		<action name="drawing_*" class="ScaledrawingAction" method="{1}">
+			<result name="storeyuse">/manager/building/storeyuse.jsp</result>
+			<result name="buildingPro">/manager/building/buildingPro.jsp</result>
+		</action>
+
+		<!-- 关键设备 -->
+		<action name="keyEqAction_*" class="keyEqAction" method="{1}">
+			<result name="groupList">/manager/keyeq/keyEquipList.jsp</result>
+			<result name="eqList">/manager/keyeq/eqlist.jsp</result>
+			<result name="pointList">/manager/keyeq/pointlist.jsp</result>
+			<result name="eqtypeList">/manager/keyeq/eqtypelist.jsp</result>
+			<result name="updateGroup">/manager/keyeq/keyeq_edit.jsp</result>
+			<result name="selGroup">/manager/monitoring/control/monitoringPlatform/selGroup.jsp
+			</result>
+			<result name="keyeqcollect">manager/monitoring/control/monitoringPlatform/keyEqCollect.jsp
+			</result>
+			<result name="login">/manager/error.jsp</result>
+		</action>
+
+		<!-- 设备分组 -->
+		<action name="equipGroupAction" class="equipGroupAction">
+			<result name="input" type="redirect">equipGroupAction!showEquipGroupList.action?flagMsg=1
+			</result>
+			<result name="showEGList">/manager/system/eqGroup/equipGroupList.jsp
+			</result>
+			<result name="eqtypeList">/manager/system/eqGroup/equipTypeList.jsp
+			</result>
+			<result name="equipList">/manager/system/eqGroup/equipList.jsp</result>
+			<result name="updateGroup">/manager/system/eqGroup/equipGroupEdit.jsp
+			</result>
+			<!-- 配电系统列表 -->
+			<result name="peiDianPage">manager/monitoring/control/air/pdxt_Control.jsp
+			</result>
+		</action>
+
+		<!-- 权限拦截 -->
+		<action name="menuInterceptor" class="menuInterceptor">
+			<result name="login">/manager/login.jsp</result>
+			<result name="customAction">${customAction}</result>
+		</action>
+		<!-- 医院数据分析 -->
+		<action name="hosdataanalysis_*" class="HospDataAnalysisAction"
+			method="{1}">
+			<result name="show">/manager/analysis/hosdataanalysis.jsp</result>
+			<result name="login">/manager/login.jsp</result>
+		</action>
+		<!-- 区域数据分析 -->
+		<action name="regionaldataanalysis_*" class="RegionalDataAnalysisAction"
+			method="{1}">
+			<result name="show">/manager/analysis/regionaldataanalysis.jsp
+			</result>
+			<result name="login">/manager/login.jsp</result>
+		</action>
+
+		<!-- 同类各设备能效分析 -->
+		<action name="eqanalyssis_*" class="EqAnalysisAction" method="{1}">
+			<result name="showEqAn">/manager/analysis/eqanalysis_eq.jsp</result>
+		</action>
+		<!-- 同类各厂商能效分析 -->
+		<action name="eqcoanalyssis_*" class="EqCoAnalysisAction"
+			method="{1}">
+			<result name="showEqCoAn">/manager/analysis/eqanalysis_co.jsp</result>
+		</action>
+		<!-- 同类设备维修比较 -->
+		<action name="eqrepair_*" class="EqRepairAction" method="{1}">
+			<result name="show">/manager/analysis/eq_repair.jsp</result>
+			<result name="login">/manager/login.jsp</result>
+		</action>
+
+		<!-- 特征区域能效分析 -->
+		<action name="feature_*" class="FeatureAction" method="{1}">
+			<result name="showfea">/manager/analysis/featurn.jsp</result>
+			<result name="showfeac">/manager/analysis/featurn_jz.jsp</result>
+			<result name="login">/manager/login.jsp</result>
+		</action>
+
+		<!-- 维修班组 -->
+		<action name="serMain" class="serMain">
+			<result name="serMainList">/manager/phoneSMS/serMainList.jsp</result>
+			<result name="serMainAddOrUpdate">/manager/phoneSMS/serMainAddOrUpdate.jsp</result>
+			<result name="serCueLogList">/manager/phoneSMS/serCueLogList.jsp</result>
+		</action>
+
+		<!-- 维修人员 -->
+		<action name="sermainDetail" class="sermainDetail">
+		</action>
+		
+							<!-- 天气预警 -->
+		<action name="weathers_*" class="weathers" method="{1}">
+		   <result name="toAddweaterwarning">/manager/phoneSMS/serweaterAddOrUpdate.jsp
+		   </result>
+		</action>
+		
+	</package>
+
+	<package name="fileupload" namespace="/" extends="struts-default">
+		<action name="buildingPic" class="buildingPicAction">
+			<!-- 下载 -->
+			<param name="fileEncoding">utf-8</param>
+			<result name="download" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">application/octet-stream;charset=ISO8859-1</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+			</result>
+			<result name="upload">/manager/building/buildingPicUpload.jsp</result>
+			<result name="list">/manager/building/buildingPicList.jsp</result>
+			<result name="input" type="redirect">buildingPic!findBuilbingPic.action?flagMsg=1
+			</result>
+
+			<!-- 上传文件需要拦截器 -->
+			<interceptor-ref name="fileUpload"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</action>
+
+	</package>
+
+	<!-- Struts 2的Action都必须配置在package里 -->
+	<package name="json" extends="json-default">
+		<action name="equipment" class="equipAction" method="checkEquipCode">
+			<result type="json">
+				<param name="json">resultJSON</param>
+			</result>
+		</action>
+		<action name="addOrupdate" class="baseCommAction" method="addOrUpdateBaseComm">
+			<result type="json">
+				<param name="json">resultJSON</param>
+			</result>
+		</action>
+		<action name="equipment" class="equipAction" method="findStoreyByBuildId">
+			<result type="json">
+				<param name="json">resultJSON</param>
+			</result>
+		</action>
+
+		<action name="controlConfig" class="controlConfigAction"
+			method="updateConfigXml">
+			<result type="json">
+				<param name="json">resultJSON</param>
+			</result>
+		</action>
+
+		<action name="change" class="EquipmentAction" method="changeType">
+			<result type="json" />
+		</action>
+
+		<!-- 更新楼层信息 -->
+		<action name="buildStorey" class="BuildingStoreyAction" method="updateStorey">
+			<result type="json">
+				<param name="json">resultJSON</param>
+			</result>
+		</action>
+
+		<action name="controlRed" class="controldataAction" method="findControlData">
+			<result type="json">
+				<param name="json">resultJSON</param>
+			</result>
+		</action>
+
+		<action name="info" class="skmanagementAction" method="listPageInfo">
+			<result type="json">
+				<param name="json">resultJSON</param>
+			</result>
+		</action>
+		<!-- 天气情况 -->
+		<action name="weather_*" class="WeatherAction" method="{1}">
+			<result name="avgair">/manager/analysis/avgWeather.jsp</result>
+			<result name="login">/manager/error.jsp</result>
+		</action>
+
+		<!-- 楼宇数据分析 -->
+		<action name="buildanalysis_*" method="{1}" class="BuildAnalysisAction">
+			<result name="login">/manager/error.jsp</result>
+			<result name="wastage">/manager/analysis/buildanalysis.jsp?action=buildanalysis_showWastageUI.action
+			</result>
+			<result name="convert">/manager/analysis/buildanalysis.jsp?action=buildanalysis_showConvertUI.action
+			</result>
+		</action>
+
+		<!-- 业务数据分析 -->
+		<action name="businessanalysis_*" method="{1}"
+			class="BusinessAnalysisAction">
+			<result name="login">/manager/error.jsp</result>
+			<result name="showmz">/manager/analysis/businessanalysis.jsp?action=businessanalysis_showMZUI.action
+			</result>
+			<result name="showjz">/manager/analysis/businessanalysis.jsp?action=businessanalysis_showJZUI.action
+			</result>
+			<result name="showzy">/manager/analysis/businessanalysis.jsp?action=businessanalysis_showZYUI.action
+			</result>
+			<result name="showmzc">/manager/analysis/businessanalysis.jsp?action=businessanalysis_showMZUIC.action
+			</result>
+			<result name="showjzc">/manager/analysis/businessanalysis.jsp?action=businessanalysis_showJZUIC.action
+			</result>
+			<result name="showzyc">/manager/analysis/businessanalysis.jsp?action=businessanalysis_showZYUIC.action
+			</result>
+		</action>
+
+
+		<!-- 面积比例情况 -->
+		<action name="area_*" class="AreaRatioAction" method="{1}">
+			<result name="showarea">/manager/analysis/area.jsp</result>
+			<result name="showbili">/manager/analysis/single_area_bili.jsp</result>
+		</action>
+
+		<!-- 参数设置 -->
+		<action name="rate_*" class="BuildRateAction" method="{1}">
+			<result name="input">/manager/building/setParam.jsp</result>
+			<result name="error">/manager/building/setParam.jsp</result>
+			<result name="success">/manager/building/setParam.jsp</result>
+			<result name="login">/manager/error.jsp</result>
+		</action>
+
+		<!-- 天气设置 -->
+		<action name="weatherUtil_*" class="weatherUtilAction" method="{1}">
+		</action>
+		<!-- 能源账单设置 -->
+		<action name="energyBill_*" class="energyBillAction" method="{1}">
+			<result name="energyBill">/manager/system/energyBill/energyBillList.jsp
+			</result>
+			<result name="addOrUpdateEnergyBill">/manager/system/energyBill/energyBillAddOrUpdate.jsp
+			</result>
+		</action>
+
+		<!-- 基础数据 -->
+		<action name="baseCommAction_*" class="baseCommAction" method="{1}">
+			<result name="baseData">/manager/system/baseData.jsp</result>
+		</action>
+
+		<!-- 室外照度 
+		<action name="environmentInfo_*" class="environmentInfoAction"
+			method="{1}">
+			<result name="illuminationPage">/manager/environment/illuminationPage.jsp
+			</result>
+			<result name="heatPumpSystemPage">/manager/environment/heatPumpSystemPage.jsp
+			</result>
+		</action>-->
+	</package>
+
+	<!-- struts2版本升级后 actionName 取值方式改变 需要配置 此属性为true -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+</struts>

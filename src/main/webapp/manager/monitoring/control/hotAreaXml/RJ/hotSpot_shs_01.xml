@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+	<!-- 热水泵1-->  <!--干保楼B2厨房热水循环泵1#-->		
+	<area title="厨房热水循环泵1#" wd="18" hg="18" marLeft="710" marTop="315" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+
+	<!-- 热水泵2 -->  <!--干保楼B2门诊热水循环泵1#-->	
+	<area title="门诊热水循环泵1#" wd="18" hg="18" marLeft="686" marTop="308" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+	<!-- 热水泵3 -->	<!-- 干保楼B2厨房热水循环泵2# -->
+	<area title="厨房热水循环泵2#" wd="18" hg="18" marLeft="648" marTop="293" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+	<!-- 热水泵4 -->  <!-- 干保楼B2门诊热水循环泵2#-->	
+	<area title="门诊热水循环泵2#" wd="18" hg="18" marLeft="623" marTop="283" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+	<!-- 热水泵5 -->  <!-- 干保楼B2住院楼热水循环泵3#-->	
+	<area title="住院楼热水循环泵3#" wd="18" hg="18" marLeft="548" marTop="233" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+	<!-- 热水泵6 -->	<!-- 干保楼B2住院楼热水循环泵4# -->
+	<area title="住院楼热水循环泵4#" wd="18" hg="18" marLeft="529" marTop="229" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+	<!-- 热水泵7 -->	<!-- 干保楼B2体检中心热水循环泵1# -->
+	<area title="体检中心热水循环泵1#" wd="18" hg="18" marLeft="495" marTop="218" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+	<!-- 热水泵8  -->  <!--干保楼B2体检中心热水循环泵2#-->	
+	<area title="体检中心热水循环泵2#" wd="18" hg="18" marLeft="476" marTop="211" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>	
+							
+			
+	<!-- 冷水泵1 --><!-- 干保楼生活水泵1#（低区） -->
+	<area title="生活冷水泵1#(低区)" wd="20" hg="20" marLeft="254" marTop="307" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 冷水泵2 --><!-- 干保楼生活水泵2#（低区） -->
+	<area title="生活冷水泵2#(低区)" wd="20" hg="20" marLeft="283" marTop="295" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 冷水泵3 --><!-- 干保楼生活水泵3#（低区） -->
+	<area title="生活冷水泵3#(低区)" wd="20" hg="20" marLeft="311" marTop="275" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 冷水泵4 --><!-- 干保楼生活水泵4#（低区） -->
+	<area title="生活冷水泵4#(低区)" wd="20" hg="20" marLeft="340" marTop="259" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 冷水泵5 --><!-- 干保楼生活水泵5#（高区） -->
+	<area title="生活冷水泵5#(高区)" wd="20" hg="20" marLeft="438" marTop="204" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 冷水泵6 --><!-- 干保楼生活水泵6#（高区） -->
+	<area title="生活冷水泵6#(高区)" wd="20" hg="20" marLeft="458" marTop="193" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 冷水泵7 --><!-- 干保楼生活水泵7#（高区） -->
+	<area title="生活冷水泵7#(高区)" wd="20" hg="20" marLeft="480" marTop="180" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+			
+		
+	<!-- 冷水箱 -->	<!-- 干保楼生活水系统地下二层水箱 -->
+	<area title="地下二层水箱" wd="20" hg="20" marLeft="303" marTop="171" prop="lsx"
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器1 高区 -->	<!-- 干保楼热交换器1#（高区） -->
+	<area title="换热器1#(高区)" wd="20" hg="20" marLeft="391" marTop="244" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器2 高区-->	<!-- 干保楼热交换器2#（高区） -->
+	<area title="换热器2#(高区)" wd="20" hg="20" marLeft="449" marTop="264" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	
+	<!-- 换热器1 低区 （2015-06-15 新添加点位）-->
+	<area title="换热器1#(低区)" wd="20" hg="20" marLeft="578" marTop="323" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器2 低区 （2015-06-15 新添加点位）-->
+	<area title="换热器2#(低区)" wd="20" hg="20" marLeft="662" marTop="358" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	
+</equipment>

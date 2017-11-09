@@ -1,0 +1,77 @@
+@charset "utf-8";
+/* CSS Document */
+/*----头部菜单样式------*/
+
+ul.MenuBarHorizontal{list-style:none; font-size:14px;margin:0 auto; font-family:"黑体";}
+ul.MenuBarHorizontal>li{
+	position:relative;
+	float:left;
+	height:26px;
+	line-height:26px;
+	
+}
+ul.MenuBarHorizontal>li>a.MenuBarItemSubmenu{
+	display:block;
+	color:#000000;
+	padding:0 10px;
+	text-decoration:none;
+	border-radius:3px 3px 0 0;
+}
+
+ul.MenuBarHorizontal>li>a.MenuBarItemSubmenu:hover{
+	color:#FFFFFF;
+	box-shadow:0 0 4px rgba(0,0,0,0.4);
+	text-decoration: underline;
+	border-color:#98B2C9 #98B2C9 #FFFFFF; 
+	border-radius:3px 3px 0 0;
+}
+
+ul.MenuBarHorizontal>li.active{
+	background-color:#FFFFFF;
+	box-shadow:0 0 4px rgba(0,0,0,0.4);
+}
+ul.MenuBarHorizontal span.active{
+	color:#FFFFFF;
+}
+
+ul.MenuBarHorizontal li ul{
+	position:absolute;
+	list-style:none;
+	float:left;
+	top:26px;
+	display:none;
+	border:0px solid #111122;
+	width:130px;
+	box-shadow:0 0 4px rgba(0,0,0,0.4);
+	z-index:999;
+	filter:opacity(opacity: 100);
+	background-color:white;
+}
+ul.MenuBarHorizontal li ul.preSubMenu{
+	left:0px;
+}
+
+ul.MenuBarHorizontal li ul.preSubMenu span.active{
+	padding-left: -10px;
+}
+ul.MenuBarHorizontal li ul.lastSubMenu{
+	right:0px;
+}
+
+ul.MenuBarHorizontal li ul li{
+	width:auto;
+}
+ul.MenuBarHorizontal li ul li a{
+	display:block;
+	padding:1px 2px;
+	color:gray;
+	text-decoration:none;
+	font-size: 12px; 
+	font-family: '黑体';
+}
+ul.MenuBarHorizontal li ul li a:hover{
+	cursor: default;
+}
+
+
+.clear{ clear:both; width:0; height:0;}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DbEquipParamBusiness">
+
+
+   <insert id="insertDbEquipParam" parameterType="com.hanqian.pojo.DbEqParam">
+     <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_EQPARAM.nextval as seq from dual
+		</selectKey>
+    insert into DB_EQ_PARAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dicEqParameter != null">
+        DIC_ID,
+      </if>
+      <if test="dbEquipList != null">
+        EQUIP_ID,
+      </if>
+      <if test="paramValue != null">
+        PARAM_VALUE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dicEqParameter != null">
+        #{dicEqParameter.seq},
+      </if>
+      <if test="dbEquipList != null">
+        #{dbEquipList.equipId},
+      </if>
+      <if test="paramValue != null">
+        #{paramValue},
+      </if>
+    </trim>
+  </insert>
+  
+   <update id="updateDbEquipParam" parameterType="map" >  
+    update DB_EQ_PARAM
+    <set>
+      <if test="paramValue != null">
+        PARAM_VALUE = #{paramValue},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+   
+   
+</mapper>

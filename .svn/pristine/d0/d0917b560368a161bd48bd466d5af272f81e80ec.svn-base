@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 7号楼集水井(第三方) -->
+	 <equip groupCode="jsj_01" flashHeight="500" flashWidth="1000">
+	    <xy x="252" y="328" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="11" type="6001"></point>
+			<point id="10" type="6002" num="1"></point>
+		</xy>
+        <xy x="253" y="526" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="14" type="6001"></point>
+			<point id="12" type="6002" num="1"></point>
+			<point id="13" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="743" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="17" type="6001"></point>
+			<point id="15" type="6002" num="1"></point>
+			<point id="16" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+   <!-- 2号楼集水井 -->
+	<equip groupCode="jsj_02" flashHeight="410" flashWidth="1000">
+		<xy x="253" y="329" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="47" type="6001"></point>
+			<point id="45" type="6002" num="1"></point>
+			<point id="46" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+</equipment> 
+
+  

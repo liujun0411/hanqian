@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="分气缸" hasParTitle="true">
+   <other title="支管">
+       <property run="01" des="压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="02" des="累计流量" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+<!--   <property run="03" des="压差" unit="Mpa" colu="cut(01,02)" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="0" isAbs="0" errText=""></property>-->
+   </other>
+   <child title="总管">
+       <property run="04,01" des="温度[1号总管]" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="04,02" des="温度[2号总管]" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="05,01" des="累计流量[1号总管]" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="05,02" des="累计流量[2号总管]" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+  </child>
+</equipment>

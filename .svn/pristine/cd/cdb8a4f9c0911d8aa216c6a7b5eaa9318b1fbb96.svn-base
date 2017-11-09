@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.AreaRatioBusiness">  
+
+   	<resultMap id="hospInfoMap" type="com.hanqian.pojo.DbHospInfo">
+		<id property="seqHosp" column="SEQ_HOSP" />
+		<result property="hospName" column="HOSP_NAME" />
+		<result property="shortName" column="SHORT_NAME" />
+		<result property="zipcode" column="ZIPCODE" />
+		<result property="address" column="ADDRESS" />
+		<result property="principal" column="PRINCIPAL" />
+		<result property="hospInfo" column="HOSP_INFO" />
+		<result property="buildtime" column="BUILDTIME" />
+		<result property="landAreas" column="LAND_AREAS" />
+		<result property="buildAreas" column="BUILD_AREAS" />
+		<result property="tel1" column="TEL1" />
+		<result property="tel2" column="TEL2" />
+		<result property="tel3" column="TEL3" />
+		<result property="fax1" column="FAX1" />
+		<result property="fax2" column="FAX2" />
+		<result property="fullView" column="FULL_VIEW" />
+		<result property="images1" column="IMAGES1" />
+		<result property="images2" column="IMAGES2" />
+		<result property="images3" column="IMAGES3" />
+		<result property="images4" column="IMAGES4" />
+		<result property="hospParent" column="HOSP_PARENT" />
+		<result property="status" column="STATUS" />
+		<result property="inputtime" column="INPUTTIME" />
+		<result property="opertime" column="OPERTIME" />
+		<association property="dbBaseCommByHospdist" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="HOSPDIST" />
+		</association>
+		<association property="dbBaseCommByHospCode" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="HOSP_CODE" />
+		</association>
+		<association property="dbBaseCommByKind" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="KIND" />
+		</association>
+		<association property="dbBaseCommByHosplevel" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="HOSPLEVEL" />
+		</association>
+		<association property="dbUsersByInput" javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="INPUT" />
+		</association>
+		<association property="dbUsersByOper" javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="OPER" />
+		</association>
+	</resultMap>
+
+	<select id="findHospInfoAll" resultMap="hospInfoMap" >	
+		select * from db_hosp_info 
+	</select>
+	
+	<select id="findOneQuyuAreaBiliData" resultType="ciMap" parameterType="map" >	
+		select a.usetype id,b.name ,a.hospitalid unitname,round((a.sumarea/c.sarea)*100,2) datavalue,a.sumarea area,c.sarea sarea from( 
+		   select u.usetype,ub.hospitalid,sum(u.area)  sumarea 
+		       from db_buildinguse u,(select sequence,hospitalid from db_building  ) ub 
+		         where u.buildingid= ub.sequence 
+		              group by u.usetype,ub.hospitalid 
+		                   having ub.hospitalid in (${str}) and u.usetype=#{usetyeid} 
+		                     ) a, 
+		                       (select ub.hospitalid,sum(ut.area) sarea 
+		                                from db_buildinguse ut,(select sequence,hospitalid from db_building  ) ub 
+		                                       where ut.buildingid=ub.sequence 
+		                                          group by ub.hospitalid 
+		                                            ) c ,
+		                                             (select d.typeid,d.name from db_building_dic d where d.stype=1) b 
+		                                              where a.usetype =b.typeid and a.hospitalid=c.hospitalid
+	</select>
+	
+		<select id="findQuyuAreaBaseData" resultType="ciMap" parameterType="map" >	
+		 select b. seq id,b.content1 name,'' comparechar,a.fz datavalue from  
+		 (   select g.fz,g.yt   from db_buildingrate g   where g.infoyear =
+		 (select max(b.infoyear) from db_buildingrate b where b.yt=g.yt)     ) a,   
+		 (select bc.seq ,bc.content1 from db_base_comm bc where bc.oper_type=4) 
+		 b where a.yt = b.seq
+	</select>
+	
+		<select id="findByIdAreaRatioBusiness" resultMap="hospInfoMap"	parameterType="map">
+		select * from db_hosp_info where seq_hosp=#{seqHosp}
+	</select>
+	
+	
+	  <select id="findByIdDbBuildingrate" parameterType="map" resultType="com.hanqian.pojo.DbBuildingrate">
+
+	    select *  from DB_BUILDINGRATE  where SEQUENCE = #{sequence}
+	  </select>
+	  
+	  
+	    <resultMap id="AreaRatioDataMap" type="com.hanqian.common.AreaRatioData">
+    <id column="SEQUENCE" jdbcType="VARCHAR" property="sequence" />
+    <result column="INFOYEAR" jdbcType="CHAR" property="infoyear" />
+    <result column="FZ" jdbcType="FLOAT" property="fz" />
+    <result column="YT" jdbcType="VARCHAR" property="yt" />
+    <result column="FH" jdbcType="VARCHAR" property="fh" />
+  </resultMap>
+	  
+	 <select id="findQuyuAreaData" parameterType="map" resultMap="AreaRatioDataMap">
+			select a.area_id id,b.content1,#{hospid} as unitname,a.sumarea datavalue from 
+			(  select u.area_id,sum(u.ACREAGE)  sumarea    from db_building_storey u, 
+			(select building.building_id from db_building building where building.hosp_id =#{hospid}) ud   
+			  where u.building_id = ud.building_id     group by u.area_id    order by u.area_id   ) a, 
+			  (select bc.seq,bc.content1 from db_base_comm bc where bc.oper_type=4) b where a.area_id = b.seq
+	  </select>
+	  
+	  	 <select id="findQuyuAreaDataArray" parameterType="map"  resultMap="AreaRatioDataMap">
+			select '0' id,'总面积' name,u.hospitalid unitname,sum(u.area) datavalue 
+			 from db_buildinguse u 
+			     group by u.hospitalid 
+			        having u.hospitalid in (${str})  order by u.hospitalid
+	  </select>
+		
+  
+   
+</mapper>

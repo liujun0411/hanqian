@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 7号楼集水井(第三方) -->
+	 <equip groupCode="ZYLJSJ_01" flashHeight="500" flashWidth="1000">
+	    	<xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="19" type="6001"></point>
+			<point id="20" type="6002" num="1"></point>
+			<point id="20" type="6002" num="2"></point>
+		</xy>
+        	<xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="21" type="6001"></point>
+			<point id="22" type="6002" num="1"></point>
+			<point id="22" type="6002" num="2"></point>
+		</xy>
+	</equip>
+	<equip groupCode="MZLJSJ_01" flashHeight="500" flashWidth="1000">	
+		<xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="23" type="6001"></point>
+			<point id="24" type="6002" num="1"></point>
+			<point id="24" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="25" type="6001"></point>
+			<point id="26" type="6002" num="1"></point>
+			<point id="26" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+	 
+	 <equip groupCode="ZHLJSJ_01" flashHeight="500" flashWidth="1000">	
+		<xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="27" type="6001"></point>
+			<point id="28" type="6002" num="1"></point>
+			<point id="28" type="6002" num="2"></point>
+			<point id="29" type="6002" num="2"></point>
+			<point id="29" type="6002" num="3"></point>
+		</xy>
+		<xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="30" type="6001"></point>
+			<point id="31" type="6002" num="1"></point>
+			<point id="31" type="6002" num="2"></point>
+			<point id="32" type="6002" num="2"></point>
+			<point id="32" type="6002" num="3"></point>
+		</xy>
+	 </equip>
+</equipment> 

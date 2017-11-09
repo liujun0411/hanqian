@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!--typeId是指设备类型编号，url是指热区文档存放的路径-->
+   <fileUrl typeId="1001" url="xfj_hotSpot.xml"></fileUrl>
+   <fileUrl typeId="1002" url="ktj_hotSpot.xml"></fileUrl>
+   <!-- 生活水 -->
+   <fileUrl typeId="5_ZHLSHS_01" url="hotSpot_shs_01.xml"></fileUrl>
+   <fileUrl typeId="5_MZLSHS_01" url="hotSpot_shs_02.xml"></fileUrl>
+   <fileUrl typeId="5_ZYLSHS_01" url="hotSpot_shs_03.xml"></fileUrl>
+   <fileUrl typeId="5_ZYLRJH_01" url="hotSpot_shs_04.xml"></fileUrl>
+   <fileUrl typeId="5_MZLRJH_01" url="hotSpot_shs_05.xml"></fileUrl>
+   <fileUrl typeId="5_ZHLRJH_01" url="hotSpot_shs_06.xml"></fileUrl>
+   
+   <!-- 集水井 -->
+   <fileUrl typeId="6" url="jsj_hotSpot.xml"></fileUrl>
+   <!-- 空压系统 -->
+   <fileUrl typeId="8_ZYLKY_01" url="hotSpot_kyj_01.xml"></fileUrl>
+   <!-- 风冷机组 -->
+   <fileUrl typeId="1005_ZHLRBJZ_01" url="hotSport_fljz_01.xml"></fileUrl>
+   <fileUrl typeId="1005_ZYLRBJZ_01" url="hotSport_fljz_02.xml"></fileUrl>
+   <fileUrl typeId="1005_MZLRBJZ_01" url="hotSport_fljz_03.xml"></fileUrl>
+   <!-- 负压吸引 -->
+   <fileUrl typeId="11_ZYLFY_01" url="hotSport_fyxy_01.xml"></fileUrl>
+  
+</equipPath>

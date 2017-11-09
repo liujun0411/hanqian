@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="给水泵">
+   <feedPump title="给水泵">
+       <property run="01" des="故障状态" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|故障" condition="" seTitle="" showFlag="0" isAbs="1" errText="故障"></property>
+	   <property run="02" des="运行状态" unit="" colu="" maxVa="" minVa="" remark="0|停止,1|运行" condition="01" seTitle="运行状态" showFlag="1" isAbs="1" errText=""></property>
+   </feedPump>
+</equipment>

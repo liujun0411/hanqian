@@ -1,0 +1,21 @@
+/* CSS Document */
+html{ margin:0px; padding:0px; font-size:12px;}
+body{ margin:0px auto; padding:0px; text-align:center; width:956px; font-family:"����","������"; font-size:12px;  color:#333333;}
+
+
+h2{text-align:left;color:#ff6600;padding-top:10px;padding-left:10px;margin:0px;}
+p{line-height:22px;margin:0px;padding:7px 0px;}
+.fontbold{ font-weight:bold;}
+
+/*maincontent*/
+#maincontent{text-align:center;width:956px; }
+.content{background:#edfafe; text-align:left;width:956px; margin:0 auto; }
+.content p,h2{padding-left:40px;padding-right:40px;}
+.content_top{height:90px;line-heigth:90px; text-align:center; background:#edfafe; width:956px; }
+.top{background:url(../images/common/top_contact_bg.gif) no-repeat left center; height:28px;line-height:28px; margin-top:20px;}
+.title{background:url(../images/common/contact_title.gif) no-repeat center center;height:62px;line-height:62px;}
+
+.bottom{background:url(../images/common/contact_bg.gif) no-repeat  center center;height:43px;line-height:43px;margin-bottom: 20px;}
+
+
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 热区绘制说明 -->
+<!-- 1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+eqTypeId是指设备类型ID -->
+<equipment>
+   <!-- 空压机1-->
+   <area title="空压泵1#" id="kyj1" wd="30" hg="20" marLeft="738" marTop="594" prop="newFau" initFlag="hide" eqTypeId="8001" positionX="" postionY="" eventType="click"></area>
+   <!-- 空压机2-->
+   <area title="空压泵2#" id="kyj2" wd="30" hg="20" marLeft="784" marTop="489" prop="newFau" initFlag="hide" eqTypeId="8001" positionX="200" postionY="500" eventType="click"></area>
+   <!-- 压力罐 -->
+   <area title="压力罐1#" id="ylg" wd="30" hg="20" marLeft="480" marTop="374" prop="newFau" initFlag="hide" eqTypeId="8002" positionX="" postionY="" eventType="click"></area>
+   <!-- 压力罐 -->
+   <area title="压力罐2#" id="ylg" wd="30" hg="20" marLeft="582" marTop="309" prop="newFau" initFlag="hide" eqTypeId="8002" positionX="" postionY="" eventType="click"></area>
+</equipment>

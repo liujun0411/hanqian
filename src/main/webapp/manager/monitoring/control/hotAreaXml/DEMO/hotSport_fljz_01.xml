@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id="自定义名字"，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID
+	-->
+<equipment>
+
+	<!-- 循环泵1 -->
+	<area title="循环泵1#" id="xhb2" wd="30" hg="20" marLeft="120"
+		marTop="310" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 循环泵2 -->
+	<area title="循环泵2#" id="xhb1" wd="30" hg="20" marLeft="175"
+		marTop="295" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 循环泵3 -->
+	<area title="循环泵3#" id="xhb3" wd="30" hg="20" marLeft="225"
+		marTop="280" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 循环泵4 -->
+	<area title="循环泵4#" id="xhb4" wd="30" hg="20" marLeft="275"
+		marTop="270" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 风冷热泵1 -->
+	<area title="风冷热泵1" id="flrb1" wd="30" hg="20" marLeft="370"
+		marTop="165" prop="newFau" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 风冷热泵2 -->
+	<area title="风冷热泵2" id="flrb2" wd="30" hg="20" marLeft="525"
+		marTop="130" prop="newFau" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 风冷热泵3 -->
+	<area title="风冷热泵3" id="flrb3" wd="30" hg="20" marLeft="665"
+		marTop="95" prop="newFau" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+		
+</equipment>

@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID
+	-->
+<equipment>
+	<child>
+	<!-- 锅炉本体1 -->
+	<area title="锅炉本体1#" id="glbt" wd="18" hg="18" marLeft="487" marTop="428"
+		prop="boilerBody" initFlag="hide" eqTypeId="2001" positionX=""
+		postionY="" eventType="click"></area>
+		
+	<!-- 锅炉本体2 -->
+	<area title="锅炉本体2#" id="glbt" wd="18" hg="18" marLeft="360" marTop="387"
+		prop="boilerBody" initFlag="hide" eqTypeId="2001" positionX=""
+		postionY="" eventType="click"></area>
+		
+	<!-- 锅炉本体3 -->
+	<area title="锅炉本体3#" id="glbt" wd="18" hg="18" marLeft="239" marTop="355"
+		prop="boilerBody" initFlag="hide" eqTypeId="2001" positionX=""
+		postionY="" eventType="click"></area>
+		
+	<!-- 给水箱 2015-06-15 new 要求去掉-->
+	<!-- <area title="给水箱" id="gsx" wd="18" hg="18" marLeft="133" marTop="570" prop="feedTank"
+		initFlag="hide" eqTypeId="2002" positionX="" postionY="" eventType="click"></area> -->
+		
+	<!-- 给水泵1 -->
+	<area title=" 给水泵1#" id="gxb" wd="18" hg="18" marLeft="255"
+		marTop="589" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 给水泵2 -->
+	<area title=" 给水泵2#" id="gxb" wd="18" hg="18" marLeft="191"
+		marTop="493" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 给水泵3  去掉这个给水泵 2015-06-15 2个泵对应3个锅炉本体 -->
+	<!--<area title=" 给水泵3#" id="gxb" wd="18" hg="18" marLeft="200"
+		marTop="433" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>-->
+		
+		
+	<!-- 分汽缸 -->
+	<area title="分汽缸" id="fqg" wd="18" hg="18" marLeft="-1700" marTop="-1446" prop="branchPipe"
+		initFlag="hide" eqTypeId="2004" positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 支五号楼灭菌阁空调 -->
+	<area title="五号楼灭菌阁空调" id="zg" wd="18" hg="18" marLeft="628" marTop="405"
+		prop="" initFlag="hide" eqTypeId="" positionX=""
+		postionY="" eventType="click"></area>`
+		
+	<!-- 外科19F食堂供应室 -->
+	<area title="外科19F食堂供应室" id="zg" wd="18" hg="18" marLeft="647" marTop="421"
+		prop="" initFlag="hide" eqTypeId="" positionX=""
+		postionY="" eventType="click"></area>
+		
+	<!-- 营养食堂供应室 -->
+	<area title="营养食堂供应室" id="zg" wd="18" hg="18" marLeft="662" marTop="438"
+		prop="" initFlag="hide" eqTypeId="" positionX=""
+		postionY="" eventType="click"></area>
+		
+	<!-- 干保楼 -->
+	<area title="干保楼" id="zg" wd="18" hg="18" marLeft="679" marTop="451" prop=""
+		initFlag="hide" eqTypeId="" positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 1#热交换器 -->
+	<area title="1#热交换器" id="zg" wd="18" hg="18" marLeft="700"
+		marTop="461" prop="" initFlag="hide" eqTypeId=""
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 2#热交换器 -->
+	<area title=" 2#热交换器" id="zg" wd="18" hg="18" marLeft="720"
+		marTop="473" prop="" initFlag="hide" eqTypeId=""
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 新门急诊综合楼 -->
+	<area title="新门急诊综合楼" id="zg" wd="18" hg="18" marLeft="745"
+		marTop="490" prop="" initFlag="hide" eqTypeId=""
+		positionX="" postionY="" eventType="click"></area>
+				
+	<!-- 暂时未开通 -->
+	<area title="暂时未开通" id="zg" wd="18" hg="18" marLeft="571" marTop="389" prop=""
+		initFlag="hide" eqTypeId="" positionX="" postionY="" eventType="click"></area>	
+	</child>
+</equipment>

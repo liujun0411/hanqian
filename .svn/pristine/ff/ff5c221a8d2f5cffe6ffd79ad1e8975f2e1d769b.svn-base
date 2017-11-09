@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+    <!-- 热水泵1 -->
+	<area title="5宿舍楼热水泵1#" wd="15" hg="15" marLeft="464" marTop="447" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵2 -->
+	<area title="6宿舍楼热水泵2#" wd="15" hg="15" marLeft="526" marTop="435" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>						
+			
+		
+	<!-- 换热器1 -->
+	<area title="5宿舍楼热交换1#" wd="15" hg="15" marLeft="615" marTop="290" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 换热器2 -->
+	<area title="6宿舍楼热交换2#" wd="15" hg="15" marLeft="388" marTop="349" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+</equipment>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipment title="风冷热泵" hasParTitle="true">
+   <child title="出水管道">
+       <property run="01" des="出水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+       <property run="02" des="出水压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+<!--	   <property run="03" des="水流开关" unit="" colu="" maxVa="" minVa="" remark="0|关,1|开" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>-->
+   </child>
+</equipment>

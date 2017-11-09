@@ -1,0 +1,165 @@
+@charset "utf-8";
+.tableList{
+	background-color: #78c0d4;
+	margin-top: 10px;
+}
+
+.tableList th{
+	background-color: #78c0d4;
+	margin-top: 10px;
+}
+
+.gai_left_duiqi {
+	clear: both;
+	float: left;
+}
+
+.gai_left_duiqi input{
+	/*width:200px;
+	border:1px solid red;*/
+}
+
+.biaoge_tr0 {
+	background-color: #DCDDDD;
+}
+.biaoge_tr1 {
+	background-color: #E9F4F8;
+}
+.biaoge_tr2 {
+	background-color: #FFFFFF;
+}
+.biaoge_tr3 {
+	background-color: #BBEEE7;
+}
+.titleBg{
+  background: url(../images/common/33-01.png) no-repeat;
+  margin-top: 7px; 
+  color:#FFFFFF; 
+  font-family: '黑体'; 
+  font-size: 13px; 
+  font-weight: bold;	
+  width:580px;
+}
+
+.tr1{
+	/*表格第一行*/
+	background-color: #F1F1F1; 
+	height:28px;
+}
+.tr2{
+	/*表格第二行*/
+	background-color: #F7F8F8; 
+	height:28px;
+}
+.tr3{
+	/*选中样式*/
+	background-color: white; 
+	height:28px;
+}
+.listTable{
+  font-family: '华文细黑';
+  font-size: 13px;
+  color: #404041;	
+  background-color: #999999;
+  margin-top: 10px;
+  cursor: pointer;
+}
+/* add start 2013/04/01 by Lijinag */
+	/* 设备实时监控单击组名项弹出的设备列表皆不可点 */
+.listTable_Too{
+	  font-family: '华文细黑';
+	  font-size: 13px;
+	  color: #404041;	
+	  background-color: #999999;
+	  margin-top: 10px;
+}
+/* add end 2013/04/01 by Lijinag */
+.listTable a{
+  font-family: '华文细黑';
+  font-size: 13px;
+  color: #FE8B03;	
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.listTable a:hover{
+  color: #33CCFF;
+  font-family: '华文细黑';
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.PageingGroup{
+	width:800px;
+	float:left;
+	font-family: '黑体';
+    font-size: 13px;
+}
+
+.PageingGroup select{
+	font-family: '黑体';
+    font-size: 13px;
+    color:#404041;
+}
+
+.PageingGroup a{
+   color: #FE8B03;
+   font-family: '黑体';
+   font-size: 13px;
+}
+
+.PageingEquip{
+   width:100%;
+   float:left;	
+   font-family: '黑体';
+   font-size: 13px;
+}
+
+.PageingEquip a{
+   color: #FE8B03;
+   font-family: '黑体';
+   font-size: 13px;
+}
+.pageingList{
+   width:800px;
+   float:left;	
+}
+
+.serachTable{
+  color:#404041;
+  font-weight: normal;
+  font-family: '黑体';
+  font-size:13px;	
+}
+
+.serachTable select{
+  color:#404041;
+  font-weight: normal;
+  font-family: '黑体';
+  font-size:13px;	
+}
+.itemList{
+  width:100%;
+  float: left;	
+}
+
+.itemList2{
+	width:800px;
+    float: left;
+}
+
+.serachDiv{
+  float:left;
+  width:100%;
+  color:#404041;
+  font-weight: normal;
+  font-family: '黑体';
+  font-size:13px;
+}
+
+.serachDiv select{
+  color:#404041;
+  font-weight: normal;
+  font-family: '黑体';
+  font-size:13px;
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+
+ 	
+	<!-- 换热器1 -->	
+	<area title="热交换器" wd="20" hg="20" marLeft="199" marTop="308" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+    <!-- 换热器2  去掉了
+	<area title="换热器1#" wd="20" hg="20" marLeft="615" marTop="336" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+-->
+</equipment>

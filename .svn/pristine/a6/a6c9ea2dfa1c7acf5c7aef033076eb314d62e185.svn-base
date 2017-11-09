@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID
+	-->
+<equipment>
+
+	<!-- 锅炉本体1 -->
+	<area title="锅炉本体1#" id="glbt" wd="18" hg="18" marLeft="650"
+		marTop="512" prop="boilerBody" initFlag="hide" eqTypeId="2001"
+		positionX="" postionY="" eventType="click"></area>
+
+	<!-- 锅炉本体2 -->
+	<area title="锅炉本体2#" id="glbt" wd="18" hg="18" marLeft="520"
+		marTop="466" prop="boilerBody" initFlag="hide" eqTypeId="2001"
+		positionX="" postionY="" eventType="click"></area>
+
+	<!-- 锅炉本体3 -->
+	<area title="锅炉本体3#" id="glbt" wd="18" hg="18" marLeft="395"
+		marTop="426" prop="boilerBody" initFlag="hide" eqTypeId="2001"
+		positionX="" postionY="" eventType="click"></area>
+
+	<!-- 给水箱 -->
+	<area title="给水箱" id="gsx" wd="18" hg="18" marLeft="240" marTop="530"
+		prop="feedTank" initFlag="hide" eqTypeId="2002" positionX="" postionY=""
+		eventType="click"></area>
+
+	<!-- 给水泵1 -->
+	<area title=" 给水泵1#" id="gxb" wd="18" hg="18" marLeft="510"
+		marTop="601" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+
+	<!-- 给水泵2 -->
+	<area title=" 给水泵2#" id="gxb" wd="18" hg="18" marLeft="480"
+		marTop="585" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+
+	<!-- 给水泵3 -->
+	<area title=" 给水泵3#" id="gxb" wd="18" hg="18" marLeft="390"
+		marTop="536" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+		
+	<!-- 给水泵4 -->
+	<area title=" 给水泵4#" id="gxb" wd="18" hg="18" marLeft="365"
+		marTop="524" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+
+	<!-- 给水泵5 -->
+	<area title=" 给水泵5#" id="gxb" wd="18" hg="18" marLeft="270"
+		marTop="475" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+
+	<!-- 给水泵6 -->
+	<area title=" 给水泵6#" id="gxb" wd="18" hg="18" marLeft="250"
+		marTop="462" prop="feedPump" initFlag="hide" eqTypeId="2003"
+		positionX="" postionY="" eventType="click"></area>
+
+        <!-- 分汽缸 -->
+	<area title="分汽缸" id="fqg" wd="18" hg="18" marLeft="670"
+                marTop="453" prop="branchPipe" initFlag="hide" eqTypeId="2004"
+                positionX="" postionY="" eventType="click"></area>
+
+</equipment>

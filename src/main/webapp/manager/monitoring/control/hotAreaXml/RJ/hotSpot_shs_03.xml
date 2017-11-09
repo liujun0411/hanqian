@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+    <!-- 换热器1  -->	
+	<area title="换热器1#" wd="20" hg="20" marLeft="269" marTop="256" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器2 -->	
+	<area title="换热器2#" wd="20" hg="20" marLeft="120" marTop="280" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>						
+			
+	<!-- 热水泵1(低区) -->
+	<area title="热水泵1#(低区)" wd="20" hg="20" marLeft="529" marTop="196" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵2(低区) -->
+	<area title="热水泵2#(低区)" wd="20" hg="20" marLeft="485" marTop="186" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵3(低区) -->
+	<area title="热水泵3#(低区)" wd="20" hg="20" marLeft="442" marTop="179" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!--热水泵4(低区) -->
+	<area title="热水泵4#(低区)" wd="20" hg="20" marLeft="397" marTop="172" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵5(低区) -->
+	<area title="热水泵5#(低区)" wd="20" hg="20" marLeft="564" marTop="496" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵6(低区) -->
+	<area title="热水泵6#(低区)" wd="20" hg="20" marLeft="495" marTop="535" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+</equipment>

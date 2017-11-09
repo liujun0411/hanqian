@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标
+	-->
+<equipment>
+	<child>
+		<!-- 冷冻机1 -->
+		<area title="冷冻机" eventType="click" wd="30" hg="25" marLeft="285"
+			marTop="430" prop="coolTower1" initFlag="hide" eqTypeId="1004004"
+			positionX="0" postionY="869"></area>
+			
+
+		<!-- 冷却塔1 -->
+		<area title="冷却塔1#" eventType="click" wd="30" hg="25" marLeft="340"
+			marTop="620" prop="coolTower" initFlag="hide" eqTypeId="1004001"
+			positionX="16" postionY="350"></area>
+			
+		<!-- 冷却塔2 -->
+		<area title="冷却塔2#" eventType="click" wd="30" hg="25" marLeft="385"
+			marTop="605" prop="coolTower" initFlag="hide" eqTypeId="1004001"
+			positionX="218" postionY="350"></area>
+			
+		<!-- 冷却塔3 -->
+		<area title="冷却塔3#" eventType="click" wd="30" hg="25" marLeft="430"
+			marTop="588" prop="coolTower" initFlag="hide" eqTypeId="1004001"
+			positionX="16" postionY="430"></area>
+		
+		<!-- 冷却塔4 -->
+		<area title="冷却塔4#" eventType="click" wd="30" hg="25" marLeft="475"
+			marTop="570" prop="coolTower" initFlag="hide" eqTypeId="1004001"
+			positionX="16" postionY="430"></area>
+			
+	</child>
+</equipment>

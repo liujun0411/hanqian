@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 热区绘制说明 -->
+<!-- 1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标 -->
+<equipment>
+  <child>
+   <!-- 冷冻泵1 -->
+   <area title="冷冻泵1#" eventType="click" wd="20" hg="20" marLeft="880" marTop="434" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="0" postionY="830"></area>
+   <!-- 冷冻泵2 -->
+   <area title="冷冻泵2#" eventType="click" wd="20" hg="20" marLeft="862" marTop="428" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="200" postionY="830"></area>
+   <!-- 冷冻泵3 -->
+   <area title="冷冻泵3#" eventType="click" wd="20" hg="20" marLeft="825" marTop="420" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="400" postionY="830"></area>
+   <!-- 冷冻二次泵1 -->
+   <area title=" 冷冻二次泵1#" eventType="click" wd="20" hg="20" marLeft="805" marTop="416" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="0" postionY="870"></area>
+   <!-- 冷冻二次泵2 -->
+   <area title=" 冷冻二次泵2#" eventType="click" wd="20" hg="20" marLeft="765" marTop="405" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="200" postionY="870"></area>
+   <!-- 冷冻二次泵3 -->
+   <area title=" 冷冻二次泵3#" eventType="click" wd="20" hg="20" marLeft="745" marTop="400" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="400" postionY="870"></area>
+   <!-- 冷冻二次泵4 -->
+   <area title=" 冷冻二次泵4#" eventType="click" wd="20" hg="20" marLeft="728" marTop="396" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="0" postionY="910"></area>
+   <!-- 冷冻二次泵5 -->
+   <area title=" 冷冻二次泵5#" eventType="click" wd="20" hg="20" marLeft="710" marTop="390" prop="coolDong" initFlag="hide" eqTypeId="1004003" positionX="200" postionY="910"></area>
+   
+   <!-- 冷却泵1 -->
+   <area title="冷却泵1#" eventType="click" wd="20" hg="20" marLeft="640" marTop="395" prop="coolQue" initFlag="hide" eqTypeId="1004002" positionX="0" postionY="769"></area>
+   <!-- 冷却泵2 -->
+   <area title="冷却泵2#" eventType="click" wd="20" hg="20" marLeft="568" marTop="374" prop="coolQue" initFlag="hide" eqTypeId="1004002" positionX="200" postionY="769"></area>
+   <!-- 冷却泵3 -->
+   <area title="冷却泵3#" eventType="click" wd="20" hg="20" marLeft="530" marTop="365" prop="coolQue" initFlag="hide" eqTypeId="1004002" positionX="0" postionY="820"></area>
+   <!-- 冷冻机1 -->
+   <area title="冷冻机3#" eventType="click" wd="30" hg="25" marLeft="216" marTop="355" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="0" postionY="869"></area>
+   <!-- 冷冻机2 -->
+   <area title="冷冻机2#" eventType="click" wd="30" hg="25" marLeft="315" marTop="325" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="200" postionY="869"></area>
+   <!-- 冷冻机3 -->
+   <area title="冷冻机1#" eventType="click" wd="30" hg="25" marLeft="550" marTop="410" prop="coolTower1" initFlag="hide" eqTypeId="1004004" positionX="400" postionY="869"></area>
+ 
+   
+   <!-- 分水器 -->
+   <area title="分水器" eventType="click" wd="0" hg="0" marLeft="-1000" marTop="-1020" prop="others" initFlag="hide" eqTypeId="1004005" positionX="" postionY=""></area>
+   <!-- 集水器 -->
+   <area title="集水器" eventType="click" wd="0" hg="0" marLeft="-1000" marTop="-1020" prop="others" initFlag="hide" eqTypeId="1004006" positionX="" postionY=""></area>
+ </child>
+ <child>
+   <!-- 冷却塔1 -->
+   <area title="冷却塔1#" eventType="click" wd="30" hg="25" marLeft="485" marTop="470" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="16" postionY="350"></area>
+   <!-- 冷却塔2 -->
+   <area title="冷却塔2#" eventType="click" wd="30" hg="25" marLeft="380" marTop="430" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="218" postionY="350"></area>
+   <!-- 冷却塔3 -->
+   <area title="冷却塔3#" eventType="click" wd="30" hg="25" marLeft="275" marTop="400" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="16" postionY="430"></area>
+   <!-- 冷却塔4 -->
+   <area title="冷却塔4#" eventType="click" wd="30" hg="25" marLeft="698" marTop="450" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="218" postionY="430"></area>
+   <!-- 冷却塔5 -->
+   <area title="冷却塔5#" eventType="click"  wd="30" hg="25" marLeft="585" marTop="415" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="420" postionY="359"></area>
+   <!-- 冷却塔6 -->
+   <area title="冷却塔6#" eventType="click" wd="30" hg="25" marLeft="480" marTop="385" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="622" postionY="359"></area>
+   <!-- 冷却塔7 -->
+   <area title="冷却塔7#" eventType="click" wd="30" hg="25" marLeft="380" marTop="360" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="824" postionY="359"></area>
+   <!-- 冷却塔8 -->
+   <area title="冷却塔8#" eventType="click" wd="30" hg="25" marLeft="280" marTop="340" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="660" postionY="450"></area>
+   <!-- 冷却塔9 -->
+   <area title="冷却塔9#" eventType="click" wd="30" hg="25" marLeft="780" marTop="390" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="864" postionY="450"></area>
+   <!-- 冷却塔10 -->
+   <area title="冷却塔10#" eventType="click" wd="30" hg="25" marLeft="670" marTop="365" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="864" postionY="730"></area>
+   <!-- 冷却塔11 -->
+   <area title="冷却塔11#" eventType="click" wd="30" hg="25" marLeft="575" marTop="340" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="864" postionY="810"></area>
+   <!-- 冷却塔12 -->
+   <area title="冷却塔12#" eventType="click" wd="30" hg="25" marLeft="478" marTop="320" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="660" postionY="890"></area>
+   <!-- 冷却塔13 -->
+   <area title="冷却塔13#" eventType="click" wd="30" hg="25" marLeft="388" marTop="300" prop="coolTower" initFlag="hide" eqTypeId="1004001" positionX="864" postionY="890"></area>
+ </child>
+</equipment>

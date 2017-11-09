@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EquipPicBusiness">
+   <select id="findDbEquipPic" resultType="ciMap" parameterType="map" >    
+         select t.seq,p.equip_pic_id,p.equip_pic_name,p.pic_address,p.pic_code,e.equip_name,
+         d.pic_type_name from db_equip_pic_rel t inner join db_equip_pic p on t.pic_id=p.equip_pic_id 
+         inner join db_equip_list e on t.equip_id=e.equip_id 
+         inner join db_equip_pic_type d on p.pic_type_id=d.pic_type_id 
+         where p.status=0 and e.equip_id=#{equipId}
+   </select>  
+   
+    <delete id="deleteEquipPic" parameterType="com.hanqian.pojo.DbEquipPicRel">   
+    delete from DB_EQUIP_PIC_REL
+    where SEQ = #{seq}
+  </delete>
+  
+    <delete id="deletePic" parameterType="com.hanqian.pojo.DbEquipPic">   
+    delete from DB_EQUIP_PIC
+    where EQUIP_PIC_ID = #{equipPicId}
+  </delete>
+  
+     <select id="findALLEquipPicType" resultType="ciMap" >    
+         select t.pic_type_id,t.pic_type_name from db_equip_pic_type t
+   </select>  
+  
+        <select id="findById" resultType="com.hanqian.pojo.DbEquipPic"  parameterType="int" >    
+          select *
+    from DB_EQUIP_PIC
+    where EQUIP_PIC_ID = #{equipPicId}
+   </select>  
+   
+   <insert id="insertDbEquipPic" parameterType="map">
+    <selectKey resultType="int" keyProperty="equipPicId" order="BEFORE">
+			select
+			SEQ_DEVICEMAP.nextval as equipPicId from dual
+		</selectKey>
+       insert into DB_EQUIP_PIC
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipPicId != null">
+        EQUIP_PIC_ID,
+      </if>
+      <if test="equipPicName != null">
+        EQUIP_PIC_NAME,
+      </if>
+      <if test="picAddress != null">
+        PIC_ADDRESS,
+      </if>
+      <if test="picCode != null">
+        PIC_CODE,
+      </if>
+      <if test="picTypeId != null">
+        PIC_TYPE_ID,
+      </if>
+      <if test="buildId != null">
+        BUILD_ID,
+      </if>
+      <if test="storey != null">
+        STOREY,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipPicId != null">
+        #{equipPicId},
+      </if>
+      <if test="equipPicName != null">
+        #{equipPicName},
+      </if>
+      <if test="picAddress != null">
+        #{picAddress},
+      </if>
+      <if test="picCode != null">
+        #{picCode},
+      </if>
+      <if test="picTypeId != null">
+        #{picTypeId},
+      </if>
+      <if test="buildId != null">
+        #{buildId},
+      </if>
+      <if test="storey != null">
+        #{storey},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+  
+   <insert id="insertDbEquipPicREL" parameterType="map">
+   <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_DEVICEMAPRETL.nextval as seq from dual
+		</selectKey>
+    insert into DB_EQUIP_PIC_REL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="equipId != null">
+        EQUIP_ID,
+      </if>
+      <if test="picId != null">
+        PIC_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="equipId != null">
+        #{equipId},
+      </if>
+      <if test="picId != null">
+        #{picId},
+      </if>
+    </trim>
+  </insert>
+   
+   
+   
+</mapper>

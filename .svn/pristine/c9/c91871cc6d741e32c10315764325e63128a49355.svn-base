@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!ELEMENT runtime (create-time,conditions?,role)>
+
+<!ATTLIST runtime id CDATA #IMPLIED>
+<!ATTLIST runtime name CDATA #REQUIRED>
+
+<!ELEMENT create-time (#PCDATA)>
+
+<!ELEMENT conditions (condition+)>
+<!ELEMENT condition EMPTY>
+<!ATTLIST condition value CDATA #REQUIRED>
+<!ATTLIST condition name CDATA #REQUIRED>
+
+<!ELEMENT role (desc,start,end,show,cron,cron_word,(script|class))>
+<!ELEMENT desc (#PCDATA)>
+<!ELEMENT script (#PCDATA)>
+<!ELEMENT class (#PCDATA)>
+<!ELEMENT start EMPTY>
+<!ATTLIST start value CDATA #REQUIRED>
+<!ELEMENT end EMPTY>
+<!ATTLIST end value CDATA #REQUIRED>
+<!ELEMENT show EMPTY>
+<!ATTLIST show value (true|false) #REQUIRED>
+<!ELEMENT cron EMPTY>
+<!ATTLIST cron value CDATA #REQUIRED>
+<!ELEMENT cron_word EMPTY>
+<!ATTLIST cron_word value CDATA #REQUIRED>

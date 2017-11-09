@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.HospInfoBusiness">
+
+	<resultMap id="hospInfoMap" type="com.hanqian.pojo.DbHospInfo">
+		<id property="seqHosp" column="SEQ_HOSP" />
+		<result property="hospName" column="HOSP_NAME" />
+		<result property="shortName" column="SHORT_NAME" />
+		<result property="zipcode" column="ZIPCODE" />
+		<result property="address" column="ADDRESS" />
+		<result property="principal" column="PRINCIPAL" />
+		<result property="hospInfo" column="HOSP_INFO" />
+		<result property="buildtime" column="BUILDTIME" />
+		<result property="landAreas" column="LAND_AREAS" />
+		<result property="buildAreas" column="BUILD_AREAS" />
+		<result property="tel1" column="TEL1" />
+		<result property="tel2" column="TEL2" />
+		<result property="tel3" column="TEL3" />
+		<result property="fax1" column="FAX1" />
+		<result property="fax2" column="FAX2" />
+		<result property="fullView" column="FULL_VIEW" />
+		<result property="images1" column="IMAGES1" />
+		<result property="images2" column="IMAGES2" />
+		<result property="images3" column="IMAGES3" />
+		<result property="images4" column="IMAGES4" />
+		<result property="hospParent" column="HOSP_PARENT" />
+		<result property="status" column="STATUS" />
+		<result property="inputtime" column="INPUTTIME" />
+		<result property="opertime" column="OPERTIME" />
+		<association property="dbBaseCommByHospdist" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="HOSPDIST" />
+			<id property="content1" column="content2" />
+		</association>
+		<association property="dbBaseCommByHospCode" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="HOSP_CODE" />
+		</association>
+		<association property="dbBaseCommByKind" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="KIND" />
+		</association>
+		<association property="dbBaseCommByHosplevel" javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="HOSPLEVEL" />
+			<id property="content1" column="content1"/>
+		</association>
+		<association property="dbUsersByInput" javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="INPUT" />
+		</association>
+		<association property="dbUsersByOper" javaType="com.hanqian.pojo.DbUsers">
+			<id property="seq" column="OPER" />
+		</association>
+	</resultMap>
+	<!-- resultMap="hospInfoMap"	 -->
+	<select id="findHospInfoAAA" resultMap="hospInfoMap" >	
+		select a.*,b.content1,c.content1 as content2 from db_hosp_info a ,db_base_comm b ,db_base_comm c where a.hosplevel=b.seq  and c.seq=a.hospdist
+	</select>
+	
+
+	<select id="findHospInfoForId" resultMap="hospInfoMap"
+		parameterType="int">
+		select * from db_hosp_info where seq_hosp=#{seqHosp}
+	</select>
+
+	<select id="findAllHosDetail" resultMap="hospInfoMap">
+		select * from db_hosp_info
+	</select>
+	
+	<select id="findHospInfos" resultMap="hospInfoMap"
+		parameterType="com.hanqian.pojo.DbHospInfo">
+		select * from db_hosp_info where seq_hosp=#{seqHosp}
+	</select>
+	
+	  <insert id="insertDbHospInfo" parameterType="com.hanqian.pojo.DbHospInfo">
+	  <selectKey resultType="int" keyProperty="seqHosp" order="BEFORE">
+			select
+			SEQ_HOSP_INFO.nextval as seqHosp from dual
+		</selectKey>
+    insert into DB_HOSP_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seqHosp != null">
+        SEQ_HOSP,
+      </if>
+      <if test="dbBaseCommByHospCode != null">
+        HOSP_CODE,
+      </if>
+      <if test="dbBaseCommByHosplevel != null">
+        HOSPLEVEL,
+      </if>
+      <if test="dbBaseCommByKind != null">
+        KIND,
+      </if>
+      
+      <if test="hospName != null">
+        HOSP_NAME,
+      </if>
+      <if test="shortName != null">
+        SHORT_NAME,
+      </if>
+      <if test="zipcode != null">
+        ZIPCODE,
+      </if>
+      <if test="address != null">
+        ADDRESS,
+      </if>
+      <if test="principal != null">
+        PRINCIPAL,
+      </if>
+      <if test="dbBaseCommByHospdist != null">
+        HOSPDIST,
+      </if>
+      <if test="hospInfo != null">
+        HOSP_INFO,
+      </if>
+      <if test="buildtime != null">
+        BUILDTIME,
+      </if>
+      <if test="landAreas != null">
+        LAND_AREAS,
+      </if>
+      <if test="buildAreas != null">
+        BUILD_AREAS,
+      </if>
+      <if test="tel1 != null">
+        TEL1,
+      </if>
+      <if test="tel2 != null">
+        TEL2,
+      </if>
+      <if test="tel3 != null">
+        TEL3,
+      </if>
+      <if test="fax1 != null">
+        FAX1,
+      </if>
+      <if test="fax2 != null">
+        FAX2,
+      </if>
+      <if test="fullView != null">
+        FULL_VIEW,
+      </if>
+      <if test="images1 != null">
+        IMAGES1,
+      </if>
+      <if test="images2 != null">
+        IMAGES2,
+      </if>
+      <if test="images3 != null">
+        IMAGES3,
+      </if>
+      <if test="images4 != null">
+        IMAGES4,
+      </if>
+      <if test="hospParent != null">
+        HOSP_PARENT,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="dbUsersByInput != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>    
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seqHosp != null">
+        #{seqHosp},
+      </if>
+      <if test="dbBaseCommByHospCode != null">
+        #{dbBaseCommByHospCode.seq},
+      </if>
+      <if test="dbBaseCommByHosplevel != null">
+        #{dbBaseCommByHosplevel.seq},
+      </if>
+      <if test="dbBaseCommByKind != null">
+        #{dbBaseCommByKind.seq},
+      </if>
+      <if test="hospName != null">
+        #{hospName},
+      </if>
+      <if test="shortName != null">
+        #{shortName},
+      </if>
+      <if test="zipcode != null">
+        #{zipcode},
+      </if>
+      <if test="address != null">
+        #{address},
+      </if>
+      <if test="principal != null">
+        #{principal},
+      </if>
+      <if test="dbBaseCommByHospdist != null">
+        #{dbBaseCommByHospdist.seq},
+      </if>
+      <if test="hospInfo != null">
+        #{hospInfo,jdbcType=CLOB},
+      </if>
+      <if test="buildtime != null">
+        #{buildtime},
+      </if>
+      <if test="landAreas != null">
+        #{landAreas},
+      </if>
+      <if test="buildAreas != null">
+        #{buildAreas},
+      </if>
+      <if test="tel1 != null">
+        #{tel1},
+      </if>
+      <if test="tel2 != null">
+        #{tel2},
+      </if>
+      <if test="tel3 != null">
+        #{tel3},
+      </if>
+      <if test="fax1 != null">
+        #{fax1},
+      </if>
+      <if test="fax2 != null">
+        #{fax2},
+      </if>
+      <if test="fullView != null">
+        #{fullView},
+      </if>
+      <if test="images1 != null">
+        #{images1},
+      </if>
+      <if test="images2 != null">
+        #{images2},
+      </if>
+      <if test="images3 != null">
+        #{images3},
+      </if>
+      <if test="images4 != null">
+        #{images4},
+      </if>
+      <if test="hospParent != null">
+        #{hospParent},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="dbUsersByInput != null">
+        #{dbUsersByInput.seq},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>     
+    </trim>
+  </insert>
+  
+   <update id="updateByPrimaryKeyDbHospInfo" parameterType="com.hanqian.pojo.DbHospInfo">
+    update DB_HOSP_INFO
+    <set>
+
+      <if test="dbBaseCommByHospCode != null">
+        HOSP_CODE = #{dbBaseCommByHospCode.seq},
+      </if>
+      <if test="dbBaseCommByHosplevel != null">
+        HOSPLEVEL = #{dbBaseCommByHosplevel.seq},
+      </if>
+      <if test="dbBaseCommByKind != null">
+        KIND = #{dbBaseCommByKind.seq},
+      </if>
+      <if test="hospName != null">
+        HOSP_NAME = #{hospName},
+      </if>
+      <if test="shortName != null">
+        SHORT_NAME = #{shortName},
+      </if>
+      <if test="zipcode != null">
+        ZIPCODE = #{zipcode},
+      </if>
+      <if test="address != null">
+        ADDRESS = #{address},
+      </if>
+      <if test="principal != null">
+        PRINCIPAL = #{principal},
+      </if>
+
+      <if test="dbBaseCommByHospdist != null">
+        HOSPDIST = #{dbBaseCommByHospdist.seq},
+      </if>
+
+      <if test="hospInfo != null">
+        HOSP_INFO = #{hospInfo},
+      </if>
+      <if test="buildtime != null">
+        BUILDTIME = to_date(to_char(#{buildtime},'yyyy-mm-dd hh24:mi:ss'),'yyyy-mm-dd hh24:mi:ss'),
+      </if>
+      <if test="landAreas != null">
+        LAND_AREAS = #{landAreas},
+      </if>
+      <if test="buildAreas != null">
+        BUILD_AREAS = #{buildAreas},
+      </if>
+      <if test="tel1 != null">
+        TEL1 = #{tel1},
+      </if>
+      <if test="tel2 != null">
+        TEL2 = #{tel2},
+      </if>
+      <if test="tel3 != null">
+        TEL3 = #{tel3},
+      </if>
+      <if test="fax1 != null">
+        FAX1 = #{fax1},
+      </if>
+      <if test="fax2 != null">
+        FAX2 = #{fax2},
+      </if>
+<!--       <if test="fullView != null"> -->
+<!--         FULL_VIEW = #{fullView}, -->
+<!--       </if> -->
+      <if test="images1 != null">
+        IMAGES1 = #{images1},
+      </if>
+      <if test="images2 != null">
+        IMAGES2 = #{images2},
+      </if>
+      <if test="images3 != null">
+        IMAGES3 = #{images3},
+      </if>
+      <if test="images4 != null">
+        IMAGES4 = #{images4},
+      </if>
+      <if test="hospParent != null">
+        HOSP_PARENT = #{hospParent},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="dbUsersByOper != null">
+        OPER = #{dbUsersByOper.seq},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+    </set>
+    where SEQ_HOSP = #{seqHosp}
+  </update>
+  
+  	<select id="findHospInfoBySql" resultMap="hospInfoMap"
+		parameterType="map">
+		select * from db_hosp_info h where 
+		h.seq_hosp in(select hosp_id from db_users u where u.seq =#{seq} )
+	</select>
+  
+	
+	
+	
+</mapper>

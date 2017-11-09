@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+  
+    <context:component-scan base-package="com.hanqian"/>
+     <!-- ======================================================================================= -->   
+
+    <bean id="deblocking" class="com.hanqian.drools.FileUtil"></bean>
+     <bean id="weatherSendsms" class="com.hanqian.drools.WeatherSendsms"></bean>
+    
+    
+        <!-- 天气预警 -->
+    <bean id="weathers" scope="prototype" class="com.hanqian.action.WeathersAction">
+        <property name="sermainDetailBsiness" ref="sermainDetailBusiness"></property>
+         <property name="droolsBusiness" ref="DroolsBusiness"></property>
+    </bean>
+ <!-- ======================================================================================= --> 
+    
+    <!-- 用户-->
+    <bean id="usersAction" scope="prototype" class="com.hanqian.action.UsersAction" >
+        <property name="usersBusiness" ref="usersBusiness"></property>
+        <property name="deptBusiness" ref="deptBusiness"></property>
+        <property name="roleBusiness" ref="roleBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+        <property name="hospInfoBusiness" ref="hospInfoBusiness"></property>
+    </bean>
+    <!-- 申康中心 -->
+    <bean id="skmanagementAction" scope="prototype" class="com.hanqian.sk.ManagementAction">
+    <property name="dbinfoBuiness" ref="dbinfoBuiness"></property>
+    
+    </bean>
+    
+        <!-- 数据分析-->
+    <bean id="dataAnalysis" scope="prototype" class="com.hanqian.action.ReportMDXAction" >
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    
+    <!-- 短信告警时间 -->
+    <bean id="alarmTimeAction" scope="prototype" class="com.hanqian.action.AlarmTimeAction">
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+        <property name="serMainBusiness" ref="serMainBusiness"></property>
+    </bean>
+    <!-- 班组 -->
+    <bean id="serMain" scope="prototype" class="com.hanqian.action.SerMainAction">
+        <property name="serMainBusiness" ref="serMainBusiness"></property>
+        <property name="sermainDetailBsiness" ref="sermainDetailBusiness"></property>
+        <property name="equipGroupBusiness" ref="equipGroupBusiness"></property>
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 维修人员 -->
+    <bean id="sermainDetail" scope="prototype" class="com.hanqian.action.SermainDetailAction">
+        <property name="sermainDetailBsiness" ref="sermainDetailBusiness"></property>
+        <property name="seriverBusiness" ref="seriverBusiness"></property>
+        <property name="serMainBusiness" ref="serMainBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    <!-- 权限 -->
+    <bean id="menusAction" scope="prototype" class="com.hanqian.action.MenusAction">
+        <property name="menusBusiness" ref="menusBusiness"></property>
+        <property name="usersBusiness" ref="usersBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 组织 -->
+    <bean id="deptAction" scope="prototype" class="com.hanqian.action.DeptAction">
+        <property name="deptBusiness" ref="deptBusiness"></property>
+        <property name="usersBusiness" ref="usersBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 角色 -->
+    <bean id="roleAction" scope="prototype" class="com.hanqian.action.RoleAction">
+        <property name="roleBusiness" ref="roleBusiness"></property>
+        <property name="menusBusiness" ref="menusBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    <bean id="buildingAction" scope="prototype"
+        class="com.hanqian.action.BuildingAction">
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+    </bean>
+    
+        <!-- 楼宇详细信息 -->
+    <bean id="BuildDetailsAction"  scope="prototype" class="com.hanqian.action.BuildDetailsAction">
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+        <property name="hospBussiness" ref="hospInfoBusiness"></property>
+        <property name="baseCommBusiness" ref="baseCommBusiness"></property>
+        <property name="materBusiness" ref="buildMaterBusiness"></property>
+        <!-- 原始为Manager注入 -->
+        <property name="storeyMgr" ref="buildStoreyBusiness"></property>
+        <property name="repairMgr" ref="BuildRepairBusiness"></property>
+        <property name="buildStoreyBusiness" ref="buildStoreyBusiness"></property>
+        <property name="buildingStoreyHisBusiness" ref="buildStoreyHisBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+        </bean>
+
+
+    <bean id="BuildingStoreyAction" scope="prototype"
+        class="com.hanqian.action.BuildingStoreyAction">
+        <property name="buildStoreyBusiness" ref="buildStoreyBusiness"></property>
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+        <property name="baseCommBusiness" ref="baseCommBusiness"></property>
+        <property name="buildingStoreyHisBusiness" ref="buildStoreyHisBusiness"></property>
+    </bean>
+
+    <!-- 楼宇 -->
+    <bean id="BuildingAction" scope="prototype"
+        class="com.hanqian.action.BuildingAction">
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+        <property name="hospInfoBusiness" ref="hospInfoBusiness"></property>
+        <property name="buildMaterBusiness" ref="buildMaterBusiness"></property>
+        <property name="buildStoreyBusiness" ref="buildStoreyBusiness"></property>
+        <property name="baseCommBusiness" ref="baseCommBusiness"></property>
+        <property name="usersBusiness" ref="usersBusiness"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 楼宇维修信息-->
+    <bean id="BuildRepairAction" scope="prototype"
+        class="com.hanqian.action.BuildRepairAction">
+        <property name="buildRepairBussiness" ref="BuildRepairBusiness"></property>
+        <property name="materBusiness" ref="buildMaterBusiness"></property>
+        <property name="buildingBussiness" ref="buildingBusiness"></property>
+        <property name="hospBusiness" ref="hospInfoBusiness"></property>
+        <property name="storeyMgr" ref="buildStoreyBusiness"></property>
+    </bean>
+
+    <!-- 物资管理 -->
+    <bean id="MaterialAction" scope="prototype"
+        class="com.hanqian.action.MaterialAction">
+        <property name="materialBusiness" ref="MaterialBusiness" />
+        <property name="hospInfoBusiness" ref="hospInfoBusiness" />
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    <!-- 物资领用记录 -->
+    <bean id="ApplyAction" scope="prototype" class="com.hanqian.action.ApplyAction">
+        <property name="applyBusiness" ref="applyBusiness"></property>
+        <property name="materialBusiness" ref="MaterialBusiness"></property>
+        <property name="hospInfoBusiness" ref="hospInfoBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    <!-- 面积比例 -->
+    <bean id="ScaledrawingAction" class="com.hanqian.action.ScaledrawingAction"
+        scope="prototype">
+        <property ref="ScaledrawingBusiness" name="drawBussiness" />
+        <property ref="hospInfoBusiness" name="hospBusiness" />
+        <property ref="buildingBusiness" name="buildingBusiness" />
+    </bean>
+
+
+    <bean id="buildingPicAction" scope="prototype"
+        class="com.hanqian.action.BuildingPicAction">
+        <property name="buildingPicBusiness" ref="buildingPicBusiness"></property>
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor">
+        </property>
+    </bean>
+
+    <!-- 设备列表 -->
+    <bean id="equipAction" scope="prototype" class="com.hanqian.action.EquipmentAction">
+        <property name="equipBusiness" ref="equipListBusiness"></property>
+        <property name="buildBusiness" ref="buildingBusiness"></property>
+        <property name="hospitalBusiness" ref="hospInfoBusiness"></property>
+        <property name="energyTypeBusiness" ref="EnergyTypeBusiness"></property>
+        <property name="equipServiceBusiness" ref="equipServiceBusiness"></property>
+        <property name="equipParamBusiness" ref="equipParamBusiness"></property>
+        <property name="equipTypeBusiness" ref="equipTypeBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+        <property name="baseCommBusiness" ref="baseCommBusiness"></property>
+        <property name="eqSerEquipBusiness" ref="equipSerEquipBusiness"></property>
+    </bean>
+    
+    <!--导入excle  -->
+     <bean id="importExcle"  scope="prototype"  class="com.hanqian.action.importExcleAction">
+        <property name="equipTypeBusiness" ref="equipTypeBusiness"></property>
+        <property name="importExcleBusiness" ref="importExcleBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 医院信息-->
+    <bean id="HospInfoAction" scope="prototype"
+        class="com.hanqian.action.HospInfoAction">
+        <property name="hospInfoBusiness" ref="hospInfoBusiness"></property>
+        <property name="baseCommBusiness" ref="baseCommBusiness"></property>
+        <property name="hospDetailBusiness" ref="hospDetailBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 医院详细信息 -->
+    <bean id="detailAction" scope="prototype"
+        class="com.hanqian.action.HospDetailAction">
+        <property name="hospDetailBusiness" ref="hospDetailBusiness"></property>
+        <property name="hospInfoBusiness" ref="hospInfoBusiness"></property>
+        <property name="volumeBusiness" ref="volumeBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 设备维护 -->
+    <bean id="maintenanceAction" class="com.hanqian.action.EquipMaintenanceAction">
+        <property name="equipMaintenanceBusiness" ref="equipMaintenanceBusiness"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+        <property name="equipTypeBusiness" ref="equipTypeBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 医院业务量信息 -->
+    <bean id="businessAction" scope="prototype"
+        class="com.hanqian.action.BusinessAction">
+        <property name="volumeBusiness" ref="volumeBusiness"></property>
+        <property name="hospInfoBusiness" ref="hospInfoBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 设备图纸 -->
+    <bean id="equipPicAction" class="com.hanqian.action.EquipPicAction">
+        <property name="equipPicBusiness" ref="equipPicBusiness"></property>
+        <property name="buildBusiness" ref="buildingBusiness"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+    </bean>
+
+    <!-- 设备参数 -->
+    <bean id="equipParamAction" class="com.hanqian.action.EquipParamAction">
+        <property name="equipParamBusiness" ref="equipParamBusiness"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+        <property name="dbEquipParamBusiness" ref="dbEquipParamBusiness"></property>
+    </bean>
+
+    <!-- 设备参数维护 -->
+    <bean id="eqDbParamAction" class="com.hanqian.action.EqParamAction">
+        <property name="dbEquipParamBusiness" ref="dbEquipParamBusiness"></property>
+        <property name="equipParamBusiness" ref="equipParamBusiness"></property>
+        <property name="equipBusiness" ref="equipListBusiness"></property>
+        <property name="buildBusiness" ref="buildingBusiness"></property>
+    </bean>
+
+    <!-- 实时监控(设备类型) -->
+    <bean id="controlEquipAction" class="com.hanqian.action.EquipControlAction">
+        <property name="buildBusiness" ref="buildingBusiness"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+        <property name="dbAlarmBusiness" ref="dbAlarmBusiness"></property>
+        <property name="equipGroupBusiness" ref="equipGroupBusiness"></property>
+        <property name="equipTypeBusiness" ref="equipTypeBusiness"></property>
+        <property name="dbControlDataBusiness" ref="controlDataBusiness"></property>
+        <property name="menuBusiness" ref="menusBusiness"></property>
+        <property name="equipServiceBusiness" ref="equipServiceBusiness"></property>
+    </bean>
+
+    <!-- 设备分组 -->
+    <bean id="equipGroupAction" class="com.hanqian.action.EquipGroupAction">
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+        <property name="equipGroupBusiness" ref="equipGroupBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+
+    <!-- 楼宇用途 -->
+    <bean id="buildingUseAction" class="com.hanqian.action.BuildingUseAction">
+        <property name="buildingUseBusiness" ref="buildingUseBusiness"></property>
+    </bean>
+
+    <!-- 监控告警 -->
+    <bean id="alarmAction" class="com.hanqian.action.AlarmAction">
+        <property name="dbAlarmBusiness" ref="dbAlarmBusiness"></property>
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    <!-- 关键设备 -->
+    <bean id="keyEqAction" class="com.hanqian.action.KeyEqAction">
+        <property name="keyEqBusiness" ref="keyEqBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+
+    <!-- 监控读数 -->
+    <bean id="controldataAction" class="com.hanqian.action.ControlDataAction">
+        <property name="dbControldataBusiness" ref="controlDataBusiness"></property>
+        <property name="dbsqlcontroldatabusiness" ref="dbsqlcontroldatabusiness"></property>
+    </bean>
+
+    <!-- 监控页面 -->
+    <bean id="controlPageAction" class="com.hanqian.action.ControlPageAction">
+        <property name="equipListBusiness" ref="equipListBusiness"></property>
+        <property name="buildBusiness" ref="buildingBusiness"></property>
+        <property name="equipTypeBusiness" ref="equipTypeBusiness"></property>
+        <property name="equipGroupBusiness" ref="equipGroupBusiness"></property>
+    </bean>
+    <!-- 楼宇设备 -->
+    <bean id="navigationAction" class="com.hanqian.action.EqNavigationAction">
+        <property name="eqNavigationBusiness" ref="eqNavigationBusiness"></property>
+        <property name="buildingBusiness" ref="buildingBusiness"></property>
+    </bean>
+
+
+    <!-- 数据上报 -->
+    <bean id="reportRateAction" class="com.hanqian.action.ReportRateAction">
+        <property name="reportRateBusiness" ref="reportRateBusiness"></property>
+        <property name="reportTypeBusiness" ref="reportTypeBusiness"></property>
+    </bean>
+    <bean id="reportTemporaryAction" class="com.hanqian.action.ReportTemporaryAction">
+        <property name="reportRateBusiness" ref="reportRateBusiness"></property>
+        <property name="reportTypeBusiness" ref="reportTypeBusiness"></property>
+    </bean>
+    <bean id="reportDetailAction" class="com.hanqian.action.ReportDetailAction">
+        <property name="reportDetailBusiness" ref="reportDetailBusiness"></property>
+        <property name="reportTypeBusiness" ref="reportTypeBusiness"></property>
+    </bean>
+
+    <!-- 医院数据分析 -->
+    <bean id="HospDataAnalysisAction" class="com.hanqian.action.HospDataAnalysisAction">
+        <property name="sthosBs" ref="HospDataAnalysisBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+        <property name="wBs" ref="weatherBusiness"></property>
+    </bean>
+
+
+    <!-- 区域数据分析 -->
+    <bean id="RegionalDataAnalysisAction" class="com.hanqian.action.RegionalDataAnalysisAction">
+        <property name="regBs" ref="RegionalDataAnalysisBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+        <property name="wBs" ref="weatherBusiness"></property>
+    </bean>
+
+
+    <!-- 同类各设备能效分析 -->
+    <bean id="EqAnalysisAction" class="com.hanqian.action.EqAnalysisAction">
+        <property name="steqBs" ref="EqAnalysisBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+    </bean>
+    <!-- 同类各厂商能效分析 -->
+    <bean id="EqCoAnalysisAction" class="com.hanqian.action.EqCoAnalysisAction">
+        <property name="steqBs" ref="EqAnalysisBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+    </bean>
+    <!-- 同类设备维修比较 -->
+    <bean id="EqRepairAction" class="com.hanqian.action.EqRepairAction">
+        <property name="eqrBs" ref="EqRepairBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+    </bean>
+
+    <!-- 特征区域能效分析 -->
+    <bean id="FeatureAction" class="com.hanqian.action.FeatureAction">
+        <property name="feBs" ref="FeatureBusiness"></property>
+    </bean>
+    <!-- 天气 情况-->
+    <bean id="WeatherAction" class="com.hanqian.action.WeatherAction">
+        <property name="weBs" ref="weatherBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+    </bean>
+
+    <!-- 楼宇数据分析 -->
+    <bean id="BuildAnalysisAction" class="com.hanqian.action.BuildAnalysisAction">
+        <property name="buBs" ref="buildAnalysisBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+        <property name="wBs" ref="weatherBusiness"></property>
+    </bean>
+    <!-- 业务数据分析 -->
+    <bean id="BusinessAnalysisAction" class="com.hanqian.action.BusinessAnalysisAction">
+        <property name="busBs" ref="businessAnalysisBusiness"></property>
+        <property name="imgPath" value="manager\images\rateImages\"></property>
+        <property name="wBs" ref="weatherBusiness"></property>
+    </bean>
+
+    <!-- 面积比例情况 -->
+    <bean id="AreaRatioAction" class="com.hanqian.action.AreaRatioAction">
+        <property name="areaMgr" ref="areaRatioBusiness"></property>
+        <property name="imagePath" value="manager\images\nengxiaoImages\" />
+    </bean>
+    <!-- 参数设置 -->
+    <bean id="BuildRateAction" scope="prototype"
+        class="com.hanqian.action.BuildRateAction">
+        <!-- 原始为manager -->
+        <property name="rateMgr" ref="buildRateBusiness"></property>
+        <property name="rationBusiness" ref="StandardRatioBusiness"></property>
+        <property name="hospInfoMgr" ref="hospInfoBusiness"></property>
+    </bean>
+<!-- 时时数据上报 -->
+    <bean id="DataReportHosp" class="com.hanqian.action.DataReportHosp">
+        <property name="reportRateMgr" ref="reportRateBusiness" />
+        <property name="reportDetailMgr" ref="reportDetailBusiness" />
+        <property name="hospitalinfoAction" ref="HospInfoAction" />
+        <property name="businessAction" ref="businessAction" />
+        <property name="buildAction" ref="BuildingAction" />
+        <property name="buildRepairAction" ref="BuildRepairAction" />
+<!--        <property name="buildUseAction" ref="BuildUseAction" />-->
+        <property name="equipmentAction" ref="equipAction" />
+        <property name="maintenanceAction" ref="MaterialAction" />
+        <property name="buildingStoreyAction" ref="BuildingStoreyAction" />
+    </bean>
+    <bean id="DataReportSk" class="com.hanqian.action.DataReportSk">
+        <property name="hospitalinfoAction" ref="HospInfoAction" />
+        <property name="businessAction"  ref="businessAction" />
+        <property name="buildingAction" ref="BuildingAction" />
+        <property name="buildRepairAction" ref="BuildRepairAction" />
+<!--        <property name="builduseAction" ref="BuildUseAction" />-->
+        <property name="equipmentAction" ref="equipAction" />
+        <property name="maintenanceAction" ref="MaterialAction" />
+    </bean>
+    
+    <!-- 短信平台 -->
+    
+    <bean id="servicesAction" class="com.hanqian.action.ServicerBusinessAction">
+        <property name="seriverBusiness" ref="seriverBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    
+    <!-- 监控台电流 -->
+    <bean id="electricityAction" class="com.hanqian.action.ElectricityControlAction">
+        <property name="electricityControlBusiness" ref="electricityBusiness"></property>
+        <property name="hospInfoMgr" ref="hospInfoBusiness"></property>
+    </bean>
+    <!-- 安全 统计-->
+    <bean id="statisticsSafeAction" class="com.hanqian.action.StatisticsSafeAction">
+        <property name="alarmBusiness" ref="dbAlarmBusiness"></property>
+    </bean>
+    <!-- 监控台参数配置 -->
+    <bean id="controlConfigAction" class="com.hanqian.action.controlConfigAction">
+    
+    </bean>
+    <!-- 平台静态历史数据查看 -->
+    <bean id="staticHistoryDataAction" class="com.hanqian.action.StaticHistoryDataAction">
+       <property name="staticHistoryDataBusiness" ref="staticHistoryDataBusiness"></property>
+    </bean>
+    
+    
+    <!-- 天气预报 -->
+    <bean id="weatherUtilAction" class="com.hanqian.action.WeatherUtilAction">
+        <property name="weatherBusiness" ref="weatherBusiness"></property>
+    </bean>
+       
+    
+    <!-- 能源账单 -->
+    <bean id="energyBillAction" class="com.hanqian.action.EnergyBillAction">
+        <property name="energyBillMgr" ref="energyBillBusiness"></property>
+        <property name="unitPriceMgr" ref="unitPriceBusiness"></property>
+        
+    </bean>
+    
+    <!-- 基础数据 -->
+    <bean id="baseCommAction" class="com.hanqian.action.BaseCommAction">
+        <property name="baseCommBusiness" ref="baseCommBusiness"></property>
+        <property name="menuInterceptor" ref="menuInterceptor"></property>
+    </bean>
+    
+    <!-- 室外照度 
+   <bean id="environmentInfoAction" class="com.hanqian.action.EnvironmentInfoAction">
+        <property name="environmentBusiness" ref="environmentBusiness"></property>
+    </bean> 
+    -->
+    <bean id="dataCollectFromSdcd" class="com.hanqian.dataInterface.DataCollectFromSdcd"
+        init-method="init">
+        <property name="dbPointBussiness" ref="dbPointBussiness"></property>
+    </bean>
+   
+</beans>

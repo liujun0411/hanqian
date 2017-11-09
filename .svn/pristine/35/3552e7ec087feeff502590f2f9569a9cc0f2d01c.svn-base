@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!ELEMENT definition (desc,import-js*, import-css*, showInPage, location?, role)>
+
+<!ELEMENT desc (#PCDATA)>
+
+<!ATTLIST definition id CDATA #IMPLIED>
+<!ATTLIST definition name CDATA #REQUIRED>
+
+<!ELEMENT import-js EMPTY>
+<!ATTLIST import-js src CDATA #REQUIRED>
+
+<!ELEMENT import-css EMPTY>
+<!ATTLIST import-css src CDATA #REQUIRED>
+
+<!ELEMENT showInPage EMPTY>
+<!ATTLIST showInPage src (true|false) "true">
+
+<!ELEMENT location EMPTY>
+<!ATTLIST location src CDATA #REQUIRED>
+
+<!ELEMENT role (role-html,bind*,(script|class))>
+<!ELEMENT role-html (#PCDATA)>
+<!ELEMENT script (#PCDATA)>
+<!ELEMENT class (#PCDATA)>
+<!ELEMENT bind EMPTY>
+<!ATTLIST bind id CDATA #REQUIRED>
+<!ATTLIST bind paramKey CDATA #REQUIRED>
+<!ATTLIST bind jsFunc CDATA #REQUIRED>

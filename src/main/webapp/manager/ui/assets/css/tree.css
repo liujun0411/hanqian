@@ -1,0 +1,92 @@
+.tree-nodetitle {
+	cursor: default;
+	height: 22px;
+	line-height: 16px;
+	margin-right: 2px;
+	margin-top: 0;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.tree-expand .tree-node-ecicon {
+    background-image: url("../img/collapse.gif");
+    border:none;
+    background-position: 3px 0;
+}
+
+.tree-node-ecicon {
+    background: none no-repeat scroll 2px 0 rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 22px;
+    outline: medium none;
+    width: 18px;
+}
+
+.tree-nodeshow {
+    border: 0 none;
+    cursor: default;
+    display: inline-block;
+    padding: 1px 3px 1px 2px;
+    vertical-align: top;
+}
+
+.function_div .tree-icon {
+    -moz-user-select: none;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 20px;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 18px;
+}
+
+.tree-nodetext {
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
+    padding-left: 3px;
+    padding-right: 3px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.tree-folder {
+    background-image: url("../img/folder.gif");
+    border:none;
+}
+
+.tree-expand .tree-folder {
+    background-image: url("../img/folder.gif");
+    border:none;
+}
+
+.tree-indent {
+    display: inline-block;
+    height: 23px;
+    width: 18px;
+}
+
+.tree-node-ecicon {
+    background: none no-repeat scroll 2px 0 rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 22px;
+    outline: medium none;
+    width: 18px;
+}
+
+.tree-leaf {
+    background-image: url("../img/leaf.gif");
+    border:none;
+}
+
+#ul_eqType .tree-icon {
+    -moz-user-select: none;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 20px;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 18px;
+}

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+
+<!-- 第一人们医院南院 二期新加的集水井[会议中心一层集水井] 2016/6/15-->
+	  <equip groupCode="01JSJ_01" flashHeight="300" flashWidth="1000">
+	   <!--1 -->
+	    <xy x="205" y="310" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="32" type="6001"></point>
+			<point id="47" type="6002" num="1"></point>
+			<point id="48" type="6002" num="2"></point>
+		</xy>
+		<!-- 2 -->
+        <xy x="205" y="422" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="33" type="6001"></point>
+			<point id="49" type="6002" num="1"></point>
+			<point id="50" type="6002" num="2"></point>
+		</xy>
+		<!-- 3 -->
+		<xy x="205" y="531" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="34" type="6001"></point>
+			<point id="51" type="6002" num="1"></point>
+			<point id="52" type="6002" num="2"></point>
+		</xy>
+		<!-- 4 -->
+		<xy x="205" y="641" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="35" type="6001"></point>
+			<point id="53" type="6002" num="1"></point>
+			<point id="54" type="6002" num="2"></point>
+		</xy>
+		<!-- 5 -->
+		<xy x="205" y="761" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="36" type="6001"></point>
+			<point id="55" type="6002" num="1"></point>
+			<point id="56" type="6002" num="2"></point>
+		</xy>
+<!--第二排 -->		
+        <!-- 6 -->
+		<xy x="298" y="300" bengIndex="6" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="37" type="6001"></point>
+			<point id="57" type="6002" num="1"></point>
+			<point id="58" type="6002" num="2"></point>
+		</xy>
+		<!-- 7 -->
+		<xy x="298" y="416" bengIndex="7" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="38" type="6001"></point>
+			<point id="59" type="6002" num="1"></point>
+			<point id="60" type="6002" num="2"></point>
+		</xy>
+		<!-- 8 -->
+		<xy x="298" y="531" bengIndex="8" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="39" type="6001"></point>
+			<point id="61" type="6002" num="1"></point>
+			<point id="62" type="6002" num="2"></point>
+		</xy>
+		<!-- 9 -->
+		<xy x="298" y="650" bengIndex="9" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="40" type="6001"></point>
+			<point id="63" type="6002" num="1"></point>
+			<point id="64" type="6002" num="2"></point>
+		</xy>
+		<!-- 10 -->
+		<xy x="298" y="776" bengIndex="10" keyNameRed="red10" keyNameGreen="greend10">
+			<point id="41" type="6001"></point>
+			<point id="65" type="6002" num="1"></point>
+			<point id="66" type="6002" num="2"></point>
+		</xy>
+<!--第三排  -->	
+        <!-- 11 -->	
+		<xy x="394" y="285" bengIndex="11" keyNameRed="red11" keyNameGreen="greend11">
+			<point id="42" type="6001"></point>
+			<point id="67" type="6002" num="1"></point>
+			<point id="68" type="6002" num="2"></point>
+		</xy>
+		<!-- 12 -->
+        <xy x="394" y="408" bengIndex="12" keyNameRed="red12" keyNameGreen="greend12">
+			<point id="43" type="6001"></point>
+			<point id="69" type="6002" num="1"></point>
+			<point id="70" type="6002" num="2"></point>
+		</xy>
+		<!-- 13 -->
+		<xy x="394" y="530" bengIndex="13" keyNameRed="red13" keyNameGreen="greend13">
+			<point id="44" type="6001"></point>
+			<point id="71" type="6002" num="1"></point>
+			<point id="72" type="6002" num="2"></point>
+		</xy>
+		<!-- 14 -->
+		<xy x="394" y="657" bengIndex="14" keyNameRed="red14" keyNameGreen="greend14">
+			<point id="45" type="6001"></point>
+			<point id="73" type="6002" num="1"></point>
+			<point id="74" type="6002" num="2"></point>
+		</xy>
+		<!-- 15 -->
+		<xy x="394" y="789" bengIndex="15" keyNameRed="red15" keyNameGreen="greend15">
+			<point id="46" type="6001"></point>
+			<point id="75" type="6002" num="1"></point>
+			<point id="76" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+</equipment>
+
+ 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BaseCommBusiness">
+  
+   <select id="findBaseComm" resultType="ciMap" >    
+        select c.seq,t.oper_table,c.content1,c.content2 from db_base_comm c,DB_BASE_TYPE t where t.seq=c.oper_type 
+        <if test="hosplevels != null">
+			         	  and t.oper_table like '%医院级别%'
+		</if> 
+		        <if test="hosptype != null">
+			         	 and t.oper_table like '%医院类型%'
+		</if> 
+		        <if test="hospcode != null">
+			         	and t.oper_table like '%医院编码%'
+		</if> 
+		        <if test="hospdist != null">
+			         	  and t.oper_table like '%行政区域%'
+		</if> 
+		        <if test="hosparea != null">
+			         	 and t.oper_table like '%规划区域%'
+		</if> 
+		
+   </select>  
+   
+  <select id="findByExampleDbBaseComm" parameterType="map" resultType="ciMap">
+    select *  from DB_BASE_COMM
+  </select>
+  
+    <select id="findAreaId" parameterType="map" resultType="ciMap">
+    select t.seq from db_base_comm t where t.oper_type=#{hospArea}
+  </select>
+  
+       <select id="findAreaName" parameterType="map" resultType="ciMap">
+    select t.* from db_base_comm t where t.oper_type=#{hospArea}
+  </select>
+  
+         <select id="findBuildingStatus" parameterType="map" resultType="ciMap">
+    select t.seq,t.content1 from db_base_comm t where t.oper_type = '5'
+  </select>
+  
+           <select id="findAllBaseData" parameterType="map" resultType="ciMap">
+    select c.seq,c.content1,c.content2,t.field1,t.field2 from db_base_comm c 
+    left join db_base_type t on c.oper_type = t.seq where c.delet_flag=0  and c.oper_type =#{seq}
+  
+  </select>
+  
+             <select id="findAllBaseType" parameterType="map" resultType="ciMap">
+    select t.seq,t.oper_table,t.field1,t.field2 from db_base_type t
+  
+  </select>
+  
+  <insert id="addBaseData" parameterType="map">
+  	INSERT INTO db_base_comm(seq,content1,content2,oper_type,delet_flag)
+  	 values(SEQ_BASECOMM.nextval,
+  	 #{content1},#{content2},#{type},0)
+  </insert>
+  
+
+  
+  <update id="updateBaseData"  parameterType="map">
+  	update db_base_comm t set t.content1 =#{content1},t.content2=#{content2},t.oper_type =#{type}
+  	 WHERE t.seq =#{id}
+  </update>
+  
+  <update id="deleteBaseData" parameterType="map">
+  	update db_base_comm t set t.delet_flag = 1 where t.seq =#{id}
+  </update>
+  
+  
+  
+  
+</mapper>

@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.DbAlarmBusiness">
+
+ 	<select id="findAlarmPointByEquip" resultType="ciMap"  parameterType="map">    
+         select a.seq,a.c_seq,a.project_point,a.name,a.alertlevel,a.starttime,a.remarks,a.delay_times,a.showflag,a.alarm_desc from db_alarm a where a.c_seq in 
+         (select t.seq from db_point t where t.seq in (select e.seq from db_point_equip e 
+         where e.equip_id=#{equipId} ) ) and a.showflag=1 
+   </select> 
+   
+   <select id="findAlarmPointByGroup" resultType="ciMap"  parameterType="map">  
+ 		select a.seq,a.c_seq,a.project_point,a.name,a.alertlevel,a.starttime,a.remarks,a.delay_times,a.showflag,a.alarm_desc from db_alarm a 
+         where a.c_seq in (select t.seq from db_point t where t.seq in (select e.seq from db_point_equip e where 
+          e.equip_id in ( select e.equip_id equipId from db_equip_list e ,db_building d,db_group_equip g,db_equip_type t 
+           where e.equip_id=g.equip_id and e.building_id=d.building_id   and e.equip_type_id=t.equip_type_id 
+            and e.status=0 and d.status=0 and g.equip_group=#{groupId}
+            )) ) and a.showflag=1 
+   </select> 
+   
+   <select id="findAlarmPointByEquipPage" resultType="ciMap"  parameterType="map">    
+        select a.seq,a.c_seq,a.project_point,a.name,a.alertlevel,a.starttime,a.remarks,a.delay_times,a.showflag,a.alarm_desc 
+        from db_alarm a where a.c_seq in (select t.seq from db_point t where t.seq in (
+        select e.seq from db_point_equip e,db_equip_list l  where l.equip_id= e.equip_id and  e.equip_id in(
+         select e.equip_id equipId from db_equip_list e ,db_group_equip g,db_equip_type t 
+          where e.equip_id=g.equip_id    and e.equip_type_id=t.equip_type_id 
+          and e.status=0  and g.equip_group=#{equipId}
+           )) ) and a.showflag=1 order by a.alertlevel asc ,a.starttime desc
+   </select> 
+   
+      <select id="findAlarmAboutInfo" resultType="ciMap"  parameterType="map">    
+        select el.Equip_Name,EL.PLACE,A.REMARKS,A.NAME,A.STARTTIME,a.deleteflag,a.update_date from DB_EQUIP_LIST el ,DB_POINT_EQUIP pe,DB_ALARM a 
+        where el.equip_id =  pe.equip_id AND pe.seq = a.c_seq AND a.seq =#{seq}
+   </select> 
+   
+   <select id="findCurrentAlarmSuiYiTiXingCount" resultType="ciMap"  parameterType="map">    
+         select sum(case readed when 0 then 1 else 0 end) as readed  
+           from db_aries where readed='0' 
+   </select> 
+   
+   <select id="findCurrentAlarmInfoSuiYitixingAAA" resultType="ciMap"  parameterType="map">    
+         select seq,readed,content,is_done isdone,opertime from db_aries t  order by opertime desc,seq
+   </select> 
+   
+      <select id="findCurrentAlarmInfoSuIYitixingfillId" resultType="ciMap"  parameterType="map">    
+          select seq,content,is_done isdone,opertime from db_aries where seq=#{seqId}
+   </select> 
+    <update id="updateRemarksSuiYi"   >
+      update db_aries a set a.readed='1' where a.readed='0' 
+ 	 </update>
+ 	 
+ 	 <update id="updateRemarksSuiYiIsDoneSeq"     parameterType="map">
+      update db_aries a set a.is_done='1' where a.seq=#{seq}
+ 	 </update>
+ 	 
+   <select id="findHisAlarmAboutInfo" resultType="ciMap"  parameterType="map">    
+          select el.Equip_Name,EL.PLACE,A.REMARKS,A.NAME,A.STARTTIME,a.oper from DB_EQUIP_LIST el ,DB_POINT_EQUIP pe,db_alarm_his a 
+          where el.equip_id =  pe.equip_id AND pe.seq = a.c_seq AND a.seq =#{seq}
+   </select> 
+ 	 
+   <select id="findCurrentAlarmInfoByGroupId" resultType="ciMap"  parameterType="map">    
+         select a.seq,a.c_seq,a.project_point,a.name,a.alertlevel,a.starttime,a.remarks,a.delay_times,a.showflag,a.alarm_desc 
+         from db_alarm a where a.c_seq in (select t.seq from db_point t where t.seq in (
+         select e.seq from db_point_equip e,db_equip_list l  where l.equip_id= e.equip_id and  e.equip_id in(
+          select e.equip_id equipId from db_equip_list e ,db_group_equip g,db_equip_type t
+           where e.equip_id=g.equip_id    and e.equip_type_id=t.equip_type_id 
+           and e.status=0  and g.equip_group=#{groupId}
+             )) ) and a.showflag=1 order by a.alertlevel asc ,a.starttime desc
+   </select>  
+   
+   <select id="findCurrentAlarmInfoByEquipId" resultType="ciMap"  parameterType="map">    
+        select a.seq,a.c_seq,a.project_point,a.name,a.alertlevel,a.starttime,a.remarks,a.delay_times,a.showflag,a.alarm_desc 
+        from db_alarm a where a.c_seq in (select t.seq from db_point t where t.seq in (
+        select e.seq from db_point_equip e,db_equip_list l  where l.equip_id= e.equip_id and  e.equip_id =#{equipId}
+         ) ) and a.showflag=1 order by a.alertlevel asc ,a.starttime desc
+   </select>  
+   
+   <select id="findHiaPage1" resultType="ciMap"  parameterType="map">    
+           select a.seq, a.alertlevel, to_char(a.starttime, 'YYYY-MM-DD hh24:mi:ss') as starttime, to_char(a.endtime, 'YYYY-MM-DD hh24:mi:ss') as endtime,
+           a.oper, a.remarks, a.des, to_char(a.recovertime,'YYYY-MM-DD hh24:mi:ss') as recovertime, a.name, el.equip_name, b.building_name, el.storey, b.storey_num_up storeynumup, el.place
+      		from db_equip_list el, db_point_equip pe, db_alarm_his a, db_building b
+		     where el.equip_id = pe.equip_id
+		       and pe.seq = a.c_seq
+		       and el.building_id = b.building_id
+              <if test="startTime != null">
+			         and to_char(starttime,'YYYY-MM-DD')<![CDATA[>=]]>#{startTime} 
+			  </if>
+			  <if test="endTime != null">
+			         and to_char(starttime,'YYYY-MM-DD')<![CDATA[<=]]>#{endTime} 
+			  </if> 
+			  <if test="alertlevel != null">
+			         and alertlevel=#{alertlevel} 
+			  </if> 
+			  <if test="name != null">
+			         and (name like '%${name}%' or remarks  like '%${name}%')
+			  </if>
+           order by endtime desc
+   </select>  
+   
+   <select id="findHiaPage2" resultType="ciMap"  parameterType="map">    
+	        select a.seq, a.alertlevel, to_char(a.starttime, 'YYYY-MM-DD hh24:mi:ss') as starttime, to_char(a.endtime, 'YYYY-MM-DD hh24:mi:ss') as endtime,
+           		a.oper, a.remarks, a.des, to_char(a.recovertime,'YYYY-MM-DD hh24:mi:ss') as recovertime, a.name, el.equip_name, b.building_name, el.storey, b.storey_num_up storeynumup, el.place
+      				from db_equip_list el, db_point_equip pe, db_alarm_his a, db_building b
+				     	where el.equip_id = pe.equip_id
+				        and pe.seq = a.c_seq
+				        and el.building_id = b.building_id
+	           <if test="startTime != null">
+	         	   and to_char(endTime,'YYYY-MM-DD')<![CDATA[>=]]>#{startTime} 
+			  </if>
+			   <if test="endTime != null">
+			       and to_char(endTime,'YYYY-MM-DD')<![CDATA[<=]]>#{endTime} 
+			  </if> 
+			  <if test="alertlevel != null">
+			       and alertlevel=#{alertlevel} 
+			  </if> 
+			  <if test="name != null">
+			       and (name like '%${name}%' or remarks  like '%${name}%')
+			  </if>
+			       order by endtime desc
+   </select>
+   
+   <select id="findHiaPage" resultType="ciMap"  parameterType="map">    
+           select a.seq, a.alertlevel, to_char(a.starttime, 'YYYY-MM-DD hh24:mi:ss') as starttime, to_char(a.endtime, 'YYYY-MM-DD hh24:mi:ss') as endtime,
+           		a.oper, a.remarks, a.des, to_char(a.recovertime,'YYYY-MM-DD hh24:mi:ss') as recovertime, a.name, el.equip_name, b.building_name, el.storey, b.storey_num_up storeynumup, el.place
+      				from db_equip_list el, db_point_equip pe, db_alarm_his a, db_building b
+			     	where el.equip_id = pe.equip_id
+			        and pe.seq = a.c_seq
+			        and el.building_id = b.building_id
+              <if test="startTime != null">
+			         and (to_char(starttime,'YYYY-MM-DD')<![CDATA[>=]]>#{startTime} or to_char(startTime,'YYYY-MM-DD')<![CDATA[>=]]>#{endTime} )
+			  </if>
+			  <if test="endTime != null">
+			         and ( to_char(starttime,'YYYY-MM-DD')<![CDATA[<=]]>#{startTime} or to_char(endTime,'YYYY-MM-DD') <![CDATA[<=]]>#{endTime} )
+			  </if>
+			  <if test="alertlevel != null">
+			         and alertlevel=#{alertlevel} 
+			  </if> 
+			  <if test="name != null">
+			         and (name like '%${name}%' or remarks  like '%${name}%')
+			  </if>
+           order by endtime desc
+   </select> 
+
+   <!-- 各个等级告警数  -->
+   <select id="findCurrentAlarmCountDbAlarm" resultType="ciMap" >    
+         select sum(case alertlevel when 1 then 1  else 0 end) as one,  
+          		sum(case alertlevel when 2 then 1  else 0 end) as two,
+          		sum(case alertlevel when 3 then 1  else 0 end) as three
+           		from db_alarm where showflag = 1 
+   </select> 
+   
+
+   <select id="findCurrentAlarmInfo" resultType="ciMap" >    
+<!--           select * from db_alarm t where 1=1  -->
+			select a.seq,a.c_seq,a.project_point projectPoint,a.name,a.alertlevel, 
+				a.starttime starttime,a.remarks,a.delay_times,a.showflag,a.cueflag, 
+				a.alarm_desc  alarmDesc, 
+				a.update_date updateDate,
+				a.deleteflag, 
+				el.equip_name, 
+				b.building_name,el.storey, 
+				b.storey_num_up storeynumup, 
+				el.place from db_equip_list el, db_point_equip pe, db_alarm a,db_building b 
+				where el.equip_id = pe.equip_id and pe.seq = a.c_seq
+				and el.building_id=b.building_id and a.showflag=1
+           	  <if test="alertlevel != null">
+			         	   and a.alertlevel=#{alertlevel} 
+			  </if>
+			  order by a.alertlevel asc , a.update_date desc
+<!-- 			  order by  alertlevel asc ,  starttime desc -->
+   </select> 
+   
+   <update id="updateRemarks" parameterType="com.hanqian.pojo.DbAlarm"  >
+     			update db_alarm a set a.remarks=#{remarks} 	where a.seq=#{seq}
+   </update>
+<select id="findCurrentAlarmInfoBySeq" resultMap="findCurrentAlarmInfoBySeqqq" parameterType="int">
+         
+			  select t.*,w.* from db_alarm t ,db_point w where t.c_seq=w.seq and showflag=1
+ 			         	   and t.seq=#{sequence} 
+			  order by  t.starttime desc
+</select> 
+<resultMap id="findCurrentAlarmInfoBySeqqq" type="com.hanqian.pojo.DbAlarm" >
+   <id column="SEQ"  property="seq" />
+   <result column="PROJECT_POINT"  property="projectPoint" />
+   <result column="NAME"  property="name" />
+   <result column="ALERTLEVEL"  property="alertlevel" />
+   <result column="STARTTIME"  property="starttime" />
+   <result column="REMARKS"  property="remarks" />
+   <result column="DELAY_TIMES"  property="delayTimes" />
+   <result column="SHOWFLAG"  property="showflag" />
+   <result column="ALARM_DESC"  property="alarmDesc" />
+   <result column="UPDATE_DATE"  property="updateDate" />
+   <result column="DELETEFLAG"  property="deleteflag" />
+    <association property="dbPoint" column="C_SEQ" javaType="com.hanqian.pojo.DbPoint">
+			<id property="seq" column="C_SEQ" />
+	</association>
+  </resultMap>
+     <delete id="deleteAlarm" parameterType="com.hanqian.pojo.DbAlarm">
+       delete from DB_ALARM where SEQ = #{seq}
+  </delete>
+  
+    <insert id="insertdbAlarmHis" parameterType="com.hanqian.pojo.DbAlarmHis">
+  
+   <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_ALARM_HIS.nextval as seq from dual
+		</selectKey>
+    insert into DB_ALARM_HIS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="alarmSeq != null">
+        ALARM_SEQ,
+      </if>
+      <if test="dbPoint != null">
+        C_SEQ,
+      </if>
+      <if test="projectPoint != null">
+        PROJECT_POINT,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="alertlevel != null">
+        ALERTLEVEL,
+      </if>
+      <if test="starttime != null">
+        STARTTIME,
+      </if>
+      <if test="endtime != null">
+        ENDTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="des != null">
+        DES,
+      </if>
+      <if test="recovertime != null">
+        RECOVERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="alarmSeq != null">
+        #{alarmSeq},
+      </if>
+      <if test="dbPoint != null">
+        #{dbPoint.seq},
+      </if>
+      <if test="projectPoint != null">
+        #{projectPoint},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="alertlevel != null">
+        #{alertlevel},
+      </if>
+      <if test="starttime != null">
+        #{starttime},
+      </if>
+      <if test="endtime != null">
+        #{endtime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="remarks != null">
+        #{remarks},
+      </if>
+      <if test="des != null">
+        #{des},
+      </if>
+      <if test="recovertime != null">
+        #{recovertime},
+      </if>
+    </trim>
+  </insert>
+  
+     <select id="findAlarmCount" resultType="ciMap"  >    
+        SELECT db.o/p.o*100 one,db.t/p.t*100 two,db.th/p.th*100 three FROM 
+         (select sum(case alertlevel when 1 then 1  else 0 end)o, 
+          sum(case alertlevel when 2 then 1  else 0 end)t ,  
+            sum(case alertlevel when 3 then 1  else 0 end)th  
+             from db_alarm where showflag = 1) db,(select 
+              sum(case alert_level when 1 then 1  else 0 end)o, 
+               sum(case alert_level when 2 then 1  else 0 end)t , 
+                sum(case alert_level when 3 then 1  else 0 end)th  from db_point )  p
+   </select> 
+   
+   
+        <select id="findBySQLColumn" resultType="ciMap"  >    
+        select count(t.alert_level) as alarmCount ,t.alert_level from db_point t 
+        where t.alert_level<![CDATA[<>]]>0  group by t.alert_level
+   </select> 
+   <select id="findAlarmHighchartsCount" resultType="ciMap"  >   
+            select db.o one,db.t two,db.th three from 
+         (select sum(case alertlevel when 1 then 1  else 0 end)o, 
+             sum(case alertlevel when 2 then 1  else 0 end)t ,  
+             sum(case alertlevel when 3 then 1  else 0 end)th  
+             from db_alarm where showflag = 1) db
+   </select> 
+   
+        <select id="findSpecialAlarmCount" resultType="ciMap"  >    
+       select a0.equip_type_id,nvl(aa.per_o,0) as per_o,nvl(aa.per_t,0) as per_t 
+       ,nvl(aa.per_th,0) as per_th from 
+       (select t.equip_type_id from db_equip_type t where t.equip_type_parent_id is null) a0 
+       left join  ( 
+       select  a1.equip_type_id,
+        case when nvl(a2.o,0)=0 then 0 else (round(nvl(a1.o,0)/nvl(a2.o,0),2)) end as per_o, 
+         case when nvl(a2.t,0)=0 then 0 else (round(nvl(a1.t,0)/nvl(a2.t,0),2)) end as per_t,  
+           case when nvl(a2.th,0)=0 then 0 else (round(nvl(a1.th,0)/nvl(a2.th,0),2)) end as per_th 
+            from (select EQUIP_TYPE_ID,sum(O) as O,sum(T) as T,sum(TH) as TH from v_01 where 1=1 
+             group by EQUIP_TYPE_ID )  a1  inner join v_02 a2 on a1.equip_type_id=a2.equip_type_id  
+              ) aa on a0.equip_type_id=aa.equip_type_id where a0.equip_type_id in (1,2,4,10) 
+               order by equip_type_id 
+   </select> 
+   
+           <select id="findSpecialAlarmCountByHtml5" resultType="ciMap"  >    
+      select a0.equip_type_id,nvl(aa.o,0) one ,nvl(aa.t,0) two ,nvl(aa.th,0) three from 
+         (select t.equip_type_id from db_equip_type t where t.equip_type_parent_id is null) a0 
+            left join  (  select  a1.*  from ( 
+                 select EQUIP_TYPE_ID,sum(O) as O,sum(T) as T,sum(TH) as TH from v_01 where 1=1 
+                    group by EQUIP_TYPE_ID 
+                          ) a1  inner join v_02 a2 on a1.equip_type_id=a2.equip_type_id 
+                              ) aa on a0.equip_type_id=aa.equip_type_id where a0.equip_type_id in (1,2,4,10) 
+                                order by a0.equip_type_id 
+   </select> 
+   
+              <select id="findAlarmHisCount" resultType="ciMap" parameterType="map" >    
+      SELECT db.o/p.o one,db.t/p.t two,db.th/p.th three FROM 
+       (select sum(case alertlevel when 1 then 1  else 0 end)o, 
+        sum(case alertlevel when 2 then 1  else 0 end)t , 
+          sum(case alertlevel when 3 then 1  else 0 end)th 
+           from ( select ah.alertlevel from db_alarm_his ah where 1=1 
+             <if test="signtype != null">
+		        and ah.starttime between TO_DATE(#{startTime},'yyyy-MM-dd') and TO_DATE(#{endTime},'yyyy-MM-dd'))  )
+		      </if>
+		        db, (select sum(case alert_level when 1 then 1  else 0 end)o, 
+		         sum(case alert_level when 2 then 1  else 0 end)t , 
+		          sum(case alert_level when 3 then 1  else 0 end)th  from db_point )  p
+   </select> 
+   
+    
+   
+</mapper>

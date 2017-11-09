@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/tx
+						   http://www.springframework.org/schema/tx/spring-tx.xsd
+						   http://www.springframework.org/schema/aop
+						   http://www.springframework.org/schema/aop/spring-aop.xsd">
+  
+    <!--  数据源 -->
+  
+        <!--  数据源 -->
+    <bean id="mysqlDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="jdbcUrl">
+            <value>jdbc:mysql://192.168.0.13:3306/sdcd</value> 
+        </property>
+        <property name="user">
+            <value>mysql</value>
+        </property>
+        <property name="password">
+            <value>SH@hanqian</value>
+        </property>
+        <property name="minPoolSize">
+            <value>10</value>
+        </property>
+        <property name="maxPoolSize">
+            <value>100</value>
+        </property>
+        <property name="initialPoolSize">
+            <value>10</value>
+        </property>
+        <property name="maxIdleTime">
+            <value>3600</value>    
+        </property>
+        <property name="acquireIncrement">
+            <value>20</value>      
+        </property>
+        <property name="maxStatements">
+            <value>100</value>
+        </property>
+        <property name="idleConnectionTestPeriod">
+            <value>60</value>    
+        </property>
+        <property name="acquireRetryAttempts">
+            <value>0</value>    
+        </property>
+        <property name="acquireRetryDelay">
+            <value>60000</value>  
+        </property>
+        <property name="checkoutTimeout">
+            <value>3000</value> 
+        </property>
+        <property name="testConnectionOnCheckout">
+            <value>false</value>
+        </property>
+        <property name="testConnectionOnCheckin">
+            <value>true</value>
+        </property>
+    </bean>
+    <bean id="mysqlSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="mysqlDataSource"/>
+        <property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:sql/**/*.xml"/>
+    </bean>
+    <bean id="mysqlSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="mysqlSqlSessionFactory"/>
+    </bean>
+     <!-- 事务管理器 -->
+   <bean name="mysqlTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">    
+          <property name="dataSource" ref="mysqlDataSource"></property>
+    </bean>
+
+    <tx:advice id="mysqlTxAdviceRequired">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="query*" read-only="true" />
+            <tx:method name="is*" read-only="true" />
+            <tx:method name="load*" read-only="true" />
+            <tx:method name="select*" read-only="true" />
+            <tx:method name="*" propagation="REQUIRED" />
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>   
+        <aop:advisor pointcut="execution(* com.hanqian..business.*.*(..))" advice-ref="mysqlTxAdviceRequired" />
+    </aop:config> 
+</beans>

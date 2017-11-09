@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Review id="陈胜胜的代码review">
+  <ReviewIssue id="I7QZBE7Z">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 10:37:48:863 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 10:32:53:885 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="10">src/main/java/com/hanqian/business/UsersBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>不必要的import不要保留</Description>
+    <Annotation></Annotation>
+    <Revision>全改后shift+ctrl+o</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7QZCBZ5">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 10:38:32:609 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 10:32:49:141 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="55">src/main/java/com/hanqian/business/UsersBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>原有代码不要注释,直接删除,包括之后的代码也类似处理</Description>
+    <Annotation></Annotation>
+    <Revision>hibernate转mybatis时原有代码，我注释掉的现已经删除。</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7QZD5FL">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 10:39:10:785 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 10:32:44:405 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="46">src/main/java/com/hanqian/business/UsersBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>这个方法缺少getfindHospAllsql方法,正常情况下,只要是select语句都需要这个get什么Sql的方法,后面有些方法是select语句但是也没有添加getXXXSql方法的都需要补全.</Description>
+    <Annotation></Annotation>
+    <Revision>用户管理中的getXXXSql已补全（部分insertObj方法根据传的对象来决定语句，也在方法中传入了对象后判断具体是哪个）</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7QZF47Y">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 10:40:42:526 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 12:54:16:233 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="189">src/main/java/com/hanqian/business/UsersBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>不可以使用System.out.println,如果看到原有代码有使用这个的,全部都要删除,
+如果需要打印内容的话,使用log</Description>
+    <Annotation></Annotation>
+    <Revision>临时打印已删除，原始的方法注视掉的都删除了！</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7QZGB2C">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 10:41:38:052 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 10:32:29:118 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="200">src/main/java/com/hanqian/business/UsersBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>这里不要使用字符串来判断传来的对象是何种类型,你可以使用instanceOf来判断
+
+if (obj instanceOf DbLogin)就使用这种形式就可以判断了,不用你现在这种写法</Description>
+    <Annotation></Annotation>
+    <Revision>已经换成了java内置方法 instanceof 方法</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7QZGTGQ">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 10:42:01:898 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 10:32:19:935 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="203">src/main/java/com/hanqian/business/UsersBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>这个方法还会insert DbUserHosp对象,在UserAction的197行处有调用,你还需要加上针对DbUserHosp的判断</Description>
+    <Annotation></Annotation>
+    <Revision>用户管理该模块中修改时deptids新组织为空，未进入添加DbUserHosp对象！现已改为Mybatis方法，待其他模块调用进入该步骤时再测试！</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7QZH6QN">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 10:42:19:103 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 10:31:52:477 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="215">src/main/java/com/hanqian/business/UsersBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>log时,不要在对象上使用toString,因为实际上java会默认调用这个对象的toString方法的,你这样写有多此一举</Description>
+    <Annotation></Annotation>
+    <Revision>已删除多余的调用方法。</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7R1NDN2">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-27 :: 11:43:07:214 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 10:31:44:870 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="28">src/main/resources/sql/UsersBusiness.xml</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>&lt;sql id="Users_Column"&gt;
+   seq, userid, username, password, phone, tel1, tel2, email, address1, address2, oper,opertime, logintime, status
+  &lt;/sql&gt;
+这里没有必要单独提出来定义一个sql片段,这部分没有被重复使用,所以没必须但是提出来,
+你可以研究mybatis的相关技术,但是不能在这里使用,自己知道就可以了,不能把它留在正式的代码里面.</Description>
+    <Annotation></Annotation>
+    <Revision>删除，提交！</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7VDTZQL">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 12:35:15:885 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-04-01 :: 09:17:59:966 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="154">src/main/java/com/hanqian/business/DeptBusiness.java</File>
+    <Type>item.type.label.codingStandards</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>在异常内不要使用log.debug来打印,对于异常信息是一定要打印到log内的,所以不能使用log的debug模式打印,需要使用error模式打印
+应该写成log.error("进入DeptBusiness.insertDept,对象插入失败！", e)  要用这个格式来打印log</Description>
+    <Annotation></Annotation>
+    <Revision>嗯，知道了！对了还有方法对应的返回SQL那个方法，我特地是之后做的，正好排查下是否业务类中有遗漏方法未改，之前我是通过跟着前台流程做，只改了使用到的相关方法。</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7VEHZXU">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-03-30 :: 12:53:55:890 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-04-01 :: 09:17:44:917 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="224">src/main/java/com/hanqian/business/DeptBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>这里怎么又有System.out.println了?</Description>
+    <Annotation></Annotation>
+    <Revision>习惯性，有时用好老忘删除！</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.closed</Status>
+  </ReviewIssue>
+  <ReviewIssue id="I7Y1CNWK">
+    <ReviewIssueMeta>
+      <CreationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-04-01 :: 09:09:10:532 CST</CreationDate>
+      <LastModificationDate format="yyyy-MM-dd :: HH:mm:ss:SSS z">2015-04-01 :: 15:19:04:723 CST</LastModificationDate>
+    </ReviewIssueMeta>
+    <ReviewerId>崔广禄</ReviewerId>
+    <AssignedTo>崔广禄</AssignedTo>
+    <File line="72">src/main/java/com/hanqian/business/DeptBusiness.java</File>
+    <Type>item.label.unset</Type>
+    <Severity>item.label.unset</Severity>
+    <Summary></Summary>
+    <Description>根据方法是返回list,其实也就是返回查询数据,这个时候其实就不应该使用查询page的方式来查询,而是可以直接使用sqlSession来查询,直接查询出list结果返回,都不需要像以前的代码一样查到个RetCode然后再取出里面的list进行返回.
+另外如果就是查询RetCode的话,也可以直接使用BaseBusiness父类的RetCode getData(String sqlKey, Map param)方法来取得RetCode</Description>
+    <Annotation></Annotation>
+    <Revision>嗯！从之前写的方法中拷贝过来直接用了！</Revision>
+    <Resolution>item.label.unset</Resolution>
+    <Status>item.status.label.resolved</Status>
+  </ReviewIssue>
+</Review>

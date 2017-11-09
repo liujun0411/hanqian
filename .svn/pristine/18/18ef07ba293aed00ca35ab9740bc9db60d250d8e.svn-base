@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.MaterialBusiness">
+
+   <select id="findMaterial" resultType="ciMap" parameterType="map">
+        select * from DB_MATERIAL
+	    where 1=1 and status2=0 
+	    <if test="seq != null">
+			 and seq=#{seq}  
+		</if>
+		<if test="apparatusno != null">
+			 and apparatusno like '%${apparatusno}%'
+		</if>
+		<if test="name != null">
+			 and name like '%${name}%'
+		</if>
+		<if test="between != null">
+			 and buydate between  to_date(#{beginDate} ,'yyyy-mm-dd hh24:mi:ss')  and to_date(#{endDate} ,'yyyy-mm-dd hh24:mi:ss') 
+		</if>
+		<if test="beginDate != null">
+			and buydate<![CDATA[>=]]> to_date(#{beginDate} ,'yyyy-mm-dd hh24:mi:ss') 
+		</if>
+		<if test="endDate != null">
+			and buydate<![CDATA[<=]]> to_date(#{endDate} ,'yyyy-mm-dd hh24:mi:ss') 
+		</if>
+		
+   </select>  
+   
+  <select id="findByIdDbMaterial" parameterType="int" resultType="com.hanqian.pojo.DbMaterial">
+  
+    select * from DB_MATERIAL  where SEQ = #{id}
+  </select>
+  
+    <insert id="insertMaterial" parameterType="com.hanqian.pojo.DbMaterial">
+     <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_MATERIAL.nextval as seq from dual
+		</selectKey>    
+    insert into DB_MATERIAL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="apparatusno != null">
+        APPARATUSNO,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="buydate != null">
+        BUYDATE,
+      </if>
+      <if test="buydept != null">
+        BUYDEPT,
+      </if>
+      <if test="usedept != null">
+        USEDEPT,
+      </if>
+      <if test="classno != null">
+        CLASSNO,
+      </if>
+      <if test="equalno != null">
+        EQUALNO,
+      </if>
+      <if test="model != null">
+        MODEL,
+      </if>
+      <if test="standard != null">
+        STANDARD,
+      </if>
+      <if test="price != null">
+        PRICE,
+      </if>
+      <if test="acount != null">
+        ACOUNT,
+      </if>
+      <if test="amount != null">
+        AMOUNT,
+      </if>
+      <if test="keeprate != null">
+        KEEPRATE,
+      </if>
+      <if test="bnrpd != null">
+        BNRPD,
+      </if>
+      <if test="tisrp != null">
+        TISRP,
+      </if>
+      <if test="itemno != null">
+        ITEMNO,
+      </if>
+      <if test="itemname != null">
+        ITEMNAME,
+      </if>
+      <if test="source != null">
+        SOURCE,
+      </if>
+      <if test="funds != null">
+        FUNDS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="direction != null">
+        DIRECTION,
+      </if>
+      <if test="entrydate != null">
+        ENTRYDATE,
+      </if>
+      <if test="proof != null">
+        PROOF,
+      </if>
+      <if test="issuedby != null">
+        ISSUEDBY,
+      </if>
+      <if test="originalno != null">
+        ORIGINALNO,
+      </if>
+      <if test="prodate != null">
+        PRODATE,
+      </if>
+      <if test="supplier != null">
+        SUPPLIER,
+      </if>
+      <if test="instate != null">
+        INSTATE,
+      </if>
+      <if test="custodian != null">
+        CUSTODIAN,
+      </if>
+      <if test="nature != null">
+        NATURE,
+      </if>
+      <if test="remark1 != null">
+        REMARK1,
+      </if>
+      <if test="status2 != null">
+        STATUS2,
+      </if>
+      <if test="dbUsersByInput != null">
+        INPUT,
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME,
+      </if>
+      <if test="dbUsersByOper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="apparatusno != null">
+        #{apparatusno},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="buydate != null">
+        #{buydate},
+      </if>
+      <if test="buydept != null">
+        #{buydept},
+      </if>
+      <if test="usedept != null">
+        #{usedept},
+      </if>
+      <if test="classno != null">
+        #{classno},
+      </if>
+      <if test="equalno != null">
+        #{equalno},
+      </if>
+      <if test="model != null">
+        #{model},
+      </if>
+      <if test="standard != null">
+        #{standard},
+      </if>
+      <if test="price != null">
+        #{price},
+      </if>
+      <if test="acount != null">
+        #{acount},
+      </if>
+      <if test="amount != null">
+        #{amount},
+      </if>
+      <if test="keeprate != null">
+        #{keeprate},
+      </if>
+      <if test="bnrpd != null">
+        #{bnrpd},
+      </if>
+      <if test="tisrp != null">
+        #{tisrp},
+      </if>
+      <if test="itemno != null">
+        #{itemno},
+      </if>
+      <if test="itemname != null">
+        #{itemname},
+      </if>
+      <if test="source != null">
+        #{source},
+      </if>
+      <if test="funds != null">
+        #{funds},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="direction != null">
+        #{direction},
+      </if>
+      <if test="entrydate != null">
+        #{entrydate},
+      </if>
+      <if test="proof != null">
+        #{proof},
+      </if>
+      <if test="issuedby != null">
+        #{issuedby},
+      </if>
+      <if test="originalno != null">
+        #{originalno},
+      </if>
+      <if test="prodate != null">
+        #{prodate},
+      </if>
+      <if test="supplier != null">
+        #{supplier},
+      </if>
+      <if test="instate != null">
+        #{instate},
+      </if>
+      <if test="custodian != null">
+        #{custodian},
+      </if>
+      <if test="nature != null">
+        #{nature},
+      </if>
+      <if test="remark1 != null">
+        #{remark1},
+      </if>
+      <if test="status2 != null">
+        #{status2},
+      </if>
+      <if test="dbUsersByInput != null">
+        #{dbUsersByInput.seq},
+      </if>
+      <if test="inputtime != null">
+        #{inputtime},
+      </if>
+      <if test="dbUsersByOper != null">
+        #{dbUsersByOper.seq},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+    </trim>
+  </insert>
+  
+    <update id="updateMaterial" parameterType="com.hanqian.pojo.DbMaterial">
+  
+    update DB_MATERIAL
+    <set>
+      <if test="apparatusno != null">
+        APPARATUSNO = #{apparatusno},
+      </if>
+      <if test="name != null">
+        NAME = #{name},
+      </if>
+      <if test="buydate != null">
+        BUYDATE = #{buydate},
+      </if>
+      <if test="buydept != null">
+        BUYDEPT = #{buydept},
+      </if>
+      <if test="usedept != null">
+        USEDEPT = #{usedept},
+      </if>
+      <if test="classno != null">
+        CLASSNO = #{classno},
+      </if>
+      <if test="equalno != null">
+        EQUALNO = #{equalno},
+      </if>
+      <if test="model != null">
+        MODEL = #{model},
+      </if>
+      <if test="standard != null">
+        STANDARD = #{standard},
+      </if>
+      <if test="price != null">
+        PRICE = #{price},
+      </if>
+      <if test="acount != null">
+        ACOUNT = #{acount},
+      </if>
+      <if test="amount != null">
+        AMOUNT = #{amount},
+      </if>
+      <if test="keeprate != null">
+        KEEPRATE = #{keeprate},
+      </if>
+      <if test="bnrpd != null">
+        BNRPD = #{bnrpd},
+      </if>
+      <if test="tisrp != null">
+        TISRP = #{tisrp},
+      </if>
+      <if test="itemno != null">
+        ITEMNO = #{itemno},
+      </if>
+      <if test="itemname != null">
+        ITEMNAME = #{itemname},
+      </if>
+      <if test="source != null">
+        SOURCE = #{source},
+      </if>
+      <if test="funds != null">
+        FUNDS = #{funds},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="direction != null">
+        DIRECTION = #{direction},
+      </if>
+      <if test="entrydate != null">
+        ENTRYDATE = #{entrydate},
+      </if>
+      <if test="proof != null">
+        PROOF = #{proof},
+      </if>
+      <if test="issuedby != null">
+        ISSUEDBY = #{issuedby},
+      </if>
+      <if test="originalno != null">
+        ORIGINALNO = #{originalno},
+      </if>
+      <if test="prodate != null">
+        PRODATE = #{prodate},
+      </if>
+      <if test="supplier != null">
+        SUPPLIER = #{supplier},
+      </if>
+      <if test="instate != null">
+        INSTATE = #{instate},
+      </if>
+      <if test="custodian != null">
+        CUSTODIAN = #{custodian},
+      </if>
+      <if test="nature != null">
+        NATURE = #{nature},
+      </if>
+      <if test="remark1 != null">
+        REMARK1 = #{remark1},
+      </if>
+      <if test="status2 != null">
+        STATUS2 = #{status2},
+      </if>
+      <if test="dbUsersByInput != null">
+        INPUT = #{dbUsersByInput.seq},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="dbUsersByOper != null">
+        OPER = #{dbUsersByOper.seq},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+    <select id="reportMaintenanceDbMaterial" parameterType="map" resultType="ciMap">
+ 	 select * from db_maintenance  where 1=1
+ 	 <if test="lastTime != null">
+        and servicetime<![CDATA[>=]]>#{lastTime}    
+      </if>
+ 	  
+  </select>
+   
+</mapper>

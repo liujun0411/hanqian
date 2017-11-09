@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+    <!-- 换热器1-->	
+	<area title="住院楼屋顶加热器1#" wd="20" hg="20" marLeft="158" marTop="262" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器2-->	
+	<area title="住院楼屋顶加热器2#" wd="20" hg="20" marLeft="243" marTop="196" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	
+	<!-- 换热器3 -->
+	<area title="住院楼屋顶加热器3#" wd="20" hg="20" marLeft="322" marTop="156" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器4 -->
+	<area title="住院楼屋顶加热器4#" wd="20" hg="20" marLeft="380" marTop="120" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器5 -->
+	<area title="住院楼屋顶加热器5#" wd="20" hg="20" marLeft="380" marTop="120" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器6 -->
+	<area title="住院楼屋顶加热器6#" wd="20" hg="20" marLeft="380" marTop="120" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 换热器7 -->
+	<area title="住院楼屋顶加热器7#" wd="20" hg="20" marLeft="380" marTop="120" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+			
+</equipment>

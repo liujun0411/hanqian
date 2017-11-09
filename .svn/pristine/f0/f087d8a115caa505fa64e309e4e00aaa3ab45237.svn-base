@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/task 
+                           http://www.springframework.org/schema/task/spring-task.xsd">
+  
+    <!-- 支持spring自身的定时任务注解,简单的定时任务可以按照这个形式来运行. 支持的注解@Scheduled, @Async  -->
+    <task:annotation-driven/>
+    
+    <!-- 复杂的定时任务,可以在下面添加quartz的定时bean -->
+    
+    <!--start 天气预报 -->
+   
+       <!--    <bean id="taskDBCity" class="com.hanqian.weather.CityWeatherForecastTimers"></bean>规则测试类--> 
+       <bean id="taskDBCity" class="com.hanqian.drools.Test"></bean>  
+
+    <bean id="DBJobBegin"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="taskDBCity" />
+        </property>
+        <property name="targetMethod">
+           <value>test</value>
+           <!--    <value>updateCityWeather</value> -->
+        </property>
+    </bean>
+
+    <bean id="DBDelTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="startDelay" value="0"/>
+    <!--  <property name="cronExpression" value="0 0 */1 * * ?"/>--> 
+       <property name="cronExpression" value="0 */1 * * * ?"/>
+        <property name="jobDetail" ref="DBJobBegin"/>
+    </bean>
+   <!--   
+
+    <bean id="DBJobBegin"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="taskDBCity" />
+        </property>
+        <property name="targetMethod">
+            <value>updateCityWeather</value>
+        </property>
+    </bean>
+
+    <bean id="DBDelTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="startDelay" value="0"/>
+        <property name="cronExpression" value="0 0/1 * * * ?"/>
+        <property name="jobDetail" ref="DBJobBegin"/>
+    </bean>  
+
+   <bean id="taskDBSk" class="com.hanqian.weather.SkWeatherForecastTimer">
+    </bean>
+
+    <bean id="DBJobBegin2"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="taskDBSk" />
+        </property>
+        <property name="targetMethod">
+            <value>updateSkWeather</value>
+        </property>
+    </bean>
+  -->
+    
+    <!-- 设置启动时即执行一次 -->
+  <!--    <bean id="DBDelTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+        <property name="startDelay" value="0"/>
+        <property name="cronExpression" value="0 0 */1 * * ?"/>
+    <property name="jobDetail" ref="DBJobBegin2"/> 
+    </bean>  
+  -->
+
+    <!--end 天气预报 -->
+
+    <!-- mondrian定时清理缓存 --> 
+    <bean id="saikuMondrianClearCache" class="com.hanqian.quartz.jobs.SaikuMondrianClearCache">
+    <!--<property name="ip" value="localhost"/>     saki项目所在机器的ip    -->
+    <!--<property name="port" value="8080"/>    saki项目所在机器的端口   -->
+    </bean>
+    
+    <bean id="saikuMondrianClearCacheJob"
+        class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject">
+            <ref bean="saikuMondrianClearCache" />
+        </property>
+        <property name="targetMethod">
+            <value>run</value>
+        </property>
+    </bean>
+
+    <!-- 执行saiku缓存的更新,定在每日5点执行-->
+    <bean id="saikuMondrianClearCacheTrigger"
+        class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="saikuMondrianClearCacheJob" />
+        </property>
+        <property name="cronExpression">
+            <value>0 0 5 * * ?</value>
+        </property>
+    </bean>
+
+<!--     定时执行总调度程序 -->
+    <bean id="schedulerFactory" lazy-init="false" autowire="no" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" >
+        <property name="triggers">
+            <list>
+                 <ref bean="DBDelTrigger" /> 
+            <!-- <ref bean="DBDelTrigger2" />   --> 
+                 <ref bean="saikuMondrianClearCacheTrigger" />
+            </list>
+        </property>
+        
+    </bean> 
+</beans>

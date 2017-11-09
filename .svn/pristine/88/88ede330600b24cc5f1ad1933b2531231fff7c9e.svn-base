@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipstate>
+	<!--负压泵1-->
+	<Equip eqTypeId="11002" run="01" warn="02" keyName="">
+		<element>coolTower1</element>
+		<AxisX>-10</AxisX>
+		<AxisY>-10</AxisY>
+		<AxisA>0</AxisA>
+		<AxisB>0</AxisB>
+		<State>1</State>
+	</Equip>
+	
+	<!--负压泵2-->
+	<Equip eqTypeId="11002" run="01" warn="02" keyName="">
+		<element>coolTower2</element>
+		<AxisX>-10</AxisX>
+		<AxisY>-10</AxisY>
+		<AxisA>0</AxisA>
+		<AxisB>0</AxisB>
+		<State>1</State>
+	</Equip>
+	<!--负压泵3-->
+	<Equip eqTypeId="11002" run="01" warn="02" keyName="">
+		<element>coolTower3</element>
+		<AxisX>-10</AxisX>
+		<AxisY>-10</AxisY>
+		<AxisA>0</AxisA>
+		<AxisB>0</AxisB>
+		<State>1</State>
+	</Equip>
+	<!--负压泵4-->
+	<Equip eqTypeId="11002" run="01" warn="02" keyName="">
+		<element>coolTower4</element>
+		<AxisX>-10</AxisX>
+		<AxisY>-10</AxisY>
+		<AxisA>0</AxisA>
+		<AxisB>0</AxisB>
+		<State>1</State>
+	</Equip>
+</equipstate>

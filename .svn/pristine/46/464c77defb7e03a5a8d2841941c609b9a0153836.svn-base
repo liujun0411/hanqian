@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 7号楼集水井(第三方) -->
+	 <equip groupCode="07JSJ_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="7号楼B1层集水井1#" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="369" type="6001"></point>
+			<point id="370" type="6002" num="1"></point>
+			<point id="370" type="6002" num="2"></point>
+			<point id="371" type="6002" num="1"></point>
+			<point id="371" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="7号楼B1层集水井2#" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="372" type="6001"></point>
+			<point id="373" type="6002" num="1"></point>
+			<point id="373" type="6002" num="2"></point>
+			<point id="374" type="6002" num="1"></point>
+			<point id="374" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="7号楼B1层集水井3#" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="375" type="6001"></point>
+			<point id="376" type="6002" num="1"></point>
+			<point id="376" type="6002" num="2"></point>
+			<point id="377" type="6002" num="1"></point>
+			<point id="377" type="6002" num="2"></point>
+		</xy>
+		
+		<xy x="345" y="321" bengIndex="7号楼B1层集水井4#" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="378" type="6001"></point>
+			<point id="379" type="6002" num="1"></point>
+			<point id="379" type="6002" num="2"></point>
+			<point id="380" type="6002" num="1"></point>
+			<point id="380" type="6002" num="2"></point>
+		</xy>
+		<xy x="344" y="537" bengIndex="7号楼B1层集水井5#" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="381" type="6001"></point>
+			<point id="382" type="6002" num="1"></point>
+			<point id="382" type="6002" num="2"></point>
+			<point id="383" type="6002" num="1"></point>
+			<point id="383" type="6002" num="2"></point>
+		</xy>
+	</equip>
+	<equip groupCode="01JSJ_01" flashHeight="500" flashWidth="1000">	
+		<xy x="255" y="335" bengIndex="1号楼B1层集水井1#" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="324" type="6001"></point>
+			<point id="325" type="6002" num="1"></point>
+			<point id="325" type="6002" num="2"></point>
+			<point id="326" type="6002" num="1"></point>
+			<point id="326" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="540" bengIndex="1号楼B1层集水井2#" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="327" type="6001"></point>
+			<point id="328" type="6002" num="1"></point>
+			<point id="328" type="6002" num="2"></point>
+			<point id="329" type="6002" num="1"></point>
+			<point id="329" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="1号楼B1层集水井3#" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="330" type="6001"></point>
+			<point id="331" type="6002" num="1"></point>
+			<point id="331" type="6002" num="2"></point>
+		</xy>
+		<xy x="345" y="321" bengIndex="1号楼B1层集水井4#" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="332" type="6001"></point>
+			<point id="333" type="6002" num="1"></point>
+			<point id="333" type="6002" num="2"></point>
+			<point id="334" type="6002" num="1"></point>
+			<point id="334" type="6002" num="2"></point>
+		</xy>
+		<xy x="344" y="537" bengIndex="1号楼B1层集水井5#" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="335" type="6001"></point>
+			<point id="336" type="6002" num="1"></point>
+			<point id="336" type="6002" num="2"></point>
+			<point id="337" type="6002" num="1"></point>
+			<point id="337" type="6002" num="2"></point>
+		</xy>
+		<xy x="342" y="760" bengIndex="1号楼B1层集水井6#" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="338" type="6001"></point>
+			<point id="339" type="6002" num="1"></point>
+			<point id="339" type="6002" num="2"></point>
+			<point id="340" type="6002" num="1"></point>
+			<point id="340" type="6002" num="2"></point>
+		</xy>
+		<xy x="437" y="308" bengIndex="1号楼B1层集水井7#" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="341" type="6001"></point>
+			<point id="342" type="6002" num="1"></point>
+			<point id="342" type="6002" num="2"></point>
+			<point id="343" type="6002" num="1"></point>
+			<point id="343" type="6002" num="2"></point>
+		</xy>
+		<xy x="438" y="534"  bengIndex="1号楼B1层集水井8#" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="344" type="6001"></point>
+			<point id="345" type="6002" num="1"></point>
+			<point id="345" type="6002" num="2"></point>
+			<point id="346" type="6002" num="1"></point>
+			<point id="346" type="6002" num="2"></point>
+		</xy>
+		<xy x="436" y="775" bengIndex="1号楼B1层集水井9#" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="347" type="6001"></point>
+			<point id="348" type="6002" num="1"></point>
+			<point id="348" type="6002" num="2"></point>
+			<point id="349" type="6002" num="1"></point>
+			<point id="349" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+</equipment> 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>				
+	<child>
+	    <!-- 热水泵1 -->
+	<area title="1257楼热水泵1#" wd="15" hg="15" marLeft="464" marTop="447" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 热水泵2 -->
+	<area title="1257楼热水泵2#" wd="15" hg="15" marLeft="526" marTop="435" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>						
+			
+	<!-- 热水泵3 -->
+	<area title="1257楼热水泵3#" wd="15" hg="15" marLeft="581" marTop="413" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!-- 热水泵4 -->
+	<area title="1257楼热水泵4#" wd="15" hg="15" marLeft="633" marTop="400" prop="rsb"
+		initFlag="hidden" eqTypeId="5003" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 换热器1 -->
+	<!-- <area title="1257楼热交换1#" wd="15" hg="15" marLeft="161" marTop="257" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area> -->
+	<!-- 换热器2 -->
+	<area title="1257楼热交换" wd="15" hg="15" marLeft="388" marTop="349" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	<!--换热器3 -->
+	<area title="1257楼热交换" wd="15" hg="15" marLeft="615" marTop="290" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!--换热器4 -->
+	<!-- <area title="1257楼热交换4#" wd="15" hg="15" marLeft="360" marTop="140" prop="hrq"
+		initFlag="hidden" eqTypeId="5005" positionX="100" postionY="50" eventType="click"></area> -->
+			
+	</child>		
+</equipment>

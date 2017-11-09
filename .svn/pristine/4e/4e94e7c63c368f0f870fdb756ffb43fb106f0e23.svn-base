@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.ElectricityControlBusiness">  
+  
+	<select id="findMaxValue" resultType="ciMap" parameterType="map">    
+         select m.equip_id,m.param_value from db_eq_param m where m.equip_id=#{equipId}
+   </select>
+   
+  <resultMap id="EquipServiceEquipResultMap" type="com.hanqian.pojo.EquipServiceEquip">
+    <id column="SEQ"  property="seq" />
+    	<association property="dbEquipListByEquipId"  column="EQUIP_ID"  javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" jdbcType="DECIMAL" column="EQUIP_ID" />
+		</association>
+		<association property="dbEquipListBySerEquipId"  column="SER_EQUIP_ID"  javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" jdbcType="DECIMAL" column="SER_EQUIP_ID" />
+		</association>   
+  </resultMap>
+     <!--      select m.seq as seq , m.equip_id as equip_id,t.equip_name as equip_name from EQUIP_SERVICE_EQUIP -->
+     <!-- m inner join db_equip_list t on m.equip_id=t.equip_id where m.ser_equip_id in -->
+     <!--   (select t.equip_id from db_equip_list t where t.equip_type_id=#{eqTypeId} )-->
+     <!--   (select t.equip_id from db_equip_list t where t.equip_type_id=#{eqTypeId} )-->
+      <select id="findEquipListByTypeId" resultType="ciMap" parameterType="map">    
+      select d.equip_id,d.equip_name from db_equip_list d where d.equip_type_id=#{eqTypeId} and d.node_level=1
+   </select> 
+   
+   <select id="findElectRecordHis" resultType="ciMap" parameterType="map">    
+         select	equip_id , project_point controlpoint , point_name , descr , elec_type , recordinfo , recordtime recordtimes  from v_db_elec_3A c 
+         where 1=1
+         <if test="startTime != null and endTime != null">
+			 and recordtime between #{startTime} and #{endTime}
+		</if>
+   </select>
+   
+      <select id="findElectRecordTotal" resultType="ciMap" parameterType="map">    
+         select equip_id,descr,recordtime recordtimes,recordinfo  from v_db_elec_sum 
+         where 1=1
+         <if test="equipId != null">
+			 and equip_id=#{equipId}
+		</if>
+         <if test="startTime != null and endTime != null">
+			 and recordtime between #{startTime} and #{endTime}
+		</if>
+   </select>  
+    
+         <select id="getEnergySaving79" resultType="ciMap" parameterType="map">    
+        select t.hosp_level,sum(t.eellclval) eellclval,max(t.reasonableval) reasonableval,max(t.fiducialval) fiducialval,t.stattime from 
+
+			         	   db_energysave t   
+
+		       where t.stattime<![CDATA[>=]]>#{startTime} and t.hospid=#{hospId}
+		        group by t.stattime,t.hosp_level
+   </select>  
+   
+<!--             <select id="getEnergySaving80" resultType="ciMap" parameterType="map">     -->
+<!--         select t.hosp_level,sum(t.eellclval) eellclval,max(t.reasonableval) reasonableval,max(t.fiducialval) fiducialval,t.stattime from  -->
+
+<!-- 			         	   db_energysave_zk t    -->
+
+<!-- 		       where t.stattime<![CDATA[>=]]>#{startTime} and t.hospid=#{hospId} -->
+<!-- 		        group by t.stattime,t.hosp_level -->
+<!--    </select>   -->
+	<!-- 获取上月的能耗账单 -->
+   <select id="getEnergyBill" resultType="ciMap" parameterType="map">    
+       select e.seq, e.energy, t.bill_month, t.consumption  
+       from db_energy_bill t, DB_ENERGY_TYPE e 
+       where t.type=e.seq and t.bill_month = #{bill_month}
+       order by e.energy, t.bill_month
+   </select>  
+   <!--获取电表的实时数据-->
+   <select id="getElectricBillActual" resultType="ciMap" parameterType="map">    
+   	select  *  from  comm_elec_energy_m t1
+	inner join DB_POINT t2
+	on t1.project_point=t2.project_point and  to_char(t1.record_date,'yyyy-mm') = #{bill_month}
+	inner join  DB_POINT_EQUIP t3
+	on  t2.seq=t3.seq
+	inner join db_equip_list  t4
+	on t3.equip_id=t4.equip_id and  t4.equip_type_id=10001 and  t4.node_level=1
+   </select>
+</mapper>

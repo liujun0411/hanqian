@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 雨水池A -->
+	 <equip groupCode="AYSC_01" flashHeight="500" flashWidth="1000">
+	    <xy x="249" y="328" bengIndex="A" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="63" type="6001"></point>
+			<point id="64" type="6002" num="1"></point>
+			<point id="64" type="6002" num="2"></point>
+			<point id="65" type="6002" num="2"></point>
+			<point id="65" type="6002" num="3"></point>
+			<point id="66" type="6002" num="3"></point>
+			<point id="66" type="6002" num="4"></point>
+		</xy>
+	 </equip>
+   <!-- 雨水池B -->
+	<equip groupCode="BYSC_01" flashHeight="410" flashWidth="1000">
+		<xy x="249" y="328" bengIndex="B" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="67" type="6001"></point>
+			<point id="68" type="6002" num="1"></point>
+			<point id="68" type="6002" num="2"></point>
+			<point id="69" type="6002" num="2"></point>
+			<point id="69" type="6002" num="3"></point>
+			<point id="70" type="6002" num="3"></point>
+			<point id="70" type="6002" num="4"></point>
+			<point id="71" type="6002" num="4"></point>
+			<point id="71" type="6002" num="5"></point>
+		</xy>
+	 </equip>
+	 <!-- 雨水池C -->
+	 <equip groupCode="CYSC_01" flashHeight="500" flashWidth="1000">
+		<xy x="249" y="328" bengIndex="C" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="72" type="6001"></point>
+			<point id="73" type="6002" num="1"></point>
+			<point id="73" type="6002" num="2"></point>
+			<point id="74" type="6002" num="2"></point>
+			<point id="74" type="6002" num="3"></point>
+			<point id="75" type="6002" num="3"></point>
+			<point id="75" type="6002" num="4"></point>
+		</xy>
+	 </equip>
+</equipment> 
+
+  

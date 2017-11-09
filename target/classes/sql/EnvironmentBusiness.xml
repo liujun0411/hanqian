@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EnvironmentBusiness">
+
+  <select id="showIllumination" resultType="ciMap">   
+   		 select e.equip_code,
+		       e.equip_type_id,
+		       e.equip_name,
+		       d.project_point,
+		       d.unit_type,
+		       d.rate,
+		       d.alert_level,
+		       d.descr,
+		       f.record,
+		       f.recordtime
+		  from db_equip_group a,
+		       db_group_equip b,
+		       db_point_equip c,
+		       db_point       d,
+		       db_equip_list  e,
+		       db_controldata f
+		 where a.seq = b.equip_group
+		   and a.equip_type = '3'
+		   and c.equip_id = b.equip_id
+		   and d.seq = c.seq
+		   and e.equip_id = c.equip_id
+		   and f.c_seq = c.seq
+   </select>
+   
+   <select id="showHeatPumpSystem" resultType="ciMap">
+		select t0.descr, t.record, t.recordtime
+		  from db_controldata t,
+		       (select p.*
+		          from DB_POINT_EQUIP t, db_point p
+		         where t.equip_type_id = 1005001
+		           and p.seq = t.seq
+		           and p.controlpoint is not null) t0
+		 where t.c_seq = t0.seq
+   </select>
+</mapper>

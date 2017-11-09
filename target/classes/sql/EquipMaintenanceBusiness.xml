@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EquipMaintenanceBusiness">
+   <!-- 各个等级告警数  -->
+   <select id="findAllMaintenance" resultType="ciMap"  parameterType="map" >    
+         select m.seq seq,m.equip_id equipId,m.pact pact,m.content ,m.company,m.serviceman,m.servicetime,
+         m.remark,m.maintenancetype from db_maintenance m where m.equip_id=#{equipId} order by m.servicetime desc
+   </select>  
+   
+    <insert id="insertMaintenance" parameterType="com.hanqian.pojo.DbMaintenance">
+      <selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_MAINTENANCE.nextval as seq from dual
+		</selectKey>
+      insert into DB_MAINTENANCE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dbEquipList != null">
+        EQUIP_ID,
+      </if>
+      <if test="pact != null">
+        PACT,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="company != null">
+        COMPANY,
+      </if>
+      <if test="serviceman != null">
+        SERVICEMAN,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="servicetime != null">
+        SERVICETIME,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="maintenancetype != null">
+        MAINTENANCETYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dbEquipList != null">
+        #{dbEquipList.equipId},
+      </if>
+      <if test="pact != null">
+        #{pact},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+      <if test="company != null">
+        #{company},
+      </if>
+      <if test="serviceman != null">
+        #{serviceman},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="servicetime != null">
+        #{servicetime},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+      <if test="maintenancetype != null">
+        #{maintenancetype},
+      </if>
+    </trim>
+  </insert>
+  
+     <select id="findMaintenance" resultType="ciMap" parameterType="map">    
+        select m.seq,e.equip_name,e.equip_id,e.place,m.maintenancetype,m.servicetime,m.serviceman,e.type_name 
+        from db_maintenance m,(select b.building_name,b.his_name,l.storey,l.equip_name,l.place,t.type_name,
+        l.unit_type,l.equip_id,t.equip_type_id,t.equip_type_parent_id 
+        from db_building b,db_equip_list l,db_equip_type t where b.building_id=l.building_id 
+        and l.equip_type_id=t.equip_type_id) e where m.equip_id=e.equip_id  
+         <if test="buildName != null">
+         	   and e.building_name =#{buildName}
+	      </if>
+	      <if test="eqName != null">
+         	   and e.equip_name like '%${eqName}%'
+	      </if>
+	      <if test="storey != null">
+         	   and e.storey = '${storey}'
+	      </if>
+	       <if test="hisName != null">
+         	     and e.his_name like '%${hisName}%'
+	      </if>
+	       <if test="place != null">
+         	    and e.place like '%${place}%'
+	      </if>
+	        <if test="eqTypeId != null">
+         	     and e.equip_type_id =#{eqTypeId}
+	      </if>
+	      <if test="unitType != null">
+         	     and e.unit_type like '%${unitType}%'
+	      </if>
+	     <if test="serviceDateStart != null">
+         	     and m.servicetime  <![CDATA[>=]]> to_date(#{serviceDateStart},'yyyy-mm-dd hh24:mi:ss')
+	      </if> 
+	      <if test="serviceDateEnd != null">
+         	     and m.servicetime  <![CDATA[<=]]> to_date(#{serviceDateEnd},'yyyy-mm-dd hh24:mi:ss')
+	      </if> 
+	      <if test="maintenancetype != null">
+         	     and m.maintenancetype = #{maintenancetype}
+	      </if>	      
+	        order by m.servicetime desc
+   </select> 
+   
+<!--     parameterType="int" resultType="com.hanqian.pojo.DbMaintenance" -->
+    <select id="findMaintenanceById"  parameterType="map" resultMap="DbMaintenanceMap">  
+    select * from db_maintenance m , db_equip_list e  where  m.equip_id = e.equip_id and m.SEQ = #{mid}
+  </select>
+  
+  <resultMap id="DbMaintenanceMap" type="com.hanqian.pojo.DbMaintenance">
+    <id column="SEQ"  property="seq" />
+    <result column="PACT"  property="pact" />
+    <result column="CONTENT"  property="content" />
+    <result column="COMPANY"  property="company" />
+    <result column="SERVICEMAN"  property="serviceman" />
+    <result column="OPERTIME"  property="opertime" />
+    <result column="SERVICETIME"  property="servicetime" />
+    <result column="REMARK"  property="remark" />
+    <result column="MAINTENANCETYPE"  property="maintenancetype" />
+    <result column="OPER"  property="oper" />
+		<association property="dbEquipList"  column="EQUIP_ID" javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" column="EQUIP_ID" />
+		</association>
+  </resultMap>
+  
+  
+  
+  
+  
+  
+    <update id="updateMaintenance" parameterType="com.hanqian.pojo.DbMaintenance">
+    update DB_MAINTENANCE
+    <set>
+      <if test="dbEquipList != null">
+        EQUIP_ID = #{dbEquipList.equipId},
+      </if>
+      <if test="pact != null">
+        PACT = #{pact},
+      </if>
+      <if test="content != null">
+        CONTENT = #{content},
+      </if>
+      <if test="company != null">
+        COMPANY = #{company},
+      </if>
+      <if test="serviceman != null">
+        SERVICEMAN = #{serviceman},
+      </if>
+      <if test="oper != null">
+        OPER = #{oper},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+      <if test="servicetime != null">
+        SERVICETIME = #{servicetime},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark},
+      </if>
+      <if test="maintenancetype != null">
+        MAINTENANCETYPE = #{maintenancetype},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+   <delete id="deleteMaintenance" parameterType="int">   
+    delete from DB_MAINTENANCE
+    where SEQ = #{mid}
+  </delete>
+  
+  	<!-- 通过typeid获取设备 -->			
+	<select id="getEpuipByTypeId" resultType="ciMap" parameterType="java.lang.String">
+		select t.* from DB_EQUIP_LIST t where t.equip_type_id=#{_parameter}
+	</select>
+	
+  	<!-- 通过equipid获取设备 -->			
+	<select id="getEpuipByEquipId" resultType="ciMap" parameterType="java.lang.String">
+		select del.equip_id,del.equip_name, del.equip_type_id, det.type_name
+		  from DB_EQUIP_LIST del
+		  left outer join DB_EQUIP_TYPE det
+		    on del.equip_type_id = det.equip_type_id
+		 where del.equip_id=#{_parameter}
+	</select>
+   
+   <select id="getTypeIdByEpuipId" resultType="java.lang.String" parameterType="java.lang.String">
+		select t.equip_type_id from DB_EQUIP_LIST t where t.equip_id=#{_parameter}
+	</select>
+</mapper>

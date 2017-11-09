@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipment title="锅炉本体" hasParTitle="true">
+   <child title="锅内参数">
+       <property run="01" des="水位极低" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|极低" condition="" seTitle="" showFlag="0" isAbs="1" errText="极低"></property>
+       <property run="02" des="水位极高" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|极高" condition="" seTitle="" showFlag="0" isAbs="1" errText="极高"></property>
+	   <property run="03" des="水位低" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|低" condition="" seTitle="" showFlag="0" isAbs="1" errText="低"></property>
+	   <property run="04" des="水位正常" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|正常" condition="01,02,03,05" seTitle="水位" showFlag="1" isAbs="1" errText=""></property>
+	   <property run="05" des="水位高" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|高" condition="" seTitle="" showFlag="0" isAbs="1" errText="高"></property>
+	   <property run="06" des="锅内压力" unit="Mpa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="07" des="压力状态" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|超高" condition="" seTitle="" showFlag="1" isAbs="1" errText="超高"></property>
+	   <property run="13" des="锅炉液位" unit="mm" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="1"></property>
+   </child>
+   <child title="燃烧器">
+       <property run="08" des="停炉压力" unit="" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="09" des="起炉压力" unit="" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="10" des="运行状态" unit="" colu="" maxVa="" minVa="" remark="0|停止,1|运行" condition="11" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+       <property run="11" des="故障状态" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|故障" condition="" seTitle="" showFlag="0" isAbs="1" errText="故障"></property>
+   	   <property run="14" des="锅炉启动状态" unit="" colu="" maxVa="" minVa="" remark="0|停止,1|启动" condition="" seTitle="" showFlag="1" isAbs="1"></property>
+   </child>
+   <child title="烟道">
+       <property run="12" des="烟气温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+        <property run="15" des="锅炉排烟温度超高停炉" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|报警" condition="" seTitle="" showFlag="1" isAbs="1" errText="报警"></property>
+   </child>
+</equipment>

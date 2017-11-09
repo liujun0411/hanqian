@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+	<!-- 出风管
+	<area title="出风管" wd="70" hg="110" marLeft="157" marTop="450"
+		prop="fengOut" initFlag="hide" eqTypeId="1002" positionX="" postionY=""
+		eventType="click"></area>
+	风机
+	<area title="风机" wd="65" hg="90" marLeft="262" marTop="439" prop="fengji"
+		initFlag="hide" eqTypeId="1002" positionX="" postionY="" eventType="click"></area>
+	出水管
+	<area title="出水管" wd="60" hg="35" marLeft="470" marTop="360" prop="waterOut"
+		initFlag="hide" eqTypeId="1002" positionX="" postionY="" eventType="click"></area>
+	进水管
+	<area title="进水管" wd="60" hg="35" marLeft="469" marTop="487" prop="waterIn"
+		initFlag="hide" eqTypeId="1002" positionX="" postionY="" eventType="click"></area>
+	滤网
+	<area title="滤网" wd="30" hg="30" marLeft="503" marTop="413" prop="fauLvW"
+		initFlag="hide" eqTypeId="1002" positionX="" postionY="" eventType="click"></area> -->
+		
+	<!-- 新风管 -->
+	<area title="新风管" wd="100" hg="40" marLeft="572" marTop="277"
+		prop="Newfeng" initFlag="hide" eqTypeId="1002" positionX="" postionY=""
+		eventType="click"></area>
+
+	<!--
+		蒸汽管 <area title="蒸汽管" wd="45" hg="45" marLeft="465" marTop="122"
+		prop="ZQG" initFlag="hide" eqTypeId="1002" positionX=""
+		postionY=""></area>
+	-->
+</equipment>

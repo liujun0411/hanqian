@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+	<!-- 换热器1 -->
+	<area title="电锅炉1#" wd="15" hg="15" marLeft="161" marTop="257" prop="rsq"
+		initFlag="hidden" eqTypeId="5006" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 换热器2 -->
+	<area title="电锅炉2#" wd="15" hg="15" marLeft="248" marTop="205" prop="rsq"
+		initFlag="hidden" eqTypeId="5006" positionX="100" postionY="50" eventType="click"></area>
+    <!--换热器3 -->
+	<area title="电锅炉3#" wd="15" hg="15" marLeft="326" marTop="160" prop="rsq"
+		initFlag="hidden" eqTypeId="5006" positionX="100" postionY="50" eventType="click"></area>
+   <!--换热器4 -->
+	<area title="电锅炉4#" wd="15" hg="15" marLeft="812" marTop="319" prop="rsq"
+		initFlag="hidden" eqTypeId="5006" positionX="100" postionY="50" eventType="click"></area>
+</equipment>

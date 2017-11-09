@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<!-- run代表检测点位编号，des代表点位描述，unit是监测点单位，maxVa是监测点最大取值，minVa是监测点最小取值，remark是点位读数对应备注信息，condition是点位的前置条件，seTitle是附表题，showFlag是否展示（1代表展示，0代表不展示）,isAbs是否取绝对值(1代表取，0代表不取) -->
+<equipment title="新风机">
+   <FENGJI title="风机">
+       <property run="01" des="变频反馈" unit="Hz" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="02" des="变频控制" unit="Hz" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="03" des="故障状态" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|故障" condition="" seTitle="" showFlag="0" isAbs="1" errText="故障"></property>
+	   <property run="04" des="运行状态" unit="" colu="" maxVa="" minVa="" remark="0|停止,1|运行" condition="03" seTitle="运行状态" showFlag="1" isAbs="1" errText=""></property>
+	   <property run="05" des="操作方式" unit="" colu="" maxVa="" minVa="" remark="0|手动,1|自动" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+   	   <property run="06" des="开关控制" unit="" colu="" maxVa="" minVa="" remark="0|关,1|开" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+   </FENGJI>
+   <newFeng title="楼层温度">
+   <!-- 根据hd要求，先修改成为现在这个名称 -->
+   <!-- <property run="21" des="电梯厅" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property> -->
+       <property run="22" des="第五诊区" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="23" des="第三诊区" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="24" des="挂号收费" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="25" des="扶梯口" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </newFeng>
+   <outfeng title="出风管">
+       <property run="07" des="机外余压" unit="pa" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+       <property run="08" des="送风温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </outfeng>
+   <waterOut title="出水管">
+       <property run="13" des="水阀开度" unit="%" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="15" des="出水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </waterOut>
+   <waterIn title="进水管">
+	   <property run="14" des="进水温度" unit="℃" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="16" des="累计流量" unit="m³" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+  </waterIn>
+   <fauLvW title="滤网">
+       <property run="12" des="滤网压差" unit="" colu="" maxVa="" minVa="" remark="0|正常,1|需清洗" condition="" seTitle="" showFlag="1" isAbs="1" errText="需清洗"></property>
+   </fauLvW>
+</equipment>

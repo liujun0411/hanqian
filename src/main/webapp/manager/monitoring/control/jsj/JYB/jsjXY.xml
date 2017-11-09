@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 7号楼集水井(第三方) -->
+	 <equip groupCode="jsj_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="3号楼B1层集水井1#" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="268" type="6001"></point>
+			<point id="269" type="6002" num="1"></point>
+			<point id="269" type="6002" num="2"></point>						<point id="270" type="6002" num="1"></point>			<point id="270" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="3号楼B1层集水井2#" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="271" type="6001"></point>
+			<point id="272" type="6002" num="1"></point>
+			<point id="272" type="6002" num="2"></point>						<point id="273" type="6002" num="1"></point>			<point id="273" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="3号楼B1层集水井3#" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="274" type="6001"></point>
+			<point id="275" type="6002" num="1"></point>
+			<point id="275" type="6002" num="2"></point>						<point id="276" type="6002" num="1"></point>			<point id="276" type="6002" num="2"></point>
+		</xy>
+		
+		<xy x="345" y="321" bengIndex="3号楼B1层集水井4#" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="277" type="6001"></point>
+			<point id="278" type="6002" num="1"></point>
+			<point id="278" type="6002" num="2"></point>						<point id="279" type="6002" num="1"></point>			<point id="279" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+</equipment> 
+
+  

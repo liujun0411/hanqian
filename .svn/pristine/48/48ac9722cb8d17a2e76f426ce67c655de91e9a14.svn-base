@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!--冷却泵-->
+	<chilling Title="冷却泵">
+	  <property CN="运行状态"></property>
+	  <property CN="频率反馈"></property>
+	</chilling>
+	<!--冷冻泵-->
+	<cooldong Title="冷冻泵">
+	  <property CN="运行状态"></property>
+	  <property CN="频率反馈1"></property>
+	  <property CN="频率反馈2"></property>
+	  <property CN="频率反馈3"></property>
+	</cooldong>
+	<!--冷却塔-->
+	<coolTower Title="冷却塔">
+	  <property CN="进水温度" EN=""></property>
+	  <property CN="旁通阀开度" EN=""></property>
+	  <property CN="运行状态" EN=""></property>
+	  <property CN="变频反馈" EN=""></property>
+	  <property CN="出水温度" EN=""></property>
+	</coolTower>
+</root>

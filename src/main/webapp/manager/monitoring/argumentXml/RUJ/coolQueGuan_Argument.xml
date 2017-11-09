@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipment title="冷却水总管" hasParTitle="true">
+   <child title="进水管">
+          <property run="01" des="进水温度" unit="℃"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   	      <property run="03" des="累计流量" unit="T" colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </child>
+   <child title="出水管">     
+          <property run="05" des="出水温度" unit="℃"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+          <property run="06" des="出水压力" unit="Mpa"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+   </child>
+</equipment>

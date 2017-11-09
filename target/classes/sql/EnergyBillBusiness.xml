@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.EnergyBillBusiness">
+
+   <select id="findEnergyBill" resultType="ciMap" parameterType="map">    
+          select w.*, to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime,u.unit_price unitprice 
+           from db_energy_bill w 
+            left join db_unit_price u 
+             on u.id = w.unit_price_id 
+              where 1 = 1 
+              <if test="type != null">
+              		and w.type like '${type}%'
+              </if>
+              <if test="billMonth != null">
+              		and w.bill_month=#{billMonth}
+              </if>
+              <if test="barCode != null">
+              		 and w.bar_code=#{barCode}
+              </if>
+              	 order by w.bill_month desc
+   </select>  
+   
+      <select id="findUpdateMonth" resultType="ciMap" parameterType="map">    
+          select m.bill_month from db_energy_bill m where m.type in(select t.type from db_energy_bill t where t.id=#{id}
+          ) group by m.bill_month order by m.bill_month desc 
+   </select>
+   
+         <select id="findIsHasBill" resultType="ciMap" parameterType="map">    
+           select w.*, to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime 
+            from db_energy_bill w 
+             where 1= 1 
+              and w.type =#{energyType}
+                and w.unit_price_id=#{unitPriceId}
+   </select>
+   
+            <select id="findEnergyBillById" resultType="ciMap" parameterType="map">    
+            select w.*, to_char(w.op_time,'yyyy-MM-dd hh24:mi:ss') optime,u.unit_price unitprice 
+             from db_energy_bill w 
+              left join db_unit_price u 
+               on u.id = w.unit_price_id 
+                where w.id =#{id}
+   </select>
+   
+               <select id="findUsedBillMonth" resultType="ciMap" parameterType="map">    
+            select t.bill_month from db_energy_bill t where t.customer_code=#{custmerCode}
+             and t.type=#{typeId}
+   </select>
+   
+                  <select id="findUnitBySeq" resultType="ciMap" parameterType="map">    
+            select e.unit from DB_ENERGY_TYPE e where e.seq=#{tableId}
+   </select>
+   
+                     <select id="findEnergyBySeq" resultType="ciMap" parameterType="map">    
+            select e.seq,e.energy from DB_ENERGY_TYPE e where e.seq=#{energyType}
+   </select>
+                        <select id="findUpDatePrice" resultType="ciMap" parameterType="map">    
+            select w.* from (select u.unit_price from db_energy_bill t 
+            	inner join db_unit_price u on t.unit_price_id = u.id 
+            	 where t.type=#{typeId} order by t.op_time desc ) w where rownum = 1
+   </select>
+   
+                           <select id="findUpdateByTypeId" resultType="ciMap" parameterType="map">    
+            select m.bill_month from db_energy_bill m where m.type =#{typeId} 
+             group by m.bill_month order by m.bill_month desc
+   </select>
+   
+     <insert id="insertEnergyBill" parameterType="com.hanqian.pojo.DbEnergyBill">
+    <selectKey resultType="int" keyProperty="id" order="BEFORE">
+			select
+			SEQ_DB_ENERGY_BILL_ID.nextval as id from dual
+		</selectKey>
+    insert into DB_ENERGY_BILL
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="billMonth != null">
+        BILL_MONTH,
+      </if>
+      <if test="sum != null">
+        SUM,
+      </if>
+      <if test="dbUnitPrice != null">
+        UNIT_PRICE_ID,
+      </if>
+      <if test="customerCode != null">
+        CUSTOMER_CODE,
+      </if>
+      <if test="barCode != null">
+        BAR_CODE,
+      </if>
+      <if test="opTime != null">
+        OP_TIME,
+      </if>
+      <if test="des != null">
+        DES,
+      </if>
+      <if test="used != null">
+        USED,
+      </if>
+      <if test="consumption != null">
+        CONSUMPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="type != null">
+        #{type},
+      </if>
+      <if test="billMonth != null">
+        #{billMonth},
+      </if>
+      <if test="sum != null">
+        #{sum},
+      </if>
+      <if test="dbUnitPrice != null">
+        #{dbUnitPrice.id},
+      </if>
+      <if test="customerCode != null">
+        #{customerCode},
+      </if>
+      <if test="barCode != null">
+        #{barCode},
+      </if>
+      <if test="opTime != null">
+        #{opTime},
+      </if>
+      <if test="des != null">
+        #{des},
+      </if>
+      <if test="used != null">
+        #{used},
+      </if>
+      <if test="consumption != null">
+        #{consumption},
+      </if>
+    </trim>
+  </insert>
+   
+     <update id="updateEnergyBill" parameterType="com.hanqian.pojo.DbEnergyBill">
+    update DB_ENERGY_BILL
+    <set>
+      <if test="type != null">
+        TYPE = #{type},
+      </if>
+      <if test="billMonth != null">
+        BILL_MONTH = #{billMonth},
+      </if>
+      <if test="sum != null">
+        SUM = #{sum},
+      </if>
+      <if test="dbUnitPrice != null">
+        UNIT_PRICE_ID = #{dbUnitPrice.id},
+      </if>
+      <if test="customerCode != null">
+        CUSTOMER_CODE = #{customerCode},
+      </if>
+      <if test="barCode != null">
+        BAR_CODE = #{barCode},
+      </if>
+      <if test="opTime != null">
+        OP_TIME = #{opTime},
+      </if>
+      <if test="des != null">
+        DES = #{des},
+      </if>
+      <if test="used != null">
+        USED = #{used},
+      </if>
+      <if test="consumption != null">
+        CONSUMPTION = #{consumption},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+   
+   <update id="updateEnergyBillByPriceSql" parameterType="map">
+		    update db_unit_price price
+		     set price.unit_price = #{pricValue}
+		     where price.id=#{pricId}
+   </update>
+   
+    <update id="updateEnergyBillBySql" parameterType="map">
+   			update db_energy_bill 
+   			 set  type=#{type} ,
+   			  bill_month = #{billmonth},
+   			   sum =#{sum},
+   			    customer_code=#{customercode},
+   			     bar_code =#{barcode},
+   			      used =#{used},
+   			       des =#{des},
+   			        consumption =#{consumption},
+   			         op_time = sysdate
+   			          where id=#{id}
+   
+   </update>
+   
+       <update id="updateEnergyBillBySqlUnitPriceId" parameterType="map">
+   			update db_energy_bill 
+   			 set unit_price_id=#{unitPriceId},
+   			         op_time = sysdate 
+   			          where id in(${ids})
+   
+   </update>
+   
+          <update id="updateEnergyBillUnitPriceId" parameterType="map">
+   			update db_energy_bill 
+   			 set unit_price_id=#{afterUnitPriceId}
+   			          where   unit_price_id =#{beforeUnitPriceId}
+   
+   </update>
+   
+                              <select id="findEnergyType" resultType="ciMap" >    
+            SELECT energy ,LEVEL ,seq,unit,parent_id FROM DB_ENERGY_TYPE START WITH parent_id IS NULL CONNECT BY PRIOR seq = parent_id 
+   </select>
+  
+    <select id="findEnergyBillByIdXXX" resultType="ciMap" parameterType="map">    
+            select * from  from DB_ENERGY_BILL where id=#{id}
+   </select>
+   
+   
+   
+   
+</mapper>

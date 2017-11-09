@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!--typeId是指设备类型编号，url是指热区文档存放的路径-->
+   <fileUrl typeId="1001" url="xfj_hotSpot.xml"></fileUrl>
+   <fileUrl typeId="1002" url="ktj_hotSpot.xml"></fileUrl>
+   <!-- 生活水 -->
+   <fileUrl typeId="5_shs_01" url="hotSpot_shs_01.xml"></fileUrl>
+   <fileUrl typeId="5_shs_02" url="hotSpot_shs_02.xml"></fileUrl>
+   <fileUrl typeId="5_shs_03" url="hotSpot_shs_03.xml"></fileUrl>
+   <fileUrl typeId="5_shs_04" url="hotSpot_shs_04.xml"></fileUrl>
+   <fileUrl typeId="5_shs_05" url="hotSpot_shs_05.xml"></fileUrl>
+   <fileUrl typeId="5_shs_06" url="hotSpot_shs_06.xml"></fileUrl>
+   <fileUrl typeId="5_shs_07" url="hotSpot_shs_07.xml"></fileUrl>
+   <fileUrl typeId="5_shs_08" url="hotSpot_shs_08.xml"></fileUrl>
+   <fileUrl typeId="5_shs_09" url="hotSpot_shs_09.xml"></fileUrl>
+   <!-- 集水井 -->
+   <fileUrl typeId="6" url="jsj_hotSpot.xml"></fileUrl>
+   <!-- 空压系统 -->
+   <fileUrl typeId="8_kyj_01" url="hotSpot_kyj_01.xml"></fileUrl>
+   <!-- 风冷机组 -->
+   <fileUrl typeId="1005_fljz_01" url="hotSport_fljz_01.xml"></fileUrl>
+   <fileUrl typeId="1005_fljz_02" url="hotSport_fljz_02.xml"></fileUrl>
+   <fileUrl typeId="1005_rb_01"   url="rb_01.xml"></fileUrl>
+   <!-- 负压吸引 -->
+   <fileUrl typeId="11_fyxy_01" url="hotSport_fyxy_01.xml"></fileUrl>
+   <fileUrl typeId="11_fyxy_02" url="hotSport_fyxy_02.xml"></fileUrl>
+   <!-- 锅炉 -->
+   <fileUrl typeId="2_gl_01" url="hotSport_gl_01.xml"></fileUrl>
+  <!-- 干保水冷机组夏天 -->
+   <fileUrl typeId="1004_1_slj_01" url="hotSpot_slj_01_xt.xml"></fileUrl>
+   <fileUrl typeId="1004_1_slj_02" url="hotSpot_slj_02_xt.xml"></fileUrl>
+   <fileUrl typeId="1004_1_slj_03" url="hotSpot_slj_03_xt.xml"></fileUrl>
+   <fileUrl typeId="1004_1_slj_04" url="hotSpot_slj_04_xt.xml"></fileUrl>
+   <!-- 干保水冷机组冬天 -->
+   <fileUrl typeId="1004_2_slj_01" url="hotSpot_slj_01_dt.xml"></fileUrl>
+   <fileUrl typeId="1004_2_slj_02" url="hotSpot_slj_02_dt.xml"></fileUrl>
+   <fileUrl typeId="1004_2_slj_03" url="hotSpot_slj_03_dt.xml"></fileUrl>
+   <fileUrl typeId="1004_2_slj_04" url="hotSpot_slj_04_dt.xml"></fileUrl>
+   <!--医用气体-->
+   <fileUrl typeId="7_yy_01" url="hotSpot_yy_01.xml"></fileUrl>
+      <fileUrl typeId="7_yy_02" url="hotSpot_yy_02.xml"></fileUrl>
+   <fileUrl typeId="7_yy_03" url="hotSpot_yy_03.xml"></fileUrl>
+</equipPath>

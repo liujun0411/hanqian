@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.KeyEqBusiness">
+
+	 <resultMap id="EqListResultMap" type="com.hanqian.pojo.DbEquipList">   
+	    <id column="equip_id"  property="equipId" />
+	    <result column="equip_code"  property="equipCode" />
+	    <result column="equip_name"  property="equipName" /> 
+	    <association property="dbEquipType" column="equip_type_id"
+		javaType="com.hanqian.pojo.DbEquipType">
+			<id property="equipTypeId" column="equip_type_id" />
+		</association>   
+	  </resultMap>
+	  
+	  <resultMap id="GroupListsResultMap" type="com.hanqian.pojo.DbKeyEq">   
+	    <id column="seq"  property="seq" />
+	    <result column="group_id"  property="groupId" />
+	    <result column="group_name"  property="groupName" /> 
+	    <association property="dbEquipList" column="equip_id"
+		javaType="com.hanqian.pojo.DbEquipList">
+			<id property="equipId" column="equip_id" />			
+			<result column="equip_name"  property="equipName" />			 
+		</association>   
+		<association property="dbPoint" column="key_point"
+				javaType="com.hanqian.pojo.DbPoint">
+				<id property="seq" column="key_point" />			
+				<result column="point_name"  property="pointName" />
+			</association> 
+	  </resultMap>
+	  
+	  <resultMap id="EqResultMap" type="com.hanqian.pojo.DbEquipList">	   
+			<id property="equipId" column="equip_id" />			
+			<result column="equip_name"  property="equipName" />		
+	  </resultMap> 
+
+   <select id="findPointsValue" resultType="ciMap" parameterType="String">    
+        select f.*,vp.depict des from 
+        ( select c.project_point,c.controlpoint,p.point_name ,round(c.record*p.rate,2) value,pe.equip_type_id typeid 
+         from DB_CONTROLDATA c ,db_point p,DB_POINT_EQUIP pe 
+           where p.seq = c.c_seq and pe.seq = p.seq 
+             and c.project_point in(
+             ${_parameter}
+             )) f left join db_view_point vp on  vp.control_point = f.project_point 
+   </select>  
+   
+   <select id="findVirtualPoint" resultType="ciMap" parameterType="String">    
+        select round(c.record*mo.rate,2) value,mo.* from  (select f_one.*,vp.sumflag from (select p.project_point,p.rate, 
+         substr(p.project_point,0,(INSTR(p.project_point,'.')+2)) afterPoint,pe.equip_type_id,p.point_name, 
+          p.seq from db_point p left join DB_POINT_EQUIP pe on pe.seq = p.seq where substr(p.project_point,0, 
+           (INSTR(p.project_point,'.')+2)) = '#{contorlPoint}' and  substr(p.project_point,0,(INSTR(p.project_point,'.')+2)) 
+            = '#{contorlPoint}' ) f_one , db_view_point vp
+             where (vp.v_status=1 and 
+             substr(vp.control_point,0,(INSTR(vp.control_point,'.')+2)) = substr(f_one.project_point,0,(INSTR(f_one.project_point,'.')+2)) ) 
+             or ( vp.v_status=0 and vp.control_point = f_one.project_point   ) 
+             and vp.control_point like '%||#{contorlPoint}||%' ) mo left join  db_controldata c  on c.c_seq = mo.seq 
+   </select>  
+   
+      <select id="findGroupList" resultType="ciMap" >    
+        select group_id,group_name from db_key_eq group by group_id,group_name order by group_id asc
+   </select> 
+   
+
+   
+   	<!-- 
+    <select id="findGroupLists" resultMap="GroupListsResultMap"  parameterType="String"  >    
+        select ke.seq as seq,ke.group_id as group_id,ke.group_name as group_name, ke.equip_id as equip_id,ke.key_point as key_point,
+        el.equip_name as equip_name,p.point_name as point_name  
+        from db_key_eq ke  ,db_equip_list el,db_point p
+         where  el.equip_id = ke.equip_id and p.seq = ke.key_point  
+          <if test="wherestr != null">
+         	 and (ke.group_name like '%'||#{wherestr}||'%' or el.equip_name	  like '%'||#{wherestr}||'%')       
+	      </if>
+	       order by ke.group_id 
+   </select> 
+    -->
+    <select id="findGroupLists"  resultType="ciMap"  parameterType="String"  >    
+       select ke.*,el.equip_name,p.point_name from db_key_eq ke  ,db_equip_list el,db_point p
+        where  el.equip_id = ke.equip_id and p.seq = ke.key_point         
+          <if test="_parameter != null">
+         	 and (ke.group_name like '%'||#{_parameter}||'%' or el.equip_name	  like '%'||#{_parameter}||'%')       
+	      </if>
+	       order by ke.group_id 
+   </select> 
+   
+       <select id="findGroup" resultType="ciMap" parameterType="int" >    
+         select f.*,vp.depict from ( select ke.group_id,ke.group_name,p.project_point,p.Descr,el.equip_code,el.equip_id,el.equip_name,et.equip_type_id,et.type_name,p.unit_type
+          from db_key_eq ke,db_point p ,db_equip_list el,db_equip_type et 
+            where p.seq = ke.key_point  and el.equip_id = ke.equip_id and et.equip_type_id = el.equip_type_id
+             and ke.group_id=#{groupid}
+              order by el.equip_code,p.Descr asc  ) f left join db_view_point vp on vp.control_point = f.project_point
+   </select> 
+   
+     <select id="findAllTopEquipTypeKey" resultType="ciMap">    
+         select t.equip_type_id equipTypeId,t.type_name equipTypeName,t.equip_type_parent_id 
+         equipTypeParentId from db_equip_type t where t.equip_type_parent_id is null order by t.equip_type_id 
+   </select> 
+   <!-- 
+     <select id="findEqList"  parameterType="map" resultMap="EqListResultMap"  >    
+        select e.equip_id as equip_id, e.equip_code as equip_code,e.equip_name as equip_name,e.equip_type_id  as equip_type_id
+        from db_equip_list e where e.equip_type_id in 
+        (select t.equip_type_id from db_equip_type t 
+        where 1=1 
+        <if test="eqtype != null">
+         	 and  t.equip_type_id =#{eqtype} or t.equip_type_parent_id=#{eqtype})	        
+	      </if>
+	      <if test="eqtype == null">
+         	 and t.equip_type_id is null or t.equip_type_parent_id is null )      
+	      </if>	
+	       and e.equip_type_id in(select vp.equip_type_id from db_view_point vp 
+	       group by vp.equip_type_id) and e.control_flag = 1 and e.status =0   
+   </select> 
+   -->
+   
+    <select id="findEqListKey"  parameterType="map" resultType="ciMap">    
+        select e.equip_id , e.equip_code equip_code,e.equip_name,e.equip_type_id 
+        from db_equip_list e where e.equip_type_id in 
+        (select t.equip_type_id from db_equip_type t 
+        where 1=1 
+        <if test="eqtype != null">
+         	 and  t.equip_type_id =#{eqtype} or t.equip_type_parent_id=#{eqtype})	        
+	      </if>
+	      <if test="eqtype == null">
+         	 and t.equip_type_id is null or t.equip_type_parent_id is null )      
+	      </if>	
+	       and e.equip_type_id in(select vp.equip_type_id from db_view_point vp 
+	       group by vp.equip_type_id) and e.control_flag = 1 and e.status =0   
+   </select> 
+   
+   
+   
+     <select id="findPointList" resultType="ciMap"  parameterType="map">    
+       select   * from (      select p.seq,p.project_point from db_point p where
+        substr(p.project_point,0,(INSTR(p.project_point,'.')+2)) in
+           (select substr(v.control_point,0,(INSTR(v.control_point,'.')+2))
+             from db_view_point v where  instr(v.control_point,#{equipId}) = 1  and v.control_point is not null and v.show_flag=1)
+              ) a ,(
+              select v.control_point,v.depict , v.title ,v.v_status from db_view_point v where  instr(v.control_point,#{equipId})=1  and v.control_point is not null and v.show_flag=1
+               ) b where
+                   (b.v_status = 1 and substr(a.project_point,0,(INSTR(a.project_point,'.')+2)) =
+                      (substr(b.control_point,0,(INSTR(b.control_point,'.')+2)))) or (b.v_status = 0 and a.project_point=b.control_point )
+                        order by depict ,title 
+   </select>
+   
+
+   <!--  
+   <select id="findEq" resultMap="EqResultMap"  parameterType="int">    
+      select t.equip_id , e.equip_name  from (select k.equip_id from db_key_eq k group by
+       k.group_id , k.group_name,k.equip_id having k.group_id =#{groupid} ) t ,
+        db_equip_list e where e.equip_id = t.equip_id
+   </select> 
+    -->
+    
+   <select id="findEq" resultType="ciMap"  parameterType="int">    
+     select t.equip_id , e.equip_name from (select k.equip_id from db_key_eq k group by
+       k.group_id , k.group_name,k.equip_id having k.group_id =#{groupid} ) t ,
+        db_equip_list e where e.equip_id = t.equip_id
+   </select> 
+   
+    <resultMap id="EqsResultMap" type="com.hanqian.pojo.DbKeyEq">
+	    <id column="seq"  property="seq" />
+	    <result column="group_id"  property="groupId" />
+	    <result column="group_name"  property="groupName" /> 
+		    <association property="dbEquipList" column="equip_id"
+			javaType="com.hanqian.pojo.DbEquipList">
+				<id property="equipId" column="equip_id" />
+				<result column="equip_name"  property="equipName" />			 
+			</association>   
+			<association property="dbPoint" column="key_point"
+				javaType="com.hanqian.pojo.DbPoint">
+				<id property="seq" column="key_point" />			
+				<result column="point_name"  property="pointName" />
+			</association> 
+	  </resultMap>
+   <!--  
+   <select id="findEqs" resultMap="EqsResultMap"  parameterType="int">    
+      select k.equip_id as equip_id, k.key_point as seq,
+       (select e.equip_name from db_equip_list e where e.equip_id = k.equip_id) as equip_name
+      ,(select p.point_name from  db_point p where  p.seq= k.key_point ) as point_name
+      from  db_key_eq k where k.group_id =#{groupid}
+   </select> 
+   -->
+   
+   <select id="findEqs" resultMap="EqsResultMap"  parameterType="int">   
+	   select k.equip_id , k.key_point ,  k.group_id , k.group_name , (select e.equip_name from db_equip_list e where e.equip_id = k.equip_id) name
+	   ,(select p.point_name from  db_point p where  p.seq= k.key_point ) point_name
+	   from  db_key_eq k where k.group_id =#{groupid}
+   </select> 
+   
+   
+      <delete id="deleteGroup"  parameterType="int">    
+      delete db_key_eq t where  t.group_id =#{groupid}
+   </delete> 
+   
+      <select id="findKeyPoint" resultType="ciMap"  parameterType="map">    
+      select t.key_point,e.depict name 
+      from (select u.key_point 
+      from db_key_eq u group by u.group_id,u.equip_code,u.key_point 
+      having u.group_id='#{groupid}' and u.equip_code='#{eqcode}') t,
+      db_view_point e where e.control_point=t.key_point 
+   </select> 
+   
+     <select id="IsUniqueGroup" resultType="ciMap"  parameterType="map">    
+      select group_id,group_name from db_key_eq 
+      where group_name = #{groupName}
+	       group by group_id,group_name 
+   </select> 
+     <select id="IsUniqueGroup2" resultType="ciMap"  parameterType="map">    
+      select group_id,group_name from db_key_eq 
+      where group_name = #{groupName}
+         	and group_id = #{groupId}	        
+	       group by group_id,group_name 
+   </select> 
+   
+
+   <insert id="insertDbKeyEqS" parameterType="com.hanqian.pojo.DbKeyEq">
+    	<selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_KEY_EQ.nextval as seq from dual
+		</selectKey>
+    insert into DB_KEY_EQ
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME,
+      </if>
+      <if test="dbEquipList != null">
+        EQUIP_ID,
+      </if>
+      <if test="dbPoint != null">
+        KEY_POINT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="groupId != null">
+        #{groupId},
+      </if>
+      <if test="groupName != null">
+        #{groupName},
+      </if>
+      <if test="dbEquipList != null">
+        #{dbEquipList.equipId},
+      </if>
+      <if test="dbPoint != null">
+        #{dbPoint.seq},
+      </if>
+    </trim>
+  </insert>
+   
+  <select id="insertDbKeyEqSRetCode" resultType="ciMap"  parameterType="map">    
+      select seq_key_eq.nextval from dual
+   </select> 
+   
+</mapper>

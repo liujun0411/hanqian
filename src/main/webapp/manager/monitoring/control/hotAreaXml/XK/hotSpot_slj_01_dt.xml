@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 热区绘制说明 -->
+
+<!-- 1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+
+wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+
+eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标 -->
+
+<equipment>
+
+   	<!-- 热水泵1 -->
+
+   <area title="热水泵1#" wd="30" hg="25" marLeft="285" marTop="450" prop="hotBeng" initFlag="hide" eqTypeId="1004007" positionX="" postionY="" eventType="click"></area>
+
+   	<!-- 热水泵2 -->
+
+   <area title="热水泵2#" wd="30" hg="25" marLeft="90" marTop="385" prop="hotBeng" initFlag="hide" eqTypeId="1004007" positionX="" postionY="" eventType="click"></area>
+
+   	<!-- 热水泵3 -->
+
+   <area title="热水泵3#" wd="30" hg="25" marLeft="140" marTop="375" prop="hotBeng" initFlag="hide" eqTypeId="1004007" positionX="" postionY="" eventType="click"></area>
+
+   	 
+   	 
+
+   	<!-- 换热器1 -->
+ 
+   <area title="换热器1#" wd="30" hg="25" marLeft="140" marTop="400" prop="hrq" initFlag="hide" eqTypeId="1004008" positionX="" postionY="" eventType="click"></area>
+
+   	<!-- 换热器2-->
+
+   <area title="换热器2#" wd="30" hg="25" marLeft="290" marTop="390" prop="hrq" initFlag="hide" eqTypeId="1004008" positionX="" postionY="" eventType="click"></area>
+
+	<!-- 换热器3-->
+
+   <area title="换热器3#" wd="30" hg="25" marLeft="205" marTop="415" prop="hrq" initFlag="hide" eqTypeId="1004008" positionX="" postionY="" eventType="click"></area>
+
+	
+
+	<!-- 分水器 -->
+
+   <area title="分水器" wd="0" hg="0" marLeft="-1000" marTop="-1020" prop="coolTower" initFlag="hide" eqTypeId="1004005" positionX="" postionY="" eventType="click"></area>
+
+    <!-- 集水器 -->
+
+   <area title="集水器" wd="0" hg="0" marLeft="-1000" marTop="-1020" prop="coolTower" initFlag="hide" eqTypeId="1004006" positionX="" postionY="" eventType="click"></area>
+
+	
+
+</equipment>

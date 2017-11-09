@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 热区绘制说明 -->
+	<!--
+		1、equipment节点名不能改变，里面的子项全部是area，id=”自定义名字“，
+		wd是热区宽度，hg是热区高度，marLeft是热区左边距，marTop是热区上边距，prop是专家论证监测点节点，initFlag是否初始化页面展示（hide或show），
+		eqTypeId是指设备类型ID,positionX是默认的X轴坐标，postionY是默认y轴坐标
+	-->
+<equipment>
+	<child>
+		<!-- 热水二次泵1 -->
+		<!--<area title="1号热水二次泵" eventType="click" wd="30" hg="25" marLeft="205"
+			marTop="475" prop="hotBeng" initFlag="hide" eqTypeId="1004007"
+			positionX="330" postionY="390"></area>-->
+			
+		<!-- 热水二次泵2 -->
+		<!--<area title="2号热水二次泵" eventType="click" wd="30" hg="25" marLeft="175"
+			marTop="445" prop="hotBeng" initFlag="hide" eqTypeId="1004007"
+			positionX="545" postionY="390"></area>-->
+		
+		<!-- 热水泵1 -->
+		<area title="1号热水泵" eventType="click" wd="30" hg="25" marLeft="770"
+			marTop="395" prop="hotBeng" initFlag="hide" eqTypeId="1004007"
+			positionX="95" postionY="390"></area>
+			
+		<!-- 热水泵2 -->
+		<area title="2号热水泵" eventType="click" wd="30" hg="25" marLeft="720"
+			marTop="370" prop="hotBeng" initFlag="hide" eqTypeId="1004007"
+			positionX="330" postionY="390"></area>
+			
+		<!--  热水泵3 -->
+		<area title="3号热水泵" eventType="click" wd="30" hg="25" marLeft="675"
+			marTop="345" prop="hotBeng" initFlag="hide" eqTypeId="1004007"
+			positionX="545" postionY="390"></area>
+			
+		<!-- 分水器 -->
+		<area title="分水器" eventType="click" wd="0" hg="0" marLeft="-1000"
+			marTop="-1020" prop="coolTower" initFlag="hide" eqTypeId="1004005"
+			positionX="" postionY=""></area>
+			
+		<!-- 集水器 -->
+		<area title="集水器" eventType="click" wd="0" hg="0" marLeft="-1000"
+			marTop="-1020" prop="coolTower" initFlag="hide" eqTypeId="1004006"
+			positionX="" postionY=""></area>
+			
+		<!-- 换热器1 -->
+		<area title="1号换热器" eventType="click" wd="30" hg="25" marLeft="710"
+			marTop="420" prop="hrq" initFlag="hide" eqTypeId="1004008" positionX="95"
+			postionY="390"></area>
+			
+		<!-- 换热器2-->
+		<area title="2号换热器" eventType="click" wd="30" hg="25" marLeft="660"
+			marTop="395" prop="hrq" initFlag="hide" eqTypeId="1004008" positionX="330"
+			postionY="390"></area>
+			
+		<!-- 换热器3-->
+		<area title="3号换热器" eventType="click" wd="30" hg="25" marLeft="610"
+			marTop="365" prop="hrq" initFlag="hide" eqTypeId="1004008" positionX="545"
+			postionY="390"></area>
+	</child>
+</equipment>

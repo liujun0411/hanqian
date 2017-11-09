@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 2号楼B1集水井 -->
+	 <equip groupCode="02JSJ_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="35" type="6001"></point>
+			<point id="40" type="6002" num="1"></point>
+			<point id="41" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="36" type="6001"></point>
+			<point id="42" type="6002" num="1"></point>
+			<point id="43" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="37" type="6001"></point>
+			<point id="44" type="6002" num="1"></point>
+			<point id="45" type="6002" num="2"></point>
+		</xy>
+		
+		<xy x="345" y="321" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="38" type="6001"></point>
+			<point id="46" type="6002" num="1"></point>
+			<point id="47" type="6002" num="2"></point>
+		</xy>
+		<xy x="344" y="537" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="39" type="6001"></point>
+			<point id="48" type="6002" num="1"></point>
+			<point id="49" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+	 
+	  <!-- 5号楼集水井  152  150 151  155  153 154  -->
+ 	 <equip groupCode="05JSJ" flashHeight="667" flashWidth="1000">
+		<xy x="296" y="385" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="387" type="6001"></point>
+			<point id="385" type="6002" num="1"></point>
+			<point id="386" type="6002" num="2"></point>
+		</xy>
+		<xy x="346" y="669" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="390" type="6001"></point>
+			<point id="388" type="6002" num="3"></point>
+			<point id="389" type="6002" num="4"></point>
+		</xy>
+	 </equip>
+</equipment> 
+
+  

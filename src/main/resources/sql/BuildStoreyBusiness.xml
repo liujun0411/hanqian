@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.BuildStoreyBusiness">
+<resultMap type="com.hanqian.pojo.DbBuildingStorey" id="dbBuildingStoreyMap">
+	<id column="seq" property="seq"/>
+	<result column="STOREY" property="storey"/>
+	<result column="ACREAGE" property="acreage"/>
+	<result column="REMARKS" property="remarks"/>
+	<result column="STATUS" property="status"/>
+	<result column="INPUT" property="input"/>
+	<result column="INPUTTIME" property="inputtime"/>
+	<result column="OPERTIME" property="opertime"/>
+	<association column="HOSP_ID" property="dbHospInfo" javaType="com.hanqian.pojo.DbHospInfo">
+		<id column="HOSP_ID" property="seqHosp"/>
+	</association>
+	<association column="AREA_ID" property="dbBaseComm" javaType="com.hanqian.pojo.DbBaseComm">
+		<id column="AREA_ID" property="seq"/>
+	</association>
+	<association column="BUILDING_ID" property="dbBuilding" javaType="com.hanqian.pojo.DbBuilding">
+		<id column="BUILDING_ID" property="buildingId"/>
+	</association>
+	<association column="OPER" property="dbUsers" javaType="com.hanqian.pojo.DbUsers">
+		<id column="OPER" property="seq"/>
+	</association>
+</resultMap>
+   <select id="findBuildStorey" resultMap="dbBuildingStoreyMap" parameterType="int">    
+	select s.seq,s.hosp_id,s.building_id,s.storey,s.acreage,s.remarks,s.status,s.input,s.inputtime,s.oper,s.opertime,s.area_id
+	 from DB_BUILDING_STOREY s where s.SEQ=#{seq}
+   </select>  
+   
+   <select id="findBuildingGroup" resultType="ciMap" parameterType="int">    
+         select AREA_ID, sum(ACREAGE) as mj from Db_Building_Storey where BUILDING_ID=#{buildingId}
+          group by AREA_ID order by AREA_ID
+   </select>  
+   
+   <select id="findBuildinguseArea" resultType="ciMap">    
+          select sum(ACREAGE) as mj from DB_BUILDING_STOREY  group by AREA_ID order by AREA_ID
+   </select>  
+   
+   <select id="findHospInfo" resultType="ciMap"  parameterType="int">    
+          select BUILD_AREAS as mj from DB_HOSP_INFO where SEQ_HOSP=#{hospid} order by inputtime desc
+   </select>  
+   
+     <insert id="insertBuildingStorey" parameterType="com.hanqian.pojo.DbBuildingStorey">
+   		<selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_BUILDING_STOREY.nextval as seq from dual
+		</selectKey>
+	    insert into DB_BUILDING_STOREY
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="seq != null">
+	        SEQ,
+	      </if>
+	      <if test="dbHospInfo != null">
+	        HOSP_ID,
+	      </if>
+	      <if test="dbBuilding != null">
+	        BUILDING_ID,
+	      </if>
+	      <if test="storey != null">
+	        STOREY,
+	      </if>
+	      <if test="acreage != null">
+	        ACREAGE,
+	      </if>
+	      <if test="remarks != null">
+	        REMARKS,
+	      </if>
+	      <if test="status != null">
+	        STATUS,
+	      </if>
+	      <if test="input != null">
+	        INPUT,
+	      </if>
+	      <if test="inputtime != null">
+	        INPUTTIME,
+	      </if>
+	       <if test="dbUsers != null">
+	        OPER,
+	      </if>
+	      <if test="opertime != null">
+	        OPERTIME,
+	      </if>	     
+	      <if test="dbBaseComm != null">
+	        AREA_ID,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="seq != null">
+	        #{seq},
+	      </if>
+	      <if test="dbHospInfo != null">
+	        #{dbHospInfo.seqHosp},
+	      </if>
+	      <if test="dbBuilding != null">
+	        #{dbBuilding.buildingId},
+	      </if>
+	      <if test="storey != null">
+	        #{storey},
+	      </if>
+	      <if test="acreage != null">
+	        #{acreage},
+	      </if>
+	      <if test="remarks != null">
+	        #{remarks},
+	      </if>
+	      <if test="status != null">
+	        #{status},
+	      </if>
+	      <if test="input != null">
+	        #{input},
+	      </if>
+	      <if test="inputtime != null">
+	        #{inputtime},
+	      </if>	
+	       <if test="dbUsers != null">
+	        #{dbUsers.seq},
+	      </if>
+	      <if test="opertime != null">
+	        #{opertime},
+	      </if>    
+	      <if test="dbBaseComm != null">
+	        #{dbBaseComm.seq},
+	      </if>
+	    </trim>
+  </insert>
+  
+   <update id="updateDbBuildingStorey" parameterType="com.hanqian.pojo.DbBuildingStorey">
+  
+    update DB_BUILDING_STOREY
+    <set>
+      <if test="dbHospInfo != null">
+        HOSP_ID = #{dbHospInfo.seqHosp},
+      </if>
+      <if test="dbBuilding != null">
+        BUILDING_ID = #{dbBuilding.buildingId},
+      </if>
+      <if test="storey != null">
+        STOREY = #{storey},
+      </if>
+      <if test="acreage != null">
+        ACREAGE = #{acreage},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks},
+      </if>
+      <if test="status != null">
+        STATUS = #{status},
+      </if>
+      <if test="input != null">
+        INPUT = #{input},
+      </if>
+      <if test="inputtime != null">
+        INPUTTIME = #{inputtime},
+      </if>
+      <if test="dbUsers != null">
+        OPER = #{dbUsers.seq},
+      </if>
+      <if test="opertime != null">
+        OPERTIME = #{opertime},
+      </if>
+      <if test="dbBaseComm != null">
+        AREA_ID = #{dbBaseComm.seq},
+      </if>
+    </set>
+    where SEQ = #{seq}
+  </update>
+  
+     <select id="findBuildingStorey" resultType="ciMap" parameterType="map">    
+         select *  from DB_BUILDING_STOREY  where 1=1
+         <if test="seq != null">
+          	and	seq=#{seq} 
+         </if>
+          <if test="buildingId != null">
+          	and	building_id=#{buildingId}  
+         </if>
+         <if test="storey != null">
+          	and	storey=#{storey}  
+         </if>
+          order by storey asc
+   </select>  
+   
+   <select id="reportBuildingStorey" resultType="ciMap" parameterType="map">    
+         select *  from DB_BUILDING_STOREY  where 1=1
+         <if test="lastTime != null">
+          	and	opertime>=#{lastTime}  
+         </if>         
+   </select>  
+   
+   <select id="addStringSQL" resultType="ciMap" >    
+         select *  from db_base_comm  where oper_type=4
+   </select>  
+  
+   
+   
+      <select id="callBuiildStoreyMethod" resultType="ciMap" parameterType="map">    
+         select storey as 楼层  ,
+         <if test="callstr != null">
+          		${callstr} 
+         </if>
+         
+             from db_building_storey  where  building_id=#{buildingId}   group by storey order by storey desc
+   </select>  
+   
+  
+   
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<!--设备信息-->
+
+<equipment>
+
+	
+
+	<!-- 冷水泵 6  按照这个顺序排序 -->
+
+	<area title="出水池出水泵A" wd="15" hg="15" marLeft="187" marTop="207" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 冷水泵 7 -->
+
+	<area title="出水池出水泵B" wd="15" hg="15" marLeft="428" marTop="145" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!-- 冷水泵 8  -->
+
+	<area title="臭氧风机" wd="15" hg="15" marLeft="448" marTop="154" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!--冷水泵 11 -->
+
+	<area title="集水坑提升泵A" wd="15" hg="15" marLeft="632" marTop="177" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!--冷水泵 12 -->
+
+	<area title="机械格栅" wd="15" hg="15" marLeft="656" marTop="168" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+
+		
+
+	<!--冷水泵 13 -->
+
+	<area title="次氯酸钠加药泵" wd="15" hg="15" marLeft="679" marTop="161" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+
+	<!--冷水泵 1-->
+
+	<area title="生化风机A" wd="15" hg="15" marLeft="305" marTop="359" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!--冷水泵 2 -->
+
+	<area title="生化风机B" wd="15" hg="15" marLeft="340" marTop="346" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	
+    <!--冷水泵 3 -->
+
+	<area title="调节池鼓风机" wd="15" hg="15" marLeft="220" marTop="279" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!--冷水泵  4-->
+
+	<area title="调节池提升泵A" wd="15" hg="15" marLeft="255" marTop="269" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	
+	
+	<!--冷水泵  5 -->
+
+	<area title="调节池提升泵B" wd="15" hg="15" marLeft="155" marTop="215" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!--冷水泵 9 -->
+
+	<area title="污泥提升泵A" wd="15" hg="15" marLeft="469" marTop="163" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	
+	<!--冷水泵 10 -->
+
+	<area title="污泥提升泵B" wd="15" hg="15" marLeft="491" marTop="170" prop="lsb"
+
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+	
+	
+	
+	
+	<!-- 冷水箱5 -->	
+
+	<area title="次氯酸钠液位" wd="20" hg="20" marLeft="627" marTop="137" prop="lsx"
+
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+   
+   <!-- 冷水箱1 -->	
+
+	<area title="调节池液位" wd="20" hg="20" marLeft="520" marTop="149" prop="lsx"
+
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+	<!-- 冷水箱3 -->	
+
+	<area title="污泥池1液位" wd="20" hg="20" marLeft="582" marTop="149" prop="lsx"
+
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+  <!-- 冷水箱4 -->	
+
+	<area title="污泥池2液位" wd="20" hg="20" marLeft="605" marTop="143" prop="lsx"
+
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+  <!-- 冷水箱2 -->	
+
+	<area title="消毒池液位" wd="20" hg="20" marLeft="557" marTop="155" prop="lsx"
+
+		initFlag="hidden" eqTypeId="5002" positionX="100" postionY="50" eventType="click"></area>
+ 		
+
+
+		
+
+</equipment>

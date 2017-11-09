@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<equipment>
+   <newFau title="出水管道">
+       <property run="08" des="出水温度" unit="℃"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="0801" des="出水温度" unit="℃"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="0802" des="出水温度" unit="℃"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="09" des="出水压力" unit="Mpa"  colu="" maxVa="" minVa="" remark="" condition="" seTitle="" showFlag="1" isAbs="0" errText=""></property>
+	   <property run="10" des="水流开关" unit="" colu="" maxVa="" minVa="" remark="0|关,1|开" condition="" seTitle="" showFlag="1" isAbs="1" errText=""></property>
+   </newFau>
+</equipment>

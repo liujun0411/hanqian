@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.hanqian.business.ImportExcleBusiness">
+	<!-- 将clob直接以string查出来 -->
+	<resultMap id="hospResult" type="ciMap">
+		<result property="HOSP_INFO" column="HOSP_INFO" javaType="string"
+			jdbcType="CLOB" typeHandler="com.hanqian.util.OracleClobTypeHandler" />
+	</resultMap>
+	<select id="findPointByEqID" parameterType="string" resultType="ciMap">
+		SELECT T.* FROM DB_POINT_EQUIP T WHERE T.EQUIP_ID=#{eqId}
+	</select>
+	<select id="equipNameIdList" resultType="ciMap">
+		select
+		T.EQUIP_ID,T.EQUIP_NAME,T.EQUIP_TYPE_ID FROM DB_EQUIP_LIST T
+	</select>
+	<select id="getEqNameByID" resultType="ciMap" parameterType="string">
+		select T.EQUIP_ID,T.EQUIP_NAME FROM DB_EQUIP_LIST T WHERE
+		T.EQUIP_ID=#{eqid}
+	</select>
+	<select id="getEqTypeByID" resultType="ciMap" parameterType="string">
+		select T.TYPE_NAME FROM Db_Equip_TYPE T WHERE
+		T.EQUIP_TYPE_ID=#{typeid}
+	</select>
+	<!--获取表格信息 -->
+	<select id="selectPointList" resultType="ciMap" parameterType="map">
+		SELECT * FROM (
+		SELECT DBB.BUILDING_ID, DBB.BUILDING_NAME,
+		TT.EQUIP_ID, TT.EQUIP_NAME,
+		TT.EQUIP_CODE,
+		TT.EQUIP_TYPE_ID,
+		TT.PLACE,TT.CONTROL_FLAG,TT.NODE_LEVEL,TT.NODE_PARENT,
+		AA.GROUP_NAME,ES.COMMENTS,TT.PROJECT_POINT,
+		TT.POINT_NAME,TT.DESCR,TT.ALERT_LEVEL
+		FROM (SELECT
+		DPC.POINT_NAME, DPC.PROJECT_POINT,DPC.DESCR,DPC.ALERT_LEVEL,DEL.* FROM DB_POINT DPC,
+		DB_EQUIP_LIST DEL, db_point_equip DPE
+		WHERE DPC.SEQ=DPE.SEQ AND
+		DEL.EQUIP_ID=DPE.EQUIP_ID)TT
+		LEFT JOIN DB_BUILDING DBB
+		ON
+		DBB.BUILDING_ID = TT.BUILDING_ID
+		LEFT JOIN EQUIP_SERVICE ES
+		ON
+		ES.EQUIP_ID = TT.EQUIP_ID
+		AND ES.BUILD_ID = TT.BUILDING_ID AND
+		ES.STOREY=TT.STOREY
+		LEFT JOIN (SELECT * FROM
+		DB_EQUIP_GROUP,DB_GROUP_EQUIP WHERE
+		DB_EQUIP_GROUP.SEQ=DB_GROUP_EQUIP.EQUIP_GROUP) AA
+		ON
+		AA.EQUIP_ID=TT.EQUIP_ID
+		ORDER BY DBB.BUILDING_NAME,
+		TT.EQUIP_TYPE_ID,TT.PROJECT_POINT) BB
+		WHERE 1=1
+		<if test="buildingName != null"> and BB.BUILDING_NAME like '%${buildingName}%' </if>
+		<if test="equipName != null"> and BB.EQUIP_NAME like '%${equipName}%' </if>
+		<if test="nodeLevel != null"> and BB.NODE_LEVEL =#{nodeLevel} </if>
+		<if test="equipTypeId != null"> and BB.EQUIP_TYPE_ID =#{equipTypeId}</if>
+		<if test="pointName != null"> and BB.POINT_NAME like '%${pointName}%' </if>
+		<if test="pointCode != null"> and BB.PROJECT_POINT like '%${pointCode}%'</if>
+		<if test="controlFlag != null"> and BB.CONTROL_FLAG =#{controlFlag}</if>
+		<if test="alertLevel != null"> and BB.ALERT_LEVEL =#{alertLevel}</if>
+	</select>
+	<delete id="deleteEqService">
+		DELETE FROM EQUIP_SERVICE L
+		WHERE L.ROWID NOT
+		IN(SELECT MAX(ROWID) FROM EQUIP_SERVICE T
+		WHERE T.EQUIP_ID=L.EQUIP_ID
+		AND T.BUILD_ID=L.BUILD_ID AND T.STOREY=L.STOREY
+		)
+	</delete>
+	<!--更新设备表 DB_EQUIP_LIST -->
+	<update id="updateDbEquipList" parameterType="string">
+		UPDATE
+		DB_EQUIP_LIST SET DB_EQUIP_LIST.CONTROL_FLAG='0'
+		WHERE
+		DB_EQUIP_LIST.EQUIP_ID=#{eqId}
+	</update>
+	<!--删除 DB_POINT -->
+	<delete id="deleteDbpoint" parameterType="string">
+		DELETE DB_POINT WHERE
+		DB_POINT.SEQ=#{pointId}
+	</delete>
+	<!--删除 DB_POINT_EQUIP -->
+	<delete id="deleteDbPointEquip" parameterType="string">
+		DELETE
+		DB_POINT_EQUIP WHERE db_point_equip.SEQ=#{pointId}
+	</delete>
+	
+		<!--删除 DB_ALARM_HIS -->
+	<delete id="deletedbpointhis" parameterType="string">
+	delete  from  DB_ALARM_HIS t where  t.C_SEQ=#{pointId}
+	</delete>
+	
+	<!--删除 DB_CONTROLDATA -->
+	<delete id="deleteDbcontroldata" parameterType="string">
+		DELETE
+		db_controldata WHERE db_controldata.project_point=#{proPointlId}
+	</delete>
+	<select id="findPointIDBypProPointlId" parameterType="string"
+		resultType="ciMap">
+		SELECT T.* FROM DB_POINT T WHERE
+		T.PROJECT_POINT=#{proPointlId}
+	</select>
+	<!-- <select id="sdcdPointList" resultType="ciMap"> SELECT T.* FROM DB_POINT_COLLECT_PROTOCOL 
+		T </select> -->
+	<select id="getHospInfoList" parameterType="String" resultMap="hospResult">
+		SELECT T.* FROM DB_HOSP_INFO T WHERE T.SEQ_HOSP='1'
+	</select>
+	<!-- WHERE T.SEQ_HOSP= -->
+	<select id="selectExcle" resultType="ciMap">
+
+		SELECT DBB.*,
+       TT.EQUIP_NAME,
+       ES.SEQ,
+       ES.COMMENTS,
+       ES.ENERGY_ID,
+       AA.SEQ as seqg,
+       AA.GROUPCODE,
+       AA.GROUP_NAME,
+       AA.EQUIP_TYPE,
+       AA.STOREY AS STOREYG,
+       TT.*,
+       TO_CHAR(TT.PRODUCTION_DATE, 'yyyy/mm/dd') AS PRODUCTIONDATE,
+       TO_CHAR(TT.INSTALL_DATE, 'yyyy/mm/dd') AS INSTALLDATE,
+       TO_CHAR(TT.USE_DATE, 'yyyy/mm/dd') AS USEDATE
+  FROM (SELECT DPC.POINT_NAME, DPC.PROJECT_POINT, DPC.DESCR,DPC.CONTROLPOINT, DEL.*
+          FROM DB_POINT DPC, DB_EQUIP_LIST DEL, db_point_equip DPE
+         WHERE DPC.SEQ = DPE.SEQ
+           AND DEL.EQUIP_ID = DPE.EQUIP_ID) TT
+  LEFT JOIN DB_BUILDING DBB
+    ON DBB.BUILDING_ID = TT.BUILDING_ID
+  LEFT JOIN EQUIP_SERVICE ES
+    ON ES.EQUIP_ID = TT.EQUIP_ID
+   AND ES.BUILD_ID = TT.BUILDING_ID
+   AND ES.STOREY = TT.STOREY
+  LEFT JOIN (SELECT *
+               FROM DB_EQUIP_GROUP, DB_GROUP_EQUIP
+              WHERE DB_EQUIP_GROUP.SEQ = DB_GROUP_EQUIP.EQUIP_GROUP) AA
+    ON AA.EQUIP_ID = TT.EQUIP_ID
+ ORDER BY DBB.BUILDING_NAME, TT.EQUIP_TYPE_ID, TT.PROJECT_POINT
+
+		<!-- SELECT TT.*, ES.SEQ, ES.COMMENTS, ES.ENERGY_ID, TT.EQUIP_ID, TT.EQID, 
+			TO_CHAR(TT.PRODUCTION_DATE, 'yyyy/mm/dd') AS PRODUCTION_DATE, TO_CHAR(TT.INSTALL_DATE, 
+			'yyyy/mm/dd') AS INSTALL_DATE, TO_CHAR(TT.USE_DATE, 'yyyy/mm/dd') AS USE_DATE, 
+			DBB.*, DEG.SEQ AS SEQG, DEG.STOREY AS STOREYG, DEG.GROUP_NAME, DEG.EQUIP_TYPE, 
+			DEG.GROUPCODE FROM (SELECT DEL.*, DPC.PROJECT_POINT,DPC.DESCR, (SELECT SUBSTR(DPC.PROJECT_POINT, 
+			0, (SELECT INSTR(DPC.PROJECT_POINT, '.', 1, 1) - 1 FROM DUAL)) FROM DUAL) 
+			AS EQID FROM DB_POINT DPC, DB_EQUIP_LIST DEL WHERE DEL.EQUIP_ID = (SELECT 
+			SUBSTR(DPC.PROJECT_POINT, 0, (SELECT INSTR(DPC.PROJECT_POINT, '.', 1, 1) 
+			- 1 FROM DUAL)) FROM DUAL) ) TT LEFT JOIN DB_GROUP_EQUIP DGE ON DGE.EQUIP_ID 
+			= TT.EQID LEFT JOIN DB_EQUIP_GROUP DEG ON DEG.SEQ = DGE.EQUIP_GROUP LEFT 
+			JOIN DB_BUILDING DBB ON DBB.BUILDING_ID = TT.BUILDING_ID LEFT JOIN EQUIP_SERVICE 
+			ES ON ES.EQUIP_ID = TT.EQID AND ES.BUILD_ID = TT.BUILDING_ID AND ES.STOREY=TT.STOREY 
+			ORDER BY DBB.BUILDING_NAME, TT.EQUIP_TYPE_ID,TT.PROJECT_POINT -->
+	</select>
+	<select id="ifHospInfoHas" parameterType="map" resultType="ciMap">
+		SELECT T.* FROM DB_HOSP_INFO T WHERE T.HOSP_NAME=#{HOSP_NAME}
+	</select>
+	<update id="updateHospInfo001" parameterType="map">
+		UPDATE DB_HOSP_INFO
+		<set>
+			<if test="HOSP_CODE != null">HOSP_CODE=#{HOSP_CODE}, </if>
+			<if test="HOSPLEVEL != null">HOSPLEVEL=#{HOSPLEVEL},</if>
+			<if test="KIND != null">KIND=#{KIND}, </if>
+			<if test="HOSP_NAME != null">HOSP_NAME=#{HOSP_NAME}, </if>
+			<if test="SHORT_NAME != null">SHORT_NAME=#{SHORT_NAME},</if>
+			<if test="ZIPCODE != null">ZIPCODE=#{ZIPCODE},</if>
+			<if test="ADDRESS != null">ADDRESS=#{ADDRESS}, </if>
+			<if test="PRINCIPAL != null">PRINCIPAL=#{PRINCIPAL},</if>
+			<if test="HOSPDIST != null">HOSPDIST=#{HOSPDIST},</if>
+			<if test="HOSP_INFO != null">HOSP_INFO=#{HOSP_INFO}, </if>
+			<if test="BUILDTIME != null">BUILDTIME=#{BUILDTIME},</if>
+			<if test="LAND_AREAS != null">LAND_AREAS=#{LAND_AREAS},</if>
+			<if test="BUILD_AREAS != null">BUILD_AREAS=#{BUILD_AREAS}, </if>
+			<if test="TEL1 != null">TEL1=#{TEL1}, </if>
+			<if test="TEL2 != null">TEL2=#{TEL2}, </if>
+			<if test="TEL3 != null">TEL3=#{TEL3}, </if>
+			<if test="FAX1 != null">FAX1=#{FAX1}, </if>
+			<if test="FAX2 != null">FAX2=#{FAX2}, </if>
+			<if test="FULL_VIEW != null">FULL_VIEW=#{FULL_VIEW}, </if>
+			<if test="IMAGES1 != null">IMAGES1=#{IMAGES1},</if>
+			<if test="IMAGES2 != null">IMAGES2=#{IMAGES2},</if>
+			<if test="IMAGES3 != null">IMAGES3=#{IMAGES3},  </if>
+			<if test="IMAGES4 != null">IMAGES4=#{IMAGES4}, </if>
+			<if test="HOSP_PARENT != null">HOSP_PARENT=#{HOSP_PARENT}, </if>
+			<if test="STATUS != null">STATUS=#{STATUS},</if>
+			<if test="INPUT != null">INPUT=#{INPUT}, </if>
+			<if test="INPUTTIME != null">INPUTTIME=#{INPUTTIME}, </if>
+		</set>
+		WHERE HOSP_NAME=#{HOSP_NAME}
+	</update>
+	<insert id="insertHospInfo001" parameterType="map">
+		<selectKey resultType="long" keyProperty="seqHosp" order="BEFORE">
+			select
+			SEQ_HOSP_INFO.nextval as seqHosp from dual
+		</selectKey>
+		insert into DB_HOSP_INFO
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="seqHosp != null">SEQ_HOSP, </if>
+			<if test="HOSP_CODE != null">HOSP_CODE, </if>
+			<if test="HOSPLEVEL != null"> HOSPLEVEL,</if>
+			<if test="KIND != null">KIND, </if>
+			<if test="HOSP_NAME != null"> HOSP_NAME, </if>
+			<if test="SHORT_NAME != null"> SHORT_NAME,</if>
+			<if test="ZIPCODE != null"> ZIPCODE,</if>
+			<if test="ADDRESS != null">ADDRESS, </if>
+			<if test="PRINCIPAL != null"> PRINCIPAL,</if>
+			<if test="HOSPDIST != null"> HOSPDIST,</if>
+			<if test="HOSP_INFO != null"> HOSP_INFO, </if>
+			<if test="BUILDTIME != null"> BUILDTIME,</if>
+			<if test="LAND_AREAS != null">LAND_AREAS,</if>
+			<if test="BUILD_AREAS != null">BUILD_AREAS, </if>
+			<if test="TEL1 != null"> TEL1, </if>
+			<if test="TEL2 != null"> TEL2, </if>
+			<if test="TEL3 != null"> TEL3, </if>
+			<if test="FAX1 != null"> FAX1, </if>
+			<if test="FAX2 != null"> FAX2, </if>
+			<if test="FULL_VIEW != null"> FULL_VIEW, </if>
+			<if test="IMAGES1 != null"> IMAGES1,</if>
+			<if test="IMAGES2 != null">IMAGES2,</if>
+			<if test="IMAGES3 != null">IMAGES3,  </if>
+			<if test="IMAGES4 != null">IMAGES4, </if>
+			<if test="HOSP_PARENT != null"> HOSP_PARENT, </if>
+			<if test="STATUS != null"> STATUS,</if>
+			<if test="INPUT != null">INPUT, </if>
+			<if test="INPUTTIME != null">INPUTTIME, </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="seqHosp != null"> 1, </if>
+			<if test="HOSP_CODE != null">#{HOSP_CODE}, </if>
+			<if test=" HOSPLEVEL!= null"> #{HOSPLEVEL},</if>
+			<if test="KIND != null">#{KIND}, </if>
+			<if test=" HOSP_NAME!= null"> #{HOSP_NAME}, </if>
+			<if test=" SHORT_NAME!= null"> #{SHORT_NAME},</if>
+			<if test=" ZIPCODE!= null"> #{ZIPCODE},</if>
+			<if test="ADDRESS != null">#{ADDRESS}, </if>
+			<if test=" PRINCIPAL!= null"> #{PRINCIPAL},</if>
+			<if test=" HOSPDIST!= null"> #{HOSPDIST},</if>
+			<if test=" HOSP_INFO!= null"> #{HOSP_INFO}, </if>
+			<if test=" BUILDTIME!= null"> #{BUILDTIME},</if>
+			<if test="LAND_AREAS != null">#{LAND_AREAS},</if>
+			<if test="BUILD_AREAS != null">#{BUILD_AREAS}, </if>
+			<if test=" TEL1!= null"> #{TEL1}, </if>
+			<if test=" TEL2!= null"> #{TEL2}, </if>
+			<if test=" TEL3!= null"> #{TEL3}, </if>
+			<if test=" FAX1!= null"> #{FAX1}, </if>
+			<if test=" FAX2!= null"> #{FAX2}, </if>
+			<if test=" FULL_VIEW!= null"> #{FULL_VIEW}, </if>
+			<if test=" IMAGES1!= null"> #{IMAGES1},</if>
+			<if test="IMAGES2 != null">#{IMAGES2},</if>
+			<if test="IMAGES3 != null">#{IMAGES3},  </if>
+			<if test="IMAGES4 != null">#{IMAGES4}, </if>
+			<if test=" HOSP_PARENT!= null"> #{HOSP_PARENT}, </if>
+			<if test=" STATUS!= null"> #{STATUS},</if>
+			<if test="INPUT != null">#{INPUT}, </if>
+			<if test="INPUTTIME != null">#{INPUTTIME}, </if>
+		</trim>
+	</insert>
+	<select id="selectEquipParByName" parameterType="map"
+		resultType="ciMap">
+		SELECT T.* FROM DB_EQUIP_LIST T WHERE
+		T.EQUIP_NAME=#{eqName}
+	</select>
+	<select id="ifcontroldataHas" parameterType="map" resultType="ciMap">
+		SELECT T.* FROM db_controldata T WHERE
+		T.PROJECT_POINT=#{PROJECT_POINT}
+	</select>
+	<!-- SEQ_DB_CONTRLOL_3DAYS.NEXTVAL, -->
+	<insert id="insertDbcontroldata001" parameterType="map">
+		<selectKey resultType="long" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_DB_CONTRLOL_3DAYS.NEXTVAL as seq from dual
+		</selectKey>
+		insert into db_controldata
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="seq != null">seq,</if>
+			<if test="C_SEQ != null">C_SEQ,</if>
+			<if test="PROJECT_POINT != null">PROJECT_POINT,</if>
+			<if test="CONTROLPOINT != null">CONTROLPOINT,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="seq != null">#{seq},</if>
+			<if test="C_SEQ != null">#{C_SEQ},</if>
+			<if test="PROJECT_POINT != null">#{PROJECT_POINT},</if>
+			<if test="CONTROLPOINT != null">#{CONTROLPOINT},</if>
+		</trim>
+	</insert>
+	<!-- <update id="updataDbcontroldata001" parameterType="map"> update db_controldata 
+		<set> <if test="C_SEQ != null">C_SEQ=#{C_SEQ},</if> </set> where PROJECT_POINT=#{PROJECT_POINT} 
+		</update> -->
+	<select id="selectDbControDateList" resultType="ciMap">
+		SELECT
+		T.PROJECT_POINT FROM db_controldata T
+	</select>
+	<select id="ifpointEquipHas" parameterType="map" resultType="ciMap">
+		SELECT T.* FROM db_point_equip T WHERE T.SEQ=#{SEQ} AND
+		T.EQUIP_ID=#{EQUIP_ID}
+	</select>
+	<insert id="insertPointEquip001" parameterType="map">
+		insert into db_point_equip
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="SEQ != null">SEQ,</if>
+			<if test="EQUIP_ID != null">EQUIP_ID,</if>
+			<if test="EQUIP_TYPE_ID != null">EQUIP_TYPE_ID,</if>
+			<if test="HOSP_ID != null">HOSP_ID,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="SEQ != null">#{SEQ},</if>
+			<if test="EQUIP_ID != null">#{EQUIP_ID},</if>
+			<if test="EQUIP_TYPE_ID != null">#{EQUIP_TYPE_ID},</if>
+			<if test="HOSP_ID != null">#{HOSP_ID},</if>
+		</trim>
+	</insert>
+	<update id="updatePointEquip001" parameterType="map">
+		update db_point_equip
+		<set>
+			<if test="SEQ != null">SEQ=#{SEQ},</if>
+			<if test="EQUIP_ID != null">EQUIP_ID=#{EQUIP_ID},</if>
+			<if test="EQUIP_TYPE_ID != null">EQUIP_TYPE_ID=#{EQUIP_TYPE_ID},</if>
+		</set>
+		where SEQ=#{SEQ}
+	</update>
+	<select id="ifPointHas" parameterType="String" resultType="ciMap">
+		SELECT T.* FROM DB_POINT T where T.PROJECT_POINT=#{projectPoint}
+	</select>
+	<select id="ifPointHaBys" parameterType="String" resultType="ciMap">
+		SELECT T.* FROM DB_POINT T where T.PROJECT_POINT=#{PROJECT_POINT}
+	</select>
+	<insert id="insertDbPoint001" parameterType="map">
+		<selectKey resultType="long" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_POINT.nextval as seq from dual
+		</selectKey>
+		insert into DB_POINT
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="seq != null">seq,</if>
+			<if test="CONTROLPOINT != null">CONTROLPOINT,</if>
+			<if test="PROJECT_POINT != null">PROJECT_POINT,</if>
+			<if test="POINT_NAME != null">POINT_NAME,</if>
+			<if test="HOSP_ID != null">HOSP_ID,</if>
+			<if test="UNIT_TYPE != null">UNIT_TYPE,</if>
+			<if test="RATE != null">RATE,</if>
+			<if test="ALERT_LEVEL != null">ALERT_LEVEL,</if>
+			<if test="DESCR != null">DESCR,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="seq != null">#{seq},</if>
+			<if test="CONTROLPOINT != null">#{CONTROLPOINT},</if>
+			<if test="PROJECT_POINT != null">#{PROJECT_POINT},</if>
+			<if test="POINT_NAME != null">#{POINT_NAME},</if>
+			<if test="HOSP_ID != null">#{HOSP_ID},</if>
+			<if test="UNIT_TYPE != null">#{UNIT_TYPE},</if>
+			<if test="RATE != null">#{RATE},</if>
+			<if test="ALERT_LEVEL != null">#{ALERT_LEVEL},</if>
+			<if test="DESCR != null">#{DESCR},</if>
+		</trim>
+	</insert>
+	<update id="updateDbPoint001" parameterType="map">
+		update DB_POINT
+		<set>
+			<if test="seq != null">seq=#{seq},</if>
+			<if test="CONTROLPOINT != null">CONTROLPOINT=#{CONTROLPOINT},</if>
+			<if test="PROJECT_POINT != null">PROJECT_POINT=#{PROJECT_POINT},</if>
+			<if test="POINT_NAME != null">POINT_NAME=#{POINT_NAME},</if>
+			<if test="UNIT_TYPE != null">UNIT_TYPE=#{UNIT_TYPE},</if>
+			<if test="ALERT_LEVEL != null">ALERT_LEVEL=#{ALERT_LEVEL},</if>
+			<if test="DESCR != null">DESCR=#{DESCR},</if>
+		</set>
+		where PROJECT_POINT=#{PROJECT_POINT}
+	</update>
+	<select id="findByRuleMap001" parameterType="map" resultType="ciMap">
+		SELECT T.* FROM DB_NOT_MEASURE_RULE T WHERE
+		T.EQUIP_TYPE_ID=#{eqTypeId} AND
+		T.CONTROL_POINT=#{controlPoint}
+	</select>
+
+	<!-- gorup是否存在 -->
+	<select id="findByGroupidAndEqid" parameterType="map"
+		resultType="ciMap">
+		SELECT T.* FROM DB_GROUP_EQUIP T WHERE
+		T.EQUIP_GROUP=#{eqGroupSeq} AND T.EQUIP_ID=#{equipID}
+	</select>
+	<insert id="insertGroupEquip001" parameterType="map">
+		insert into DB_GROUP_EQUIP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="eqGroupSeq !=null ">EQUIP_GROUP,</if>
+			<if test="equipID !=null ">EQUIP_ID,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="eqGroupSeq !=null ">#{eqGroupSeq},</if>
+			<if test="equipID !=null">#{equipID},</if>
+		</trim>
+	</insert>
+	<!--设备分组是否存在 -->
+	<select id="findEqGroupByName" parameterType="map" resultType="ciMap">
+		SELECT T.* FROM DB_EQUIP_GROUP T WHERE T.GROUP_NAME=#{groupName}
+	</select>
+	<select id="findEqGroupById" parameterType="String" resultType="ciMap">
+		SELECT T.* FROM DB_EQUIP_GROUP T WHERE T.seq=#{equipGroupid}
+	</select>
+	<update id="updateEqGroup001" parameterType="map">
+		update DB_EQUIP_GROUP
+		<set>
+			<if test="groupId != null">GROUP_ID=#{groupId},</if>
+			<if test="groupName != null">GROUP_NAME=#{groupName},</if>
+			<if test="PGroupId != null">P_GROUP_ID=#{PGroupId},</if>
+			<if test="dbEquipType != null">EQUIP_TYPE=#{dbEquipType},</if>
+			<if test="dbUsersByOper != null">INPUT=#{dbUsersByOper},</if>
+			<if test="inputtime != null">INPUTTIME=sysdate,</if>
+			<if test="remark != null">REMARK=#{remark},</if>
+			<if test="buildId != null">BUILD_ID=#{buildId},</if>
+			<if test="storey != null">STOREY=#{storey},</if>
+			<if test="groupPic != null">GROUP_PIC=#{groupPic},</if>
+			<if test="groupCode != null">GROUPCODE=#{groupCode},</if>
+		</set>
+		where GROUP_NAME=#{groupName}
+	</update>
+
+	<!-- 插入设备分组 -->
+	<insert id="insertEquipGroup001" parameterType="map">
+		<selectKey resultType="long" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_DEVICEGROUP.nextval as seq from dual
+		</selectKey>
+		insert into DB_EQUIP_GROUP
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="equipGroupid !=null">
+					<if test="equipGroupid != null">SEQ,</if>
+				</when>
+				<otherwise>
+					<if test="seq != null">SEQ, </if>
+				</otherwise>
+			</choose>
+			<if test="groupId != null">GROUP_ID,</if>
+			<if test="groupName != null">GROUP_NAME,</if>
+			<if test="PGroupId != null">P_GROUP_ID,</if>
+			<if test="dbEquipType != null">EQUIP_TYPE,</if>
+			<if test="dbUsersByOper != null">INPUT,</if>
+			<if test="inputtime != null">sysdate,</if>
+			<if test="remark != null">REMARK,</if>
+			<if test="buildId != null">BUILD_ID,</if>
+			<if test="storey != null">STOREY,</if>
+			<if test="groupPic != null">GROUP_PIC,</if>
+			<if test="groupCode != null">GROUPCODE,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="equipGroupid !=null">
+					<if test="equipGroupid != null">#{equipGroupid},</if>
+				</when>
+				<otherwise>
+					<if test="seq != null">#{seq},</if>
+				</otherwise>
+			</choose>
+			<if test="groupId != null">#{groupId},</if>
+			<if test="groupName != null">#{groupName},</if>
+			<if test="PGroupId != null">#{PGroupId},</if>
+			<if test="dbEquipType != null">#{dbEquipType},</if>
+			<if test="dbUsersByOper != null">#{dbUsersByOper},</if>
+			<if test="inputtime != null">sysdate,</if>
+			<if test="remark != null">#{remark},</if>
+			<if test="buildId != null">#{buildId},</if>
+			<if test="storey != null">#{storey},</if>
+			<if test="groupPic != null">#{groupPic},</if>
+			<if test="groupCode != null">#{groupCode},</if>
+		</trim>
+	</insert>
+	<!-- EqService是否存在 -->
+	<select id="findServiceByBuildIdAndEqid" parameterType="map"
+		resultType="ciMap">
+		SELECT T.* FROM EQUIP_SERVICE T WHERE
+		T.EQUIP_ID =#{equipId}
+		and
+		t.build_id=#{buildId} and T.STOREY=#{storey}
+
+	</select>
+	<select id="findServiceById" parameterType="map" resultType="ciMap">
+		SELECT T.* FROM EQUIP_SERVICE T WHERE
+		T.SEQ=#{serviceAreaId}
+	</select>
+	<update id="updateEquipService001" parameterType="map">
+		update EQUIP_SERVICE
+		<set>
+			<if test="comments != null">COMMENTS=#{comments},</if>
+			<if test="energyId != null">ENERGY_ID=#{energyId},</if>
+		</set>
+		where EQUIP_ID=#{equipId}
+		AND BUILD_ID=#{buildId}
+		and STOREY=#{storey}
+	</update>
+	<insert id="insertServiceEquip" parameterType="Map">
+		<selectKey resultType="long" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_EQUIPSERVICE.NEXTVAL as seq from dual
+		</selectKey>
+		INSERT INTO EQUIP_SERVICE
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="serviceAreaId !=null">
+					<if test="serviceAreaId != null">SEQ,</if>
+				</when>
+				<otherwise>
+					<if test="seq != null">SEQ, </if>
+				</otherwise>
+			</choose>
+			<if test="equipId != null">EQUIP_ID,</if>
+			<if test="buildId != null">BUILD_ID,</if>
+			<if test="storey != null">STOREY,</if>
+			<if test="comments != null">COMMENTS,</if>
+			<if test="energyId != null">ENERGY_ID,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="serviceAreaId !=null">
+					<if test="serviceAreaId != null">#{serviceAreaId},</if>
+				</when>
+				<otherwise>
+					<if test="seq != null">#{seq}, </if>
+				</otherwise>
+			</choose>
+			<if test="equipId != null"> #{equipId}, </if>
+			<if test="buildId != null"> #{buildId}, </if>
+			<if test="storey != null">#{storey}, </if>
+			<if test="comments != null">#{comments}, </if>
+			<if test="energyId != null">#{energyId}, </if>
+		</trim>
+	</insert>
+	<!-- 设备是否存在 -->
+	<select id="findEquipByCode" resultType="ciMap" parameterType="map">
+		SELECT T.* FROM DB_EQUIP_LIST T WHERE T.EQUIP_CODE=#{equipCode} AND
+		T.EQUIP_NAME=#{equipName}
+	</select>
+	<select id="findEquipById" resultType="ciMap" parameterType="String">
+		SELECT T.* FROM DB_EQUIP_LIST T WHERE
+		T.EQUIP_ID=#{equipID001}
+	</select>
+	<update id="updateEqList" parameterType="map">
+		update DB_EQUIP_LIST
+		<set>
+			<if test="equipCode != null">EQUIP_CODE=#{equipCode},</if>
+			<if test="dbEquipType != null"> EQUIP_TYPE_ID=#{dbEquipType},</if>
+			<if test="equipName != null">EQUIP_NAME=#{equipName},</if>
+			<if test="assetscode != null"> ASSETSCODE=#{assetscode},</if>
+			<if test="dbHospInfo != null">HOSP_ID=#{dbHospInfo},</if>
+			<if test="dbBuilding != null"> BUILDING_ID=#{dbBuilding},</if>
+			<if test="storey != null">STOREY=#{storey},</if>
+			<if test="place != null">PLACE=#{place},</if>
+			<if test="controlFlag != null">CONTROL_FLAG =#{controlFlag},</if>
+			<if test="brand != null">BRAND =#{brand},</if>
+			<if test="unitType != null"> UNIT_TYPE=#{unitType},</if>
+			<if test="production != null">PRODUCTION =#{production},</if>
+			<if test="field != null"> FIELD =#{field},</if>
+			<if test="productionDate != null"> PRODUCTION_DATE=to_date(#{productionDate},'yyyy/mm/dd'),
+			</if>
+			<if test="installDate != null">INSTALL_DATE=to_date(#{installDate},'yyyy/mm/dd'),</if>
+			<if test="useDate != null"> USE_DATE =to_date(#{useDate},'yyyy/mm/dd'),</if>
+			<if test="serviceLife != null">SERVICE_LIFE=#{serviceLife},</if>
+			<if test="limited != null"> LIMITED=to_date(#{limited},'yyyy/mm/dd'),</if>
+			<if test="purchase != null">PURCHASE =#{purchase},</if>
+			<if test="serviceCycle != null">SERVICE_CYCLE =#{serviceCycle},</if>
+			<if test="accessory != null"> ACCESSORY=#{accessory},</if>
+			<if test="status != null">STATUS=#{status},</if>
+			<if test="opertime != null"> OPERTIME =sysdate,</if>
+			<if test="dbUsers != null"> OPER =#{dbUsers},</if>
+			<if test="dbEnergyType != null">POWER_TYPE =#{dbEnergyType},</if>
+			<if test="nodeLevel != null">NODE_LEVEL =#{nodeLevel},</if>
+			<if test="nodeParent != null">NODE_PARENT =#{nodeParent},</if>
+			<if test="nodeTop != null">NODE_TOP =#{nodeTop},</if>
+		</set>
+		where EQUIP_CODE=#{equipCode} AND EQUIP_NAME = #{equipName}
+	</update>
+	<!-- 插入设备 -->
+
+	<insert id="insertEquipList001" parameterType="Map">
+		<selectKey resultType="long" keyProperty="equipId" order="BEFORE">
+			select
+			SEQ_DEVICE.nextval as equipId from dual
+		</selectKey>
+		insert into DB_EQUIP_LIST
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="equipID001 !=null">
+					<if test="equipID001 != null">EQUIP_ID,</if>
+				</when>
+				<otherwise>
+					<if test="equipId != null"> EQUIP_ID, </if>
+				</otherwise>
+			</choose>
+			<if test="equipCode != null">EQUIP_CODE,</if>
+			<if test="dbEquipType != null"> EQUIP_TYPE_ID,</if>
+			<if test="equipName != null">EQUIP_NAME,</if>
+			<if test="assetscode != null"> ASSETSCODE,</if>
+			<if test="dbHospInfo != null">HOSP_ID,</if>
+			<if test="dbBuilding != null"> BUILDING_ID,</if>
+			<if test="storey != null">STOREY,</if>
+			<if test="place != null">PLACE,</if>
+			<if test="controlFlag != null">CONTROL_FLAG, </if>
+			<if test="brand != null">BRAND, </if>
+			<if test="unitType != null"> UNIT_TYPE,</if>
+			<if test="production != null">PRODUCTION, </if>
+			<if test="field != null"> FIELD, </if>
+			<if test="productionDate != null"> PRODUCTION_DATE,</if>
+			<if test="installDate != null">INSTALL_DATE,</if>
+			<if test="useDate != null"> USE_DATE, </if>
+			<if test="serviceLife != null">SERVICE_LIFE,</if>
+			<if test="limited != null"> LIMITED,</if>
+			<if test="purchase != null">PURCHASE, </if>
+			<if test="serviceCycle != null">SERVICE_CYCLE, </if>
+			<if test="accessory != null"> ACCESSORY,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="opertime != null"> OPERTIME, </if>
+			<if test="dbUsers != null"> OPER, </if>
+			<if test="dbEnergyType != null">POWER_TYPE, </if>
+			<if test="nodeLevel != null">NODE_LEVEL, </if>
+			<if test="nodeParent != null">NODE_PARENT, </if>
+			<if test="nodeTop != null">NODE_TOP, </if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="equipID001 !=null">
+					<if test="equipID001 != null"> #{equipID001},</if>
+				</when>
+				<otherwise>
+					<if test="equipId != null"> #{equipId}, </if>
+				</otherwise>
+			</choose>
+			<if test="equipCode != null"> #{equipCode}, </if>
+			<if test="dbEquipType != null">#{dbEquipType},</if>
+			<if test="equipName != null">#{equipName},</if>
+			<if test="assetscode != null"> #{assetscode}, </if>
+			<if test="dbHospInfo != null">#{dbHospInfo},</if>
+			<if test="dbBuilding != null"> #{dbBuilding}, </if>
+			<if test="storey != null">#{storey},</if>
+			<if test="place != null"> #{place},</if>
+			<if test="controlFlag != null">#{controlFlag},</if>
+			<if test="brand != null"> #{brand}, </if>
+			<if test="unitType != null">#{unitType},</if>
+			<if test="production != null">#{production},</if>
+			<if test="field != null"> #{field},</if>
+			<if test="productionDate != null">to_date(#{productionDate},'yyyy/mm/dd'),</if>
+			<if test="installDate != null">to_date(#{installDate},'yyyy/mm/dd') ,</if>
+			<if test="useDate != null">to_date(#{useDate},'yyyy/mm/dd'),</if>
+			<if test="serviceLife != null"> #{serviceLife},</if>
+			<if test="limited != null">#{limited}, </if>
+			<if test="purchase != null"> #{purchase},</if>
+			<if test="serviceCycle != null"> #{serviceCycle},</if>
+			<if test="accessory != null">#{accessory},</if>
+			<if test="status != null"> #{status}, </if>
+			<if test="opertime != null">sysdate,</if>
+			<if test="dbUsers != null"> #{dbUsers},</if>
+			<if test="dbEnergyType != null"> #{dbEnergyType},</if>
+			<if test="nodeLevel != null"> #{nodeLevel}, </if>
+			<if test="nodeParent != null"> #{nodeParent}, </if>
+			<if test="nodeTop != null"> #{nodeTop}, </if>
+		</trim>
+	</insert>
+	<!--建筑是否存在 -->
+	<select id="findBuildingByName" parameterType="String"
+		resultType="ciMap">
+		SELECT T.* FROM DB_BUILDING T
+		WHERE
+		T.BUILDING_NAME=#{buildingName}
+	</select>
+	<select id="findBuildingByID" parameterType="String" resultType="ciMap">
+		SELECT T.* FROM DB_BUILDING T
+		WHERE
+		T.BUILDING_ID=#{buildID}
+	</select>
+	<!-- 插入建筑 -->
+	<insert id="insertDbBuilding001" parameterType="Map">
+		<selectKey resultType="long" keyProperty="buildingId" order="BEFORE">
+			select
+			SEQ_BUILDS.nextval as buildingId from dual
+		</selectKey>
+		insert into DB_BUILDING
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="buildID !=null">
+					<if test="buildID != null">BUILDING_ID,</if>
+				</when>
+				<otherwise>
+					<if test="buildingId != null">BUILDING_ID,</if>
+				</otherwise>
+			</choose>
+			<if test="buildingCode != null">BUILDING_CODE,</if>
+			<if test="buildingName != null">BUILDING_NAME,</if>
+			<if test="hisName != null">HIS_NAME,</if>
+			<if test="buildingEnCode != null">BUILDING_EN_CODE,</if>
+			<if test="buildingAreas != null">BUILDING_AREAS,</if>
+			<if test="amount != null">AMOUNT,</if>
+			<if test="completime != null">COMPLETIME,</if>
+			<if test="storeyNumDown != null">STOREY_NUM_DOWN,</if>
+			<if test="storeyNumUp != null">STOREY_NUM_UP,</if>
+			<if test="mendNum != null">MEND_NUM,</if>
+			<if test="structure != null">STRUCTURE,</if>
+			<if test="height != null">HEIGHT,</if>
+			<if test="outWall != null">OUT_WALL,</if>
+			<if test="audits != null">AUDITS,</if>
+			<if test="proCost != null">PRO_COST,</if>
+			<if test="doorMater != null">DOOR_MATER,</if>
+			<if test="windowMater != null">WINDOW_MATER,</if>
+			<if test="ceilingMater != null">CEILING_MATER,</if>
+			<if test="wallMater != null">WALL_MATER,</if>
+			<if test="floorMater != null">FLOOR_MATER,</if>
+			<if test="place != null">PLACE,</if>
+			<if test="dbBuildMaterByWaterproof != null">WATERPROOF,</if>
+			<if test="dbBuildMaterByQuakeproof != null">QUAKEPROOF,</if>
+			<if test="dbBuildMaterByCostaccord != null">COSTACCORD,</if>
+			<if test="dbBuildMaterByProblem != null">PROBLEM,</if>
+			<if test="dbBuildMaterByUsetype != null">USETYPE,</if>
+			<if test="dbHospInfo != null">HOSP_ID,</if>
+			<if test="ower != null">OWER,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="opertime != null">OPERTIME,</if>
+			<if test="dbBaseComm != null">BUILDSTATUS,</if>
+			<if test="dbUsersByOper != null">OPER,</if>
+			<if test="dbUsersByInput != null">INPUT,</if>
+			<if test="inputtime != null">INPUTTIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<choose>
+				<when test="buildID !=null">
+					<if test="buildID != null">#{buildID},</if>
+				</when>
+				<otherwise>
+					<if test="buildingId != null">#{buildingId},</if>
+				</otherwise>
+			</choose>
+			<if test="buildingCode != null">#{buildingCode},</if>
+			<if test="buildingName != null">#{buildingName},</if>
+			<if test="hisName != null">#{hisName},</if>
+			<if test="buildingEnCode != null">#{buildingEnCode},</if>
+			<if test="buildingAreas != null">#{buildingAreas},</if>
+			<if test="amount != null">#{amount},</if>
+			<if test="completime != null">#{completime},</if>
+			<if test="storeyNumDown != null">#{storeyNumDown},</if>
+			<if test="storeyNumUp != null">#{storeyNumUp},</if>
+			<if test="mendNum != null">#{mendNum},</if>
+			<if test="structure != null">#{structure},</if>
+			<if test="height != null">#{height},</if>
+			<if test="outWall != null">#{outWall},</if>
+			<if test="audits != null">#{audits},</if>
+			<if test="proCost != null">#{proCost},</if>
+			<if test="doorMater != null">#{doorMater},</if>
+			<if test="windowMater != null">#{windowMater},</if>
+			<if test="ceilingMater != null">#{ceilingMater},</if>
+			<if test="wallMater != null">#{wallMater},</if>
+			<if test="floorMater != null">#{floorMater},</if>
+			<if test="place != null">#{place},</if>
+			<if test="dbBuildMaterByWaterproof != null">
+				#{dbBuildMaterByWaterproof},
+			</if>
+			<if test="dbBuildMaterByQuakeproof != null">
+				#{dbBuildMaterByQuakeproof},
+			</if>
+			<if test="dbBuildMaterByCostaccord != null">
+				#{dbBuildMaterByCostaccord},
+			</if>
+			<if test="dbBuildMaterByProblem != null">
+				#{dbBuildMaterByProblem},
+			</if>
+			<if test="dbBuildMaterByUsetype != null">
+				#{dbBuildMaterByUsetype},
+			</if>
+			<if test="dbHospInfo != null">1,</if>
+			<if test="ower != null">#{ower},</if>
+			<if test="status != null">#{status},</if>
+			<if test="opertime != null">sysdate,</if>
+			<if test="dbBaseComm != null">#{dbBaseComm},</if>
+			<if test="dbUsersByOper != null">#{dbUsersByOper},</if>
+			<if test="dbUsersByInput != null">#{dbUsersByInput},</if>
+			<if test="inputtime != null">#{inputtime},</if>
+		</trim>
+	</insert>
+	<update id="updateBuilding001" parameterType="com.hanqian.pojo.DbBuilding">
+		update DB_BUILDING
+		<set>
+			<if test="buildingCode != null">BUILDING_CODE=#{buildingCode},</if>
+			<if test="buildingName != null">BUILDING_NAME=#{buildingName},</if>
+			<if test="hisName != null">HIS_NAME=#{hisName},</if>
+			<if test="buildingEnCode != null">BUILDING_EN_CODE=#{buildingEnCode},</if>
+			<if test="buildingAreas != null">BUILDING_AREAS=#{buildingAreas},</if>
+			<if test="amount != null">AMOUNT=#{amount},</if>
+			<if test="completime != null">COMPLETIME=#{completime},</if>
+			<if test="storeyNumDown != null">STOREY_NUM_DOWN=#{storeyNumDown},</if>
+			<if test="storeyNumUp != null">STOREY_NUM_UP=#{storeyNumUp},</if>
+			<if test="mendNum != null">MEND_NUM=#{mendNum},</if>
+			<if test="structure != null">STRUCTURE=#{structure},</if>
+			<if test="height != null">HEIGHT=#{height},</if>
+			<if test="outWall != null">OUT_WALL=#{outWall},</if>
+			<if test="audits != null">AUDITS=#{audits},</if>
+			<if test="proCost != null">PRO_COST=#{proCost},</if>
+			<if test="doorMater != null">DOOR_MATER=#{doorMater},</if>
+			<if test="windowMater != null">WINDOW_MATER=#{windowMater},</if>
+			<if test="ceilingMater != null">CEILING_MATER=#{ceilingMater},</if>
+			<if test="wallMater != null">WALL_MATER=#{wallMater},</if>
+			<if test="floorMater != null">FLOOR_MATER=#{floorMater},</if>
+			<if test="place != null">PLACE=#{place},</if>
+			<if test="dbBuildMaterByWaterproof != null">WATERPROOF=#{dbBuildMaterByWaterproof},</if>
+			<if test="dbBuildMaterByQuakeproof != null">QUAKEPROOF=#{dbBuildMaterByQuakeproof},</if>
+			<if test="dbBuildMaterByCostaccord != null">COSTACCORD=#{dbBuildMaterByCostaccord},</if>
+			<if test="dbBuildMaterByProblem != null">PROBLEM=#{dbBuildMaterByProblem},</if>
+			<if test="dbBuildMaterByUsetype != null">USETYPE=#{dbBuildMaterByUsetype},</if>
+			<if test="dbHospInfo != null">HOSP_ID=#{dbHospInfo},</if>
+			<if test="ower != null">OWER=#{ower},</if>
+			<if test="status != null">STATUS=#{status},</if>
+			<if test="opertime != null">OPERTIME=sysdate,</if>
+			<if test="dbBaseComm != null">BUILDSTATUS=#{dbBaseComm},</if>
+			<if test="dbUsersByOper != null">OPER=#{dbUsersByOper},</if>
+			<if test="dbUsersByInput != null">INPUT=#{dbUsersByInput},</if>
+			<if test="inputtime != null">INPUTTIME=#{inputtime},</if>
+		</set>
+		where BUILDING_NAME = #{buildingName}
+	</update>
+
+</mapper>

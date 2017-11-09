@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+	<equip groupCode="jsj_01" flashHeight="667" flashWidth="1000">
+
+		<xy x="305" y="760" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="18983" type="6001"></point>
+			<point id="18984" type="6002" num="1"></point>
+			<point id="18985" type="6002" num="2"></point>
+		</xy>
+		<xy x="365" y="865" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="18986" type="6001"></point>
+			<point id="18987" type="6002" num="1"></point>
+			<point id="18988" type="6002" num="2"></point>
+		</xy>
+		<xy x="275" y="840" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="18989" type="6001"></point>
+			<point id="18990" type="6002" num="1"></point>
+			<point id="18991" type="6002" num="2"></point>
+		</xy>
+	</equip>
+	<equip groupCode="jsj_02" flashHeight="667" flashWidth="1000">
+		<xy x="335" y="195" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="18992" type="6001"></point>
+			395 180
+			<point id="18993" type="6002" num="1"></point>
+			<point id="18994" type="6002" num="2"></point>
+		</xy>
+		<xy x="230" y="315" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="18995" type="6001"></point>
+			<point id="18996" type="6002" num="1"></point>
+			<point id="18997" type="6002" num="2"></point>
+		</xy>
+		<xy x="285" y="340" bengIndex="6" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="18998" type="6001"></point>
+			<point id="18999" type="6002" num="1"></point>
+			<point id="19000" type="6002" num="2"></point>
+		</xy>
+		<xy x="340" y="870" bengIndex="7" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="19001" type="6001"></point>
+			<point id="19002" type="6002" num="1"></point>
+			<point id="19003" type="6002" num="2"></point>
+		</xy>
+		<xy x="215" y="800" bengIndex="8" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="19004" type="6001"></point>
+			<point id="19005" type="6002" num="1"></point>
+			<point id="19006" type="6002" num="2"></point>
+		</xy>
+	</equip>
+	<equip groupCode="jsj_03" flashHeight="667" flashWidth="1000">
+		<xy x="320" y="430" bengIndex="9" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="19007" type="6001"></point>
+			<point id="19008" type="6002" num="1"></point>
+			<point id="19009" type="6002" num="2"></point>
+		</xy>
+		<xy x="310" y="515" bengIndex="10" keyNameRed="red10" keyNameGreen="greend10">
+			<point id="19010" type="6001"></point>
+			<point id="19011" type="6002" num="1"></point>
+			<point id="19012" type="6002" num="2"></point>
+		</xy>
+		<xy x="255" y="555" bengIndex="11" keyNameRed="red11" keyNameGreen="greend11">
+			<point id="19013" type="6001"></point>
+			<point id="19014" type="6002" num="1"></point>
+			<point id="19015" type="6002" num="2"></point>
+		</xy>
+		<xy x="330" y="820" bengIndex="12" keyNameRed="red12" keyNameGreen="greend12">
+			<point id="19016" type="6001"></point>
+			<point id="19017" type="6002" num="1"></point>
+			<point id="19018" type="6002" num="2"></point>
+		</xy>
+	</equip>
+	<equip groupCode="jsj_04" flashHeight="667" flashWidth="1000">
+		<xy x="275" y="400" bengIndex="13" keyNameRed="red13" keyNameGreen="greend13">
+			<point id="19019" type="6001"></point>
+			<point id="19020" type="6002" num="1"></point>
+			<point id="19021" type="6002" num="2"></point>
+		</xy>
+		<xy x="670" y="755" bengIndex="14" keyNameRed="red14" keyNameGreen="greend14">
+			<point id="19022" type="6001"></point>
+			<point id="19023" type="6002" num="1"></point>
+			<point id="19024" type="6002" num="2"></point>
+		</xy>
+		<xy x="485" y="735" bengIndex="15" keyNameRed="red15" keyNameGreen="greend15">
+			<point id="19025" type="6001"></point>
+			<point id="19026" type="6002" num="1"></point>
+			<point id="19027" type="6002" num="2"></point>
+		</xy>
+		<xy x="415" y="730" bengIndex="16" keyNameRed="red16" keyNameGreen="greend16">
+			<point id="19028" type="6001"></point>
+			<point id="19029" type="6002" num="1"></point>
+			<point id="19030" type="6002" num="2"></point>
+		</xy>
+	</equip>
+</equipment> 
+
+ 

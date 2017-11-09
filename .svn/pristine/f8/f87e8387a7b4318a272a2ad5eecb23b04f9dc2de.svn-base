@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="gbk"?>
+
+<equipstate> 
+  <equip> 
+    <stroey>1</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>2</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>3</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>4</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>5</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>6</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>7</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>8</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>9</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>10</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>1</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>2</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>3</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>4</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>5</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>6</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>7</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>8</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>9</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+  <equip> 
+    <stroey>10</stroey>  
+      <!-- 楼层总数，每层的回路数已经固定,开关状态-->  
+    <State>0,1,0,1</State> 
+  </equip>
+ </equipstate> 

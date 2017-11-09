@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+	<!-- 风机 -->
+	<area title="风机" wd="65" hg="90" marLeft="310" marTop="530" prop="fengji"
+		initFlag="hide" eqTypeId="1002" positionX="" postionY="" eventType="click"></area>
+	<!--进水管 -->
+	<area title="进水管" wd="60" hg="35" marLeft="560" marTop="567" prop="waterIn"
+		initFlag="hide" eqTypeId="1002" positionX="" postionY="" eventType="click"></area>
+	<!-- 滤网 -->
+	<area title="滤网" wd="30" hg="30" marLeft="600" marTop="475" prop="fauLvW"
+		initFlag="hide" eqTypeId="1002" positionX="" postionY="" eventType="click"></area>
+	<!--出风管-->
+	<area title="出风管" wd="70" hg="110" marLeft="178" marTop="520"
+		prop="fengOut" initFlag="hide" eqTypeId="1002" positionX="" postionY=""
+		eventType="click"></area>
+	<!-- 新风管 -->
+	<area title="新风管" wd="100" hg="40" marLeft="657" marTop="333"
+		prop="Newfeng" initFlag="hide" eqTypeId="1002" positionX="" postionY=""
+		eventType="click"></area>
+		
+</equipment>

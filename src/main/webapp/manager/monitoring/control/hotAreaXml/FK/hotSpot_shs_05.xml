@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+
+    <!-- 冷水泵1 -->
+	<area title="地下室1#循环泵" wd="15" hg="15" marLeft="330" marTop="355" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+		
+	<!-- 冷水泵2 -->
+	<area title="地下室2#循环泵" wd="15" hg="15" marLeft="270" marTop="315" prop="lsb"
+		initFlag="hidden" eqTypeId="5004" positionX="100" postionY="50" eventType="click"></area>
+								
+	<!-- 换热器3 -->
+	<area title="热水器" wd="15" hg="15" marLeft="760" marTop="210" prop="rsq"
+		initFlag="hidden" eqTypeId="5006" positionX="100" postionY="50" eventType="click"></area>
+		
+</equipment>

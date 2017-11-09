@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<equipment>
+ <!-- 7号楼集水井(第三方) -->
+	 <equip groupCode="jsj_01" flashHeight="500" flashWidth="1000">
+	    <xy x="255" y="335" bengIndex="7号楼1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="20240" type="6001"></point>
+			<point id="20238" type="6002" num="1"></point>
+			<point id="20239" type="6002" num="2"></point>
+		</xy>
+        <xy x="253" y="540" bengIndex="7号楼2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="20243" type="6001"></point>
+			<point id="20241" type="6002" num="1"></point>
+			<point id="20242" type="6002" num="2"></point>
+		</xy>
+		<xy x="253" y="749" bengIndex="7号楼3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="20246" type="6001"></point>
+			<point id="20244" type="6002" num="1"></point>
+			<point id="20245" type="6002" num="2"></point>
+		</xy>
+		
+		<xy x="345" y="321" bengIndex="7号楼4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="20249" type="6001"></point>
+			<point id="20247" type="6002" num="1"></point>
+			<point id="20248" type="6002" num="2"></point>
+		</xy>
+		<xy x="344" y="537" bengIndex="7号楼5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="20252" type="6001"></point>
+			<point id="20250" type="6002" num="1"></point>
+			<point id="20251" type="6002" num="2"></point>
+		</xy>
+		<xy x="342" y="760" bengIndex="7号楼6" keyNameRed="red6" keyNameGreen="greend6">
+			<point id="20255" type="6001"></point>
+			<point id="20253" type="6002" num="1"></point>
+			<point id="20254" type="6002" num="2"></point>
+		</xy>
+		<xy x="437" y="308" bengIndex="1" keyNameRed="red7" keyNameGreen="greend7">
+			<point id="20258" type="6001"></point>
+			<point id="20256" type="6002" num="1"></point>
+			<point id="20257" type="6002" num="2"></point>
+		</xy>
+		<xy x="438" y="534" bengIndex="2" keyNameRed="red8" keyNameGreen="greend8">
+			<point id="20260" type="6001"></point>
+			<point id="20259" type="6002" num="1"></point>
+		</xy>
+		<xy x="436" y="775" bengIndex="消防" keyNameRed="red9" keyNameGreen="greend9">
+			<point id="20263" type="6001"></point>
+			<point id="20261" type="6002" num="1"></point>
+			<point id="20262" type="6002" num="2"></point>
+		</xy>
+	 </equip>
+   <!-- 2号楼集水井 -->
+	<equip groupCode="jsj_02" flashHeight="410" flashWidth="1000">
+		<xy x="508" y="418" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="20181" type="6001"></point>
+			<point id="20185" type="6002" num="1"></point>
+		</xy>
+		<xy x="233" y="673" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="20182" type="6001"></point>
+			<point id="20186" type="6002"  num="2"></point>
+		</xy>
+		<xy x="508" y="792" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="20183" type="6001"></point>
+			<point id="20187" type="6002"  num="3"></point>
+		</xy>
+		<xy x="233" y="788" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="20184" type="6001"></point>
+			<point id="20188" type="6002" num="4"></point>
+		</xy>
+	 </equip>
+	 <!-- 5号楼集水井 -->
+	 <equip groupCode="jsj_03" flashHeight="500" flashWidth="1000">
+		<xy x="280" y="670" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="20189" type="6001"></point>
+			<point id="20191" type="6002" num="1"></point>
+			<point id="20192" type="6002" num="2"></point>
+		</xy>
+		<xy x="340" y="705" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="20190" type="6001"></point>
+			<point id="20193" type="6002" num="3"></point>
+		</xy>
+	 </equip>
+	 <!-- 9号楼集水井 -->
+	<equip groupCode="jsj_04" flashHeight="751" flashWidth="1000">
+		<xy x="208" y="749" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="20194" type="6001"></point>
+			<point id="20199" type="6002" num="1"></point>
+		</xy>
+		<xy x="200" y="530" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="20195" type="6001"></point>
+			<point id="20200" type="6002" num="2"></point>
+		</xy>
+		<xy x="376" y="763" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="20196" type="6001"></point>
+			<point id="20201" type="6002" num="3"></point>
+		</xy>
+		<xy x="422" y="566" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="20197" type="6001"></point>
+			<point id="20202" type="6002" num="4"></point>
+		</xy>
+		<xy x="425" y="360" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="20198" type="6001"></point>
+			<point id="20203" type="6002" num="5"></point>
+		</xy>
+	 </equip>
+	 <!-- 停车库集水井 -->
+	 <equip groupCode="jsj_05" flashHeight="500" flashWidth="1000">
+	    <xy x="440" y="273" bengIndex="1" keyNameRed="red1" keyNameGreen="greend1">
+			<point id="20204" type="6001"></point>
+			<point id="20209" type="6002" num="1"></point>
+			<point id="20210" type="6002" num="2"></point>
+		</xy>
+        <xy x="308" y="360" bengIndex="2" keyNameRed="red2" keyNameGreen="greend2">
+			<point id="20205" type="6001"></point>
+			<point id="20211" type="6002" num="3"></point>
+			<point id="20212" type="6002" num="4"></point>
+		</xy>
+		<xy x="440" y="524" bengIndex="3" keyNameRed="red3" keyNameGreen="greend3">
+			<point id="20206" type="6001"></point>
+			<point id="20213" type="6002" num="5"></point>
+			<point id="20214" type="6002" num="6"></point>
+		</xy>
+		<xy x="313" y="595" bengIndex="4" keyNameRed="red4" keyNameGreen="greend4">
+			<point id="20207" type="6001"></point>
+			<point id="20215" type="6002" num="7"></point>
+			<point id="20216" type="6002" num="8"></point>
+		</xy>
+		<xy x="315" y="800" bengIndex="5" keyNameRed="red5" keyNameGreen="greend5">
+			<point id="20208" type="6001"></point>
+			<point id="20217" type="6002" num="9"></point>
+			<point id="20218" type="6002" num="10"></point>
+		</xy>
+	 </equip>
+</equipment> 
+
+  

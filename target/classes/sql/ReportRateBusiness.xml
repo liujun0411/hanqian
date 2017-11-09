@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.ReportRateBusiness">
+<!-- SEQ_REPORT_RATE -->
+
+	<resultMap id="ReportRateMap" type="com.hanqian.pojo.DbReportRate">
+	    <id column="ID" jdbcType="VARCHAR" property="id" />
+	    <result column="RATE" jdbcType="DECIMAL" property="rate" />
+	    <result column="REPORTTIME" jdbcType="CHAR" property="reporttime" />
+	    <result column="REPORTIP1" jdbcType="VARCHAR" property="reportip1" />
+	    <result column="REPORTIP4" jdbcType="VARCHAR" property="reportip4" />
+	    <result column="REPORTIP3" jdbcType="VARCHAR" property="reportip3" />
+	    <result column="REPORTIP2" jdbcType="VARCHAR" property="reportip2" />
+	    <result column="SOURCE" jdbcType="VARCHAR" property="source" />
+	    <result column="REMARK1" jdbcType="VARCHAR" property="remark1" />
+	    <result column="REMARK2" jdbcType="VARCHAR" property="remark2" />
+	    <result column="REMARK3" jdbcType="VARCHAR" property="remark3" />
+	    <result column="REMARK4" jdbcType="VARCHAR" property="remark4" />
+	    <result column="REMARK5" jdbcType="VARCHAR" property="remark5" />
+	    <result column="REPORTDATE" jdbcType="TIMESTAMP" property="reportdate" />
+	    <association property="dbReportType"  column="TYPE_ID"  javaType="com.hanqian.pojo.DbReportType">
+			<id property="typeId" column="TYPE_ID" />
+		</association>
+	    
+    </resultMap>
+
+  <select id="findReportRate" parameterType="map" resultMap="ReportRateMap">    
+    <!-- select  r.id,r.rate , r.reporttime , r.reportip1 , r.reportip4 , r.reportip3 , r.reportip2 , r.type_id , 
+	   r.source , r.remark1 , r.remark2 , r.remark3 , r.remark4 , r.remark5 , r.reportdate , t.type_id as typeID , t.name
+	    from db_report_rate r , db_report_type t where 1=1  and r.type_id = t.type_id 
+    		<if test="typeId != null">
+         		and r.type_id=#{typeId} 
+	     	 </if> -->
+	 select  r.id,r.rate , r.reporttime , r.reportip1 , r.reportip4 , r.reportip3 , r.reportip2 , r.type_id , 
+     r.source , r.remark1 , r.remark2 , r.remark3 , r.remark4 , r.remark5 , r.reportdate 
+      from db_report_rate r
+  </select>
+  
+    <update id="updateReportRate" parameterType="com.hanqian.pojo.DbReportRate">
+      update DB_REPORT_RATE
+    <set>
+      <if test="rate != null">
+        RATE = #{rate},
+      </if>
+      <if test="reporttime != null">
+        REPORTTIME = #{reporttime},
+      </if>
+      <if test="reportip1 != null">
+        REPORTIP1 = #{reportip1},
+      </if>
+      <if test="reportip4 != null">
+        REPORTIP4 = #{reportip4},
+      </if>
+      <if test="reportip3 != null">
+        REPORTIP3 = #{reportip3},
+      </if>
+      <if test="reportip2 != null">
+        REPORTIP2 = #{reportip2},
+      </if>
+      <if test="dbReportType != null">
+        TYPE_ID = #{dbReportType.typeId},
+      </if>
+      <if test="source != null">
+        SOURCE = #{source},
+      </if>
+      <if test="remark1 != null">
+        REMARK1 = #{remark1},
+      </if>
+      <if test="remark2 != null">
+        REMARK2 = #{remark2},
+      </if>
+      <if test="remark3 != null">
+        REMARK3 = #{remark3},
+      </if>
+      <if test="remark4 != null">
+        REMARK4 = #{remark4},
+      </if>
+      <if test="remark5 != null">
+        REMARK5 = #{remark5},
+      </if>
+      <if test="reportdate != null">
+        REPORTDATE = #{reportdate},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+  
+    <insert id="insertReportRate" parameterType="com.hanqian.pojo.DbReportRate">
+
+ 		<selectKey resultType="string" keyProperty="id" order="BEFORE">
+			select
+			SEQ_REPORT_RATE.nextval as id from dual
+		</selectKey>
+    insert into DB_REPORT_RATE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="rate != null">
+        RATE,
+      </if>
+      <if test="reporttime != null">
+        REPORTTIME,
+      </if>
+      <if test="reportip1 != null">
+        REPORTIP1,
+      </if>
+      <if test="reportip4 != null">
+        REPORTIP4,
+      </if>
+      <if test="reportip3 != null">
+        REPORTIP3,
+      </if>
+      <if test="reportip2 != null">
+        REPORTIP2,
+      </if>
+      <if test="dbReportType != null">
+        TYPE_ID,
+      </if>
+      <if test="source != null">
+        SOURCE,
+      </if>
+      <if test="remark1 != null">
+        REMARK1,
+      </if>
+      <if test="remark2 != null">
+        REMARK2,
+      </if>
+      <if test="remark3 != null">
+        REMARK3,
+      </if>
+      <if test="remark4 != null">
+        REMARK4,
+      </if>
+      <if test="remark5 != null">
+        REMARK5,
+      </if>
+      <if test="reportdate != null">
+        REPORTDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="rate != null">
+        #{rate},
+      </if>
+      <if test="reporttime != null">
+        #{reporttime},
+      </if>
+      <if test="reportip1 != null">
+        #{reportip1},
+      </if>
+      <if test="reportip4 != null">
+        #{reportip4},
+      </if>
+      <if test="reportip3 != null">
+        #{reportip3},
+      </if>
+      <if test="reportip2 != null">
+        #{reportip2},
+      </if>
+      <if test="dbReportType != null">
+        #{dbReportType.typeId},
+      </if>
+      <if test="source != null">
+        #{source},
+      </if>
+      <if test="remark1 != null">
+        #{remark1},
+      </if>
+      <if test="remark2 != null">
+        #{remark2},
+      </if>
+      <if test="remark3 != null">
+        #{remark3},
+      </if>
+      <if test="remark4 != null">
+        #{remark4},
+      </if>
+      <if test="remark5 != null">
+        #{remark5},
+      </if>
+      <if test="reportdate != null">
+        #{reportdate},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="findReportRatesqlStatus" parameterType="map" resultType="ciMap">    
+    select type_id,reportdate from db_report_rate where type_id in(select type_id from db_report_type where status=#{status}
+  </select>
+  
+    <select id="findReportRatesqlTypeId" parameterType="map" resultType="ciMap">    
+    select type_id,reportdate from db_report_rate where type_id =#{typeId}
+  </select>
+  
+  
+  
+</mapper>

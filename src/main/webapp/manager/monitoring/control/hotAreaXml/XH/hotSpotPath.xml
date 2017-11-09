@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!--typeId是指设备类型编号，url是指热区文档存放的路径-->
+   <fileUrl typeId="1001" url="xfj_hotSpot.xml"></fileUrl>
+   <fileUrl typeId="1002" url="ktj_hotSpot.xml"></fileUrl>
+   
+   <!-- 空压系统 -->
+   <fileUrl typeId="8_MZKY_01" url="hotSpot_kyj_01.xml"></fileUrl>
+   <fileUrl typeId="8_WKKY_01" url="hotSpot_kyj_02.xml"></fileUrl>
+   
+  <!-- 干保水冷机组夏天 -->
+   <fileUrl typeId="1004_1_MZLDJF_01" url="hotSport_MZLDJF_01_xt.xml"></fileUrl>
+   <!-- 干保水冷机组冬天 -->
+   <fileUrl typeId="1004_2_MZLDJF_01" url="hotSport_MZLDJF_01_dt.xml"></fileUrl>
+   
+   <!-- 干保水冷机组夏天 -->
+   <fileUrl typeId="1004_1_JZLDJF_01" url="hotSport_JZLDJF_01_xt.xml"></fileUrl>
+   <!-- 干保水冷机组冬天 -->
+   <fileUrl typeId="1004_2_JZLDJF_01" url="hotSport_JZLDJF_01_dt.xml"></fileUrl>
+   
+   <!-- 干保水冷机组夏天 -->
+   <fileUrl typeId="1004_1_WKLDJF_01" url="hotSport_WKLDJF_01_xt.xml"></fileUrl>
+   <!-- 干保水冷机组冬天 -->
+   <fileUrl typeId="1004_2_WKLDJF_01" url="hotSport_WKLDJF_01_dt.xml"></fileUrl>
+   
+</equipPath>

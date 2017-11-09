@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>				
+   <child>
+   <!-- 风冷热泵1 -->
+	<area title="风冷热泵1#" id="flrb" wd="30" hg="20" marLeft="186"
+		marTop="238" prop="fljz" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+	<!-- 风冷热泵1 -->
+	<area title="风冷热泵2#" id="flrb" wd="30" hg="20" marLeft="430"
+		marTop="160" prop="fljz" initFlag="hide" eqTypeId="1005001"
+		positionX="" postionY="" eventType="click"></area>
+	
+		
+	<!-- 循环泵1 -->
+	<area title="循环泵1#" id="xhb" wd="30" hg="20" marLeft="350"
+		marTop="353" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+	<!-- 循环泵2 -->
+	<area title="循环泵2#" id="xhb" wd="30" hg="20" marLeft="413"
+		marTop="328" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+		<!-- 循环泵3 -->
+	<area title="循环泵3#" id="xhb" wd="30" hg="20" marLeft="615"
+		marTop="245" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+	<!-- 循环泵4 -->
+	<area title="循环泵4#" id="xhb" wd="30" hg="20" marLeft="660"
+		marTop="222" prop="newFau" initFlag="hide" eqTypeId="1005004"
+		positionX="" postionY="" eventType="click"></area>
+	
+    </child>		
+</equipment>

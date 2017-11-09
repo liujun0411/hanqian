@@ -1,0 +1,64 @@
+#slider_container_1 { float: left; padding: 10px; width: 440px; -moz-border-radius: 10px 10px; -webkit-border-radius: 10px 10px; border-radius: 10px 10px; }
+
+#SliderName{
+	width: 420px;
+	height: 140px;
+}
+
+.SliderNamePrev{
+	background: url(../images/imgbg/shouye_bg03.png) no-repeat center center;
+	width: 24px;
+	height: 100px;
+	display: block;
+	position: absolute;
+	top: 20px;
+	left: -35px;
+	text-decoration: none;
+}
+
+.SliderNameNext{
+	background: url(../images/imgbg/shouye_bg02.png) no-repeat center center;
+	width: 24px;
+	height: 100px;
+	display: block;
+	position: absolute;
+	top: 20px;
+	right: -35px;
+	text-decoration: none;
+}
+
+.SliderNameDescription{
+	font-family: Verdana;
+	font-size: 10px;
+	text-align: left;
+	padding: 5px;
+}
+
+#SliderNameNavigation {
+	margin-left:-10px;
+	padding-top: 8px;
+	width:442px;
+	height: 20px;
+	text-align: center;
+	-moz-border-radius: 6px 6px;
+	background-image: url(../images/imgbg/pic_buttom.bmp);
+	background-repeat: no-repeat;
+	background-position: left center;
+	float: left;
+	margin-top: 8px;
+	margin-right: 0;
+	margin-bottom: 0;
+}
+
+#SliderNameNavigation a:link, #SliderNameNavigation a:active, #SliderNameNavigation a:visited, #SliderNameNavigation a:hover{
+	margin: 0 2px;
+	background: url(../images/img/nav.png) no-repeat center center;
+	font-size: 0px;
+	line-height: 0px;
+	padding: 10px;
+	text-decoration: none;
+}
+
+#SliderNameNavigation a.active:link, #SliderNameNavigation a.active:active, #SliderNameNavigation a.active:visited, #SliderNameNavigation a.active:hover{
+	background: url(../images/img/nav_active.png) no-repeat center center;
+}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.HospDataAnalysisBusiness">
+
+   <select id="findHospInfoBySqlHospDataAnalysis" resultType="ciMap" parameterType="map">    
+         select * from db_hosp_info h where 
+         h.seq_hosp in(select hosp_id from db_users u where u.seq =#{seq}
+   </select>  
+   
+      <select id="findNameByIdHospDataAnalysis" resultType="com.hanqian.pojo.DbHospInfo" parameterType="int">    
+          select hosp_name from db_hosp_info where seq_hosp=#{seq}
+   </select>  
+   
+   
+   
+    <select id="findZHHospDataAnalysis" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+   			select sum(wastage) wastage,sum(convert) convert, 
+   			sum(dbm) dbm,substr(stattime,0,4) stattime from(
+   			
+   			 	 select sum(wastage) wastage,sum(convert) convert,sum(dbm) dbm,stattime  
+   			     	 from( select h.power,h.wastage wastage,h.convert convert,  
+   			     	   decode(h.power,
+   			     	    1,round(h.wastage*3*0.0341,2), 
+   			     	     2,round(h.wastage*0.000123,2), 
+   			     	      3,round(h.wastage*0.001223,2),
+   			     	       4,round(h.wastage*0.001086,2),  
+   			     	        5,round(h.wastage*0.001330,2), 
+   			     	          h.wastage 
+   			     	           ) dbm, 
+   			     	             h.hospid,substr(h.stattime,0,6) stattime  
+   			     	              from db_stat_hospital h  
+   			     	               ) a group by a.hospid,a.stattime 
+   			     	                 having hospid=#{hospid}   
+   			     	                  and a.stattime<![CDATA[>=]]>#{startDate}
+   			     	                   and a.stattime<![CDATA[<=]]>#{endDate} 
+   			     	                     and sum(dbm) !=0 
+   			     	                      order by a.stattime   
+   			
+   			  )  group by substr(stattime,0,4)
+   			 order by substr(stattime,0,4)        
+	     </if> 
+	     <if test="isYear == null">
+   			     	select sum(wastage) wastage,sum(convert) convert,sum(dbm) dbm,stattime  
+   			     	 from( select h.power,h.wastage wastage,h.convert convert,  
+   			     	   decode(h.power,
+   			     	    1,round(h.wastage*3*0.0341,2), 
+   			     	     2,round(h.wastage*0.000123,2), 
+   			     	      3,round(h.wastage*0.001223,2),
+   			     	       4,round(h.wastage*0.001086,2),  
+   			     	        5,round(h.wastage*0.001330,2), 
+   			     	          h.wastage 
+   			     	           ) dbm, 
+   			     	             h.hospid,substr(h.stattime,0,6) stattime  
+   			     	              from db_stat_hospital h  
+   			     	               ) a group by a.hospid,a.stattime 
+   			     	                 having hospid=#{hospid}   
+   			     	                  and a.stattime<![CDATA[>=]]>#{startDate}
+   			     	                   and a.stattime<![CDATA[<=]]>#{endDate} 
+   			     	                     and sum(dbm) !=0 
+   			     	                      order by a.stattime   
+	     </if> 
+   </select> 
+  
+      <select id="findStHHospDataAnalysis" resultType="ciMap" parameterType="map"> 
+         <if test="isYear != null">
+   			select sum(wastage) wastage,sum(convert) convert,
+   			substr(stattime,0,4) stattime from(
+   			
+   			 	     	select round(sum(h.wastage),2) wastage,round(sum(h.convert),2) convert, 
+   			     		substr(trim(h.stattime),0,6) stattime 
+   			     		 from db_stat_hospital h 
+   			     		  where h.hospid=#{hospid} 
+   			     		    and h.power=#{power}
+   			     		     and substr(trim(h.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			     		     and substr(trim(h.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+   			     		      group by substr(trim(h.stattime),0,6) 
+   			     		       order by substr(trim(h.stattime),0,6) 
+   			
+   			  )  group by substr(stattime,0,4)
+   			 order by substr(stattime,0,4)        
+	     </if> 
+	     <if test="isYear == null">
+   			     	select round(sum(h.wastage),2) wastage,round(sum(h.convert),2) convert, 
+   			     		substr(trim(h.stattime),0,6) stattime 
+   			     		 from db_stat_hospital h 
+   			     		  where h.hospid=#{hospid} 
+   			     		    and h.power=#{power}
+   			     		     and substr(trim(h.stattime),0,6)<![CDATA[>=]]>#{startDate} 
+   			     		     and substr(trim(h.stattime),0,6)<![CDATA[<=]]>#{endDate} 
+   			     		      group by substr(trim(h.stattime),0,6) 
+   			     		       order by substr(trim(h.stattime),0,6) 
+	     </if> 
+   </select> 
+   
+   
+      <select id="findDbStatHospital" resultType="ciMap" parameterType="map">    
+         select * from db_stat_hospital h where 1=1 
+         <if test="hospid != null">
+			       and hospid=#{hospid}   
+		 </if> 
+         <if test="power != null">
+			      and power=#{power}   
+		 </if>
+		 <if test="startDate != null">
+			      and  stattime <![CDATA[>=]]>#{startDate} 
+		 </if>
+		 <if test="endDate != null">
+			      and  stattime <![CDATA[<=]]>#{endDate} 
+		 </if>
+		 order by stattime asc
+   </select>  
+   
+  
+  
+   
+</mapper>

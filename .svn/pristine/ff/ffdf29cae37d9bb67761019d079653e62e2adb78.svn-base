@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--设备信息-->
+<equipPath>
+   <!--新风机  -->
+   <fileUrl typeId="1001" url="xfj_hotSpot.xml"></fileUrl>
+   <!-- 负压吸引 -->
+   <fileUrl typeId="11_fyxy_01" url="fyxy_01.xml"></fileUrl>
+   <fileUrl typeId="11_fyxy_02" url="fyxy_02.xml"></fileUrl>
+   <!-- 空压系统 -->
+   <fileUrl typeId="8_ky_02" url="ky_02.xml"></fileUrl>
+   <fileUrl typeId="8_ky_01" url="ky_01.xml"></fileUrl>
+   <!-- 生活水 -->
+   <fileUrl typeId="5_shs_01" url="hotSpot_shs_01.xml"></fileUrl>
+   <!-- 锅炉 -->
+   <fileUrl typeId="2_gl_01" url="hotSport_gl_01.xml"></fileUrl>
+   <!--风冷机组 -->
+   <fileUrl typeId="1005_fl_01"   url="hotSport_fl_01.xml"></fileUrl>
+   <fileUrl typeId="1005_fl_02"   url="hotSport_fl_02.xml"></fileUrl>
+    <!-- 水冷机组夏天 -->
+   <fileUrl typeId="1004_1_sl_01" url="hotSport_sl_01_xt.xml"></fileUrl>
+    <!-- 水冷机组冬天 -->
+   <fileUrl typeId="1004_2_sl_01" url="hotSport_sl_01_dt.xml"></fileUrl>
+</equipPath>

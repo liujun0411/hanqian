@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.UsersBusiness">
+   <resultMap id="detailedUserResultMap" type="com.hanqian.pojo.DbUsers">
+   <!-- 查询用户信息 -->
+	<constructor>
+		<idArg column="uuserid" javaType="string" />
+	</constructor>
+	<id property="seq" column="useq" />
+	<result property="username" column="uusername" />
+	<result property="password" column="upassword" />
+	<result property="status" column="ustatus" />
+	<association property="dbHospInfo" column="uhosp_id"
+		javaType="com.hanqian.pojo.DbHospInfo">
+		<id property="seqHosp" column="uhosp_id" />
+		<result property="hospName" column="hhosp_name" />
+		<result property="shortName" column="hshort_name" />
+		<result property="hospInfo" column="hhosp_info" />
+		<result property="fullView" column="hfull_view" />
+		<association property="dbBaseCommByKind" column="hkind"
+			javaType="com.hanqian.pojo.DbBaseComm">
+			<id property="seq" column="hkind" />
+			<result property="content1" column="bcontent1" />
+		</association>
+	</association>
+</resultMap>   
+   
+   <!-- 判断用户是否存在的用户，用于用户登录 -->
+ <select id="findDbUsersLogin" parameterType="com.hanqian.pojo.DbUsers" resultMap="detailedUserResultMap">
+   		select u.seq as useq,u.userid as uuserid ,u.username as uusername,
+       u.password as upassword,u.status as ustatus,u.hosp_id as uhosp_id,
+       t.seq_hosp as hseq_hosp,t.kind as hkind,t.hosp_name as hhosp_name,t.short_name as hshort_name,
+       t.hosp_info as hhosp_info,t.full_view as hfull_view,
+       s.seq as bseq,s.content1 as bcontent1 from DB_USERS u,DB_HOSP_INFO t,DB_BASE_COMM s where u.hosp_id=t.seq_hosp and t.kind=s.seq and u.userid=#{userid} and u.password=#{password} and u.status=0
+	</select> 
+	
+ <select id="findDbUsersLogin1" parameterType="com.hanqian.pojo.DbUsers" resultMap="detailedUserResultMap">
+   		select u.seq as useq,u.userid as uuserid ,u.username as uusername,
+       u.password as upassword,u.status as ustatus,u.hosp_id as uhosp_id
+       from DB_USERS u where u.userid=#{userid} and u.password=#{password} and u.status=0
+	</select> 
+   
+   <!-- 统计登陆数量 -->
+   <select id="findSysCount" resultType="int">    
+        select count(*) as sys_count from db_login
+   </select>
+   
+   <!-- 获取用户菜单 -->
+   <select id="findUserAllMenuId" resultType="ciMap" parameterType="int">    
+        select m.menu_code as menu_code from db_menus  m  where m.menu_code in (select rm.menuId from db_role_menu rm where rm.roleid in
+                ( select ur.roleid from db_userole ur where ur.userId=#{seq} and ur.status = 0) )
+   </select>
+   
+        
+   
+   	<!-- 信息管理下级   用户管理 开始 -->
+	<select id="findHospAll" resultType="ciMap">
+		select seq_hosp,hosp_name
+		from db_hosp_info
+	</select>
+	
+	<select id="findByHql" resultType="ciMap">
+		select *
+		from DB_USERS where
+		status=0 order by opertime desc
+	</select>
+
+	<insert id="insertDbUsers" parameterType="com.hanqian.pojo.DbUsers">
+
+		<selectKey resultType="int" keyProperty="seq" order="BEFORE">
+			select
+			SEQ_USER.nextval as seq from dual
+		</selectKey>
+		insert into DB_USERS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="seq != null">
+				SEQ,
+			</if>
+			<if test="userid != null">
+				USERID,
+			</if>
+			<if test="username != null">
+				USERNAME,
+			</if>
+			<if test="password != null">
+				PASSWORD,
+			</if>
+			<if test="phone != null">
+				PHONE,
+			</if>
+			<if test="tel1 != null">
+				TEL1,
+			</if>
+			<if test="tel2 != null">
+				TEL2,
+			</if>
+			<if test="email != null">
+				EMAIL,
+			</if>
+			<if test="address1 != null">
+				ADDRESS1,
+			</if>
+			<if test="address2 != null">
+				ADDRESS2,
+			</if>
+			<if test="oper != null">
+				OPER,
+			</if>
+			<if test="opertime != null">
+				OPERTIME,
+			</if>
+			<if test="logintime != null">
+				LOGINTIME,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="dbHospInfo != null">
+				HOSP_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="seq != null">
+				#{seq},
+			</if>
+			<if test="userid != null">
+				#{userid},
+			</if>
+			<if test="username != null">
+				#{username},
+			</if>
+			<if test="password != null">
+				#{password},
+			</if>
+			<if test="phone != null">
+				#{phone},
+			</if>
+			<if test="tel1 != null">
+				#{tel1},
+			</if>
+			<if test="tel2 != null">
+				#{tel2},
+			</if>
+			<if test="email != null">
+				#{email},
+			</if>
+			<if test="address1 != null">
+				#{address1},
+			</if>
+			<if test="address2 != null">
+				#{address2},
+			</if>
+			<if test="oper != null">
+				#{oper},
+			</if>
+			<if test="opertime != null">
+				#{opertime},
+			</if>
+			<if test="logintime != null">
+				#{logintime},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="dbHospInfo!= null">
+				#{dbHospInfo.seqHosp},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="updateDbUsersById" parameterType="com.hanqian.pojo.DbUsers">
+		update DB_USERS
+		<set>
+			<if test="userid != null">
+				USERID = #{userid},
+			</if>
+			<if test="username != null">
+				USERNAME = #{username},
+			</if>
+			<if test="password != null">
+				PASSWORD = #{password},
+			</if>
+			<if test="phone != null">
+				PHONE = #{phone},
+			</if>
+			<if test="tel1 != null">
+				TEL1 = #{tel1},
+			</if>
+			<if test="tel2 != null">
+				TEL2 = #{tel2},
+			</if>
+			<if test="email != null">
+				EMAIL = #{email},
+			</if>
+			<if test="address1 != null">
+				ADDRESS1 = #{address1},
+			</if>
+			<if test="address2 != null">
+				ADDRESS2 = #{address2},
+			</if>
+			<if test="oper != null">
+				OPER = #{oper},
+			</if>
+			<if test="opertime != null">
+				OPERTIME = #{opertime},
+			</if>
+			<if test="logintime != null">
+				LOGINTIME = #{logintime},
+			</if>
+			<if test="status != null">
+				STATUS = #{status},
+			</if>
+		</set>
+		where SEQ = #{seq}
+	</update>
+
+	<select id="selectDbUsersByPrimaryKey" parameterType="int"
+		resultType="com.hanqian.pojo.DbUsers">
+		select  
+		seq, userid, username, password, phone, tel1, tel2, email, address1, address2, oper,opertime, logintime, status
+		from DB_USERS
+		where SEQ = #{id}
+	</select>
+	
+	<select id="findHospInfoBySql" parameterType="com.hanqian.pojo.DbHospInfo"
+		resultType="ciMap">
+		select * from db_hosp_info h where h.seq_hosp in (select hosp_id from db_users u where u.seq =#{seq})
+	</select>
+	
+	  <insert id="insertDbUserHosp" parameterType="com.hanqian.pojo.DbUserHosp">
+   
+    insert into DB_USER_HOSP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seqHosp != null">
+        SEQ_HOSP,
+      </if>
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="dept != null">
+        DEPT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seqHosp != null">
+        #{seqHosp},
+      </if>
+      <if test="seq != null">
+        #{seq},
+      </if>
+      <if test="dept != null">
+        #{dept},
+      </if>
+    </trim>
+  </insert>	
+	
+	<select id="checkUserid" parameterType="String"
+		resultType="com.hanqian.pojo.DbUsers">
+		select u.userid from db_users u where u.userid=#{userid}		
+	</select>
+	
+	<!--  信息管理下级   用户管理 开始  -->
+   
+   
+   
+   <!-- 返回自增长主键值,注入实体中 -->
+   <insert id="insertDbLogin"  parameterType="com.hanqian.pojo.DbLogin"  >
+		  <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="seq">  
+	        SELECT SEQ_LOGIN.NextVal AS SEQ FROM DUAL  
+	      </selectKey>  
+        insert into DB_LOGIN( seq, 
+                              ip, 
+                              oper, 
+                              logintime
+                            ) 
+                             values (#{seq}, 
+                                     #{ip}, 
+                                     #{dbUsers.seq}, 
+                                     #{logintime}
+                                    )
+   </insert>
+   
+  
+   
+   <select id="findUsertopMeuns" resultType="ciMap">    
+        select m.menu_code,m.name,m.menu_url,m.due_date from db_menus m where  
+				 m.menu_code in (select rm.menuid from db_role_menu rm where rm.roleid in
+				 (select roleid from db_userole where userid=#{userId})) and m.parent_code=0 and m.status!=2
+				 order by m.menu_id asc
+   </select>
+   
+   <update id="updateUserCloseTmie"  parameterType="com.hanqian.pojo.DbLogin">    
+       update db_login set logouttime=sysdate where seq=#{seq}
+   </update>
+   
+   
+  <select id="menuInterceptor" parameterType="map"  resultType="ciMap">    
+      select menu.menu_code from db_menus menu where menu.menu_code in
+				   (select m.menu_code from db_menus  m 
+						where m.menu_code in (select rm.menuId from db_role_menu rm where rm.roleid in 
+						(select ur.roleid from db_userole ur where ur.userId=#{seq}
+						)) )
+				      and menu.parent_code=#{menuCode}
+   </select>
+   
+     <select id="findPhoneUtil"  resultType="ciMap">    
+        select username from db_users u where u.userid='czy'
+   </select>
+
+</mapper>

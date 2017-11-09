@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<electConfig> 
+  <energysave> 
+    <statTime>2011</statTime> 
+  </energysave>  
+  <transformer> 
+    <quantum>4,hour</quantum> 
+  </transformer>  
+  <safesave> 
+    <criterionval>0</criterionval>  
+    <startTime>2015-07-01</startTime>  
+    <endTime>2015-07-02</endTime> 
+  </safesave>  
+  <special> 
+    <startTime>2012-01-01</startTime>  
+    <endTime>2012-11-01</endTime> 
+  </special>  
+  <history> 
+    <startTime>2015-07-01</startTime>  
+    <endTime>2015-07-02</endTime> 
+  </history> 
+</electConfig>

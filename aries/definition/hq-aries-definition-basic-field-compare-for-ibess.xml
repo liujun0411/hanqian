@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE definition SYSTEM "hq-aries-definition.dtd">
+<definition id="basic-field-compare-for-ibess" name="医院平台基本数据比较判断任意提醒">
+
+<desc>这个规则是为医院平台而设定的,针对界面上的单行单列数据进行比较判断,满足判断条件后进行任意提醒.</desc>
+<import-js	src="/static/js/aries_plugin_sendInfo.js"/>
+<import-css	src="/static/css/aries_plugin_sendInfo.css"/>
+
+<showInPage src="false"/>
+
+<role>
+	<role-html>
+	   <![CDATA[
+		  
+	   ]]>
+	</role-html>
+
+	<script>
+	<![CDATA[
+	import org.springframework.web.context.ContextLoader;
+    import org.springframework.web.context.WebApplicationContext;
+    import com.hanqian.aries.plugin.simplesql.manager.SimpleSqlPluginMgr;
+    import com.hanqian.aries.plugin.platform.service.SendSmsService;
+    import com.hanqian.aries.plugin.platform.service.SendEmailService;
+    import com.hanqian.aries.plugin.platform.service.PlatformService;
+    import com.hanqian.aries.common.MsgRegExpUtil;
+    import groovy.json.JsonSlurper;
+    import org.apache.log4j.*;
+    import groovy.util.logging.*;
+    
+    Logger log = Logger.getInstance(getClass());
+    log.level = Level.DEBUG;
+    
+    def logHead = "Aries groovy,规则id:" + ariesParam.get("aries_runtime_id") + ",";
+    def resultBoolean = false;
+    log.info logHead + "开始执行.";
+                                                                                                                                                
+    WebApplicationContext context = ContextLoader.getCurrentWebApplicationContext();
+    SimpleSqlPluginMgr pluginMgr = context.getBean("pluginMgr", SimpleSqlPluginMgr.class);
+    def resultlist = pluginMgr.findSQLData(ariesParam);
+
+    log.debug logHead + "执行查询的结果集为:" + resultlist;
+        
+    def isDo = false;
+    for(map in resultlist){
+        
+        def isTheResult = true;
+        /*判断是否存在fieldKey,用来定位唯一一条记录*/   
+        if (ariesParam.containsKey("sqlFieldKey")) {
+        
+            log.debug logHead + "开始筛选哪条记录符合判断标准：" + ariesParam.get("sqlFieldKey");
+            def slurper = new JsonSlurper();
+            slurper.parseText(ariesParam.get("sqlFieldKey")).each{
+                if (map.get(it.key) != it.value) {
+                    isTheResult = false;
+                };
+            };
+            
+            if (isTheResult) {
+                log.debug logHead + "本条记录是指定记录,开始进行检查处理.";                
+            } else {
+                log.debug logHead + "本条记录不是指定记录";
+                continue;
+            };
+        };
+        
+        def conditionFlag = ariesParam.get("conditionFlag") as int;
+        log.debug logHead + "判断标准：" + conditionFlag;
+    
+        def bValue = null;
+        def cValue = null;
+        if (ariesParam.get("ariesInputType") == "1")
+        {
+            bValue = map.get(ariesParam.get("sqlField")) as String;
+            cValue = ariesParam.get("inputNum") as String;
+        } else if (ariesParam.get("ariesInputType") == "2")
+        {
+            bValue = map.get(ariesParam.get("sqlField")) as int;
+            cValue = ariesParam.get("inputNum") as int;
+        } else {
+            bValue = map.get(ariesParam.get("sqlField")) as String;
+            cValue = ariesParam.get("inputNum") as String;
+        };
+        
+        /*这里添加当前值是为了后面发信息时,需要替换字符串的内容时使用当前值*/
+        ariesParam.put("当前值", bValue);
+                            
+        if(conditionFlag == 1 && bValue > cValue){
+            isDo = true;            
+        } else if (conditionFlag == 2 && bValue >= cValue) {
+            isDo = true;
+        } else if (conditionFlag == 3 && bValue == cValue) {
+            isDo = true;
+        } else if (conditionFlag == 4 && bValue  <= cValue) {
+            isDo = true;
+        } else if (conditionFlag == 5 && bValue  < cValue) {
+            isDo = true;
+        } else {
+            isDo = false;
+        };
+        break;
+    };
+    log.info logHead + "查询的判断值：" + bValue + ",输入的判断值：" + cValue + ",判断后是否执行触发操作:" + isDo;
+
+    if(isDo) {
+        
+        if (ariesParam.get("smsTo")?.next()) {
+            log.debug logHead + "准备执行发短信操作";
+            SendSmsService sendSmsService = context.getBean("sendSmsService", SendSmsService.class);
+
+            /*将短信文字内的大括号替换内容进行替换*/
+            ariesParam.put("smsContent", MsgRegExpUtil.replaceBrace(ariesParam.get("smsContent"), ariesParam));
+            sendSmsService.sendSms(ariesParam);
+            log.info logHead + "完成执行发短信操作";
+        } else {
+            log.debug logHead + "短信号码不存在,不需要做发短信操作";
+        };
+            
+        if (ariesParam.get("eTo")?.next()) {
+            log.debug logHead + "准备执行发发邮件操作";
+            SendEmailService sendEmailService = context.getBean("sendEmailService", SendEmailService.class);
+
+            /*将邮件文字内的大括号替换内容进行替换*/
+            ariesParam.put("eContent", MsgRegExpUtil.replaceBrace(ariesParam.get("eContent"), ariesParam));
+            sendEmailService.sendEmail(ariesParam);
+            log.info logHead + "完成执行发发邮件操作";
+        } else {
+            log.debug logHead + "邮箱地址不存在,不需要做发邮件操作";
+        };
+            
+        if (ariesParam.get("hospcontent")?.next()) {
+            log.debug logHead + "准备执行医院平台报警装置操作";
+            PlatformService platformService = context.getBean("platformService", PlatformService.class);
+
+            /*将医院平台文字内的大括号替换内容进行替换*/
+            ariesParam.put("hospcontent", MsgRegExpUtil.replaceBrace(ariesParam.get("hospcontent"), ariesParam));
+            platformService.addPlatForm(ariesParam);
+            log.info logHead + "完成执行医院平台报警装置操作";
+        } else {
+            log.debug logHead + "医院平台报警装置标志不存在,不需要做医院平台报警操作";
+        };              
+        resultBoolean = true;
+    };  
+    
+    log.info logHead + "结束执行规则, 返回结果:" + resultBoolean;
+    resultBoolean;
+	]]>
+    </script>
+</role>
+</definition>

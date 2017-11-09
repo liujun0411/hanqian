@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--设备信息-->
+<equipment>
+	<!-- 新风管 -->
+	<area title="楼层温湿度" wd="100" hg="40" marLeft="559" marTop="281"
+		prop="Newfeng" initFlag="hide" eqTypeId="1002" positionX="" postionY=""
+		eventType="click"></area>
+</equipment>

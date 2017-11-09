@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hanqian.business.LogBusiness">  
+   <select id="findModuleByShort" resultType="ciMap" parameterType="map">    
+        select * from BusinessModule t where t.moduleshort=#{moduleshort}
+   </select>  
+   
+     <insert id="insertModuleOperLog" parameterType="com.hanqian.pojo.BusinessModuleLog">
+     <selectKey resultType="int" keyProperty="id" order="BEFORE">
+     	select SEQ_BUISNESSMODULELOG.nextval as id from dual
+     </selectKey>
+	    insert into BUSINESSMODULELOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="businessmodule != null">
+        MODULEID,
+      </if>
+      <if test="moduledes != null">
+        MODULEDES,
+      </if>
+      <if test="moduletable != null">
+        MODULETABLE,
+      </if>
+      <if test="tableidentify != null">
+        TABLEIDENTIFY,
+      </if>
+      <if test="operator != null">
+        OPERATOR,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="businessmodule != null">
+        #{businessmodule.id},
+      </if>
+      <if test="moduledes != null">
+        #{moduledes},
+      </if>
+      <if test="moduletable != null">
+        #{moduletable},
+      </if>
+      <if test="tableidentify != null">
+        #{tableidentify},
+      </if>
+      <if test="operator != null">
+        #{operator},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+    </trim>
+  </insert>
+  
+
+    <insert id="insertAlarmModuleOperLog" parameterType="com.hanqian.pojo.AlarmLog">
+		<selectKey order="BEFORE"  keyProperty="id" resultType="int">
+			select SEQ_ALARMLOG.nextval as id from dual
+		</selectKey>
+    	insert into ALARMLOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="businessmodule != null">
+        MODULEID,
+      </if>
+      <if test="moduledes != null">
+        MODULEDES,
+      </if>
+      <if test="moduletable != null">
+        MODULETABLE,
+      </if>
+      <if test="tableidentify != null">
+        TABLEIDENTIFY,
+      </if>
+      <if test="operator != null">
+        OPERATOR,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="businessmodule != null">
+        #{businessmodule.id},
+      </if>
+      <if test="moduledes != null">
+        #{moduledes},
+      </if>
+      <if test="moduletable != null">
+        #{moduletable},
+      </if>
+      <if test="tableidentify != null">
+        #{tableidentify},
+      </if>
+      <if test="operator != null">
+        #{operator},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+    </trim>
+  </insert>
+  
+  
+    <insert id="insertPermissionModuleOperLog" parameterType="com.hanqian.pojo.UserPermissionLog">
+		<selectKey>
+			select SEQ_USERPERMISSIONLOG.nextval as id from dual
+		</selectKey>
+	    insert into USERPERMISSIONLOG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="businessmodule != null">
+        MODULEID,
+      </if>
+      <if test="moduledes != null">
+        MODULEDES,
+      </if>
+      <if test="moduletable != null">
+        MODULETABLE,
+      </if>
+      <if test="tableidentify != null">
+        TABLEIDENTIFY,
+      </if>
+      <if test="operator != null">
+        OPERATOR,
+      </if>
+      <if test="opertime != null">
+        OPERTIME,
+      </if>
+      <if test="oper != null">
+        OPER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="businessmodule != null">
+        #{businessmodule.id},
+      </if>
+      <if test="moduledes != null">
+        #{moduledes},
+      </if>
+      <if test="moduletable != null">
+        #{moduletable},
+      </if>
+      <if test="tableidentify != null">
+        #{tableidentify},
+      </if>
+      <if test="operator != null">
+        #{operator},
+      </if>
+      <if test="opertime != null">
+        #{opertime},
+      </if>
+      <if test="oper != null">
+        #{oper},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  
+</mapper>
